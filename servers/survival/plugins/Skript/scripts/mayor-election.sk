@@ -1,0 +1,36 @@
+# ============================================================
+#  Mayor Election (compat wrapper)
+#  The server-wide mayor vote now runs per-town.
+#  This file keeps /mayorelection working by forwarding to
+#  /townelection start mayor ...
+# ============================================================
+
+options:
+    prefix: &6[&lElection&6] &r
+    admin-perm: "mayorelection.admin"
+
+command /mayorelection <text>:
+    permission: {@admin-perm}
+    permission message: "&cYou do not have permission to manage mayor elections."
+    trigger:
+        set {_parts::*} to arg 1 split at " "
+        set {_sub} to {_parts::1}
+        if {_sub} is "cancel":
+            make player execute command "townelection cancel"
+            stop
+        if {_sub} is "start":
+            set {_rest} to ""
+            set {_total} to size of {_parts::*}
+            loop integers from 2 to {_total}:
+                if {_rest} is "":
+                    set {_rest} to {_parts::%loop-number%}
+                else:
+                    set {_rest} to "%{_rest}% %{_parts::%loop-number%}%"
+            if {_rest} is "":
+                send "{@prefix}&cUsage: &f/mayorelection start <candidate1> [candidate2] ..." to player
+                send "{@prefix}&7This now starts a &eper-town mayor &7election for your town." to player
+                stop
+            send "{@prefix}&7Forwarding to per-town election: &f/townelection start mayor %{_rest}%" to player
+            make player execute command "townelection start mayor %{_rest}%"
+            stop
+        send "{@prefix}&cUnknown subcommand. Use &f/townelection &cfor per-town mayor/banker/sheriff votes." to player

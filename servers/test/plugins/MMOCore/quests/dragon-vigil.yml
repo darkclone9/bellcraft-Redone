@@ -1,0 +1,24 @@
+name: 'Dragon Vigil'
+lore:
+- 'She comes back. So do you.'
+- 'Only one of you enjoys it.'
+- ''
+- '&6Objective:'
+- '&7► Defeat the ender dragon'
+- ''
+- '&eRewards:'
+- '&7► 12090 EXP'
+level-req:
+    main: 96
+parent:
+- 'city-raider'
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'killmob{type=ENDER_DRAGON;amount=1}'
+        lore: 'Defeat the ender dragon.'
+        triggers:
+        - 'experience{amount=12090}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

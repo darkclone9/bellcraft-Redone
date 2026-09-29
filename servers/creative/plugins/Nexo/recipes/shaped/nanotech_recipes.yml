@@ -1,0 +1,37 @@
+# ==============================================================================
+# NEXO SHAPED RECIPES: NANOTECH UPGRADE MATRIX & DIRECT CRAFTING
+# ==============================================================================
+
+nanotech_upgrade_matrix_crafting:
+  result:
+    nexo_item: nanotech_upgrade_matrix
+  ingredients:
+    A:
+      minecraft_type: AMETHYST_SHARD
+    E:
+      minecraft_type: ECHO_SHARD
+    R:
+      minecraft_type: REDSTONE_BLOCK
+    N:
+      minecraft_type: NETHERITE_SCRAP
+  shape:
+    - AEA
+    - RNR
+    - AEA
+
+nanotech_elytra_workbench_crafting:
+  result:
+    nexo_item: nanotech_elytra
+  ingredients:
+    M:
+      nexo_item: nanotech_upgrade_matrix
+    E:
+      minecraft_type: ELYTRA
+    S:
+      minecraft_type: ECHO_SHARD
+    N:
+      minecraft_type: NETHERITE_INGOT
+  shape:
+    - SMS
+    - NEN
+    - SMS

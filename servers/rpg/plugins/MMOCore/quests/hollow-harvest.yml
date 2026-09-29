@@ -1,0 +1,24 @@
+name: 'Hollow Harvest'
+lore:
+- 'Strip the veins and the dark'
+- 'loses its grip on the stone.'
+- ''
+- '&6Objective:'
+- '&7► Clear 200 sculk vein'
+- ''
+- '&eRewards:'
+- '&7► 6160 EXP'
+level-req:
+    main: 78
+parent:
+- 'deep-dark-cartography'
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'mineblock{type=SCULK_VEIN;amount=200}'
+        lore: 'Clear 200 sculk vein.'
+        triggers:
+        - 'experience{amount=6160}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

@@ -1,0 +1,43 @@
+
+# Display options
+name: 'Village Defender'
+lore:
+- 'The village is under attack by waves'
+- 'of monsters! Defend the villagers and'
+- 'drive back every last creature.'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Defend the village - kill 25 attacking zombies'
+- '&7► Phase 2: Drive back 15 skeletons approaching the village'
+- ''
+- '&eRewards:'
+- '&7► 627 EXP'
+- '&7► 35 Gold Coins'
+- '&7► Iron Sword'
+
+level-req:
+    main: 10
+
+parent:
+- 'zombie-slayer'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=ZOMBIE;amount=25}'
+        lore: 'Defend the village - kill 25 attacking zombies.'
+        triggers:
+        - message{format="&aVillager> &fThe zombie wave is broken! But skeletons approach from the trees!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=SKELETON;amount=15}'
+        lore: 'Drive back 15 skeletons approaching the village.'
+        triggers:
+        - message{format="&aVillager> &fWe are saved! The village owes you a great debt!"}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - 'item{type=IRON_SWORD}'
+        - command{format="mmocore coins %player_name% 35"}
+        - 'experience{amount=627}'

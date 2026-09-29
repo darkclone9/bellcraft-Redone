@@ -1,0 +1,24 @@
+{
+  "values": [
+    "minecraft:deep_ocean",
+    "minecraft:deep_cold_ocean",
+    "minecraft:deep_lukewarm_ocean",
+    "minecraft:deep_frozen_ocean",
+    "minecraft:badlands",
+    "minecraft:wooded_badlands",
+    "minecraft:eroded_badlands",
+    "minecraft:jungle",
+    "minecraft:bamboo_jungle",
+    "minecraft:dark_forest",
+    "minecraft:pale_garden",
+    "minecraft:mangrove_swamp",
+    "minecraft:ice_spikes",
+    "minecraft:jagged_peaks",
+    "minecraft:frozen_peaks",
+    "minecraft:windswept_savanna",
+    "minecraft:dripstone_caves",
+    "minecraft:lush_caves",
+    "minecraft:sulfur_caves",
+    "minecraft:deep_dark"
+  ]
+}

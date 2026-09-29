@@ -1,0 +1,35 @@
+
+# Display options
+name: 'Guardian Depths'
+lore:
+- 'Ocean monuments house fearsome guardians'
+- 'with powerful laser attacks. Dive deep'
+- 'and conquer the depths!'
+- ''
+- '&6Objective:'
+- '&7► Kill 12 guardians'
+- ''
+- '&eRewards:'
+- '&7► 5161 EXP'
+- '&7► 38 Gold Coins'
+- '&7► Large Mana Potion'
+
+level-req:
+    main: 40
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=GUARDIAN;amount=12}'
+        lore: 'Kill 12 guardians.'
+        triggers:
+        - message{format="&aAdmiral> &fThe ocean monument trembles! Take this potion for your courage."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 38"}
+        - 'mmoitem{type=CONSUMABLE;id=LARGE_MANA_POTION}'
+        - 'experience{amount=5161}'

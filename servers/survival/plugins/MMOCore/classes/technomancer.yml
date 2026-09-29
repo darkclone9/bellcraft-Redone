@@ -1,0 +1,159 @@
+display:
+  name: 'Technomancer'
+  lore:
+    - '&eClass Role: Arcane DPS / Utility Caster'
+    - '&7Science and sorcery bent to the same end.'
+    - ''
+    - '&7Specialisations:'
+    - '&b- Engineer &8: strike to accelerate your own kit'
+    - '&e- Voltaic &8: lightning burst that snowballs off kills'
+  item: BLAZE_ROD
+  slot: 14
+
+mana:
+  char: '|'
+  icon: '&b|'
+  name: 'Nanites'
+  color:
+    full: YELLOW
+    half: GOLD
+    empty: DARK_GRAY
+
+stats:
+  # Rebalanced 2026-09-10 on a shared budget: every class carries one primary damage
+  # stat and lands within ~8% of the others at base and ~7% per level. Every class also
+  # carries MANA_REGENERATION; without it a class with no Wisdom could cast three times
+  # and then wait three minutes.
+  # Built on SKILL_DAMAGE and cooldown reduction rather than raw magic damage,
+  # so it out-casts the Sorcerer instead of out-damaging it.
+  MAX_HEALTH:
+    base: 18
+    per-level: 1.8
+  MAX_MANA:
+    base: 50
+    per-level: 6
+  SKILL_DAMAGE:
+    base: 6
+    per-level: 2
+  COOLDOWN_REDUCTION:
+    base: 10
+    per-level: 0.1
+  MANA_REGENERATION:
+    base: 2
+    per-level: 0.5
+  MOVEMENT_SPEED:
+    base: 0.112
+    per-level: 0.0003
+
+attributes:
+  # Fixed budget for every class: 20 points at base, 4.0 per level.
+  dexterity:
+    base: 2
+    per-level: 0.4
+  intelligence:
+    base: 15
+    per-level: 3
+  wisdom:
+    base: 3
+    per-level: 0.6
+
+options:
+  default: false
+  display: true
+  needs-permission: false
+  off-combat-health-regen: false
+  off-combat-mana-regen: true
+
+exp-curve: 'levels'
+exp-table: class_exp_table
+
+skill-slots:
+  1:
+    name: "&eLightning Beam"
+    unlocked-by-default: true
+    lore:
+      - '&7High-pressure arcane beam'
+  2:
+    name: "&eVoid Zapper"
+    unlocked-by-default: true
+    lore:
+      - '&7Tech utility zap effect'
+
+main-exp-sources:
+  - 'killmob{type=ZOMBIE;amount=2-3}'
+  - 'killmob{type=SKELETON;amount=3-5}'
+  - 'killmob{type=BLAZE;amount=7-11}'
+  - 'killmob{type=WITCH;amount=7-11}'
+  - 'killmob{type=WITHER_SKELETON;amount=8-13}'
+
+skills:
+  LIGHTNING_BEAM:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  VOID_ZAPPER:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  TECHNOMANCER_DEPLOY_TURRET:
+    level: 5
+    max-level: 30
+    unlocked-by-default: false
+
+  TECHNOMANCER_EMP_BLAST:
+    level: 10
+    max-level: 30
+    unlocked-by-default: false
+
+  TECHNOMANCER_HOLOGRAPHIC_DECOY:
+    level: 15
+    max-level: 30
+    unlocked-by-default: false
+
+  # Standalone MythicLib skill unlocks (via skill tree)
+  OVERCHARGE:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  NANITE_SWARM:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  # ---- Specialisation skills (generated) ----
+  ENGINEER_RECURSION:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  ENGINEER_ARC_TURRET:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  VOLTAIC_STATIC_CHARGE:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  VOLTAIC_CHAIN_LIGHTNING:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+
+skill-trees:
+  - 'technomancer'
+  - 'profession-mining'
+  - 'profession-woodcutting'
+  - 'profession-farming'
+  - 'profession-fishing'
+  - 'profession-alchemy'
+  - 'profession-smithing'
+  - 'profession-enchanting'
+  - 'profession-smelting'
+
+triggers:
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-ap %player_name%"}'
+    - 'command{format="bellcraft-grant-sp %player%"}'
+    - 'command{format="bellcraft-grant-stp %player% technomancer"}'

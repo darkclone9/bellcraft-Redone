@@ -1,0 +1,30 @@
+name: 'Crown of the Void'
+lore:
+- 'The last walk. Everything the Pale Crown'
+- 'has left to throw at you, at once.'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Kill 60 endermen'
+- '&7► Phase 2: Kill 20 shulkers'
+- ''
+- '&eRewards:'
+- '&7► 12090 EXP'
+level-req:
+    main: 99
+parent:
+- 'harbinger-legion'
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'killmob{type=ENDERMAN;amount=60}'
+        lore: 'Kill 60 endermen.'
+        triggers:
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'
+    2:
+        type: 'killmob{type=SHULKER;amount=20}'
+        lore: 'Kill 20 shulkers.'
+        triggers:
+        - 'experience{amount=12090}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

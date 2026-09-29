@@ -1,0 +1,151 @@
+# Set default vault currency as CoreTools
+economy:
+  enabled: true
+  vault: false
+  default_vault_currency: 'dollar'
+
+  # This setting only applies to MMOProfiles users.
+  # Please refer to the installation documentation
+  # on the Wiki before making any changes.
+  mmoprofiles_vault: 'profile'
+
+  # If you enable bundle support, the in-game
+  # minecraft:bundle material can be used for depositing,
+  # withdrawing, and calculating the balance of physical currency.
+  #
+  # From version 1.21.2 and onwards, you can use differently colored bundles.
+  #
+  bundle_support: true
+
+  # If you want to apply bundle restrictions,
+  # you can do so by not adding different materials
+  # in version 1.21.2 and later.
+  bundle_materials:
+    - BUNDLE  # `minecraft:bundle` for 1.17+
+
+    # You can use the bundle materials listed
+    # below for version 1.21.2 and later.
+
+    # - BLACK_BUNDLE
+    # - BLUE_BUNDLE
+    # - BROWN_BUNDLE
+    # - BUNDLE
+    # - CYAN_BUNDLE
+    # - GRAY_BUNDLE
+    # - GREEN_BUNDLE
+    # - LIGHT_BLUE_BUNDLE
+    # - LIGHT_GRAY_BUNDLE
+    # - LIME_BUNDLE
+    # - MAGENTA_BUNDLE
+    # - ORANGE_BUNDLE
+    # - PINK_BUNDLE
+    # - PURPLE_BUNDLE
+    # - RED_BUNDLE
+    # - WHITE_BUNDLE
+    # - YELLOW_BUNDLE
+
+  # List of PlayerVaults to be scanned for Balance and Withdraw.
+  # Search for all physical currencies.
+  # If bundle support is enabled, bundles are also included.
+  # Set [] to disable
+  playervaults: [myfirstvault, account]
+
+# You can also use {currency_symbol}
+messages:
+  get-player: 'Your {currency} balance is {final_balance}'
+  get: '{caster_name} {currency} balance is {final_balance}'
+  exceeded: '{caster_name} has exceeded the maximum value for this currency. The value for player has been set to the highest value: {final_balance}'
+  set-add: '{changed-balance} {currency} added to {caster_name}. New balance is {final_balance}'
+  set-remove: '{changed-balance} {currency} removed from {caster_name}. New balance is {final_balance}'
+  set-none: 'The player''s balance has not changed. {caster_name} balance already {final_balance}'
+  take-success: 'Successfully withdrawn {changed-balance}. {caster_name} new balance is {final_balance}'
+  take-fail: '{caster_name} don''t have enough currency to withdraw.'
+  give-success: 'Successfully {changed-balance} {currency} deposited. {caster_name} new balance is {final_balance}'
+  give-overflow: 'The player''s inventory is full. Excess coins were dropped at the player''s location.'
+
+currencies:
+  dollar:
+    digital: true
+    decimal: '#.0000' # set '#0' for no decimal
+    decimal_separator: '.'
+
+    name_singular: Dollar
+    name_plural: Dollars
+    symbol: '$'
+    startingBalance: 50
+    maxBalance: 10000
+
+  coins:
+    digital: false
+    name_singular: Coin
+    name_plural: Coins
+    symbol: 'c'
+    decimal: '#.0'
+    decimal_separator: '.'
+
+    # For the auto combine feature to work correctly,
+    # all of your currencies need to be fully divisible by each other.
+    # Working Example: 1, 5, 10, 20, 50, 100
+    # Non-working Example: 1, 2, 5, 10, 100, 200
+    #
+    # ::: VERY IMPORTANT :::
+    # Combine only work for players in Survival or Adventure mode.
+    #
+    auto_combine: false
+
+    # If you add any property other than source and material and are not using any item plugin,
+    # you must set the item category to "other", since the item is no longer considered vanilla.
+    items:
+      0:
+        value: 0.1
+        source: vanilla
+        material: raw_gold
+      1:
+        value: 1
+        source: other
+        material: gold_nugget:5
+        texture: []
+        name: <bold><white>1 Coin
+        flags: [HIDE_ATTRIBUTES]
+        lore:
+          - ''
+          - '<white>Worth 1 Coin '
+          - ''
+      2:
+        value: 5
+        source: other
+        material: gold_ingot
+        texture: []
+        name: <bold><white>5 Coin
+        flags: [HIDE_ATTRIBUTES]
+        lore:
+          - ''
+          - '<white>Worth 5 Coin'
+          - ''
+      3:
+        value: 10
+        source: other
+        material: gold_block
+        texture: []
+        name: <bold><white>5 Coin
+        flags: [HIDE_ATTRIBUTES]
+        lore:
+          - ''
+          - '<white>Worth 10 Coin'
+          - ''
+      4:
+        value: 50
+        source: other
+        material: emerald
+        texture: []
+        name: <bold><white>50 Coin
+        flags: [HIDE_ATTRIBUTES]
+        lore:
+          - ''
+          - '<white>Worth 50 Coin'
+          - ''
+      5:
+        value: 100
+        source: other
+        material: emerald_block
+        flags: [HIDE_ATTRIBUTES]

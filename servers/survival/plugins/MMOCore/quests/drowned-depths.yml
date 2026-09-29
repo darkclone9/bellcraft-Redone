@@ -1,0 +1,33 @@
+
+# Display options
+name: 'Drowned Depths'
+lore:
+- 'The shoreline is being terrorized by'
+- 'drowned rising from the deep. Protect'
+- 'the fishing village from the sea!'
+- ''
+- '&6Objective:'
+- '&7► Kill 12 drowned rising from the ocean'
+- ''
+- '&eRewards:'
+- '&7► 627 EXP'
+- '&7► 14 Gold Coins'
+
+level-req:
+    main: 12
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=DROWNED;amount=12}'
+        lore: 'Kill 12 drowned rising from the ocean.'
+        triggers:
+        - message{format="&aFisherman> &fThe seas are safe for fishing again! Take this coin."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 14"}
+        - 'experience{amount=627}'

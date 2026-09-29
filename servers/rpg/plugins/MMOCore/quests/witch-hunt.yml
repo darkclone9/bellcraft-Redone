@@ -1,0 +1,33 @@
+
+# Display options
+name: 'Witch Hunter'
+lore:
+- 'A coven of witches has been cursing'
+- 'the villagers with potions. Seek them'
+- 'out in the swamps and end their plots!'
+- ''
+- '&6Objective:'
+- '&7► Kill 5 witches'
+- ''
+- '&eRewards:'
+- '&7► 1863 EXP'
+- '&7► 20 Gold Coins'
+
+level-req:
+    main: 22
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=WITCH;amount=5}'
+        lore: 'Kill 5 witches.'
+        triggers:
+        - message{format="&aHealer> &fThe village is safe at last! The curse has been lifted."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 20"}
+        - 'experience{amount=1863}'

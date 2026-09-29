@@ -1,0 +1,830 @@
+id: info-panel-p2
+rows: 6
+type: chest
+title: '&b&lBellcraft &8» &7Classes & Combat'
+commandAliasTarget: DISABLED
+disable-scene-animation: false
+scenes:
+  '0':
+    delay: 0
+    items:
+      '1':
+        slot: 0
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"861060139"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '2':
+        slot: 1
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"569901226"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '3':
+        slot: 2
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"419768084"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '4':
+        slot: 3
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"511552410"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '5':
+        slot: 4
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"410799751"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '6':
+        slot: 5
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1102048044"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '7':
+        slot: 6
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"587379727"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '8':
+        slot: 7
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1846194274"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '9':
+        slot: 8
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"188769006"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '10':
+        slot: 9
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"2016325904"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '11':
+        slot: 11
+        item: IRON_CHESTPLATE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:iron_chestplate
+          count: 1
+          components:
+            minecraft:tooltip_display: '{hidden_components:["minecraft:attribute_modifiers"]}'
+            minecraft:custom_name: '{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Soldier",underlined:0b}],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"804309209"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Soldier",underlined:0b}],text:""},"minecraft:tooltip_display":{hidden_components:["minecraft:attribute_modifiers"]}},count:1,id:"minecraft:iron_chestplate"}'
+        item-name: '&c&lSoldier'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fTank / Frontline Fighter'
+            - '&7High HP, heavy armor, and'
+            - '&7damage mitigation abilities.'
+            - '&7Resource: &cResolve'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+        extra-meta: {
+          }
+      '12':
+        slot: 12
+        item: IRON_SWORD
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:iron_sword
+          count: 1
+          components:
+            minecraft:tooltip_display: '{hidden_components:["minecraft:attribute_modifiers"]}'
+            minecraft:custom_name: '{extra:[{bold:1b,color:"aqua",italic:0b,obfuscated:0b,strikethrough:0b,text:"Operative",underlined:0b}],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"2029583425"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"aqua",italic:0b,obfuscated:0b,strikethrough:0b,text:"Operative",underlined:0b}],text:""},"minecraft:tooltip_display":{hidden_components:["minecraft:attribute_modifiers"]}},count:1,id:"minecraft:iron_sword"}'
+        item-name: '&b&lOperative'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fStriker / Scout'
+            - '&7Fast attacks, stealth, and'
+            - '&7precision-based combat.'
+            - '&7Resource: &bFocus'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '13':
+        slot: 13
+        item: GOLDEN_CHESTPLATE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:golden_chestplate
+          count: 1
+          components:
+            minecraft:tooltip_display: '{hidden_components:["minecraft:attribute_modifiers"]}'
+            minecraft:custom_name: '{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Paladin",underlined:0b}],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"453863673"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Paladin",underlined:0b}],text:""},"minecraft:tooltip_display":{hidden_components:["minecraft:attribute_modifiers"]}},count:1,id:"minecraft:golden_chestplate"}'
+        item-name: '&6&lPaladin'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fTank / Holy Knight'
+            - '&7Divine protection, auras,'
+            - '&7and healing abilities.'
+            - '&7Resource: &6Radiance'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+        extra-meta: {
+          }
+      '14':
+        slot: 14
+        item: AMETHYST_SHARD
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:amethyst_shard
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"light_purple",italic:0b,obfuscated:0b,strikethrough:0b,text:"Mystic",underlined:0b}],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1533744794"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"light_purple",italic:0b,obfuscated:0b,strikethrough:0b,text:"Mystic",underlined:0b}],text:""}},count:1,id:"minecraft:amethyst_shard"}'
+        item-name: '&d&lMystic'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fSupport / Cosmic Caster'
+            - '&7Healing, shields, and'
+            - '&7cosmic manipulation.'
+            - '&7Resource: &dCosmic Energy'
+        item-flags: [
+          ]
+        unbreakable: false
+      '15':
+        slot: 15
+        item: BLAZE_ROD
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:blaze_rod
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Technomancer",underlined:0b}],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"365975547"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Technomancer",underlined:0b}],text:""}},count:1,id:"minecraft:blaze_rod"}'
+        item-name: '&e&lTechnomancer'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fArcane DPS'
+            - '&7High magic damage and'
+            - '&7technological augmentation.'
+            - '&7Resource: &eNanites'
+        item-flags: [
+          ]
+        unbreakable: false
+      '16':
+        slot: 17
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"742887486"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '17':
+        slot: 18
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1609786881"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '18':
+        slot: 20
+        item: BOW
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:bow
+          count: 1
+          components:
+            minecraft:tooltip_display: '{hidden_components:["minecraft:attribute_modifiers"]}'
+            minecraft:custom_name: '{extra:[{bold:1b,color:"green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Ranger",underlined:0b}],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"453636673"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Ranger",underlined:0b}],text:""},"minecraft:tooltip_display":{hidden_components:["minecraft:attribute_modifiers"]}},count:1,id:"minecraft:bow"}'
+        item-name: '&a&lRanger'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fDPS Ranged / Hunter'
+            - '&7Specs: &aHunter &7/ &6Tracker'
+            - '&7Projectile damage, traps, prey'
+            - '&7tracking, and structure sense.'
+            - '&7Resource: &aFocus'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '19':
+        slot: 21
+        item: BLAZE_ROD
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:blaze_rod
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Sorcerer",underlined:0b}],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"270668553"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Sorcerer",underlined:0b}],text:""}},count:1,id:"minecraft:blaze_rod"}'
+        item-name: '&c&lSorcerer'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fCaster DPS'
+            - '&7Elemental magic and high'
+            - '&7burst damage spells.'
+            - '&7Resource: &cArcana'
+        item-flags: [
+          ]
+        unbreakable: false
+      '20':
+        slot: 22
+        item: GOLDEN_APPLE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:golden_apple
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"aqua",italic:0b,obfuscated:0b,strikethrough:0b,text:"Cleric",underlined:0b}],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"2033756546"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"aqua",italic:0b,obfuscated:0b,strikethrough:0b,text:"Cleric",underlined:0b}],text:""}},count:1,id:"minecraft:golden_apple"}'
+        item-name: '&b&lCleric'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fSupport / Divine Healer'
+            - '&7Healing, purification, and'
+            - '&7protective blessings.'
+            - '&7Resource: &bDevotion'
+        item-flags: [
+          ]
+        unbreakable: false
+      '21':
+        slot: 23
+        item: BOOK
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:book
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Envoy",underlined:0b}],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1828903028"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Envoy",underlined:0b}],text:""}},count:1,id:"minecraft:book"}'
+        item-name: '&6&lEnvoy'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fTactician / Commander'
+            - '&7Team buffs, debuffs, and'
+            - '&7strategic battlefield control.'
+            - '&7Resource: &6Influence'
+        item-flags: [
+          ]
+        unbreakable: false
+      '22':
+        slot: 26
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1289868350"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '23':
+        slot: 27
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1084080665"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '24':
+        slot: 31
+        item: DIAMOND_SWORD
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:diamond_sword
+          count: 1
+          components:
+            minecraft:tooltip_display: '{hidden_components:["minecraft:attribute_modifiers"]}'
+            minecraft:custom_name: '{extra:[{bold:1b,color:"gray",italic:0b,obfuscated:0b,strikethrough:0b,text:"Combat
+              Tips",underlined:0b}],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1641797833"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"gray",italic:0b,obfuscated:0b,strikethrough:0b,text:"Combat
+          Tips",underlined:0b}],text:""},"minecraft:tooltip_display":{hidden_components:["minecraft:attribute_modifiers"]}},count:1,id:"minecraft:diamond_sword"}'
+        item-name: '&7&lCombat Tips'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Use &e/upgrade &7to level skills.'
+            - '&7Use &e/skilltrees &7for passive bonuses.'
+            - '&7Each class has unique abilities.'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '25':
+        slot: 35
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"210046459"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '26':
+        slot: 36
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1257548677"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '27':
+        slot: 44
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1265044531"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '28':
+        slot: 45
+        item: ARROW
+        amount: 1
+        click-events:
+          696ca087-d6dc-42c7-b5be-73739ece0ae5:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          2d63afb1-5c2f-4ac4-a8a4-9ce82196b872:
+            type: command
+            commands:
+            - gui open info-panel %player%
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:arrow
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"←
+              Previous Page",underlined:0b}],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1463120575"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"←
+          Previous Page",underlined:0b}],text:""}},count:1,id:"minecraft:arrow"}'
+        item-name: '&e&l← Previous Page'
+        item-flags: [
+          ]
+        unbreakable: false
+      '29':
+        slot: 46
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1516762351"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '30':
+        slot: 47
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"950108480"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '31':
+        slot: 48
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1502673899"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '32':
+        slot: 49
+        item: BARRIER
+        amount: 1
+        click-events:
+          0259d568-8863-4e10-9c2c-9b768375becd:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:barrier
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Close",underlined:0b}],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1770334494"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Close",underlined:0b}],text:""}},count:1,id:"minecraft:barrier"}'
+        item-name: '&c&lClose'
+        item-flags: [
+          ]
+        unbreakable: false
+      '33':
+        slot: 50
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"552909440"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '34':
+        slot: 51
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1406630797"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '35':
+        slot: 52
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:black_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1768232188"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:black_stained_glass_pane"}'
+        item-name: ' '
+        item-flags: [
+          ]
+        unbreakable: false
+      '36':
+        slot: 53
+        item: ARROW
+        amount: 1
+        click-events:
+          4aff09d0-0050-457b-b383-4259b82ad643:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          ac17fd5f-7dca-4ea6-8375-b8ca91a0b24b:
+            type: command
+            commands:
+            - gui open info-panel-p3 %player%
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:arrow
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Next
+              Page →",underlined:0b}],text:""}'
+            minecraft:custom_data: '{PublicBukkitValues:{"guiplus:generated_id":"1480831202"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Next
+          Page →",underlined:0b}],text:""}},count:1,id:"minecraft:arrow"}'
+        item-name: '&e&lNext Page →'
+        item-flags: [
+          ]
+        unbreakable: false

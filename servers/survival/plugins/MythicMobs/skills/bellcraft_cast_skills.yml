@@ -1,0 +1,121 @@
+# BUG / Bellcraft custom cast skills — stubs so MythicLib bridges resolve.
+# Replace with full FX later; these restore casting bar functionality.
+
+SoldierStrike_Cast:
+  Skills:
+  - effect:particles{particle=sweep_attack;amount=12;hSpread=1;vSpread=0.3;speed=0}
+  - effect:sound{s=entity.player.attack.sweep;volume=1;pitch=1}
+  - damage{a="<skill.damage>";pk=true}
+
+CombatStance_Toggle:
+  Skills:
+  - effect:particles{particle=crit;amount=20;hSpread=0.8;vSpread=1;speed=0.05}
+  - effect:sound{s=item.armor.equip_iron;volume=1;pitch=0.8}
+  - potion{type=RESISTANCE;duration=100;level=0}
+  - potion{type=SLOWNESS;duration=100;level=0}
+
+SuppressingFire_Cast:
+  Skills:
+  - effect:particles{particle=smoke_normal;amount=30;hSpread=1.5;vSpread=0.5;speed=0.05}
+  - effect:sound{s=entity.generic.explode;volume=0.6;pitch=1.6}
+  - damage{a="<skill.damage>";pk=true}
+
+TacticalReload_Cast:
+  Skills:
+  - effect:particles{particle=crit;amount=15;hSpread=0.5;vSpread=0.5;speed=0.1}
+  - effect:sound{s=block.iron_trapdoor.close;volume=1;pitch=1.4}
+  - potion{type=SPEED;duration=60;level=0}
+
+CosmicRift_Cast:
+  Skills:
+  - effect:particles{particle=portal;amount=40;hSpread=1.2;vSpread=1;speed=0.2}
+  - effect:sound{s=block.end_portal_frame.fill;volume=1;pitch=0.7}
+  - damage{a="<skill.damage>";pk=true}
+
+AstralLink_Aura:
+  Skills:
+  - effect:particles{particle=end_rod;amount=25;hSpread=1;vSpread=1;speed=0.02}
+  - effect:sound{s=block.beacon.ambient;volume=0.8;pitch=1.5}
+  - heal{a="<skill.heal>"}
+
+StellarHeal_Cast:
+  Skills:
+  - effect:particles{particle=heart;amount=10;hSpread=0.6;vSpread=0.6;speed=0}
+  - effect:sound{s=block.beacon.power_select;volume=1;pitch=1.2}
+  - heal{a="<skill.heal>"}
+
+GravitonField_Cast:
+  Skills:
+  - effect:particles{particle=witch;amount=35;hSpread=2;vSpread=0.4;speed=0}
+  - effect:sound{s=entity.enderman.teleport;volume=1;pitch=0.5}
+  - potion{type=SLOWNESS;duration=60;level=1}
+  - damage{a="<skill.damage>";pk=true}
+
+NaniteSwarm_Cast:
+  Skills:
+  - effect:particles{particle=happy_villager;amount=30;hSpread=1.5;vSpread=0.8;speed=0.05}
+  - effect:sound{s=entity.bee.loop;volume=0.8;pitch=1.8}
+  - damage{a="<skill.damage>";pk=true}
+
+DeployDrone_Cast:
+  Skills:
+  - effect:particles{particle=cloud;amount=20;hSpread=0.8;vSpread=0.8;speed=0.05}
+  - effect:sound{s=entity.iron_golem.repair;volume=1;pitch=1.5}
+  - potion{type=ABSORPTION;duration=100;level=0}
+
+Overcharge_Cast:
+  Skills:
+  - effect:particles{particle=electric_spark;amount=40;hSpread=1;vSpread=1;speed=0.1}
+  - effect:sound{s=entity.lightning_bolt.thunder;volume=0.5;pitch=1.8}
+  - damage{a="<skill.damage>";pk=true}
+
+OverloadBeam_Cast:
+  Skills:
+  - effect:particles{particle=end_rod;amount=50;hSpread=0.2;vSpread=0.2;speed=0.3}
+  - effect:sound{s=entity.elder_guardian.curse;volume=0.7;pitch=1.5}
+  - damage{a="<skill.damage>";pk=true}
+
+RepairNanites_Cast:
+  Skills:
+  - effect:particles{particle=happy_villager;amount=20;hSpread=0.7;vSpread=0.7;speed=0}
+  - effect:sound{s=block.anvil.use;volume=0.6;pitch=1.6}
+  - heal{a="<skill.heal>"}
+
+EvasionProtocol_Cast:
+  Skills:
+  - effect:particles{particle=cloud;amount=25;hSpread=0.8;vSpread=0.3;speed=0.05}
+  - effect:sound{s=entity.phantom.flap;volume=1;pitch=1.4}
+  - potion{type=SPEED;duration=40;level=1}
+  - potion{type=INVISIBILITY;duration=40;level=0}
+
+DebilitatingShot_Cast:
+  Skills:
+  - effect:particles{particle=crit;amount=15;hSpread=0.3;vSpread=0.3;speed=0.2}
+  - effect:sound{s=entity.arrow.hit;volume=1;pitch=0.7}
+  - damage{a="<skill.damage>";pk=true}
+  - potion{type=WEAKNESS;duration=80;level=0}
+
+TrickAttack_Cast:
+  Skills:
+  - effect:particles{particle=smoke_large;amount=20;hSpread=0.5;vSpread=0.5;speed=0.05}
+  - effect:sound{s=entity.enderman.teleport;volume=1;pitch=1.2}
+  - damage{a="<skill.damage>";pk=true}
+
+# Name index for merging into bellcraft_cast_skills.yml later.
+# Single source of truth: MythicMobs/skills/necromancer_cast_skills.yml
+# Do not duplicate skill bodies (duplicate keys conflict on /mm reload).
+#
+# Cast IDs (PR #51):
+#   NecromancerRaiseDead_Cast
+#   NecromancerSoulDrain_Cast
+#   NecromancerRaiseElite_Cast
+#   NecromancerLifeSiphon_Cast
+#   NecromancerDeathGrasp_Cast
+#   NecromancerRaiseMinion_Cast
+#   NecromancerUnholyCommand_Cast
+#   NecromancerCorpseExplosion_Cast
+# Helper:
+#   NecromancerDropCorpse_Cast
+#
+# Pet TypeIds summoned:
+#   NecroReaperElite, NecroMinionSkulker, NecroMinionWretch, NecromancerCorpseMarker

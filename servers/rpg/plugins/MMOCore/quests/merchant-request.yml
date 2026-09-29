@@ -1,0 +1,41 @@
+
+# Display options
+name: "The Merchant's Request"
+level-req:
+    main: 1
+lore:
+- 'A travelling merchant needs supplies'
+- 'before they can continue their journey.'
+- 'Gather what they need and bring it back!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Collect 16 oak logs for the merchant'
+- '&7► Phase 2: Collect 8 coal ore for the merchant'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 12 Gold Coins'
+
+parent: []
+
+delay: 24
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=OAK_LOG;amount=16}'
+        lore: 'Collect 16 oak logs for the merchant.'
+        triggers:
+        - message{format="&aMerchant> &fGood, now I need some coal to light my campfire at night."}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'mineblock{type=COAL_ORE;amount=8}'
+        lore: 'Collect 8 coal ore for the merchant.'
+        triggers:
+        - message{format="&aMerchant> &fPerfect! Here is your payment. Come back anytime!"}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 12"}
+        - 'experience{amount=170}'

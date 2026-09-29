@@ -1,0 +1,5188 @@
+mmoitems_example:
+  # Permission need to open this shop
+  permission: ''
+  # Enable or Cancels the use of bottom inventory.
+  bottom_inventory: true
+  # GUI display name
+  name: '[{category}] <white> CoreShop'
+  # How many rows will Inventory have.
+  # Must be between 1 and 6
+  size: 6
+  fill_material: 'AIR' # Fill material for bottom inventory
+  default_category: Sword
+  default_animation: 'default' # default
+
+  # Most of the time, players don't want to sell items from their hotbar.
+  # You can skip these slots when automatically selling items to the shop.
+  ignore_hotbar_slots: false
+
+  messages:
+    insufficient-money: '<bold><red>CoreShop ✖<reset> You don''t have {total_cost}{currency_symbol} to cover this.'
+    not-allowed-to-sell: '<bold><red>CoreShop ✖<reset> This item is not allowed to be sold.'
+    not-allowed-to-buy: '<bold><red>CoreShop ✖<reset> This item is not allowed to be purchase.'
+    successful-sell: '<bold><green>CoreShop ✔<reset> You have successfully purchased <bold><yellow>{amount}x {item_name}<reset> for {total_cost}{currency_symbol}.'
+    successful-buy: '<bold><green>CoreShop ✔<reset> You have successfully sold <bold><yellow>{amount} x {item_name}<reset> for {total_cost}{currency_symbol}.'
+    not-enough-item: '<bold><red>CoreShop ✖<reset> You don''t have the required {amount} of {item_name}<reset> to make the sale.'
+    not-enough-item-buy-all: '<bold><red>CoreShop ✖<reset> You don''t have the {item_name}<reset> to make the sale.'
+    no-space-inventory: '<bold><red>CoreShop ✖<reset> You don''t have enough empty space in your inventory.'
+    no-space-playervault: '<bold><red>CoreShop ✖<reset> You don''t have enough empty space in your PlayerVault.'
+    no-permission: '<bold><red>CoreShop ✖<reset> You do not have permission to open this shop.'
+
+  sound:
+    no_permission: [minecraft:entity.villager.no,master,1,2]
+    insufficient_money: [minecraft:entity.villager.no,master,1,2]
+    not_allowed_to_sell: [minecraft:entity.villager.no,master,1,2]
+    not_allowed_to_buy: [minecraft:entity.villager.no,master,1,2]
+    not_enough_item: [minecraft:entity.villager.no,master,1,2]
+    not_enough_item_buy_all: [minecraft:entity.villager.no,master,1,2]
+    no_space_inventory: [minecraft:entity.villager.no,master,1,2]
+    no_space_playervault: [minecraft:entity.villager.no,master,1,2]
+    successful_sell: [minecraft:entity.player.levelup,master,1,2]
+    successful_buy: [minecraft:entity.player.levelup,master,1,2]
+
+  # The settings for how the placeholders "{sorting_default}", "{sorting_money_descending}",
+  # and "{sorting_money_ascending}" will be parsed. The section before the comma is for when
+  # they are inactive, while the section after the comma is for when they are active.
+  sorting:
+    default: [<white>▷ Default,<green><bold>▶ Default]
+    money_descending: [<white>▷ Price Descending,<green><bold>▶ Price Descending]
+    money_ascending: [<white>▷ Price Ascending,<green><bold>▶ Price Ascending]
+
+  # When a player purchases an item,
+  # how will it be delivered?
+  #
+  # mode 1: Player inventory only
+  # mode 2: PlayerVault only.
+  # mode 3: Player inventory if full PlayerVault.
+  delivery:
+    mode: 3
+    playervault: myfirstvault
+
+  # In this section, you can configure the actions that
+  # occur when items for sale are clicked.
+  #
+  # The 'quick_*' options will immediately perform the transaction
+  # using the first buy or sell option written on the item.
+  #
+  # 'advanced' opens a more advanced purchase GUI for the player.
+
+  items_click:
+    left_click: advanced
+    right_click: ''
+    swap_hand: buy_all
+    shift_left_click: quick_sell
+    shift_right_click: quick_buy
+
+  # Amount for quick buy and sell
+  amount:
+    quick_sell: 1
+    quick_buy: 1
+
+  # The bottom display/item lore is a fixed lore that will be added to
+  # the bottom of the lores of items displayed in the inventory
+  # or the item given to player. If an item has its own bottom**
+  # lore settings, it will override this option.
+  bottom_display_lore:
+    - '<white>﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏'
+    - '<white>■ Left click to Advanced Purchase'
+    - '<white>■ Shift Left click to Quick Buy : {money_sell_vault}'
+    - '<white>■ Shift Right click to Quick Sell : {money_buy_vault}'
+    - '<white>﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋'
+  # This is added to the bottom of the lore of the sold item.
+  bottom_item_lore:
+    - ''
+    - '<white>Purchased from CoreShops❤'
+
+  advanced:
+    name: 'Purchase || {item_name}'
+    size: 6
+    fill_material: DIRT
+    animation: ''
+    # Enable or Cancels the use of bottom inventory.
+    bottom_inventory: true
+    # When advanced UI is open, which button set should be
+    # show in the lower inventory? 'default' or 'advanced'
+    view_bottom_inventory: 'default'
+    buttons:
+      item_to_be_purchased:
+        location: top
+        slots: [ 13 ]
+        source: vanilla
+        material: black_stained_glass_pane
+
+      missing_purchase:
+        location: top
+        slots: [ 13 ]
+        source: vanilla
+        material: AIR
+
+      back_to_category:
+        location: top
+        slots: [ 49 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==
+        name: <bold>§fBack
+        lore: []
+        flags: [HIDE_ATTRIBUTES]
+
+      empty:
+        location: top
+        slots: [ 0,1,2,3,4,5,6,7,8,9,10,16,17,18,26,27,35,36,37,43,44,45,46,47,48,50,51,52,53 ]
+        source: vanilla
+        material: black_stained_glass_pane
+        name: ' '
+        flags: [HIDE_ATTRIBUTES]
+
+      add_1:
+        location: top
+        slots: [23]
+        source: vanilla
+        material: lime_stained_glass_pane
+        flags: [HIDE_ATTRIBUTES]
+        name: <bold><white>Add 1
+      add_3:
+        location: top
+        slots: [24]
+        source: vanilla
+        material: lime_stained_glass_pane
+        flags: [HIDE_ATTRIBUTES]
+        name: <bold><white>Add 3
+      add_5:
+        location: top
+        slots: [25]
+        source: vanilla
+        material: lime_stained_glass_pane
+        flags: [HIDE_ATTRIBUTES]
+        name: <bold><white>Add 5
+
+      remove_5:
+        location: top
+        slots: [19]
+        source: vanilla
+        material: red_stained_glass_pane
+        flags: [HIDE_ATTRIBUTES]
+        name: <bold><white>Remove 5
+      remove_3:
+        location: top
+        slots: [20]
+        source: vanilla
+        material: red_stained_glass_pane
+        flags: [HIDE_ATTRIBUTES]
+        name: <bold><white>Remove 3
+      remove_1:
+        location: top
+        slots: [21]
+        source: vanilla
+        material: red_stained_glass_pane
+        flags: [HIDE_ATTRIBUTES]
+        name: <bold><white>Remove 1
+
+      set_1:
+        location: top
+        slots: [30]
+        source: vanilla
+        material: blue_stained_glass_pane
+        flags: [HIDE_ATTRIBUTES]
+        name: <bold><white>Set 1
+        amount: 1
+      set_32:
+        location: top
+        slots: [31]
+        source: vanilla
+        material: blue_stained_glass_pane
+        flags: [HIDE_ATTRIBUTES]
+        name: <bold><white>Set 32
+        amount: 32
+      set_64:
+        location: top
+        slots: [32]
+        source: vanilla
+        material: blue_stained_glass_pane
+        flags: [HIDE_ATTRIBUTES]
+        name: <bold><white>Set 64
+        amount: 64
+
+      sell_vault:
+        location: top
+        slots: [38]
+        source: vanilla
+        material: lime_wool
+        empty_slot_material: dirt # When using multiple slot for the button this material will be used all except first slot
+        flags: [HIDE_ATTRIBUTES]
+        texture: []
+        name: '<bold><white>Purchase with Vault'
+        lore:
+          - '<green>Price: {money_sell_vault}'
+
+      sell_dollar:
+        location: top
+        slots: [39]
+        source: vanilla
+        material: lime_wool
+        empty_slot_material: dirt # When using multiple slot for the button this material will be used all except first slot
+        flags: [HIDE_ATTRIBUTES]
+        name: '<bold><white>Purchase with dollar'
+        lore:
+          - '<green>Price: {money_sell_dollar}'
+      sell_coins:
+        location: top
+        slots: [28]
+        source: vanilla
+        material: lime_wool
+        empty_slot_material: dirt # When using multiple slot for the button this material will be used all except first slot
+        flags: [HIDE_ATTRIBUTES]
+        name: '<bold><white>Purchase with Coins'
+        lore:
+          - '<green>Price: {money_sell_coins}'
+
+      buy_dollar:
+        location: top
+        slots: [41]
+        source: vanilla
+        material: red_wool
+        empty_slot_material: dirt # When using multiple slot for the button this material will be used all except first slot
+        flags: [HIDE_ATTRIBUTES]
+        texture: []
+        name: '<bold><white>Sell for dollar'
+        lore:
+          - '<red>Price: {money_buy_dollar}'
+
+      buy_vault:
+        location: top
+        slots: [42]
+        source: vanilla
+        material: red_wool
+        empty_slot_material: dirt # When using multiple slot for the button this material will be used all except first slot
+        flags: [HIDE_ATTRIBUTES]
+        texture: []
+        name: '<bold><white>Sell for Vault'
+        lore:
+          - '<red>Price: {money_buy_vault}'
+      buy_coins:
+        location: top
+        slots: [34]
+        source: vanilla
+        material: red_wool
+        empty_slot_material: dirt # When using multiple slot for the button this material will be used all except first slot
+        flags: [HIDE_ATTRIBUTES]
+        texture: []
+        name: '<bold><white>Sell for Coins'
+        lore:
+          - '<red>Price: {money_buy_coins}'
+
+  buttons:
+    empty:
+      location: top
+      slots: [ 0,1,2,3,4,5,6,7,8,9,10,16,17,18,26,27,35,36,37,43,44,45,46,47,48,50,51,52,53 ]
+      source: vanilla
+      name: ' '
+      material: black_stained_glass_pane
+      flags: [HIDE_ATTRIBUTES]
+      left_click:
+        Scripts:
+          - left_click
+          - beep
+      right_click:
+        Scripts:
+          - right_click
+          - beep
+      shift_left_click:
+        Scripts:
+          - shift_left_click
+          - beep
+      shift_right_click:
+        Scripts:
+          - shift_right_click
+          - beep
+      swap_hand:
+        Scripts:
+          - swap_click
+          - beep
+      drop_key:
+        Scripts:
+          - drop_key
+          - beep
+      click:
+        Scripts:
+          - click
+          - beep
+
+    sorting:
+      location: top
+      slots: [49]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzA0MGZlODM2YTZjMmZiZDJjN2E5YzhlYzZiZTUxNzRmZGRmMWFjMjBmNTVlMzY2MTU2ZmE1ZjcxMmUxMCJ9fX0=
+      name: '<white>Sort Items'
+      lore:
+        - '{sorting_default}'
+        - '{sorting_money_descending}'
+        - '{sorting_money_ascending}'
+        # - '{sorting_active}' This will show bold version of active sorting
+      flags: [HIDE_ATTRIBUTES]
+      left_click:
+        Scripts:
+          - left_click
+          - beep
+      right_click:
+        Scripts:
+          - right_click
+          - beep
+      shift_left_click:
+        Scripts:
+          - shift_left_click
+          - beep
+      shift_right_click:
+        Scripts:
+          - shift_right_click
+          - beep
+      swap_hand:
+        Scripts:
+          - swap_click
+          - beep
+      drop_key:
+        Scripts:
+          - drop_key
+          - beep
+      click:
+        Scripts:
+          - click
+          - beep
+
+    next:
+      location: bottom
+      slots: [14]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+      name: <bold>&fNext
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+      left_click:
+        Scripts:
+          - left_click
+          - beep
+      right_click:
+        Scripts:
+          - right_click
+          - beep
+      shift_left_click:
+        Scripts:
+          - shift_left_click
+          - beep
+      shift_right_click:
+        Scripts:
+          - shift_right_click
+          - beep
+      swap_hand:
+        Scripts:
+          - swap_click
+          - beep
+      drop_key:
+        Scripts:
+          - drop_key
+          - beep
+      click:
+        Scripts:
+          - click
+          - beep
+
+    previous:
+      location: bottom
+      slots: [12]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==
+      name: <bold>§fPrevious
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+
+    player:
+      location: bottom
+      slots: [13]
+      source: vanilla
+      material: player_head
+      texture: player
+      name: '<bold><white>{caster_name} Balance'
+      lore:
+        - '<bold><white>●<reset><white> Dollar : %coretools_eco_dollar%'
+        - '<bold><white>●<reset><white> Coins  : %coretools_eco_coins%'
+      flags: [HIDE_ATTRIBUTES]
+
+    Sword:
+      location: bottom
+      slots: [19]
+      source: vanilla
+      material: IRON_SWORD:0
+      texture: []
+      name: <bold><white>Sword
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Staff:
+      location: bottom
+      slots: [20]
+      source: vanilla
+      material: DIAMOND_HOE
+      texture: []
+      name: <bold><white>Staff
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Bow:
+      location: bottom
+      slots: [21]
+      source: vanilla
+      material: BOW
+      texture: []
+      name: <bold><white>Bow
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Crossbow:
+      location: bottom
+      slots: [22]
+      source: vanilla
+      material: CROSSBOW
+      texture: []
+      name: <bold><white>Crossbow
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Axe:
+      location: bottom
+      slots: [23]
+      source: vanilla
+      material: STONE_AXE
+      texture: []
+      name: <bold><white>Axe
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Dagger:
+      location: bottom
+      slots: [24]
+      source: vanilla
+      material: STONE_SWORD
+      texture: []
+      name: <bold><white>Dagger
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Spear:
+      location: bottom
+      slots: [25]
+      source: vanilla
+      material: TRIDENT
+      texture: []
+      name: <bold><white>Spear
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Armor:
+      location: bottom
+      slots: [28]
+      source: vanilla
+      material: IRON_CHESTPLATE
+      texture: []
+      name: <bold><white>Armor
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Shield:
+      location: bottom
+      slots: [29]
+      source: vanilla
+      material: SHIELD
+      texture: []
+      name: <bold><white>Shield
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Tool:
+      location: bottom
+      slots: [30]
+      source: vanilla
+      material: IRON_PICKAXE
+      texture: []
+      name: <bold><white>Tool
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Consumable:
+      location: bottom
+      slots: [31]
+      source: vanilla
+      material: APPLE
+      texture: []
+      name: <bold><white>Consumable
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Material:
+      location: bottom
+      slots: [32]
+      source: vanilla
+      material: PAPER
+      texture: []
+      name: <bold><white>Material
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Gem_stone:
+      location: bottom
+      slots: [33]
+      source: vanilla
+      material: EMERALD
+      texture: []
+      name: <bold><white>Gem Stone
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Block:
+      location: bottom
+      slots: [34]
+      source: vanilla
+      material: STONE
+      texture: []
+      name: <bold><white>Block
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+
+
+
+
+  categories:
+    Sword:
+      name: 'This is custom <red>Sword<reset> title'
+      non-item-type-sale:
+        options:
+          sell: true
+          buy: false
+        prices:
+          sell:
+            vault: 100 * %mmocore_level%
+        display:
+          source: mmoitems
+          type: SWORD
+          id: LONG_SWORD
+        item:
+          source: script
+          Scripts:
+            - script1
+      item1:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: ((5 * %mmocore_level%) +1)
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+
+        # This setting only changes the default quick sell/buy options for this item.
+#        quick_sell_amount: 2
+#        quick_buy_amount: 2
+
+        display:
+          source: mmoitems
+          type: SWORD
+          id: LONG_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: LONG_SWORD
+      item2:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 20
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+
+        # This setting only changes the default quick sell/buy options for this item.
+#        quick_sell_amount: 2
+#        quick_buy_amount: 2
+        display:
+          source: mmoitems
+          type: SWORD
+          id: CUTLASS
+        item:
+          source: mmoitems
+          type: SWORD
+          id: CUTLASS
+      item3:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 30
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: FALCON_BLADE
+        item:
+          source: mmoitems
+          type: SWORD
+          id: FALCON_BLADE
+      item4:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 40
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: KATANA
+        item:
+          source: mmoitems
+          type: SWORD
+          id: KATANA
+      item5:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 50
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: SOULSTEALER
+        item:
+          source: mmoitems
+          type: SWORD
+          id: SOULSTEALER
+      item6:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 60
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: STEEL_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: STEEL_SWORD
+      item7:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 70
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: SILVER_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: SILVER_SWORD
+      item8:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 80
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: AMETHYST_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: AMETHYST_SWORD
+      item9:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 90
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: FROZEN_BLADE
+        item:
+          source: mmoitems
+          type: SWORD
+          id: FROZEN_BLADE
+      item10:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 100
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: OMNIELEMENTAL_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: OMNIELEMENTAL_SWORD
+      item11:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 110
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: YANISDARK_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: YANISDARK_SWORD
+      item12:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 120
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: AA
+        item:
+          source: mmoitems
+          type: SWORD
+          id: AA
+
+      item13:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 130
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: LONG_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: LONG_SWORD
+      item14:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 140
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: CUTLASS
+        item:
+          source: mmoitems
+          type: SWORD
+          id: CUTLASS
+      item15:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 150
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: FALCON_BLADE
+        item:
+          source: mmoitems
+          type: SWORD
+          id: FALCON_BLADE
+      item16:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 160
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: KATANA
+        item:
+          source: mmoitems
+          type: SWORD
+          id: KATANA
+      item17:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 170
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: SOULSTEALER
+        item:
+          source: mmoitems
+          type: SWORD
+          id: SOULSTEALER
+      item18:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 180
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: STEEL_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: STEEL_SWORD
+      item19:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 190
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: SILVER_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: SILVER_SWORD
+      item20:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 200
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: AMETHYST_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: AMETHYST_SWORD
+      item21:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 210
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: FROZEN_BLADE
+        item:
+          source: mmoitems
+          type: SWORD
+          id: FROZEN_BLADE
+      item22:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: OMNIELEMENTAL_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: OMNIELEMENTAL_SWORD
+      item23:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: YANISDARK_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: YANISDARK_SWORD
+      item24:
+
+      item25:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: SILVER_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: SILVER_SWORD
+      item26:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: AMETHYST_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: AMETHYST_SWORD
+      item27:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: FROZEN_BLADE
+        item:
+          source: mmoitems
+          type: SWORD
+          id: FROZEN_BLADE
+      item28:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: OMNIELEMENTAL_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: OMNIELEMENTAL_SWORD
+      item29:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SWORD
+          id: YANISDARK_SWORD
+        item:
+          source: mmoitems
+          type: SWORD
+          id: YANISDARK_SWORD
+      item30:
+
+    Staff:
+      item1:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: STAFF
+          id: EARTH_STAFF
+        item:
+          source: mmoitems
+          type: STAFF
+          id: EARTH_STAFF
+      item2:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: STAFF
+          id: LIGHTNING_STAFF
+        item:
+          source: mmoitems
+          type: STAFF
+          id: LIGHTNING_STAFF
+      item3:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: STAFF
+          id: BONE_STAFF
+        item:
+          source: mmoitems
+          type: STAFF
+          id: BONE_STAFF
+      item4:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: STAFF
+          id: MANA_STAFF
+        item:
+          source: mmoitems
+          type: STAFF
+          id: MANA_STAFF
+      item5:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: STAFF
+          id: VOID_STAFF
+        item:
+          source: mmoitems
+          type: STAFF
+          id: VOID_STAFF
+    Bow:
+      item1:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: BOW
+          id: COMPOSITE_BOW
+        item:
+          source: mmoitems
+          type: BOW
+          id: COMPOSITE_BOW
+      item2:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: BOW
+          id: HELL_BOW
+        item:
+          source: mmoitems
+          type: BOW
+          id: HELL_BOW
+      item3:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: BOW
+          id: MARKING_BOW
+        item:
+          source: mmoitems
+          type: BOW
+          id: MARKING_BOW
+      item4:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: BOW
+          id: NETHERITE_BOW
+        item:
+          source: mmoitems
+          type: BOW
+          id: NETHERITE_BOW
+      item5:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: BOW
+          id: PRECISION_BOW
+        item:
+          source: mmoitems
+          type: BOW
+          id: PRECISION_BOW
+    Crossbow:
+      item1:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CROSSBOW
+          id: MEDIEVAL_CROSSBOW
+        item:
+          source: mmoitems
+          type: CROSSBOW
+          id: MEDIEVAL_CROSSBOW
+      item2:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CROSSBOW
+          id: HANDGUN
+        item:
+          source: mmoitems
+          type: CROSSBOW
+          id: HANDGUN
+    Axe:
+      item1:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: AXE
+          id: EXECUTIONER_AXE
+        item:
+          source: mmoitems
+          type: AXE
+          id: EXECUTIONER_AXE
+      item2:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: AXE
+          id: UNDEAD_SLAYER
+        item:
+          source: mmoitems
+          type: AXE
+          id: UNDEAD_SLAYER
+      item3:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: AXE
+          id: BUTCHER_AXE
+        item:
+          source: mmoitems
+          type: AXE
+          id: BUTCHER_AXE
+      item4:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: AXE
+          id: BONE_CRACKER
+        item:
+          source: mmoitems
+          type: AXE
+          id: BONE_CRACKER
+      item5:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: AXE
+          id: SKULL_BREAKER
+        item:
+          source: mmoitems
+          type: AXE
+          id: SKULL_BREAKER
+      item6:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: AXE
+          id: SILVER_AXE
+        item:
+          source: mmoitems
+          type: AXE
+          id: SILVER_AXE
+      item7:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: AXE
+          id: THE_UNBREAKABLE
+        item:
+          source: mmoitems
+          type: AXE
+          id: THE_UNBREAKABLE
+    Dagger:
+      item1:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: DAGGER
+          id: STEEL_DAGGER
+        item:
+          source: mmoitems
+          type: DAGGER
+          id: STEEL_DAGGER
+      item2:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: DAGGER
+          id: DRACULA_DAGGER
+        item:
+          source: mmoitems
+          type: DAGGER
+          id: DRACULA_DAGGER
+      item3:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: DAGGER
+          id: VERY_SHARP_DAGGER
+        item:
+          source: mmoitems
+          type: DAGGER
+          id: VERY_SHARP_DAGGER
+      item4:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: DAGGER
+          id: POISONOUS_DAGGER
+        item:
+          source: mmoitems
+          type: DAGGER
+          id: POISONOUS_DAGGER
+      item5:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: DAGGER
+          id: SNEAKY_DAGGER
+        item:
+          source: mmoitems
+          type: DAGGER
+          id: SNEAKY_DAGGER
+    Spear:
+      item1:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SPEAR
+          id: SHARP_SPEAR
+        item:
+          source: mmoitems
+          type: SPEAR
+          id: SHARP_SPEAR
+      item2:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SPEAR
+          id: WARRIOR_SPEAR
+        item:
+          source: mmoitems
+          type: SPEAR
+          id: WARRIOR_SPEAR
+    Armor:
+      item1:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: DRAGON_HELMET
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: DRAGON_HELMET
+      item2:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: DRAGON_CHESTPLATE
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: DRAGON_CHESTPLATE
+      item3:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: DRAGON_LEGGINGS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: DRAGON_LEGGINGS
+      item4:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: DRAGON_BOOTS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: DRAGON_BOOTS
+      item5:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: SPELLCASTER_HELMET
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: SPELLCASTER_HELMET
+      item6:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: SPELLCASTER_CHESTPLATE
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: SPELLCASTER_CHESTPLATE
+      item7:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: SPELLCASTER_LEGGINGS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: SPELLCASTER_LEGGINGS
+      item8:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: SPELLCASTER_BOOTS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: SPELLCASTER_BOOTS
+      item9:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: OMNIELEMENTAL_HELMET
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: OMNIELEMENTAL_HELMET
+      item10:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: OMNIELEMENTAL_CHESTPLATE
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: OMNIELEMENTAL_CHESTPLATE
+      item11:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: OMNIELEMENTAL_LEGGINGS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: OMNIELEMENTAL_LEGGINGS
+      item12:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: OMNIELEMENTAL_BOOTS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: OMNIELEMENTAL_BOOTS
+      item13:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: HELMET_OF_THE_SEA
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: HELMET_OF_THE_SEA
+      item15:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: MOON_BOOTS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: MOON_BOOTS
+      item16:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: CONTROL_DEVICES
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: CONTROL_DEVICES
+      item17:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: UNDEAD_SLAYER_HELMET
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: UNDEAD_SLAYER_HELMET
+      item18:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: UNDEAD_SLAYER_CHESTPLATE
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: UNDEAD_SLAYER_CHESTPLATE
+      item19:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: UNDEAD_SLAYER_LEGGINGS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: UNDEAD_SLAYER_LEGGINGS
+      item20:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: UNDEAD_SLAYER_BOOTS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: UNDEAD_SLAYER_BOOTS
+      item21:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: MYTHRIL_CHAINMAIL
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: MYTHRIL_CHAINMAIL
+      item22:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: STEEL_HELMET
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: STEEL_HELMET
+      item23:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: STEEL_CHESTPLATE
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: STEEL_CHESTPLATE
+      item24:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: STEEL_LEGGINGS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: STEEL_LEGGINGS
+      item25:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: STEEL_BOOTS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: STEEL_BOOTS
+      item27:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: CURSED_WITHER_SKULL
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: CURSED_WITHER_SKULL
+      item29:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: ARCANE_HELM
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: ARCANE_HELM
+      item30:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: ARCANE_CHESTPLATE
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: ARCANE_CHESTPLATE
+      item31:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: ARCANE_LEGGINGS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: ARCANE_LEGGINGS
+      item32:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: ARCANE_BOOTS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: ARCANE_BOOTS
+      item33:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: GINGERBREAD_HELM
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: GINGERBREAD_HELM
+      item34:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: GINGERBREAD_TUNIC
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: GINGERBREAD_TUNIC
+      item35:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: GINGERBREAD_LEGGINGS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: GINGERBREAD_LEGGINGS
+      item36:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: GINGERBREAD_BOOTS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: GINGERBREAD_BOOTS
+      item37:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: DEAD_PHARAOH_HELMET
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: DEAD_PHARAOH_HELMET
+      item38:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: MOSSY_SKELETON_SKULL
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: MOSSY_SKELETON_SKULL
+      item39:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: SKELETON_CROWN
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: SKELETON_CROWN
+      item40:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: WYVERN_CAP
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: WYVERN_CAP
+      item41:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: TRAVEL_BOOTS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: TRAVEL_BOOTS
+      item42:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: SHADOWVEIL
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: SHADOWVEIL
+      item43:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: SHADOWROBE
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: SHADOWROBE
+      item44:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: SHADOWLEGGINGS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: SHADOWLEGGINGS
+      item45:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: SHADOWBOOTS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: SHADOWBOOTS
+      item46:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: GARGOYLE_CHESTPLATE
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: GARGOYLE_CHESTPLATE
+      item47:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: ARMOR
+          id: SHRINKING_BOOTS
+        item:
+          source: mmoitems
+          type: ARMOR
+          id: SHRINKING_BOOTS
+    Shield:
+      item1:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SHIELD
+          id: PALADIN_SHIELD
+        item:
+          source: mmoitems
+          type: SHIELD
+          id: PALADIN_SHIELD
+      item2:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SHIELD
+          id: MAGICAL_SHIELD
+        item:
+          source: mmoitems
+          type: SHIELD
+          id: MAGICAL_SHIELD
+      item3:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SHIELD
+          id: ABSORBING_SHIELD
+        item:
+          source: mmoitems
+          type: SHIELD
+          id: ABSORBING_SHIELD
+      item4:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SHIELD
+          id: OBSIDIAN_SHIELD
+        item:
+          source: mmoitems
+          type: SHIELD
+          id: OBSIDIAN_SHIELD
+      item5:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: SHIELD
+          id: SUPREME_SHIELD
+        item:
+          source: mmoitems
+          type: SHIELD
+          id: SUPREME_SHIELD
+    Tool:
+      item1:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: TOOL
+          id: STEEL_PICKAXE
+        item:
+          source: mmoitems
+          type: TOOL
+          id: STEEL_PICKAXE
+      item2:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: TOOL
+          id: STEEL_SHOVEL
+        item:
+          source: mmoitems
+          type: TOOL
+          id: STEEL_SHOVEL
+      item3:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: TOOL
+          id: CRACK_PICKAXE
+        item:
+          source: mmoitems
+          type: TOOL
+          id: CRACK_PICKAXE
+      item4:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: TOOL
+          id: AUTOSMELT_PICKAXE
+        item:
+          source: mmoitems
+          type: TOOL
+          id: AUTOSMELT_PICKAXE
+    Consumable:
+      item1:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SANDWITCH
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SANDWITCH
+      item2:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: A_BIG_CARROT
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: A_BIG_CARROT
+      item3:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: ROCK
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: ROCK
+      item4:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SCROLL_OF_IDENTIFICATION
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SCROLL_OF_IDENTIFICATION
+      item5:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: ITEM_CRUSHER
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: ITEM_CRUSHER
+      item6:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: RECALL_POTION
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: RECALL_POTION
+      item7:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: FIREBALL_SCROLL
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: FIREBALL_SCROLL
+      item8:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: FIREBALL_SCROLL_II
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: FIREBALL_SCROLL_II
+      item9:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: FIREBALL_SCROLL_III
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: FIREBALL_SCROLL_III
+      item10:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: APPLE_OF_DISCORD
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: APPLE_OF_DISCORD
+      item11:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SHARP_FLINT
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SHARP_FLINT
+      item12:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: DEATH_STEW
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: DEATH_STEW
+      item13:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: KARTOFFELSALAT
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: KARTOFFELSALAT
+      item14:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: LARGE_HEALTH_POTION
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: LARGE_HEALTH_POTION
+      item15:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: LARGE_MANA_POTION
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: LARGE_MANA_POTION
+      item16:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: TACO
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: TACO
+      item17:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: BURGER
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: BURGER
+      item18:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: WEIRD_CANDY_BAG
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: WEIRD_CANDY_BAG
+      item19:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SUSHI_ROLL
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SUSHI_ROLL
+      item20:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SOULBINDER1
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SOULBINDER1
+      item21:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SOULCRUSHER1
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SOULCRUSHER1
+      item22:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SOULBINDER2
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SOULBINDER2
+      item23:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SOULCRUSHER2
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SOULCRUSHER2
+      item24:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SOULBINDER3
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SOULBINDER3
+      item25:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SOULCRUSHER3
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SOULCRUSHER3
+      item26:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SANTA_COOKIE
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SANTA_COOKIE
+      item27:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: ENDER_NOTE
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: ENDER_NOTE
+      item28:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: THROW_COAL
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: THROW_COAL
+      item29:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: EGGNOG
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: EGGNOG
+      item30:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: MANGO
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: MANGO
+      item31:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: RECALL_STAR
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: RECALL_STAR
+      item32:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: GEM_REMOVER
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: GEM_REMOVER
+      item33:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SKIN_REMOVER
+        item:
+          source: mmoitems
+          type: CONSUMABLE
+          id: SKIN_REMOVER
+    Material:
+      item1:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: STEEL_INGOT
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: STEEL_INGOT
+      item2:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: UNCOMMON_WEAPON_ESSENCE
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: UNCOMMON_WEAPON_ESSENCE
+      item3:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: WITHER_ESSENCE
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: WITHER_ESSENCE
+      item4:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: RARE_WEAPON_ESSENCE
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: RARE_WEAPON_ESSENCE
+      item5:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: VERY_RARE_WEAPON_ESSENCE
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: VERY_RARE_WEAPON_ESSENCE
+      item6:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: LEGENDARY_WEAPON_ESSENCE
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: LEGENDARY_WEAPON_ESSENCE
+      item7:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: MYTHICAL_WEAPON_ESSENCE
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: MYTHICAL_WEAPON_ESSENCE
+      item8:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: EPIC_WEAPON_ESSENCE
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: EPIC_WEAPON_ESSENCE
+      item9:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: MAGICAL_WEAPON_ESSENCE
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: MAGICAL_WEAPON_ESSENCE
+      item10:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: UNIQUE_WEAPON_ESSENCE
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: UNIQUE_WEAPON_ESSENCE
+      item11:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: WEAPON_POWDER
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: WEAPON_POWDER
+      item12:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: MAGIC_FRAGMENT
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: MAGIC_FRAGMENT
+      item13:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: MAGIC_ESSENCE
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: MAGIC_ESSENCE
+      item14:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: FIRE_ESSENCE
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: FIRE_ESSENCE
+      item15:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: RARE_DIAMOND
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: RARE_DIAMOND
+      item16:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: SILVER_COIN
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: SILVER_COIN
+      item17:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: SILVER_INGOT
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: SILVER_INGOT
+      item18:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: RESTORATION_GEM
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: RESTORATION_GEM
+      item19:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: ITEM_UPGRADER
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: ITEM_UPGRADER
+      item20:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: MATERIAL
+          id: DARK_NETHERITE
+        item:
+          source: mmoitems
+          type: MATERIAL
+          id: DARK_NETHERITE
+    Gem_stone:
+      item1:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: GEM_STONE
+          id: RUBY
+        item:
+          source: mmoitems
+          type: GEM_STONE
+          id: RUBY
+      item2:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: GEM_STONE
+          id: GEM_OF_ACCURACY
+        item:
+          source: mmoitems
+          type: GEM_STONE
+          id: GEM_OF_ACCURACY
+      item3:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: GEM_STONE
+          id: GEM_OF_LIFE
+        item:
+          source: mmoitems
+          type: GEM_STONE
+          id: GEM_OF_LIFE
+      item4:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: GEM_STONE
+          id: NATURE_GIFT
+        item:
+          source: mmoitems
+          type: GEM_STONE
+          id: NATURE_GIFT
+      item5:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: GEM_STONE
+          id: SPITEFUL_OPAQUE_DIAMOND
+        item:
+          source: mmoitems
+          type: GEM_STONE
+          id: SPITEFUL_OPAQUE_DIAMOND
+      item6:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: GEM_STONE
+          id: GOLDEN_RELIC
+        item:
+          source: mmoitems
+          type: GEM_STONE
+          id: GOLDEN_RELIC
+      item7:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: GEM_STONE
+          id: BLAZE_SOUL
+        item:
+          source: mmoitems
+          type: GEM_STONE
+          id: BLAZE_SOUL
+      item8:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: GEM_STONE
+          id: NETHER_GEM
+        item:
+          source: mmoitems
+          type: GEM_STONE
+          id: NETHER_GEM
+      item9:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: GEM_STONE
+          id: RAINBOW_GEM
+        item:
+          source: mmoitems
+          type: GEM_STONE
+          id: RAINBOW_GEM
+    Block:
+      item1:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: BLOCK
+          id: 1
+        item:
+          source: mmoitems
+          type: BLOCK
+          id: 1
+      item2:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: BLOCK
+          id: 2
+        item:
+          source: mmoitems
+          type: BLOCK
+          id: 2
+      item3:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+            coins: 20
+            dollar: 30
+            playerpoints: 40
+            xconomy: 50
+          buy:
+            vault: 1
+            coins: 1
+            dollar: 3
+            playerpoints: 4
+            xconomy: 5
+        display:
+          source: mmoitems
+          type: BLOCK
+          id: 3
+        item:
+          source: mmoitems
+          type: BLOCK
+          id: 3
+
+  animation:
+    '1':
+      duration: 0
+      1:
+        location: bottom
+        slots: [35]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [44]
+        source: vanilla
+        material: pufferfish
+    '2':
+      duration: 20
+      1:
+        location: bottom
+        slots: [44]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [43]
+        source: vanilla
+        material: pufferfish
+    '03':
+      duration: 20
+      1:
+        location: bottom
+        slots: [43]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [42]
+        source: vanilla
+        material: pufferfish
+    '04':
+      duration: 20
+      1:
+        location: bottom
+        slots: [42]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [41]
+        source: vanilla
+        material: pufferfish
+    '05':
+      duration: 20
+      1:
+        location: bottom
+        slots: [41]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [40]
+        source: vanilla
+        material: pufferfish
+    '06':
+      duration: 20
+      1:
+        location: bottom
+        slots: [40]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [39]
+        source: vanilla
+        material: pufferfish
+    '07':
+      duration: 20
+      1:
+        location: bottom
+        slots: [39]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [38]
+        source: vanilla
+        material: pufferfish
+    '08':
+      duration: 20
+      1:
+        location: bottom
+        slots: [38]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [37]
+        source: vanilla
+        material: pufferfish
+    '09':
+      duration: 20
+      1:
+        location: bottom
+        slots: [37]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [36]
+        source: vanilla
+        material: pufferfish
+    '10':
+      duration: 20
+      1:
+        location: bottom
+        slots: [36]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [37]
+        source: vanilla
+        material: pufferfish
+    '11':
+      duration: 20
+      1:
+        location: bottom
+        slots: [37]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [38]
+        source: vanilla
+        material: pufferfish
+    '12':
+      duration: 20
+      1:
+        location: bottom
+        slots: [38]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [39]
+        source: vanilla
+        material: pufferfish
+    '13':
+      duration: 20
+      1:
+        location: bottom
+        slots: [39]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [40]
+        source: vanilla
+        material: pufferfish
+    '14':
+      duration: 20
+      1:
+        location: bottom
+        slots: [40]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [41]
+        source: vanilla
+        material: pufferfish
+    '15':
+      duration: 20
+      1:
+        location: bottom
+        slots: [41]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [42]
+        source: vanilla
+        material: pufferfish
+    '16':
+      duration: 20
+      1:
+        location: bottom
+        slots: [42]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [43]
+        source: vanilla
+        material: pufferfish
+    '17':
+      duration: 20
+      1:
+        location: bottom
+        slots: [43]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [44]
+        source: vanilla
+        material: pufferfish
+
+
+
+        # animation_advanced:
+        # 'bir':
+        # duration: 21
+        # 1:
+        # location: bottom
+        # slots: [18]
+        # source: vanilla
+        # material: air
+        # 2:
+        # location: bottom
+        # slots: [35]
+        # source: vanilla
+        # material: air
+        # 3:
+        # location: bottom
+        # slots: [9]
+        # source: vanilla
+        # material: tropical_fish
+        # 4:
+        # location: bottom
+        # slots: [44]
+        # source: vanilla
+        # material: pufferfish
+
+        # 'iki':
+        # duration: 20
+        # 1:
+        # location: bottom
+        # slots: [9]
+        # source: vanilla
+        # material: air
+        # 2:
+        # location: bottom
+        # slots: [44]
+        # source: vanilla
+        # material: air
+        # 3:
+        # location: bottom
+        # slots: [10]
+        # source: vanilla
+        # material: tropical_fish
+        # 4:
+        # location: bottom
+        # slots: [43]
+        # source: vanilla
+        # material: pufferfish
+        # '03':
+        # duration: 20
+        # 1:
+        # location: bottom
+        # slots: [10]
+        # source: vanilla
+        # material: air
+        # 2:
+        # location: bottom
+        # slots: [43]
+        # source: vanilla
+        # material: air
+        # 3:
+        # location: bottom
+        # slots: [11]
+        # source: vanilla
+        # material: tropical_fish
+        # 4:
+        # location: bottom
+        # slots: [42]
+        # source: vanilla
+        # material: pufferfish
+        # '04':
+        # duration: 20
+        # 1:
+        # location: bottom
+        # slots: [11]
+        # source: vanilla
+        # material: air
+        # 2:
+        # location: bottom
+        # slots: [42]
+        # source: vanilla
+        # material: air
+        # 3:
+        # location: bottom
+        # slots: [12]
+        # source: vanilla
+        # material: tropical_fish
+        # 4:
+        # location: bottom
+        # slots: [41]
+        # source: vanilla
+        # material: pufferfish
+
+

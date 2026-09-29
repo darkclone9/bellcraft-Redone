@@ -1,0 +1,98 @@
+name: 'Select a Class'
+slots: 27
+
+items:
+  fill:
+    function: none
+    item: BLACK_STAINED_GLASS_PANE
+    slots: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 16, 17, 18, 19, 24, 25, 26]
+
+  class-soldier:
+    slots: [11]
+    function: class-soldier
+    name: '&c&lThe Soldier'
+    item-flags: ['HIDE_ATTRIBUTES']
+    lore:
+      - '{lore}'
+      - ''
+      - '{attribute-lore}'
+
+  class-operative:
+    slots: [12]
+    function: class-operative
+    name: '&b&lThe Operative'
+    item-flags: ['HIDE_ATTRIBUTES']
+    lore:
+      - '{lore}'
+      - ''
+      - '{attribute-lore}'
+
+  class-mystic:
+    slots: [13]
+    function: class-mystic
+    name: '&d&lThe Mystic'
+    item-flags: ['HIDE_ATTRIBUTES']
+    lore:
+      - '{lore}'
+      - ''
+      - '{attribute-lore}'
+
+  class-technomancer:
+    slots: [14]
+    function: class-technomancer
+    name: '&e&lThe Technomancer'
+    item-flags: ['HIDE_ATTRIBUTES']
+    lore:
+      - '{lore}'
+      - ''
+      - '{attribute-lore}'
+
+  class-envoy:
+    slots: [15]
+    function: class-envoy
+    name: '&6&lThe Envoy'
+    item-flags: ['HIDE_ATTRIBUTES']
+    lore:
+      - '{lore}'
+      - ''
+      - '{attribute-lore}'
+
+  class-paladin:
+    slots: [20]
+    function: class-paladin
+    name: '&f&lThe Paladin'
+    item-flags: ['HIDE_ATTRIBUTES']
+    lore:
+      - '{lore}'
+      - ''
+      - '{attribute-lore}'
+
+  class-ranger:
+    slots: [21]
+    function: class-ranger
+    name: '&a&lThe Ranger'
+    item-flags: ['HIDE_ATTRIBUTES']
+    lore:
+      - '{lore}'
+      - ''
+      - '{attribute-lore}'
+
+  class-sorcerer:
+    slots: [22]
+    function: class-sorcerer
+    name: '&5&lThe Sorcerer'
+    item-flags: ['HIDE_ATTRIBUTES']
+    lore:
+      - '{lore}'
+      - ''
+      - '{attribute-lore}'
+
+  class-cleric:
+    slots: [23]
+    function: class-cleric
+    name: '&b&lThe Cleric'
+    item-flags: ['HIDE_ATTRIBUTES']
+    lore:
+      - '{lore}'
+      - ''
+      - '{attribute-lore}'

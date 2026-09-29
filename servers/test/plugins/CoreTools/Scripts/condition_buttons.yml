@@ -1,0 +1,32 @@
+auctionhouse_button1:
+  Conditions:
+    - Permission{p=OP} falseElse auctionhouse_button2
+  Mechanics:
+    - itemstack{
+      source="vanilla";
+      name=" <gold><bold>Tax system";
+      lore=",<red> This is a hidden button.,
+      <red>Players without the required,
+      <red>permission cannot see or click it!.,,
+      <red>You can use any condition you want!,,
+      <green>By default if the player doesn't have permission,
+      <green>it will appear empty and cannot be clicked.,
+      <green>From this section you can configure the listing,
+      <green>and tax rates for all categories within this region.,,
+      <gold>Additionally all money collected in this region,
+      <gold>can be claimed by those with permission., ,
+      <white><bold>Even though the listed items are the same,
+      <white><bold>each region's tax rates and collected funds are,
+      <white><bold>independent from one another. You can sell control,
+      <white><bold>and tax collection rights for these regions to your,
+      <white><bold>players or create mini-games where clans,
+      <white><bold>compete against each other to earn these permissions.";
+      material=orange_dye;
+      flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}
+
+auctionhouse_button2:
+  Mechanics:
+    - itemstack{
+      source="vanilla";
+      material=air}
+

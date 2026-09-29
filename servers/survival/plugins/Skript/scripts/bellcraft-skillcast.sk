@@ -1,0 +1,112 @@
+# ============================================================
+#  Controller / Bedrock skill casting
+#  Skill Caster (blaze rod):
+#    Use (RT)           = cast selected skill
+#    Sneak + Use        = next skill slot
+#    Sneak + Attack     = open cast menu
+#  Also: /s 1-6, /castmenu, /menu Cast Skills
+# ============================================================
+
+options:
+	prefix: &6[&lSkills&6] &r
+	caster_name: &6&lSkill Caster
+
+command /castslot <number>:
+	description: Cast a bound skill by slot (1-6)
+	trigger:
+		set {_slot} to floor(arg-1)
+		if {_slot} < 1:
+			send "{@prefix}&cSlot must be 1-6." to player
+			stop
+		if {_slot} > 6:
+			send "{@prefix}&cSlot must be 1-6." to player
+			stop
+		set {skillcast::%player's uuid%::slot} to {_slot}
+		make console execute command "mmocore cast specific %player% %{_slot}%"
+
+command /s <number>:
+	description: Quick-cast skill slot
+	trigger:
+		make player execute command "castslot %arg-1%"
+
+command /castmenu:
+	aliases: skills-cast, castgui, skillcast
+	description: Open the tap-to-cast skill menu
+	trigger:
+		make player execute command "gui open bellcraft_skillcast"
+
+command /skillnext:
+	description: Cycle to the next skill slot on the Skill Caster
+	trigger:
+		set {_s} to {skillcast::%player's uuid%::slot}
+		if {_s} is not set:
+			set {_s} to 1
+		set {_s} to {_s} + 1
+		if {_s} > 6:
+			set {_s} to 1
+		set {skillcast::%player's uuid%::slot} to {_s}
+		set {_n} to placeholder "mmocore_bound_%{_s}%" from player
+		if {_n} is not set:
+			set {_n} to "Slot %{_s}%"
+		send action bar "&e▶ Skill %{_s}% &8— &f%{_n}% &7(use to cast)" to player
+		play sound "ui.button.click" with volume 0.4 and pitch 1.2 to player
+
+command /skillcaster:
+	description: Give yourself a controller-friendly Skill Caster
+	trigger:
+		loop 36 times:
+			set {_it} to slot (loop-number - 1) of player's inventory
+			if {_it} is blaze rod:
+				if name of {_it} is "{@caster_name}":
+					send "{@prefix}&eYou already have a Skill Caster." to player
+					stop
+		set {_item} to blaze rod named "{@caster_name}" with lore "&aUse &7= cast selected skill" and "&eSneak+Use &7= next skill" and "&bSneak+Attack &7= skill menu" and "&8Xbox / controller friendly"
+		# Prefer hotbar slot 8 (last hotbar) so it is easy to bump to with bumper
+		if slot 8 of player is air:
+			set slot 8 of player to {_item}
+		else:
+			give {_item} to player
+		set {skillcast::%player's uuid%::slot} to 1
+		send "{@prefix}&aSkill Caster ready." to player
+		send "{@prefix}&7Use &f= cast&7, &fSneak+Use &7= next skill." to player
+		send action bar "&e▶ Skill 1 &7selected — &fuse &7to cast" to player
+
+# ---- Controller core: one item casts for you ----
+on right click holding blaze rod:
+	name of player's tool is "{@caster_name}"
+	cancel event
+	if player is sneaking:
+		make player execute command "skillnext"
+		stop
+	# Cast selected slot
+	set {_s} to {skillcast::%player's uuid%::slot}
+	if {_s} is not set:
+		set {_s} to 1
+		set {skillcast::%player's uuid%::slot} to 1
+	set {_n} to placeholder "mmocore_bound_%{_s}%" from player
+	if {_n} is not set:
+		set {_n} to "Slot %{_s}%"
+	send action bar "&6✦ &e%{_n}% &8(slot %{_s}%)" to player
+	make console execute command "mmocore cast specific %player% %{_s}%"
+
+on left click holding blaze rod:
+	name of player's tool is "{@caster_name}"
+	player is sneaking
+	cancel event
+	make player execute command "castmenu"
+
+# Auto-give to Floodgate / Bedrock players (UUID prefix)
+on join:
+	wait 40 ticks
+	if player is not online:
+		stop
+	set {_id} to "%uuid of player%"
+	if {_id} does not start with "00000000-0000-0000-":
+		stop
+	loop 36 times:
+		set {_it} to slot (loop-number - 1) of player's inventory
+		if {_it} is blaze rod:
+			if name of {_it} is "{@caster_name}":
+				stop
+	make player execute command "skillcaster"
+	send "{@prefix}&aConsole tip: put &6Skill Caster &ain your hotbar. Use = cast, Sneak+Use = next." to player

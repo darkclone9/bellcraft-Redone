@@ -1,0 +1,192 @@
+id: profession-farming
+name: "&aGreen Thumb"
+type: CUSTOM
+lore:
+  - '&7Available to all players'
+  - '&7Enhance your farming yields,'
+  - '&7mobility across fields, and vitality.'
+max-point-spent: 12
+icon:
+  material: DIAMOND_HOE
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+  a1:
+    root: true
+    name: Harvest Mastery I
+    coordinates:
+      x: 0
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +2'
+  a2:
+    name: Harvest Mastery II
+    coordinates:
+      x: -1
+      y: 2
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +3'
+      1:
+        - '&eAdditional experience +2'
+  a3:
+    name: Harvest Mastery III
+    coordinates:
+      x: -2
+      y: 2
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +5'
+      1:
+        - '&eAdditional experience +5'
+  b1:
+    root: true
+    name: Harvest Stride I
+    coordinates:
+      x: -2
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MOVEMENT_SPEED";amount=2;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMovement speed +%2'
+  b2:
+    name: Harvest Stride II
+    coordinates:
+      x: -2
+      y: -1
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MOVEMENT_SPEED";amount=3;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMovement speed +%3'
+      1:
+        - '&eMovement speed +%2'
+  b3:
+    name: Harvest Stride III
+    coordinates:
+      x: -2
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MOVEMENT_SPEED";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMovement speed +%5'
+      1:
+        - '&eMovement speed +%5'
+  c1:
+    root: true
+    name: Nature's Bounty I
+    coordinates:
+      x: 0
+      y: -2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALTH_REGENERATION";amount=0.5;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealth regeneration +0.5'
+  c2:
+    name: Nature's Bounty II
+    coordinates:
+      x: 1
+      y: -2
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALTH_REGENERATION";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealth regeneration +1'
+      1:
+        - '&eHealth regeneration +0.5'
+  c3:
+    name: Nature's Bounty III
+    coordinates:
+      x: 2
+      y: -2
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALTH_REGENERATION";amount=1.5;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealth regeneration +1.5'
+      1:
+        - '&eHealth regeneration +1.5'
+  d1:
+    root: true
+    name: Resilient Roots I
+    coordinates:
+      x: 2
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +3'
+  d2:
+    name: Resilient Roots II
+    coordinates:
+      x: 2
+      y: 1
+    parents:
+      strong: {d1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +4'
+      1:
+        - '&eMax health +3'
+  d3:
+    name: Resilient Roots III
+    coordinates:
+      x: 2
+      y: 2
+    parents:
+      strong: {d2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +5'
+      1:
+        - '&eMax health +5'

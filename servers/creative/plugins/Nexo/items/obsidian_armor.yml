@@ -1,0 +1,157 @@
+# Bellcraft Obsidian Heavy Armor — Nexo items
+# Namespace: astra (matches house pack / warden weapons / sculk_sentinel)
+# Give: /nexo give <player> obsidian_helmet|obsidian_chestplate|obsidian_leggings|obsidian_boots
+#
+# Worn look: chest/legs/boots use Components.equippable.asset_id → astra:obsidian_armor
+#   equipment JSON + humanoid / humanoid_leggings textures (NOT vanilla netherite layers).
+# Helmet: equippable HEAD + item_model (3D greathelm). Stats unchanged.
+#
+# Attribute baseline (Nexo). MMOItems MOVEMENT_SPEED may be layered later by BUG BOt.
+#   each piece: MOVEMENT_SPEED -0.005 (add) — full set ≈ -0.02 (~20% slow)
+#   helmet:     ARMOR_TOUGHNESS +2.0
+#   chestplate: MAX_HEALTH +4.0 (2 hearts)
+#   leggings:   KNOCKBACK_RESISTANCE +0.15
+#   boots:      ARMOR +3.0
+
+obsidian_helmet:
+  itemname: <gradient:#1a0f24:#5a2d8a:#c78bff>Obsidian Helmet</gradient>
+  material: NETHERITE_HELMET
+  lore:
+  - <#6f737d>» <#D5D6D8>Polished charcoal greathelm
+  - <#6f737d>» <#c78bff>Toughness boost
+  - <#6f737d>» <#5a2d8a>Heavy · Slows wearer · Armor Toughness
+  unbreakable: true
+  disable_enchanting: true
+  AttributeModifiers:
+  - attribute: ARMOR_TOUGHNESS
+    amount: 2.0
+    operation: ADD_NUMBER
+    slot: HEAD
+  - attribute: MOVEMENT_SPEED
+    amount: -0.005
+    operation: ADD_NUMBER
+    slot: HEAD
+  Pack:
+    model: astra:item/obsidian_helmet
+    texture: astra:item/obsidian_helmet
+  Components:
+    equippable:
+      slot: HEAD
+    item_model: astra:obsidian_helmet
+    enchantable: 0
+    tooltip_display:
+    - minecraft:attribute_modifiers
+    - minecraft:unbreakable
+    - minecraft:enchantments
+  PersistentData:
+  - type: STRING
+    key: bellcraft:obsidian_armor
+    value: helmet
+
+obsidian_chestplate:
+  itemname: <gradient:#0a0612:#3b1f5c:#5a2d8a>Obsidian Chestplate</gradient>
+  material: NETHERITE_CHESTPLATE
+  lore:
+  - <#6f737d>» <#D5D6D8>Dark knight plate · purple sash
+  - <#6f737d>» <#c78bff>Vitality boost
+  - <#6f737d>» <#5a2d8a>Heavy · Slows wearer · Max Health
+  unbreakable: true
+  disable_enchanting: true
+  AttributeModifiers:
+  - attribute: MAX_HEALTH
+    amount: 4.0
+    operation: ADD_NUMBER
+    slot: CHEST
+  - attribute: MOVEMENT_SPEED
+    amount: -0.005
+    operation: ADD_NUMBER
+    slot: CHEST
+  Pack:
+    model: astra:item/obsidian_chestplate
+    texture: astra:item/obsidian_chestplate
+  Components:
+    equippable:
+      slot: CHEST
+      asset_id: astra:obsidian_armor
+    item_model: astra:obsidian_chestplate
+    enchantable: 0
+    tooltip_display:
+    - minecraft:attribute_modifiers
+    - minecraft:unbreakable
+    - minecraft:enchantments
+  PersistentData:
+  - type: STRING
+    key: bellcraft:obsidian_armor
+    value: chestplate
+
+obsidian_leggings:
+  itemname: <gradient:#1a0f24:#3b1f5c:#c78bff>Obsidian Leggings</gradient>
+  material: NETHERITE_LEGGINGS
+  lore:
+  - <#6f737d>» <#D5D6D8>Segmented greaves · sash hang
+  - <#6f737d>» <#c78bff>Anchored stance
+  - <#6f737d>» <#5a2d8a>Heavy · Slows wearer · Knockback Resist
+  unbreakable: true
+  disable_enchanting: true
+  AttributeModifiers:
+  - attribute: KNOCKBACK_RESISTANCE
+    amount: 0.15
+    operation: ADD_NUMBER
+    slot: LEGS
+  - attribute: MOVEMENT_SPEED
+    amount: -0.005
+    operation: ADD_NUMBER
+    slot: LEGS
+  Pack:
+    model: astra:item/obsidian_leggings
+    texture: astra:item/obsidian_leggings
+  Components:
+    equippable:
+      slot: LEGS
+      asset_id: astra:obsidian_armor
+    item_model: astra:obsidian_leggings
+    enchantable: 0
+    tooltip_display:
+    - minecraft:attribute_modifiers
+    - minecraft:unbreakable
+    - minecraft:enchantments
+  PersistentData:
+  - type: STRING
+    key: bellcraft:obsidian_armor
+    value: leggings
+
+obsidian_boots:
+  itemname: <gradient:#0a0612:#5a2d8a:#c78bff>Obsidian Boots</gradient>
+  material: NETHERITE_BOOTS
+  lore:
+  - <#6f737d>» <#D5D6D8>Thick charcoal sabatons
+  - <#6f737d>» <#c78bff>Reinforced defense
+  - <#6f737d>» <#5a2d8a>Heavy · Slows wearer · Armor
+  unbreakable: true
+  disable_enchanting: true
+  AttributeModifiers:
+  - attribute: ARMOR
+    amount: 3.0
+    operation: ADD_NUMBER
+    slot: FEET
+  - attribute: MOVEMENT_SPEED
+    amount: -0.005
+    operation: ADD_NUMBER
+    slot: FEET
+  Pack:
+    model: astra:item/obsidian_boots
+    texture: astra:item/obsidian_boots
+  Components:
+    equippable:
+      slot: FEET
+      asset_id: astra:obsidian_armor
+    item_model: astra:obsidian_boots
+    enchantable: 0
+    tooltip_display:
+    - minecraft:attribute_modifiers
+    - minecraft:unbreakable
+    - minecraft:enchantments
+  PersistentData:
+  - type: STRING
+    key: bellcraft:obsidian_armor
+    value: boots

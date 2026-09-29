@@ -1,0 +1,234 @@
+# Permission need to open
+permission: ''
+# GUI display name
+name: 'Wardrobe {page_no}'
+# How many rows will Inventory have.
+# Must be between 1 and 6
+size: 6
+
+# This script runs before parsing the buttons or title
+# placeholders when the gui is opened. If you're
+# using a dynamic variable, you can set it according to the player.
+# Or you can even add music to the opening!
+start_script:
+  - menu_opening
+
+# Pay attention to the slot order when changing slot numbers.
+# The slot order should always be: helmet, chestplate, leggings, boots, main hand, off hand, and confirm.
+# You can check all available conditions on the wiki page.
+# https://gitlab.com/Tanerx/CoreTools/-/wikis/scripting/conditions#conditions
+
+wardrobe:
+  sync_slots:
+    # Blacklist for hotbar, offhand, and player inventory slots. Use 40 for the offhand
+    # If you have an icon fixed in a specific inventory slot—such as with the ItemJoin plugin
+    # or similar—you can add that slot to the blacklist to prevent it from being selected for wardrobe use.
+    blacklist: []
+
+    main_hand: true
+    off_hand: true
+    helmet: true
+    chestplate: true
+    leggings: true
+    boots: true
+    mmoinventory: false #MMOInventory v2+ is supported.
+    mmoinventory_ids: [vanilla_inventory,mmoinventory1_legacy]
+    mmoinventory_blocked_slots: [] # If your slot name is 'LEFT_RING' use 'right-ring' in this config
+    player_inventory: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35]
+
+  gui:
+    page_1:
+      slot1:
+        # The slot order should always be: helmet, chestplate, leggings, boots, main hand, off hand, and confirm.
+        slots: [10,11,12,13,14,15,16]
+      slot2:
+        Conditions:
+        # - Comparator{value1=%mmocore_level%;value2=10;operator=">"}
+        slots: [19,20,21,22,23,24,25]
+      slot3:
+        Conditions:
+#          - Comparator{value1=%mmocore_level%;value2=20;operator=">"}
+        slots: [28,29,30,31,32,33,34]
+      slot4:
+        Conditions:
+#          - Comparator{value1=%mmocore_level%;value2=30;operator=">"}
+        slots: [37,38,39,40,41,42,43]
+    page_2:
+      slot5:
+        Conditions:
+#          - Comparator{value1=%mmocore_level%;value2=40;operator=">"}
+        slots: [10,11,12,13,14,15,16]
+      slot6:
+        Conditions:
+#          - Comparator{value1=%mmocore_level%;value2=50;operator=">"}
+        slots: [19,20,21,22,23,24,25]
+      slot7:
+        Conditions:
+#          - Comparator{value1=%mmocore_level%;value2=60;operator=">"}
+        slots: [28,29,30,31,32,33,34]
+      slot8:
+        Conditions:
+#          - Comparator{value1=%mmocore_level%;value2=70;operator=">"}
+        slots: [37,38,39,40,41,42,43]
+
+# Default color for '{mmoinventory_item_names}' placeholder if item name doesn't have color code.
+default_color: '<white>'
+
+buttons:
+  empty:
+    location: top
+    slots: [ 0,1,2,3,4,5,6,7,8,9,17,18,26,27,35,36,44,45,46,47,51,52,53 ]
+    source: vanilla
+    name: ' '
+    material: gray_stained_glass_pane
+    flags: [HIDE_ATTRIBUTES]
+
+    left_click:
+      Scripts:
+        - left_click
+        - beep
+    right_click:
+      Scripts:
+        - right_click
+        - beep
+    shift_left_click:
+      Scripts:
+        - shift_left_click
+        - beep
+    shift_right_click:
+      Scripts:
+        - shift_right_click
+        - beep
+    swap_hand:
+      Scripts:
+        - swap_click
+        - beep
+    drop_key:
+      Scripts:
+        - drop_key
+        - beep
+    click:
+      Scripts:
+        - click
+        - beep
+
+  next:
+    slots: [ 50 ]
+    source: vanilla
+    material: player_head
+    texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+    name: <bold><white>Next
+    flags: [ HIDE_ATTRIBUTES ]
+    lore: [ ]
+    left_click:
+      Scripts:
+        - beep
+
+  previous:
+    slots: [ 48 ]
+    source: vanilla
+    material: player_head
+    texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==
+    name: <bold><white>Previous
+    flags: [ HIDE_ATTRIBUTES ]
+    lore: [ ]
+
+  player:
+    slots: [ 49 ]
+    source: vanilla
+    material: player_head
+    texture: player
+    name: <gold><bold>Wardobe
+    flags: [ HIDE_ATTRIBUTES ]
+    click:
+      Scripts:
+        - beep
+
+  helmet_unlocked:
+    source: vanilla
+    name: ' '
+    material: paper:3500
+    flags: [HIDE_ATTRIBUTES]
+  helmet_locked:
+    source: vanilla
+    name: ' '
+    material: paper:3500
+    flags: [HIDE_ATTRIBUTES]
+
+  chestplate_unlocked:
+    source: vanilla
+    name: ' '
+    material: paper:3501
+    flags: [HIDE_ATTRIBUTES]
+  chestplate_locked:
+    source: vanilla
+    name: ' '
+    material: paper:3501
+    flags: [HIDE_ATTRIBUTES]
+
+  leggings_unlocked:
+    source: vanilla
+    name: ' '
+    material: paper:3502
+    flags: [HIDE_ATTRIBUTES]
+  leggings_locked:
+    source: vanilla
+    name: ' '
+    material: paper:3502
+    flags: [HIDE_ATTRIBUTES]
+
+  boots_unlocked:
+    source: vanilla
+    name: ' '
+    material: paper:3503
+    flags: [HIDE_ATTRIBUTES]
+  boots_locked:
+    source: vanilla
+    name: ' '
+    material: paper:3503
+    flags: [HIDE_ATTRIBUTES]
+
+  main_hand_unlocked:
+    source: vanilla
+    name: ' '
+    material: paper:3504
+    flags: [HIDE_ATTRIBUTES]
+  main_hand_locked:
+    source: vanilla
+    name: ' '
+    material: paper:3504
+    flags: [HIDE_ATTRIBUTES]
+
+  off_hand_unlocked:
+    source: vanilla
+    name: ' '
+    material: paper:3505
+    flags: [HIDE_ATTRIBUTES]
+  off_hand_locked:
+    source: vanilla
+    name: ' '
+    material: paper:3505
+    flags: [HIDE_ATTRIBUTES]
+
+  confirm_unlocked:
+    source: vanilla
+    name: '<green>⏴ Change ⏵'
+    material: green_stained_glass_pane
+    flags: [HIDE_ATTRIBUTES]
+    lore:
+      - ''
+      - '<white>MMOInventory Items:'
+      - '{mmoinventory_item_names}'
+    # {mmoinventory_item_names_<1/2/3>} = Allows you to remove unwanted characters from the item name.
+    # Regex settings are listed in config.yml. You can make changes or create your own regex.
+    click:
+      Scripts:
+        - beep
+  confirm_locked:
+    source: vanilla
+    name: '<Red>⏴Change⏵'
+    material: green_stained_glass_pane
+    flags: [HIDE_ATTRIBUTES]
+    click:
+      Scripts:
+        - beep

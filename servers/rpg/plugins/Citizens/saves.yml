@@ -1,0 +1,78 @@
+# Citizens NPC Storage
+last-created-npc-id: 2
+npc:
+- traits:
+    scoreboardtrait:
+      tags:
+      - CITIZENS_NPC
+    commandtrait:
+      commands:
+      - command: hub
+        hand: RIGHT
+        player: true
+      - command: hub
+        hand: RIGHT
+        player: true
+    skintrait:
+      skinName: Steve
+      signature: tnILcM4t6pj7mPo6JMjaYEUeGblCV2MZ8OYSh9qrVl8pZu1u/LxEwtxiOY7Pyjfgyx97tG5HV3qf6KENy+hCNHWn79YkAb3klB43eXHFVWV9XlWVjeS2mEIZtywHKuXppB+O+TGnNCmPATtygNJX1d4BOx6Xcdwshzlx5+q/FfeJ+buOHwVSHV7hORUfaBBnMGX+3dvjcapYdaCbG6grVesXV5ayIP7vh2Bl6NNlOzL8wlY6yR1hQlYwwoBcVWnR7FKFcoeTzKXzX5TnrTKwEnlg2T9SSR02ZK3m2erdAocUijmCHqPNIIgL4hQZYkZA8eMieC3RWfA7uYmDmS8CBs1XUqKZhQbxERkMwj6zFigVpz+yt9fWcwctUrq4Xs0/VPXrJQSFDpJphDG+ePdyDRn6TIQDT2WzUK/RyEf/3pqCvwlwqDOE91B/Daj6TNr5VdRQ2umU4W8+URdAaIigBHNoASpC4eUI9T5jS9zuku1kuAxj12EPTLlwzj27LVpOgo24FG3nMFPnbBdAuc0aX8NpTsWm7HWbqTW5/oO95x4nb/7+4qcklRQ8iaHAySeULUJL7RMRL5RDcYn/gOwuPq7LwKOE49bJx2BhSS1QOwPGcIfXzc13HML+2I9hJi3P+Xy2L3tE5H2T/78xiDzuhPFUb8/xv6ES5IFil/lt2qU=
+      textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTc4OTA4ODQyMjA4NCwKICAicHJvZmlsZUlkIiA6ICI4NjY3YmE3MWI4NWE0MDA0YWY1NDQ1N2E5NzM0ZWVkNyIsCiAgInByb2ZpbGVOYW1lIiA6ICJTdGV2ZSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS82MGE1YmQwMTZiM2M5YTFiOTI3MmU0OTI5ZTMwODI3YTY3YmU0ZWJiMjE5MDE3YWRiYmM0YTRkMjJlYmQ1YjEiCiAgICB9LAogICAgIkNBUEUiIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzk1M2NhYzhiNzc5ZmU0MTM4M2U2NzVlZTJiODYwNzFhNzE2NThmMjE4MGY1NmZiY2U4YWEzMTVlYTcwZTJlZDYiCiAgICB9CiAgfQp9
+    lookclose:
+      randomPitchRange:
+      - 0.0
+      - 0.0
+      randomYawRange:
+      - 0.0
+      - 360.0
+    location:
+      world: world
+      worldid: 35bf8a0e-bec3-4221-82a8-fae4bee63779
+      x: 0.0
+      y: 38.0
+      z: 0.0
+      bodyYaw: 0.0
+      pitch: 0.0
+      yaw: 0.0
+    type: PLAYER
+  traitnames: owner,scoreboardtrait,spawned,commandtrait,skintrait,leashedtrait,lookclose,location,type,inventory,chunktickettrait
+  name: Realm Navigator
+  navigator:
+    usedefaultstuckaction: false
+    speedmodifier: 1.0
+    avoidwater: false
+  uuid: 2a74c76b-9246-4f2d-85a3-d2c409981d90
+  metadata:
+    cached-skin-uuid: 8667ba71-b85a-4004-af54-457a9734eed7
+    cached-skin-uuid-name: steve
+- traits:
+    commandtrait:
+      commands:
+      - command: trader
+        hand: RIGHT
+        player: true
+    hologramtrait: {
+      }
+    skintrait:
+      skinName: Wandering_Trader
+    lookclose:
+      enabled: true
+      randomPitchRange:
+      - 0.0
+      - 0.0
+      randomYawRange:
+      - 0.0
+      - 360.0
+    type: PLAYER
+    location:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      pitch: 0.0
+      yaw: 0.0
+  traitnames: owner,spawned,commandtrait,hologramtrait,skintrait,leashedtrait,lookclose,location,type,chunktickettrait
+  name: Traveling Merchant
+  navigator:
+    usedefaultstuckaction: false
+    speedmodifier: 1.0
+    avoidwater: false
+  uuid: 6a1bf012-cf00-4a0e-952e-da06654a69a4

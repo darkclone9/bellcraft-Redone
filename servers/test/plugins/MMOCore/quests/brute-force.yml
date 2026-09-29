@@ -1,0 +1,36 @@
+
+# Display options
+name: 'Brute Force'
+lore:
+- 'Piglin brutes are the fiercest warriors'
+- 'in the Nether bastions. Challenge them'
+- 'if you dare!'
+- ''
+- '&6Objective:'
+- '&7► Kill 10 piglin brutes'
+- ''
+- '&eRewards:'
+- '&7► 4661 EXP'
+- '&7► 60 Gold Coins'
+- '&7► Apple of Discord'
+
+level-req:
+    main: 63
+
+parent:
+- 'fortress-assault'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=PIGLIN_BRUTE;amount=10}'
+        lore: 'Kill 10 piglin brutes.'
+        triggers:
+        - message{format="&aCommander> &fThe bastion falls silent! Take this legendary apple."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 60"}
+        - 'mmoitem{type=CONSUMABLE;id=APPLE_OF_DISCORD}'
+        - 'experience{amount=4661}'

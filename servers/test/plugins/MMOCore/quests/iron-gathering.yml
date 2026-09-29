@@ -1,0 +1,31 @@
+# Display options
+name: 'Iron Veins'
+level-req:
+    main: 5
+lore:
+- 'Cold ferrous bands wind deep through the subterranean strata.'
+- 'Every blade in the armory begins as rough ore pried from'
+- 'the silent dark.'
+- ''
+- '&6Objective:'
+- '&7► Mine 16 Iron Ore from underground veins'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 8 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=IRON_ORE;amount=16}'
+        lore: 'Mine 16 Iron Ore.'
+        triggers:
+        - message{format="&aArmorer> &fSolid iron. This will forge sharp blades and sturdy plate."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 8"}
+        - 'experience{amount=170}'

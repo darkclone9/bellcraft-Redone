@@ -1,0 +1,57 @@
+# GUI display name, used by default
+name: 'Confirmation: {class}'
+
+# Number of slots in your inventory. Must be
+# between 9 and 54 and must be a multiple of 9.
+slots: 27
+
+items:
+  yes:
+    slots: [ 12 ]
+    function: 'yes'
+
+    # Only applies when MMOProfiles is installed.
+    #
+    # If disabled, MMOCore will not send any message/sound
+    # to the player when choosing a class for the first time,
+    # when creating a new MMOProfiles profile.
+    enable_initial_mmoprofiles_class_select_sound: false
+
+    # Displayed when the player had already selected this class
+    # before (only if class slots are enabled in the config).
+    unlocked:
+
+      #custom_model_data_float: 0.45        # 1.20.4+ Float custom model data. Either this, or string option above works completely fine
+      #custom_model_data: 0                 # 1.14-1.20.3 Custom model data. Prefer using custom_model_data_string on 1.20.4+
+      #tooltip: 'myplugin:tooltip_asset_id' # You can edit the slot icon tooltip that way
+      #custom_model_data_string: 'test'     # 1.20.4+ string custom model data
+      #item_model: 'minecraft:dirt'         # 1.21.2+ item model
+      #skull_texture: '......'              # SKull texture value or URL
+      #hide_tooltip: false                  # True or false, for vanilla tooltip
+      #unbreakable: false                   # Is it unbreakable or not?
+      #fake_attribute: false                # Should MythicLib add a fake attribute modifier? Useful for 1.20 or lower to hide vanilla attributes from the item
+      #item_flags: [HIDE_ENCHANTS, ....]    # Add item flags to your items. https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/inventory/ItemFlag.html
+
+      item: GREEN_TERRACOTTA
+      name: '&aSelect {class}'
+      lore:
+        - ''
+        - '&7Class Level: &e{level}'
+        - '&7Progression: &e{exp} / {next_level}'
+        - '&8[&e{progress}&8] &e{percent}%'
+        - ''
+        - '&7Skill Points: &6{skill_points}'
+        - '&7Skills You Unlocked: &6{unlocked_skills}&7/&6{class_skills}'
+
+    # Displayed when the class is being chosen for the first time.
+    locked:
+      item: GREEN_TERRACOTTA
+      name: '&aSelect {class}'
+      lore: { }
+
+  back:
+    slots: [ 14 ]
+    item: RED_TERRACOTTA
+    function: back
+    name: '&aBack'
+    lore: { }

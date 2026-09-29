@@ -1,0 +1,81 @@
+# !! DO NOT TOUCH !!
+config-version: 1
+
+# Update notification on login
+# Can be disabled when no internet connection is available
+update-notify: true
+
+#########################################################
+# FOR UPDATING FROM MMOINVENTORY 1.X to 2.X. You may ignore this
+# option if you have a fresh installation of MMOInventory 2.X
+#
+# Since MMOInventory 2 introduces multiple inventories, MMOInventory
+# now needs an inventory ID to transfer old player data to that
+# new inventory. Make sure that ID corresponds to an existing inventory
+# (as it is the case with the default plugin configs), otherwise players
+# will lose their data.
+#########################################################
+legacy_mmoinventory1_inventory_id: mmoinventory1_legacy
+
+# Automatically saves player data at a set interval.
+# Reload required when edited
+auto-save:
+  enabled: true
+  interval: 1800 # In seconds (1800 = 30 minutes)
+  log: true
+
+# MySQL Support
+mysql:
+  enabled: false
+  host: localhost
+  port: 3306
+  database: minecraft
+  user: mmolover
+  pass: <<REDACTED>>
+  maxPoolSize: 10
+  maxLifeTime: 300000
+  connectionTimeOut: 10000
+  leakDetectionThreshold: 150000
+  properties:
+    cachePrepStmts: true
+    prepStmtCacheSize: 250
+    prepStmtCacheSqlLimit: 2048
+
+  userdata-table-name: 'mmoinventory_inventories'
+
+# This prevents a known dupe bug so it is strongly
+# recommended to keep this set to true.
+disable-equiping-stacked-items: true
+
+# When enabled, MMOInventory with automatically generate the
+# necessary files for Oraxen inside of the following file:
+#     ~/plugins/Oraxen/items/mmoinventory-hook.yml
+#
+# Files are generated on server startup, so make sure you
+# restart your server when editing this option.
+generate-oraxen-files: false
+
+elytra_deployment:
+
+  # If "Slow falling" is detected on the player, fall time
+  # is reset, temporarily preventing elytras from deploying
+  # until the player hits the ground, or the effect wears off.
+  skip_if_slow_falling: true
+
+  # Fall distance threshold (in blocks) after which
+  # elytras automatically deploy.
+  fall_distance_threshold: 4
+
+# Enable/disable auto resource pack download.
+# Do not use it if you already have a resource pack plugin.
+# Default RP: https://www.dropbox.com/s/1lftxmzh0q4b5yu/mmoinv_rp_4.zip?dl=1
+resource-pack:
+  enabled: false
+  url: resource_pack_url
+  delay: 20
+
+  # Kick player if he does not accept the server
+  # resource pack or if the download failed.
+  kick:
+    enabled: false
+    message: 'Please accept server resource pack!'

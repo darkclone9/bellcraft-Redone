@@ -1,0 +1,52 @@
+
+# Display options
+name: 'Final Reckoning'
+lore:
+- 'The ultimate challenge awaits. Wardens,'
+- 'wither skeletons, and blazes form the'
+- 'last line of darkness. End them all!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Kill 5 wardens'
+- '&7► Phase 2: Kill 30 wither skeletons'
+- '&7► Phase 3: Kill 20 blazes'
+- ''
+- '&eRewards:'
+- '&7► 12090 EXP'
+- '&7► 200 Gold Coins'
+- '&7► Frozen Blade'
+- '&7► Legendary Weapon Essence'
+
+level-req:
+    main: 88
+
+parent:
+- 'warden-revenge'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=WARDEN;amount=5}'
+        lore: 'Kill 5 wardens.'
+        triggers:
+        - message{format="&aWarmaster> &fThe wardens crumble! Turn your fury on the wither skeletons!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=WITHER_SKELETON;amount=30}'
+        lore: 'Kill 30 wither skeletons.'
+        triggers:
+        - message{format="&aWarmaster> &fThe dark army shatters! Finish the blazes and claim your glory!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    3:
+        type: 'killmob{type=BLAZE;amount=20}'
+        lore: 'Kill 20 blazes.'
+        triggers:
+        - message{format="&aWarmaster> &fIt is done. You are the greatest warrior this world has ever known."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 200"}
+        - 'mmoitem{type=SWORD;id=FROZEN_BLADE}'
+        - 'mmoitem{type=MATERIAL;id=LEGENDARY_WEAPON_ESSENCE}'
+        - 'experience{amount=12090}'

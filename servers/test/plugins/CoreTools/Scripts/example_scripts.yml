@@ -1,0 +1,56 @@
+Script1:
+  Conditions:
+    - Permission{p=OP} trueExtra script2
+  Mechanics:
+    - command{c="say Hello I'm Script 1"} @Self
+
+script2:
+  Conditions:
+    - Checkitem{p=mmoitems;slot=main;category=sword;id=aa} true
+  Mechanics:
+    - command{c="say Hello I'm Script 2 and I will run script3"} @Self
+    - Script{script=script3} @Self
+
+script3:
+  Conditions: []
+  Mechanics:
+    - command{c="say Hello I'm Script 3"} @Self
+
+empty_slots_shop:
+  Conditions: []
+  Mechanics:
+    - playsound{sound="minecraft:entity.player.levelup";volume=1;pitch=2} @Self
+    - command{c="say Hello! I'm your decorative button!!!"} @Self
+
+block_item_place:
+  Conditions:
+    - Checkitem{p=vanilla;slot=clicked;id=dirt} true
+  Mechanics:
+    - cancelevent
+    - command{c="say You can't place this item in the PlayerValt";runas=console;repeat=0;delay=0;repeatInterval=0} @Self
+
+OpenVaultAccount:
+  Mechanics:
+    - openvault{name=account} @Self
+
+empty_slots_script:
+  Conditions: []
+  Mechanics:
+    - playsound{sound="minecraft:entity.player.levelup";volume=1;pitch=2} @Self
+    - command{c="say Hello! I'm your decorative button!!!"} @Self
+
+# Region Control
+regions_enter_example:
+  Conditions: []
+  Mechanics:
+    - command{c="say Hello {caster_name}. You just enter the region"} @Self
+regions_quit_example:
+  Conditions: []
+  Mechanics:
+    # - cancelevent
+    - command{c="say Hello {caster_name}. You just quit from the region"} @Self
+
+open_station:
+  Conditions: []
+  Mechanics:
+    - openstation{name=repair_station} @Self

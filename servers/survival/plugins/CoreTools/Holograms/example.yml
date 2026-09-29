@@ -1,0 +1,13 @@
+#example1: '{condition="c1";remove=true;config=default;interval="high";mode=static;world=world;x=181;y=78;z=-148;text="Static Example<newline>%coretools_var_server_my_test_variable1%"}'
+#example2: '{condition="c1";remove=true;config=default;interval="high";mode=fixed;world=world;x=181;y=76;z=-148;text="Hello<newline>%player_name%"}'
+#example3: '{condition="c1";remove=true;config=default;interval="high";mode=dynamic;world=world;x=181;y=76;z=-148;text="Hello<newline>%player_name%"}'
+
+condition_c1:
+  all_need_true: true
+  Conditions:
+    - Permission{p=OP} true
+
+condition_c2:
+  all_need_true: true
+  Conditions:
+    - Comparator{value1="{caster_name}";value2=Taner;operator="=="} false

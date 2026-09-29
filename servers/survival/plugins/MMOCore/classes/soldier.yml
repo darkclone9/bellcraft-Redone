@@ -1,0 +1,173 @@
+display:
+  name: 'Soldier'
+  lore:
+    - '&eClass Role: Tank / Frontline Fighter'
+    - '&7Hardened by battle and built to endure.'
+    - ''
+    - '&7Specialisations:'
+    - '&f- Bulwark &8: punish what hits you, refuse to fall'
+    - '&c- Breacher &8: close in, build momentum, execute'
+  item: IRON_CHESTPLATE
+  slot: 11
+
+mana:
+  char: '|'
+  icon: '&b|'
+  name: 'Resolve'
+  color:
+    full: RED
+    half: DARK_RED
+    empty: DARK_GRAY
+
+stats:
+  # Rebalanced 2026-09-10 on a shared budget: every class carries one primary damage
+  # stat and lands within ~8% of the others at base and ~7% per level. Every class also
+  # carries MANA_REGENERATION; without it a class with no Wisdom could cast three times
+  # and then wait three minutes.
+  # Immovable frontline. Highest health and knockback resistance; damage comes from
+  # Strength/Dexterity attributes, not a separate ATTACK_DAMAGE stat.
+  MAX_HEALTH:
+    base: 31
+    per-level: 3.8
+  MAX_MANA:
+    base: 22
+    per-level: 2.8
+  PHYSICAL_DAMAGE:
+    base: 3
+    per-level: 1.1
+  ARMOR:
+    base: 6
+    per-level: 1.1
+    # AC HARDCAP retained: Soldier gains no bonus ARMOR from abilities, skills or
+    # passive buffs. Armour above this base comes only from equipped gear.
+  KNOCKBACK_RESISTANCE:
+    base: 10
+    per-level: 1
+  HEALTH_REGENERATION:
+    base: 0.8
+    per-level: 0.12
+  MANA_REGENERATION:
+    base: 1
+    per-level: 0.1
+  MOVEMENT_SPEED:
+    base: 0.1
+    per-level: 0.0
+
+attributes:
+  # Fixed budget for every class: 20 points at base, 4.0 per level.
+  strength:
+    base: 10
+    per-level: 2
+  dexterity:
+    base: 8
+    per-level: 1.6
+  wisdom:
+    base: 2
+    per-level: 0.4
+
+options:
+  default: false
+  display: true
+  needs-permission: false
+  off-combat-health-regen: true
+  off-combat-mana-regen: true
+
+exp-curve: 'levels'
+exp-table: class_exp_table
+
+skill-slots:
+  1:
+    name: "&cShield Bash"
+    unlocked-by-default: true
+    lore:
+      - '&7Powerful circular slash attack'
+  2:
+    name: "&cDefensive Stance"
+    unlocked-by-default: true
+    lore:
+      - '&7Magical shield for protection'
+
+main-exp-sources:
+  - 'killmob{type=ZOMBIE;amount=3-5}'
+  - 'killmob{type=SKELETON;amount=3-5}'
+  - 'killmob{type=CREEPER;amount=5-9}'
+  - 'killmob{type=BLAZE;amount=6-11}'
+  - 'killmob{type=WITHER_SKELETON;amount=9-14}'
+
+skills:
+  CIRCULAR_SLASH:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  MAGICAL_SHIELD:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  # New skills
+  SOLDIER_SHIELD_BASH:
+    level: 5
+    max-level: 30
+    unlocked-by-default: false
+
+  SOLDIER_WARRIORS_LEAP:
+    level: 10
+    max-level: 30
+    unlocked-by-default: false
+
+  SOLDIER_BATTLE_CRY:
+    level: 15
+    max-level: 30
+    unlocked-by-default: false
+
+  # Standalone MythicLib skill unlocks (via skill tree)
+  COMBAT_STANCE:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  SUPPRESSING_FIRE:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  TACTICAL_RELOAD:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  # ---- Specialisation skills (generated) ----
+  BULWARK_RETALIATION:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  BULWARK_LAST_STAND:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  BREACHER_MOMENTUM:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  BREACHER_EXECUTE:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+
+skill-trees:
+  - 'soldier'
+  - 'profession-mining'
+  - 'profession-woodcutting'
+  - 'profession-farming'
+  - 'profession-fishing'
+  - 'profession-alchemy'
+  - 'profession-smithing'
+  - 'profession-enchanting'
+  - 'profession-smelting'
+
+triggers:
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-ap %player_name%"}'
+    - 'command{format="bellcraft-grant-sp %player_name%"}'
+    - 'command{format="bellcraft-grant-stp %player% soldier"}'

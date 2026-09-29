@@ -1,0 +1,43 @@
+
+# Display options
+name: 'Ancient Depths'
+lore:
+- 'The deepest ocean trenches hide both'
+- 'diamonds and guardians. Mine the gems'
+- 'and slay the beasts to claim your prize!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Mine 30 diamond ore'
+- '&7► Phase 2: Kill 20 guardians'
+- ''
+- '&eRewards:'
+- '&7► 5161 EXP'
+- '&7► 110 Gold Coins'
+- '&7► Restoration Gem'
+
+level-req:
+    main: 40
+
+parent:
+- 'diamond-hoard'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=DIAMOND_ORE;amount=30}'
+        lore: 'Mine 30 diamond ore.'
+        triggers:
+        - message{format="&aMiner> &fA mountain of diamonds! Now face the guardians that protect them."}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=GUARDIAN;amount=20}'
+        lore: 'Kill 20 guardians.'
+        triggers:
+        - message{format="&aMiner> &fThe ancient depths are yours! Take this restoration gem."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 110"}
+        - 'mmoitem{type=MATERIAL;id=RESTORATION_GEM}'
+        - 'experience{amount=5161}'

@@ -1,0 +1,438 @@
+vanilla_example:
+  # Permission need to open this shop
+  permission: ''
+  # Enable or Cancels the use of bottom inventory.
+  bottom_inventory: false
+  # GUI display name
+  name: 'Vanilla CoreShop'
+  # How many rows will Inventory have.
+  # Must be between 1 and 6
+  size: 6
+  fill_material: 'AIR' # Fill material for bottom inventory
+  default_category: default
+  default_animation: '' # default
+
+  # Most of the time, players don't want to sell items from their hotbar.
+  # You can skip these slots when automatically selling items to the shop.
+  ignore_hotbar_slots: false
+
+  messages:
+    insufficient-money: '<bold><red>CoreShop ✖<reset> You don''t have {total_cost}{currency_symbol} to cover this.'
+    not-allowed-to-sell: '<bold><red>CoreShop ✖<reset> This item is not allowed to be sold.'
+    not-allowed-to-buy: '<bold><red>CoreShop ✖<reset> This item is not allowed to be purchase.'
+    successful-sell: '<bold><green>CoreShop ✔<reset> You have successfully purchased <bold><yellow>{amount}x {item_name}<reset> for {total_cost}{currency_symbol}.'
+    successful-buy: '<bold><green>CoreShop ✔<reset> You have successfully sold <bold><yellow>{amount} x {item_name}<reset> for {total_cost}{currency_symbol}.'
+    not-enough-item: '<bold><red>CoreShop ✖<reset> You don''t have the required {amount} of {item_name}<reset> to make the sale.'
+    not-enough-item-buy-all: '<bold><red>CoreShop ✖<reset> You don''t have the {item_name}<reset> to make the sale.'
+    no-space-inventory: '<bold><red>CoreShop ✖<reset> You don''t have enough empty space in your inventory.'
+    no-space-playervault: '<bold><red>CoreShop ✖<reset> You don''t have enough empty space in your PlayerVault.'
+    no-permission: '<bold><red>CoreShop ✖<reset> You do not have permission to open this shop.'
+
+  sound:
+    no_permission: [minecraft:entity.villager.no,master,1,2]
+    insufficient_money: [minecraft:entity.villager.no,master,1,2]
+    not_allowed_to_sell: [minecraft:entity.villager.no,master,1,2]
+    not_allowed_to_buy: [minecraft:entity.villager.no,master,1,2]
+    not_enough_item: [minecraft:entity.villager.no,master,1,2]
+    not_enough_item_buy_all: [minecraft:entity.villager.no,master,1,2]
+    no_space_inventory: [minecraft:entity.villager.no,master,1,2]
+    no_space_playervault: [minecraft:entity.villager.no,master,1,2]
+    successful_sell: [minecraft:entity.player.levelup,master,1,2]
+    successful_buy: [minecraft:entity.player.levelup,master,1,2]
+
+  # The settings for how the placeholders "{sorting_default}", "{sorting_money_descending}",
+  # and "{sorting_money_ascending}" will be parsed. The section before the comma is for when
+  # they are inactive, while the section after the comma is for when they are active.
+  sorting:
+    default: [<white>▷ Default,<green><bold>▶ Default]
+    money_descending: [<white>▷ Price Descending,<green><bold>▶ Price Descending]
+    money_ascending: [<white>▷ Price Ascending,<green><bold>▶ Price Ascending]
+
+  # When a player purchases an item,
+  # how will it be delivered?
+  #
+  # mode 1: Player inventory only
+  # mode 2: PlayerVault only.
+  # mode 3: Player inventory if full PlayerVault.
+  delivery:
+    mode: 1
+    playervault: myfirstvault
+
+  # In this section, you can configure the actions that
+  # occur when items for sale are clicked.
+  #
+  # The 'quick_*' options will immediately perform the transaction
+  # using the first buy or sell option written on the item.
+  #
+  # 'advanced' opens a more advanced purchase GUI for the player.
+
+  items_click:
+    left_click: advanced
+    right_click: ''
+    swap_hand: buy_all
+    shift_left_click: quick_sell
+    shift_right_click: quick_buy
+
+  # Amount for quick buy and sell
+  amount:
+    quick_sell: 1
+    quick_buy: 1
+
+  # The bottom display/item lore is a fixed lore that will be added to
+  # the bottom of the lores of items displayed in the inventory
+  # or the item given to player. If an item has its own bottom**
+  # lore settings, it will override this option.
+  bottom_display_lore:
+    - '<white>﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏'
+    - '<white>■ Left click to Advanced Purchase'
+    - '<white>■ Shift Left click to Quick Buy : {money_sell_vault}'
+    - '<white>■ Shift Right click to Quick Sell : {money_buy_vault}'
+    - '<white>﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋﹋'
+  # This is added to the bottom of the lore of the sold item.
+  bottom_item_lore: []
+
+
+  advanced:
+    name: 'Purchase || {item_name}'
+    size: 6
+    fill_material: DIRT
+    animation: ''
+    # Enable or Cancels the use of bottom inventory.
+    bottom_inventory: false
+    # When advanced UI is open, which button set should be
+    # show in the lower inventory? 'default' or 'advanced'
+    view_bottom_inventory: 'default'
+
+    buttons:
+      item_to_be_purchased:
+        location: top
+        slots: [ 13 ]
+        source: vanilla
+        material: black_stained_glass_pane
+        flags: [HIDE_ATTRIBUTES]
+
+      missing_purchase:
+        location: top
+        slots: [ 13 ]
+        source: vanilla
+        material: AIR
+
+      back_to_category:
+        location: top
+        slots: [ 49 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==
+        name: <bold>§fBack
+        lore: []
+        flags: [HIDE_ATTRIBUTES]
+
+      empty:
+        location: top
+        slots: [ 0,1,2,3,4,5,6,7,8,9,10,16,17,18,26,27,35,36,37,43,44,45,46,47,48,50,51,52,53 ]
+        source: vanilla
+        material: black_stained_glass_pane
+        name: ' '
+        flags: [HIDE_ATTRIBUTES]
+        left_click:
+          Scripts:
+            - left_click
+            - beep
+        right_click:
+          Scripts:
+            - right_click
+            - beep
+        shift_left_click:
+          Scripts:
+            - shift_left_click
+            - beep
+        shift_right_click:
+          Scripts:
+            - shift_right_click
+            - beep
+        swap_hand:
+          Scripts:
+            - swap_click
+            - beep
+        drop_key:
+          Scripts:
+            - drop_key
+            - beep
+        click:
+          Scripts:
+            - click
+            - beep
+
+      add_1:
+        location: top
+        slots: [23]
+        source: vanilla
+        material: lime_stained_glass_pane
+        name: <bold><white>Add 1
+        flags: [HIDE_ATTRIBUTES]
+      add_3:
+        location: top
+        slots: [24]
+        source: vanilla
+        material: lime_stained_glass_pane
+        name: <bold><white>Add 3
+        flags: [HIDE_ATTRIBUTES]
+      add_5:
+        location: top
+        slots: [25]
+        source: vanilla
+        material: lime_stained_glass_pane
+        name: <bold><white>Add 5
+        flags: [HIDE_ATTRIBUTES]
+
+      remove_5:
+        location: top
+        slots: [19]
+        source: vanilla
+        material: red_stained_glass_pane
+        name: <bold><white>Remove 5
+        flags: [HIDE_ATTRIBUTES]
+      remove_3:
+        location: top
+        slots: [20]
+        source: vanilla
+        material: red_stained_glass_pane
+        name: <bold><white>Remove 3
+        flags: [HIDE_ATTRIBUTES]
+      remove_1:
+        location: top
+        slots: [21]
+        source: vanilla
+        material: red_stained_glass_pane
+        name: <bold><white>Remove 1
+        flags: [HIDE_ATTRIBUTES]
+
+      set_1:
+        location: top
+        slots: [30]
+        source: vanilla
+        material: blue_stained_glass_pane
+        name: <bold><white>Set 1
+        flags: [HIDE_ATTRIBUTES]
+        amount: 1
+      set_32:
+        location: top
+        slots: [31]
+        source: vanilla
+        material: blue_stained_glass_pane
+        name: <bold><white>Set 32
+        flags: [HIDE_ATTRIBUTES]
+        amount: 32
+      set_64:
+        location: top
+        slots: [32]
+        source: vanilla
+        material: blue_stained_glass_pane
+        name: <bold><white>Set 64
+        flags: [HIDE_ATTRIBUTES]
+        amount: 64
+
+      sell_vault:
+        location: top
+        slots: [39]
+        source: vanilla
+        material: lime_wool
+        empty_slot_material: dirt # When using multiple slot for the button this material will be used all except first slot
+        texture: []
+        name: '<bold><white>Purchase with Vault'
+        lore:
+          - '<green>Price: {money_sell_vault}'
+        flags: [HIDE_ATTRIBUTES]
+      buy_vault:
+        location: top
+        slots: [41]
+        source: vanilla
+        material: red_wool
+        empty_slot_material: dirt # When using multiple slot for the button this material will be used all except first slot
+        texture: []
+        name: '<bold><white>Sell for Vault'
+        lore:
+          - '<red>Price: {money_buy_vault}'
+        flags: [HIDE_ATTRIBUTES]
+
+
+  buttons:
+    empty:
+      location: top
+      slots: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,25,26,27,28,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53 ]
+      source: vanilla
+      name: ' '
+      material: black_stained_glass_pane
+      flags: [HIDE_ATTRIBUTES]
+      left_click:
+        Scripts:
+          - left_click
+          - beep
+      right_click:
+        Scripts:
+          - right_click
+          - beep
+      shift_left_click:
+        Scripts:
+          - shift_left_click
+          - beep
+      shift_right_click:
+        Scripts:
+          - shift_right_click
+          - beep
+      swap_hand:
+        Scripts:
+          - swap_click
+          - beep
+      drop_key:
+        Scripts:
+          - drop_key
+          - beep
+      click:
+        Scripts:
+          - click
+          - beep
+
+
+  categories:
+    default:
+      non-item-type-sale:
+        options:
+          sell: true
+          buy: false
+        prices:
+          sell:
+            vault: 10
+        display:
+          source: vanilla
+          material: STONE_SWORD
+          flags: [HIDE_ATTRIBUTES]
+        item:
+          source: script
+          Scripts:
+            - script1
+      item1:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+          buy:
+            vault: 1
+
+        # This setting only changes the default quick sell/buy options for this item.
+#        quick_sell_amount: 2
+#        quick_buy_amount: 2
+
+        display:
+          source: vanilla
+          material: GRASS_BLOCK
+        item:
+          source: vanilla
+          material: GRASS_BLOCK
+      item2:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+          buy:
+            vault: 1
+        display:
+          source: vanilla
+          material: dirt
+        item:
+          source: vanilla
+          material: dirt
+      item3:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+          buy:
+            vault: 1
+        display:
+          source: vanilla
+          material: coarse_dirt
+        item:
+          source: vanilla
+          material: coarse_dirt
+      item4:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+          buy:
+            vault: 1
+        display:
+          source: vanilla
+          material: oak_log
+        item:
+          source: vanilla
+          material: oak_log
+      item5:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+          buy:
+            vault: 1
+        display:
+          source: vanilla
+          material: oak_wood
+        item:
+          source: vanilla
+          material: oak_wood
+      item6:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+          buy:
+            vault: 1
+        display:
+          source: vanilla
+          material: stripped_oak_log
+        item:
+          source: vanilla
+          material: stripped_oak_log
+      item7:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+          buy:
+            vault: 1
+        display:
+          source: vanilla
+          material: birch_wood
+        item:
+          source: vanilla
+          material: birch_wood
+      item8:
+        options:
+          sell: true
+          buy: true
+        prices:
+          sell:
+            vault: 10
+          buy:
+            vault: 1
+        display:
+          source: vanilla
+          material: birch_log
+        item:
+          source: vanilla
+          material: birch_log

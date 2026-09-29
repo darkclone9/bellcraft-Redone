@@ -1,0 +1,355 @@
+# Ranger Class Skills (Forge-01)
+
+RANGER_PRECISION_SHOT:
+  name: "&aPrecision Shot"
+  icon: BOW
+  source: default:TARGETED_FIREBALL
+  parameters:
+    cooldown:
+      player:
+        base: 4
+        per-level: -0.03
+        min: 2
+        max: 4
+      name: Cooldown
+    mana:
+      player:
+        base: 6
+        per-level: 0.1
+      name: Mana
+    damage:
+      player:
+        base: 12.0
+        per-level: 0.8
+      name: Damage
+  triggers:
+    cast:
+      - 'damage{amount={damage}}'
+      - 'particle{p=CRIT;amount=25;speed=0.5;hS=0.5;vS=0.5}'
+      - 'sound{s=ENTITY_ARROW_SHOOT;v=1.2;p=1.3}'
+
+RANGER_EVASIVE_ROLL:
+  name: "&aEvasive Roll"
+  icon: FEATHER
+  source: default:EVADE
+  parameters:
+    cooldown:
+      player:
+        base: 8
+        per-level: -0.06
+        min: 4
+        max: 8
+      name: Cooldown
+    mana:
+      player:
+        base: 5
+        per-level: 0.1
+      name: Mana
+    duration:
+      player:
+        base: 1.5
+        per-level: 0.05
+      name: Duration
+  triggers:
+    cast:
+      - 'velocity{forward=4;up=0.2}'
+      - 'stat{stat=DODGE_RATING;amount=100;operation=RELATIVE;duration={duration}}'
+      - 'particle{p=SWEEP_ATTACK;amount=15;speed=0.3;hS=1;vS=0.5}'
+      - 'sound{s=ENTITY_HORSE_JUMP;v=1;p=1.5}'
+
+RANGER_VENOMOUS_TRAP:
+  name: "&aVenomous Trap"
+  icon: COBWEB
+  source: default:SLOW
+  parameters:
+    cooldown:
+      player:
+        base: 15
+        per-level: -0.1
+        min: 8
+        max: 15
+      name: Cooldown
+    mana:
+      player:
+        base: 10
+        per-level: 0.15
+      name: Mana
+    damage:
+      player:
+        base: 6.0
+        per-level: 0.4
+      name: Damage
+    duration:
+      player:
+        base: 5
+        per-level: 0.1
+      name: Duration
+  triggers:
+    cast:
+      - 'damage{amount={damage}}'
+      - 'potion{type=SLOWNESS;duration={duration};amplifier=1}'
+      - 'potion{type=POISON;duration={duration};amplifier=1}'
+      - 'particle{p=SLIME;amount=30;speed=0.3;hS=1;vS=0.5}'
+      - 'sound{s=ENTITY_SPIDER_HURT;v=1;p=1.2}'
+
+RANGER_ARROW_STORM:
+  name: "&a&lArrow Storm"
+  icon: SPECTRAL_ARROW
+  source: default:ARCANE_HAIL
+  parameters:
+    cooldown:
+      player:
+        base: 50
+        per-level: -0.25
+        min: 35
+        max: 50
+      name: Cooldown
+    mana:
+      player:
+        base: 25
+        per-level: 0.3
+      name: Mana
+    damage:
+      player:
+        base: 8.0
+        per-level: 0.5
+      name: Damage
+  triggers:
+    cast:
+      - 'damage{amount={damage}}'
+      - 'damage{amount={damage}}'
+      - 'damage{amount={damage}}'
+      - 'particle{p=CRIT;amount=100;speed=0.8;hS=3;vS=3}'
+      - 'sound{s=ENTITY_ARROW_SHOOT;v=2;p=0.9}'
+
+RANGER_EXPLOSIVE_ARROW:
+  name: "&aExplosive Arrow"
+  icon: TNT
+  source: default:TNT_THROW
+  parameters:
+    cooldown:
+      player:
+        base: 12
+        per-level: -0.09
+        min: 6
+        max: 12
+      name: Cooldown
+    mana:
+      player:
+        base: 9
+        per-level: 0.15
+      name: Mana
+    damage:
+      player:
+        base: 10.0
+        per-level: 0.6
+      name: Damage
+  triggers:
+    cast:
+      - 'damage{amount={damage}}'
+      - 'particle{p=EXPLOSION_LARGE;amount=10;speed=0.3;hS=2;vS=1}'
+      - 'particle{p=FLAME;amount=60;speed=0.6;hS=2.5;vS=1.5}'
+      - 'sound{s=ENTITY_GENERIC_EXPLODE;v=1.6;p=1.0}'
+
+RANGER_CAMOUFLAGE:
+  name: "&aCamouflage"
+  icon: JUNGLE_LEAVES
+  source: default:SHADOW_VEIL
+  parameters:
+    cooldown:
+      player:
+        base: 22
+        per-level: -0.16
+        min: 12
+        max: 22
+      name: Cooldown
+    mana:
+      player:
+        base: 8
+        per-level: 0.15
+      name: Mana
+    duration:
+      player:
+        base: 8
+        per-level: 0.12
+      name: Duration
+  triggers:
+    cast:
+      - 'potion{type=INVISIBILITY;duration={duration};amplifier=0}'
+      - 'potion{type=SPEED;duration={duration};amplifier=1}'
+      - 'stat{stat=DODGE_RATING;amount=35;operation=RELATIVE;duration={duration}}'
+      - 'particle{p=VILLAGER_HAPPY;amount=40;speed=0.3;hS=1;vS=1.5}'
+      - 'sound{s=ENTITY_PHANTOM_FLAP;v=0.8;p=1.6}'
+
+RANGER_BINDING_SHOT:
+  name: "&aBinding Shot"
+  icon: COBWEB
+  source: default:SLOW
+  parameters:
+    cooldown:
+      player:
+        base: 14
+        per-level: -0.1
+        min: 7
+        max: 14
+      name: Cooldown
+    mana:
+      player:
+        base: 7
+        per-level: 0.15
+      name: Mana
+    damage:
+      player:
+        base: 6.0
+        per-level: 0.4
+      name: Damage
+    duration:
+      player:
+        base: 3.5
+        per-level: 0.08
+      name: Duration
+  triggers:
+    cast:
+      - 'damage{amount={damage}}'
+      - 'potion{type=SLOWNESS;duration={duration};amplifier=3}'
+      - 'particle{p=SPELL_WITCH;amount=50;speed=0.4;hS=1;vS=1.5}'
+      - 'sound{s=ENTITY_ARROW_HIT;v=1.2;p=0.8}'
+
+# --- Tracker dual-spec (ranger-tracker tree) ---
+#   RANGER_TRACK_PREY, RANGER_HUNT_MARK, RANGER_STRUCTURE_SENSE, RANGER_TRAILFINDER
+# Structure Sense / Trailfinder consume /bcstruct + PAPI (do not add a
+# parallel registry):
+#   %bellcraft_struct_nearest%  %bellcraft_struct_nearest_id%
+#   %bellcraft_struct_nearest_dist%  %bellcraft_struct_count%
+# Seeded IDs: stub_ruin, stub_watchtower
+# Commands: /bcstruct list|info|save|place|register
+# Casts: MythicMobs/skills/RangerTracker.yml → /bellcraft-tracker
+
+RANGER_TRACK_PREY:
+  name: "&6Track Prey"
+  icon: COMPASS
+  source: mythicmobs:RangerTrackPrey_Cast
+  parameters:
+    cooldown:
+      player:
+        base: 12
+        per-level: -0.08
+        min: 6
+        max: 12
+      name: Cooldown
+    mana:
+      player:
+        base: 8
+        per-level: 0.12
+      name: Mana
+    duration:
+      player:
+        base: 8
+        per-level: 0.1
+      name: Duration
+    range:
+      player:
+        base: 48
+        per-level: 1.0
+      name: Range
+
+RANGER_HUNT_MARK:
+  name: "&cHunt Mark"
+  icon: SPECTRAL_ARROW
+  source: mythicmobs:RangerHuntMark_Cast
+  parameters:
+    cooldown:
+      player:
+        base: 14
+        per-level: -0.1
+        min: 7
+        max: 14
+      name: Cooldown
+    mana:
+      player:
+        base: 7
+        per-level: 0.12
+      name: Mana
+    damage:
+      player:
+        base: 4.0
+        per-level: 0.25
+      name: Damage
+    duration:
+      player:
+        base: 8
+        per-level: 0.1
+      name: Duration
+
+RANGER_STRUCTURE_SENSE:
+  name: "&eStructure Sense"
+  icon: RECOVERY_COMPASS
+  lore:
+    - "&7Ping the nearest trackable structure."
+    - "&7Nearest: &e%bellcraft_struct_nearest%"
+    - "&7ID: &e%bellcraft_struct_nearest_id%"
+    - "&7Distance: &e%bellcraft_struct_nearest_dist%m"
+    - "&7Tracked: &e%bellcraft_struct_count%"
+    - "&8Seeded: stub_ruin, stub_watchtower"
+    - "&8/bcstruct list|info|save|place|register"
+  source: mythicmobs:RangerStructureSense_Cast
+  parameters:
+    cooldown:
+      player:
+        base: 20
+        per-level: -0.12
+        min: 10
+        max: 20
+      name: Cooldown
+    mana:
+      player:
+        base: 10
+        per-level: 0.15
+      name: Mana
+    duration:
+      player:
+        base: 12
+        per-level: 0.1
+      name: Duration
+    range:
+      player:
+        base: 96
+        per-level: 2.0
+      name: Range
+
+RANGER_TRAILFINDER:
+  name: "&6&lTrailfinder"
+  icon: SPYGLASS
+  lore:
+    - "&7Long-range structure or NPC ping."
+    - "&7Nearest: &e%bellcraft_struct_nearest%"
+    - "&7ID: &e%bellcraft_struct_nearest_id%"
+    - "&7Distance: &e%bellcraft_struct_nearest_dist%m"
+    - "&7Tracked: &e%bellcraft_struct_count%"
+    - "&8Shares the ping with nearby allies."
+    - "&8Seeded: stub_ruin, stub_watchtower"
+    - "&8/bcstruct list|info|save|place|register"
+  source: mythicmobs:RangerTrailfinder_Cast
+  parameters:
+    cooldown:
+      player:
+        base: 40
+        per-level: -0.2
+        min: 24
+        max: 40
+      name: Cooldown
+    mana:
+      player:
+        base: 16
+        per-level: 0.2
+      name: Mana
+    duration:
+      player:
+        base: 16
+        per-level: 0.12
+      name: Duration
+    range:
+      player:
+        base: 160
+        per-level: 2.0
+      name: Range

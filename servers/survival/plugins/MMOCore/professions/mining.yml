@@ -1,0 +1,121 @@
+# Display options
+name: Mining
+
+# Experience given to the main level
+# when leveling up this profession
+experience:
+    base: 20
+    per-level: 3
+
+exp-curve: '{level} * 150'
+
+on-mine:
+
+    # --- STANDARD ORES ---
+
+    copper:
+        material: vanilla{type=COPPER_ORE}
+        options:
+            vanilla-drops: true
+        triggers:
+            - 'exp{profession=mining;amount=5}'
+
+    gold:
+        material: vanilla{type=GOLD_ORE}
+        options:
+            vanilla-drops: true
+        triggers:
+            - 'exp{profession=mining;amount=5}'
+
+    iron:
+        material: vanilla{type=IRON_ORE}
+        options:
+            vanilla-drops: true
+        triggers:
+            - 'exp{profession=mining;amount=5}'
+
+    lapis:
+        material: vanilla{type=LAPIS_ORE}
+        options:
+            vanilla-drops: true
+        triggers:
+            - 'exp{profession=mining;amount=13}'
+
+    redstone:
+        material: vanilla{type=REDSTONE_ORE}
+        options:
+            vanilla-drops: true
+        triggers:
+            - 'exp{profession=mining;amount=10}'
+
+    emerald:
+        material: vanilla{type=EMERALD_ORE}
+        options:
+            vanilla-drops: true
+        triggers:
+        - 'exp{profession=mining;amount=32}'
+
+    diamond:
+        material: vanilla{type=DIAMOND_ORE}
+        options:
+            vanilla-drops: true
+        triggers:
+        - 'exp{profession=mining;amount=20}'
+
+    # --- DEEPSLATE ORES ---
+
+    deepslate_copper:
+        material: vanilla{type=DEEPSLATE_COPPER_ORE}
+        options:
+            vanilla-drops: true
+        triggers:
+            - 'exp{profession=mining;amount=5}'
+
+    deepslate_gold:
+        material: vanilla{type=DEEPSLATE_GOLD_ORE}
+        options:
+            vanilla-drops: true
+        triggers:
+            - 'exp{profession=mining;amount=5}'
+
+    deepslate_iron:
+        material: vanilla{type=DEEPSLATE_IRON_ORE}
+        options:
+            vanilla-drops: true
+        triggers:
+            - 'exp{profession=mining;amount=5}'
+
+    deepslate_lapis:
+        material: vanilla{type=DEEPSLATE_LAPIS_ORE}
+        options:
+            vanilla-drops: true
+        triggers:
+            - 'exp{profession=mining;amount=13}'
+
+    deepslate_redstone:
+        material: vanilla{type=DEEPSLATE_REDSTONE_ORE}
+        options:
+            vanilla-drops: true
+        triggers:
+            - 'exp{profession=mining;amount=10}'
+
+    deepslate_emerald:
+        material: vanilla{type=DEEPSLATE_EMERALD_ORE}
+        options:
+            vanilla-drops: true
+        triggers:
+        - 'exp{profession=mining;amount=32}'
+
+    deepslate_diamond:
+        material: vanilla{type=DEEPSLATE_DIAMOND_ORE}
+        options:
+            vanilla-drops: true
+        triggers:
+        - 'exp{profession=mining;amount=20}'
+
+skill-trees:
+  - 'profession-mining'
+
+triggers:
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-stp %player% profession-mining"}'

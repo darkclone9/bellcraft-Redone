@@ -1,0 +1,496 @@
+deconstruct_station:
+  # Type of the station.
+  type: deconstruct
+  # Permission need to open this station
+  permission: ''
+  # GUI display name
+  name: '<black>Item Deconstruction Station'
+  # How many rows will Inventory have.
+  # Must be between 1 and 6
+  size: 1
+
+  # This script runs before parsing the buttons or title
+  # placeholders when the station is opened. If you're
+  # using a dynamic variable, you can set it according to the player.
+  # Or you can even add music to the opening!
+  start_script:
+    - menu_opening
+
+  # Should the station require two confirmations from the
+  # player before performing the action?
+  double_confirm: true
+
+  # Most of the time, you may not want to show the exact amount that your
+  # players need to pay. Instead, displaying a range of minimum and maximum
+  # payable amounts is often better. This setting displays a range by
+  # calculating a percentage above and below the required net amount.
+  #
+  # Example: If the net payable amount is 100 and you set this value to 50,
+  # the Lore will display a range of 50-100 for the first amount and 100-150
+  # for the second, resulting in a range like 85-125.
+  #
+  # If you set this value to 0, players will always see only the
+  # exact amount they need to pay.
+  price_range_percent: 50
+
+  messages:
+    0: '<bold><red>CoreStation ✖<reset> You don''t have {total_cost}{currency_symbol} to cover this.'
+    1: '<bold><green>CoreStation ✔<reset> You have successfully deconstruct your items for {total_cost}{currency_symbol}.'
+    2: '<bold><red>CoreStation ✖<reset> Not all items could be deconstruct. Total cost {total_cost}{currency_symbol}.'
+    3: '<bold><red>CoreStation ✖<reset> Not all items could be deconstruct, and some were broken. Total cost {total_cost}{currency_symbol}.'
+    4: '<bold><red>CoreStation ✖<reset> None of your items could be deconstruct. You lost {total_cost}{currency_symbol}.'
+    5: '<bold><red>CoreStation ✖<reset> All of your items broke. You lost {total_cost}{currency_symbol}.'
+    6: '' # When confirm button condition fail
+
+  sound:
+    0: [minecraft:entity.villager.no,master,1,2]
+    1: [minecraft:entity.player.levelup,master,1,2]
+    2: [minecraft:entity.villager.no,master,1,2]
+    3: [minecraft:entity.villager.no,master,1,2]
+    4: [minecraft:entity.villager.no,master,1,2]
+    5: [minecraft:entity.villager.no,master,1,2]
+    6: [minecraft:entity.villager.no,master,1,2]
+
+  # This setting includes condition configurations that allow
+  # you to filter which items can be placed in inventory slots.
+  #
+  # You can set up as many conditions as you want.
+  #
+  # You have two options for the condition list:
+  # require all conditions to return true,
+  # or allow the condition to pass if at least one returns true.
+  item_restriction_all_need_true: false
+  item_restriction_conditions:
+    - checkitem{p=mi;slot=clicked} true
+
+  # Parsed placeholders allow you to convert string-based stats into numbers
+  # to be used in your formulas.
+  #
+  # For more detailed information, please refer to the wiki.
+  parsed_placeholders:
+    tier:
+      - "trash,1"
+      - "common,2"
+      - "uncommon,3"
+      - "rare,4"
+      - "very_rare,5"
+      - "legendary,6"
+      - "mythical,7"
+      - "epic,8"
+      - "magical,9"
+      - "unique,10"
+    item_type:
+      - "accessory,1"
+      - "ring,2"
+      - "consumable,3"
+      - "tool,4"
+      - "wand,5"
+      - "crossbow,6"
+      - "bow,7"
+      - "armor,8"
+      - "staff,9"
+      - "sword,10"
+
+  # Which method should be used to deliver the items to players?
+  #
+  # Mode 1: Attempts to add the item to the player's inventory.
+  # Mode 2: Attempts to add the item to the player's PlayerVault.
+  # Mode 3: Attempts to add the item to the player's inventory.
+  #         If unsuccessful, it tries to add it to the PlayerVault.
+  # Mode 4: Attempts to add the item to the player's inventory.
+  #         If it fails, it tries to add it to the player's PlayerVault.
+  #         If that also fails, the item will be dropped at the player's location.
+  # Mode 5: Item will be dropped at the player's location.
+  #
+  #
+  # If you're giving multiple items in exchange for a single item,
+  # you must always ensure that the player successfully receives the items
+  # in delivery mode. When a player gives one item, there may not be enough
+  # space in their inventory for the incoming items. For this reason,
+  # it is strongly recommended to use only modes 4 and 5.
+  # If the items cannot be delivered to the player, their original
+  # item will not be lost, but no refund will be issued either.
+  delivery:
+    delivery_mode: 4 # Please read the explanation above before changing.
+    playervault: [myfirstvault]
+
+  deconstruct:
+    mmoitems-sword:
+      # Luck only determines which item group the item will be selected from.
+      # Placeholders and formulas are supported. You can set luck under the 'station' price config
+      #
+      # 100 = 100% chance to pick a success item
+      # 0 = 100% chance to pick a fail item
+      success:
+        min: 2
+        max: 3
+        list:
+          - '{plugin=vanilla;id=iron_ingot;weigh=41}'
+      fail:
+        min: 1
+        max: 2
+        list:
+          - '{plugin=vanilla;id=iron_nugget;weigh=40}'
+
+      # You can learn how to configure the Restriction item settings from the Multi Source Items page
+      # https://gitlab.com/Tanerx/CoreTools/-/wikis/multi_source_items
+      #
+
+      # For vanilla items, you can use the material name in the ID section. For unrecognized items
+      # (items that are not vanilla and not from supported plugins), you have to use the material.
+      #
+      # Any list you leave empty will automatically be ignored. If you provide values for id, type, tier, or material,
+      # you must explicitly list all the IDs you want to allow. (whitelist)
+      #
+      # For every list you provide values in, the item can only be used in the station if all the specified values match.
+      # Therefore, it is recommended to create separate restriction categories for each plugin or groups of item.
+      #
+      # Alternatively, you can leave id, type, tier, and material empty in the "allow" section and
+      # instead list only the restricted values in the "block" section. (blacklist)
+      restriction_advanced:
+        allow:
+          source:
+            - mmoitems
+          id: []
+          type: [sword]
+          tier: []
+          material: []
+        block:
+          id: []
+          type: []
+          tier: []
+          material: []
+
+    mmoitems-bow:
+      success:
+        min: 1
+        max: 1
+        list:
+          - '{plugin=vanilla;id=stick;amount=3;weigh=41}'
+          - '{plugin=vanilla;id=string;amount=3;weigh=41}'
+      fail:
+        min: 1
+        max: 1
+        list:
+          - '{plugin=vanilla;id=stick;amount=1;weigh=41}'
+          - '{plugin=vanilla;id=string;amount=1;weigh=41}'
+
+      restriction_advanced:
+        allow:
+          source:
+            - mmoitems
+          id: []
+          type: [bow,armor]
+          tier: []
+          material: []
+        block:
+          id: []
+          type: []
+          tier: []
+          material: []
+
+    vanilla-any-item:
+      success:
+        min: 1
+        max: 1
+        list:
+          - '{plugin=vanilla;id=stick;amount=1;weigh=41}'
+      fail:
+        min: 1
+        max: 1
+        list:
+          - '{plugin=vanilla;id=dirt;amount=1;weigh=41}'
+
+      restriction_advanced:
+        allow:
+          source:
+            - vanilla
+          id: []
+          type: []
+          tier: []
+          material: []
+        block:
+          id: []
+          type: []
+          tier: []
+          material: []
+
+
+  # In the stations you create, you may want to set which slot types will have
+  # stacking enabled or disabled. Stacking will be allowed in all slot types set to true.
+  stacking:
+    required_items: true # The number of items you set as the minimum for "Required" will be used, and the rest will remain untouched.
+    stat_items: true     # All items in the slots will be used, leaving no items behind.
+    empty_slots: false
+
+  station_extra_settings:
+    # After the operation is successfully completed, the inventory will close and reopen.
+    # This ensures that all items in the station are automatically sent to the player’s inventory.
+    inventory_reopen: true
+    inventory_force_close: false # This will overwrite 'inventory_reopen' and force close the inventory
+
+    # Required items are the items required for the station to function.
+    # Multiple buttons are supported, but all your buttons key names must start with 'required_items'
+    # You can configure how many items are needed and which item should be placed in which slot.
+    # Additionally, you can also set up the {required_items} lore that can be used on the confirm button.
+    required_items:
+      enabled: true
+
+      # The number of items the station will consume to perform its operation. If the slot contains more items than needed,
+      # it will only take the required amount and leave the rest in the slot or return it to the player.
+      min: 1
+
+      # For the Confirm button, the string value indicating the status of the {required_items} placeholder, used to
+      # show whether the required number of items is sufficient, is taken from these settings.
+      success: '<green>✔ Required Items'
+      fail: '<red>❌ Required Items'
+
+      # Supported Item plugins: https://gitlab.com/Tanerx/CoreTools/-/wikis/multi_source_items
+      items:
+        - '{plugin=vanilla;ids="coal";slots="0"}'
+        # - '{plugin=mmoitems;ids="1,2,3";type="sword"}'
+
+    # This section allows players to use optional items in the station that are not required
+    # for it to function but can provide buffs or debuffs to certain stats.
+    # You can add as many stats as you want to each item and specify which slot it should be placed in.
+    # When using multiple slots, you can configure which slot each item can be placed into accordingly.
+    #
+    # You can use the values of the stats you've configured with the internal placeholders listed below
+    # in any value within the 'station' section and in button lores. <<
+    # (This includes price calculations or any setting that uses the other stats.)
+    #
+    # The list of stats may change over time. Please refer to the wiki for the most up-to-date version.
+    #
+    # Stat list: success_chance, lost_chance, luck_chance, downgrade_chance, custom1, custom2, custom3, custom4 , custom5
+    #
+    # {station_item_stat_success_chance}
+    # {station_item_stat_lost_chance}
+    # {station_item_stat_luck_chance}
+    # {station_item_stat_downgrade_chance}
+    #
+    # An additional 5 extra stats have been added in case you need more. You can use them as placeholders under "station".
+    # {station_item_stat_custom1}
+    # {station_item_stat_custom2}
+    # {station_item_stat_custom3}
+    # {station_item_stat_custom4}
+    # {station_item_stat_custom5}
+    #
+    # If you want to use them in a formula, you can include them within the station settings.
+    # Only numeric values are supported in this context.
+    #
+    # Supported Plugin/Item list: https://gitlab.com/Tanerx/CoreTools/-/wikis/multi_source_items
+    #
+
+    station_stats_items:
+      enabled: true
+
+      # A hard limit must be specified for every stat you want to use.
+      # Any stat not specified will always return to 0, and the items used by players cannot change it.
+      # You can set your desired number range in the format min:max. Negative numbers are supported. Ex: '-10:10'
+      hard_limits:
+        success_chance: '100:100'
+        lost_chance: '100:100'
+        luck_chance: '100:100'
+        downgrade_chance: '10:10'
+        custom1: '10:10'
+        custom2: '10:10'
+        custom3: '10:10'
+        custom4: '10:10'
+        custom5: '10:10'
+
+      # Supported Item plugins: https://gitlab.com/Tanerx/CoreTools/-/wikis/multi_source_items
+      items:
+        - '{plugin=vanilla;ids="stone";slots="1,2";success_chance=1;lost_chance=10;luck_chance=10}'
+        # - '{plugin=vanilla;ids="stone";slots="2,3";success_chance=1;lost_chance=1;luck_chance=1;downgrade_chance=1}'
+        # - '{plugin=mmoitems;ids="1,2,3";type="sword"}'
+
+
+  # You can add completely different payment options to each button below.
+  # By assigning different values for each currency, you can allow players
+  # to pay with their preferred currency.
+  #
+  # Supported Currencies: https://gitlab.com/Tanerx/CoreTools/-/wikis/supported_currencies
+  # To cancel what you don't want, simply set it to '' (empty string).
+  #
+  confirm_button:
+    left_click: 'vault'
+    right_click: 'coins'
+    swap_hand: 'dollar'
+    shift_left_click: 'xconomy'
+    shift_right_click: 'playerpoints'
+
+  # The fee a item will incur is determined by checking conditions from top to bottom,
+  # and the first matching condition and chances is applied.
+  #
+  # You can create formulas as you wish and use Papi Placeholders,
+  # internal Placeholders, and Parsed local/global Placeholders within them.
+  station:
+    1:
+      Conditions:
+        - checkitem{p=mi;slot=station;category=sword} true
+      prices:
+        vault: '200'
+        coins: '(2 * {parsed_local_mmoitems_tier}) * {item_amount}'
+        dollar: '(3 * {parsed_local_mmoitems_tier}) * {item_amount}'
+        playerpoints: '(4 * {parsed_local_mmoitems_tier}) * {item_amount}'
+        xconomy: '(5 * {parsed_local_mmoitems_tier}) * {item_amount}'
+      success_chance: '80 + {station_item_stat_success_chance}'
+      luck_chance: '40 + {station_item_stat_luck_chance}'
+      lost_chance: '30 - {station_item_stat_lost_chance}'
+    2:
+      Conditions:
+        - checkitem{p=mi;slot=station;category=armor} true
+      prices:
+        vault: '(2 * {parsed_local_mmoitems_tier}) * {item_amount}'
+        coins: '(2 * {parsed_local_mmoitems_tier}) * {item_amount}'
+        dollar: '(3 * {parsed_local_mmoitems_tier}) * {item_amount}'
+        playerpoints: '(4 * {parsed_local_mmoitems_tier}) * {item_amount}'
+        xconomy: '(5 * {parsed_local_mmoitems_tier}) * {item_amount}'
+      success_chance: '80 + {station_item_stat_success_chance}'
+      luck_chance: '40 + {station_item_stat_luck_chance}'
+      lost_chance: '30 - {station_item_stat_lost_chance}'
+    3:
+      Conditions:
+        - checkitem{p=vanilla;slot=station} true
+      prices:
+        vault: '(2 * {parsed_local_mmoitems_tier}) * {item_amount}'
+        coins: '(2 * {parsed_local_mmoitems_tier}) * {item_amount}'
+        dollar: '(3 * {parsed_local_mmoitems_tier}) * {item_amount}'
+        playerpoints: '(4 * {parsed_local_mmoitems_tier}) * {item_amount}'
+        xconomy: '(5 * {parsed_local_mmoitems_tier}) * {item_amount}'
+      success_chance: '80 + {station_item_stat_success_chance}'
+      luck_chance: '40 + {station_item_stat_luck_chance}'
+      lost_chance: '30 - {station_item_stat_lost_chance}'
+    4:
+      prices:
+        vault: '1 * {item_amount}'
+        coins: '2 * {item_amount}'
+        dollar: '3 * {item_amount}'
+        playerpoints: '4 * {item_amount}'
+        xconomy: '5 * {item_amount}'
+      success_chance: '80 + {station_item_stat_success_chance}'
+      luck_chance: '40 + {station_item_stat_luck_chance}'
+      lost_chance: '30 - {station_item_stat_lost_chance}'
+
+  # dynamic_placeholders is used to display different placeholders
+  # on the "confirm" button based on the station's status.
+  dynamic_placeholders:
+    # Adds lore for each item in the station.
+    list: ["<gray>- {item_name}","<red>- Line 2 Change me!"]
+
+  buttons:
+
+    required_items_01:
+      slots: [ 0 ]
+      source: vanilla
+      name: '<bold><gold>Required Item: Coal'
+      material: furnace
+      flags: [HIDE_ATTRIBUTES]
+      lore:
+        - ''
+        - '<bold><white>To place your item '
+        - '<bold><white>in this slot, either '
+        - '<bold><white>shift+click it or pick'
+        - '<bold><white>it up with your mouse'
+        - '<bold><white>and then click on this slot.'
+
+    station_stats_items_01:
+      slots: [ 1,2 ]
+      source: vanilla
+      name: '<bold><gold>Luck Item: Stone'
+      material: rabbit_foot
+      flags: [HIDE_ATTRIBUTES]
+      lore:
+        - ''
+        - '<bold><white>To place your item '
+        - '<bold><white>in this slot, either '
+        - '<bold><white>shift+click it or pick'
+        - '<bold><white>it up with your mouse'
+        - '<bold><white>and then click on this slot.'
+
+    confirm:
+      slots: [ 8 ]
+      source: vanilla
+      name: '<white>Items to repair:'
+      material: yellow_wool
+      empty_slot_material: dirt # When using multiple slot for confirm button; this material will be used all except first slot
+      flags: [HIDE_ATTRIBUTES]
+      lore:
+        - ''
+        - '{dynamic_list}' #This will be list of the "item_placeholders" for all items in the slots
+        - ''
+        - '{required_items}'
+        - ''
+        - '<white>Success Chance: (clamp(80 + {station_item_stat_success_chance},0,100))'
+        - '<white>Luck Chance: (clamp(40 + {station_item_stat_luck_chance},0,100))'
+        - '<white>Lost Chance: (clamp(30 - {station_item_stat_lost_chance},0,100))'
+        - ''
+        - '<yellow>Left Click<white> Vault {money_station_vault}$'
+        - '<yellow>Right Click<white> Coins {money_station_coins}$'
+        - '<yellow>Swap Hand<white> Dollar {money_station_dollar}$'
+        - '<yellow>Right+Left Click<white> PlayerPoints {money_station_playerpoints}$'
+        - '<yellow>Shift+Left Click<white> XConomy {money_station_xconomy}$'
+        - ''
+        - '<red>Click to confirm'
+      # This condition is only executed when the confirm button is in the final confirm state.
+      # If the condition returns false, the station process will not be executed.
+      # Before execution condition, hardcoded condition ensures that the player has enough money.
+      Conditions: []
+      #        - RemoveItem{plugin=vanilla;id="dirt,iron_ore"}
+      #        - RemoveItem{plugin=mmoitems;id="aa"}
+
+      ## material2 will used when this button clicked
+      name2: '<bold><green>Confirm'
+      material2: lime_wool #
+      # item_model2: minecraft:dirt
+      # custom_model_data_string2: 5
+      # custom_model_data_float2: 77
+      # texture2: player
+      lore2:
+        - ''
+        - '{dynamic_list}' #This will be list of the "item_placeholders" for all items in the slots
+        - ''
+        - '{required_items}'
+        - ''
+        - '<white>Success Chance: (clamp(80 + {station_item_stat_success_chance},0,100))'
+        - '<white>Luck Chance: (clamp(40 + {station_item_stat_luck_chance},0,100))'
+        - '<white>Lost Chance: (clamp(30 - {station_item_stat_lost_chance},0,100))'
+        - ''
+        - '<yellow>Left Click<white> Vault {money_station_vault}$'
+        - '<yellow>Right Click<white> Coins {money_station_coins}$'
+        - '<yellow>Swap Hand<white> Dollar {money_station_dollar}$'
+        - '<yellow>Right+Left Click<white> PlayerPoints {money_station_playerpoints}$'
+        - '<yellow>Shift+Left Click<white> XConomy {money_station_xconomy}$'
+        - ''
+        - '<green>Click again to complete'
+
+#    example_button_for_script:
+#      slots: [ 0 ]
+#      source: vanilla
+#      name: ' '
+#      material: black_stained_glass_pane
+#      flags: [HIDE_ATTRIBUTES]
+#      left_click:
+#        Scripts:
+#          - left_click
+#          - beep
+#      right_click:
+#        Scripts:
+#          - right_click
+#          - beep
+#      shift_left_click:
+#        Scripts:
+#          - shift_left_click
+#          - beep
+#      shift_right_click:
+#        Scripts:
+#          - shift_right_click
+#          - beep
+#      swap_hand:
+#        Scripts:
+#          - swap_click
+#          - beep
+#      click:
+#        Scripts:
+#          - click
+#          - beep

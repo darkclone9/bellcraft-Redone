@@ -1,0 +1,24 @@
+name: 'First Vigil'
+lore:
+- 'One warden. One chance to leave'
+- 'with everything you walked in with.'
+- ''
+- '&6Objective:'
+- '&7► Defeat a warden'
+- ''
+- '&eRewards:'
+- '&7► 6160 EXP'
+level-req:
+    main: 76
+parent:
+- 'shrieker-silencer'
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'killmob{type=WARDEN;amount=1}'
+        lore: 'Defeat a warden.'
+        triggers:
+        - 'experience{amount=6160}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

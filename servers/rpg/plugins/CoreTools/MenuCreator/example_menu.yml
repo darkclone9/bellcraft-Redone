@@ -1,0 +1,453 @@
+vanilla_example:
+  # Permission need to open this shop
+  permission: ''
+  # Enable or Cancels the use of bottom inventory.
+  bottom_inventory: true
+  # GUI display name
+  name: '<gray>CoreMenu'
+  # How many rows will Inventory have.
+  # Must be between 1 and 6
+  size: 6
+  fill_material: 'AIR' # Fill material for bottom inventory
+  enable_animation: false
+
+  # This script runs before parsing the buttons or title
+  # placeholders when the menu is opened. If you're
+  # using a dynamic variable, you can set it according to the player.
+  # Or you can even add music to the opening!
+  start_script:
+    - menu_opening
+
+  # This scripts runs everytime inventory is closed
+  close_script:
+    - beep
+
+  buttons:
+    empty:
+      location: top
+      slots: [ 0,1,2,3,4,5,6,7,8,9,10,16,17,18,26,27,35,36,37,43,44,45,46,47,48,49,50,51,52,53 ]
+      source: vanilla
+      name: ' '
+      material: black_stained_glass_pane
+      flags: [HIDE_ATTRIBUTES]
+
+      left_click:
+        Scripts:
+          - left_click
+          - beep
+      right_click:
+        Scripts:
+          - right_click
+          - beep
+      shift_left_click:
+        Scripts:
+          - shift_left_click
+          - beep
+      shift_right_click:
+        Scripts:
+          - shift_right_click
+          - beep
+      swap_hand:
+        Scripts:
+          - swap_click
+          - beep
+      drop_key:
+        Scripts:
+          - drop_key
+          - beep
+      click:
+        Scripts:
+          - click
+          - beep
+
+    player:
+      location: bottom
+      slots: [13]
+      source: vanilla
+      material: player_head
+      texture: player
+      name: '<bold><white>{caster_name}'
+      lore:
+        - ''
+      flags: [HIDE_ATTRIBUTES]
+      left_click:
+        Scripts:
+          - left_click
+          - beep
+      right_click:
+        Scripts:
+          - right_click
+          - beep
+      shift_left_click:
+        Scripts:
+          - shift_left_click
+          - beep
+      shift_right_click:
+        Scripts:
+          - shift_right_click
+          - beep
+      swap_hand:
+        Scripts:
+          - swap_click
+          - beep
+      drop_key:
+        Scripts:
+          - drop_key
+          - beep
+      click:
+        Scripts:
+          - click
+          - beep
+
+    Sword:
+      location: bottom
+      slots: [19]
+      source: vanilla
+      material: IRON_SWORD:0
+      texture: []
+      name: <bold><white>Sword
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Staff:
+      location: bottom
+      slots: [20]
+      source: vanilla
+      material: DIAMOND_HOE
+      texture: []
+      name: <bold><white>Staff
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Bow:
+      location: bottom
+      slots: [21]
+      source: vanilla
+      material: BOW
+      texture: []
+      name: <bold><white>Bow
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Crossbow:
+      location: bottom
+      slots: [22]
+      source: vanilla
+      material: CROSSBOW
+      texture: []
+      name: <bold><white>Crossbow
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Axe:
+      location: bottom
+      slots: [23]
+      source: vanilla
+      material: STONE_AXE
+      texture: []
+      name: <bold><white>Axe
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Dagger:
+      location: bottom
+      slots: [24]
+      source: vanilla
+      material: STONE_SWORD
+      texture: []
+      name: <bold><white>Dagger
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Spear:
+      location: bottom
+      slots: [25]
+      source: vanilla
+      material: TRIDENT
+      texture: []
+      name: <bold><white>Spear
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Armor:
+      location: bottom
+      slots: [28]
+      source: vanilla
+      material: IRON_CHESTPLATE
+      texture: []
+      name: <bold><white>Armor
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Shield:
+      location: bottom
+      slots: [29]
+      source: vanilla
+      material: SHIELD
+      texture: []
+      name: <bold><white>Shield
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Tool:
+      location: bottom
+      slots: [30]
+      source: vanilla
+      material: IRON_PICKAXE
+      texture: []
+      name: <bold><white>Tool
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Consumable:
+      location: bottom
+      slots: [31]
+      source: vanilla
+      material: APPLE
+      texture: []
+      name: <bold><white>Consumable
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Material:
+      location: bottom
+      slots: [32]
+      source: vanilla
+      material: PAPER
+      texture: []
+      name: <bold><white>Material
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Gem_stone:
+      location: bottom
+      slots: [33]
+      source: vanilla
+      material: EMERALD
+      texture: []
+      name: <bold><white>Gem Stone
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    Block:
+      location: bottom
+      slots: [34]
+      source: vanilla
+      material: STONE
+      texture: []
+      name: <bold><white>Block
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+
+    previous:
+      location: bottom
+      slots: [12]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==
+      name: <bold>§fPrevious
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+    next:
+      location: bottom
+      slots: [14]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+      name: <bold>&fNext
+      lore: []
+      flags: [HIDE_ATTRIBUTES]
+
+  animation:
+    '1':
+      duration: 0
+      1:
+        location: bottom
+        slots: [35]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [44]
+        source: vanilla
+        material: pufferfish
+    '2':
+      duration: 20
+      1:
+        location: bottom
+        slots: [44]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [43]
+        source: vanilla
+        material: pufferfish
+    '03':
+      duration: 20
+      1:
+        location: bottom
+        slots: [43]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [42]
+        source: vanilla
+        material: pufferfish
+    '04':
+      duration: 20
+      1:
+        location: bottom
+        slots: [42]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [41]
+        source: vanilla
+        material: pufferfish
+    '05':
+      duration: 20
+      1:
+        location: bottom
+        slots: [41]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [40]
+        source: vanilla
+        material: pufferfish
+    '06':
+      duration: 20
+      1:
+        location: bottom
+        slots: [40]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [39]
+        source: vanilla
+        material: pufferfish
+    '07':
+      duration: 20
+      1:
+        location: bottom
+        slots: [39]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [38]
+        source: vanilla
+        material: pufferfish
+    '08':
+      duration: 20
+      1:
+        location: bottom
+        slots: [38]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [37]
+        source: vanilla
+        material: pufferfish
+    '09':
+      duration: 20
+      1:
+        location: bottom
+        slots: [37]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [36]
+        source: vanilla
+        material: pufferfish
+    '10':
+      duration: 20
+      1:
+        location: bottom
+        slots: [36]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [37]
+        source: vanilla
+        material: pufferfish
+    '11':
+      duration: 20
+      1:
+        location: bottom
+        slots: [37]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [38]
+        source: vanilla
+        material: pufferfish
+    '12':
+      duration: 20
+      1:
+        location: bottom
+        slots: [38]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [39]
+        source: vanilla
+        material: pufferfish
+    '13':
+      duration: 20
+      1:
+        location: bottom
+        slots: [39]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [40]
+        source: vanilla
+        material: pufferfish
+    '14':
+      duration: 20
+      1:
+        location: bottom
+        slots: [40]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [41]
+        source: vanilla
+        material: pufferfish
+    '15':
+      duration: 20
+      1:
+        location: bottom
+        slots: [41]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [42]
+        source: vanilla
+        material: pufferfish
+    '16':
+      duration: 20
+      1:
+        location: bottom
+        slots: [42]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [43]
+        source: vanilla
+        material: pufferfish
+    '17':
+      duration: 20
+      1:
+        location: bottom
+        slots: [43]
+        source: vanilla
+        material: air
+      2:
+        location: bottom
+        slots: [44]
+        source: vanilla
+        material: pufferfish
+

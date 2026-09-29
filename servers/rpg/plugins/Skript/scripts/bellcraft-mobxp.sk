@@ -1,0 +1,57 @@
+# Bellcraft: class XP trickle from mob kills
+#
+# Quests carry roughly 80% of levelling; this is the other 20%. A kill is worth more the further
+# out you are, matching the zone rings, so grinding zombies at spawn never outpaces questing.
+# Only hostile mobs give anything, and there is a per-minute cap so a mob farm cannot replace quests.
+
+options:
+    cap-per-minute: 24
+    hearthvale: 3
+    thornwold: 8
+    ashenmoor: 18
+    stormhollow: 35
+    sundered: 60
+    cinderreach: 90
+    choir: 130
+    palecrown: 170
+
+function mobXp(l: location) :: number:
+    # Mirrors the bellcraft_zones datapack: rings from 0,0, with the other dimensions
+    # and the deep dark on their own footing.
+    set {_w} to "%world of {_l}%"
+    if {_w} is "world_nether":
+        return {@cinderreach}
+    if {_w} is "world_the_end":
+        return {@palecrown}
+    set {_b} to "%biome at {_l}%"
+    replace all " " with "_" in {_b}
+    if {_b} is "deep_dark":
+        return {@choir}
+    set {_x} to x of {_l}
+    set {_z} to z of {_l}
+    set {_d} to sqrt(({_x} * {_x}) + ({_z} * {_z}))
+    if {_d} < 1000:
+        return {@hearthvale}
+    if {_d} < 2200:
+        return {@thornwold}
+    if {_d} < 3600:
+        return {@ashenmoor}
+    if {_d} < 5000:
+        return {@stormhollow}
+    return {@sundered}
+
+on death:
+    attacker is a player
+    victim is not a player
+    # Only hostile mobs pay. Farm animals, villagers, golems and fish never did - the old
+    # passive blacklist was mangled into a list of " or " strings on deploy, so they all paid.
+    victim is a monster, slime, magma cube, ghast, phantom, shulker or hoglin
+    set {_n} to {mobxp.minute::%uuid of attacker%} ? 0
+    if {_n} >= {@cap-per-minute}:
+        stop
+    set {mobxp.minute::%uuid of attacker%} to {_n} + 1
+    set {_xp} to mobXp(location of victim)
+    execute console command "mmocore admin exp give %name of attacker% main %{_xp}%"
+
+every minute:
+    delete {mobxp.minute::*}

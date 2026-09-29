@@ -1,0 +1,13 @@
+animations:
+  flyaway:
+    display-name: Flyaway
+    mm-id: leave-flyaway
+    permission: animcore.leave.flyaway
+    GUI:
+      icon: STONE
+      ModelID: 0
+      Lore:
+      - '&7Automatically added'
+      - '&7please customize in GUI.yml'
+
+# affadadec20c3292c3ae6322224d86af

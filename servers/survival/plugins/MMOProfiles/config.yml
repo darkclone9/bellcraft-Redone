@@ -1,0 +1,453 @@
+# This is a useful option when connecting multiple servers which
+# do not share the same maps. Imagine a player quits a server and
+# joins another one: should they be teleported to their last
+# location with no direct correspondence in the server they
+# just joined, as the maps are not the same?
+#
+# This is only an issue with survival servers as most
+# full-RPG server proxies use a shared ungriefable map.
+#
+# This issue applies to the following location-based data types:
+# - last location
+# - bed spawn point
+# - compass target
+#
+# This issue can be fixed by giving servers a different server identifier.
+# Servers with the same identifier will share saved locations, but servers
+# with two different IDs will NOT share location-based player data.
+server-identifier: 'default'
+
+# Select what data types to make profile-specific:
+# - 'true' means the data type will be saved inside of profiles
+# - 'false' means the data type will be shared across profiles
+synced-data:
+
+  # Vanilla data types
+  #
+  # All of these should be set to true when enabling proxy-based profiles.
+  # You may also disable world player data saving to avoid player data issues.
+  #
+  health: true
+  health-scale: true
+  food-level: true
+  saturation: true
+  walk-speed: true
+  fly-speed: true
+  allow-flight: true
+  flying: true
+  exp: true
+  level: true
+  air-level: true
+  location: true
+  respawn-location: true
+  compass-target: true
+  game-mode: true
+  inventory: true
+  ender-chest: true
+  potion-effects: true
+  attributes: true
+  invulnerable: false
+
+  # Balance/Economy
+  # --------------------------------------------------------
+  # Classic    | true  | Enables profile specific balance.
+  #            | false | Does nothing.
+  # --------------------------------------------------------
+  # Proxy Mode | true  | Does nothing.
+  #            | false | Profiles share one balance.
+  # --------------------------------------------------------
+  balance: true
+
+  # Permissions
+  # --------------------------------------------------------
+  # Classic    | true  | Not available.
+  #            | false | Not available.
+  # --------------------------------------------------------
+  # Proxy Mode | true  | MMOProfiles does not interfere. Different profiles have different permissions.
+  #            | false | Shared permissions.
+  # --------------------------------------------------------
+  permissions: true
+
+# MySQL Support
+mysql:
+  enabled: false
+  host: localhost
+  port: 3306
+  database: minecraft
+  user: username
+  pass: password
+  maxPoolSize: 10
+  maxLifeTime: 300000
+  connectionTimeOut: 10000
+  leakDetectionThreshold: 150000
+  properties:
+    cachePrepStmts: true
+    prepStmtCacheSize: 250
+    prepStmtCacheSqlLimit: 2048
+
+  # Can be used to host multiple instances of MMOProfiles
+  # on the same database, create backups, etc.
+  userdata-table-name: 'mmoprofiles_playerdata'
+
+  # Will verbose to the console whenever
+  # data is saved/loaded from the SQL database.
+  debug: false
+
+# Location where players spawn to select their profile
+profile-selection-location:
+  world: 'world'
+  x: 239.5
+  y: 74.0
+  z: 208.5
+  yaw: 28.8
+  pitch: 16.6
+
+# Location where new profiles will spawn.
+#
+# When using proxy-based profiles, this setting is useless
+# on PLAY servers. MMOProfiles will consider the profile spawn
+# point provided in the config file of the LOBBY server.
+new-profile-spawn-point:
+  world: 'world'
+  x: 239.5
+  y: 74.0
+  z: 208.5
+  yaw: 28.8
+  pitch: 16.6
+
+# When enabled, players logging into the servers see their MMOCore
+# class information converted into new profiles. This is a useful
+# option when installing MMOProfiles on an existing production server.
+# This option is incompatible with 'unique-profile'.
+# !! THIS OPTION IS NOT AVAILABLE YET !!
+# convert-mmocore-classes-into-profiles: false
+
+profile_names:
+
+  # When enabled, profiles have names and users are asked to provide
+  # a name when creating a new profile. When disabled, MMOProfiles will
+  # just use "Profile nX" where X is the profile number.
+  enable: false
+
+  # Maximum length of profile names in characters.
+  # Set to 0 to disable
+  max_length: 20
+
+# When enabled, players who are not joining the server for the first time
+# will have a default profile containing their previous player data. This
+# is a mandatory option for existing production servers willing to install
+# MMOProfiles while a player base has already built.
+#
+# !! Warning !! RISK OF DATA LOSS
+# Toggling off this option will make existing players lose data if it is
+# not associated to any profile! This is why it is toggled ON by default.
+default-profile: true
+
+# The default name of player's main profile
+default-main-profile-name: 'Main'
+
+# Used in the profile GUI to display when's the last
+# time the player used a profile.
+date-format: 'd MMM yyyy HH:mm:ss'
+
+# If you don't have an economy plugin installed, MMOProfiles features
+# a built-in basic economy module for player accounts. Player balances
+# are profile-specific. This integrates (and requires) Vault.
+# Requires a server restart when changed.
+builtin_balance:
+
+  # Toggle on/off
+  enabled: false
+
+  # Number of max digits. Operations that would result in a number with
+  # more digits will be rounded down. Use 2 for cents.
+  # Example: 123.456012 with 2 digits becomes 123.45
+  digits: 2
+
+  # Format used by placeholders and messages
+  format: '{name}{balance}'
+  decimal_format: '0.##'
+
+  # Minimum balance a player can have. Operations that would result
+  # in a balance lower than this value will be cancelled.
+  min_balance: 0
+
+  # Currency names (used by Vault)
+  currency_name:
+    singular: '$'
+    plural: '$'
+
+# This option fixes players respawning in deleted worlds.
+#
+# Profile plugins have issues with Dungeons plugins as players sometimes
+# respawn in a temporary dungeon world which no longer exist. To fix this,
+# MMOProfiles stores the last player's location outside of these temporary
+# worlds, in case a player logs out while still being in one of them.
+#
+# Permanent worlds are not temporary, which means MMOProfiles is allowed
+# to have players respawn in these worlds instead. If MMOProfiles find no
+# recent permanent world in which the player was, it will simply bring the
+# player back to the profile spawn point which is sometimes unwanted behaviour.
+#
+# If the world still exists however, the player will respawn normally.
+permanent-worlds:
+  - 'world'
+  - 'world_nether'
+  - 'world_the_end'
+  - 'another_world'
+
+# This option can be used to prevent MMOProfiles to interact with specific
+# slots used as buttons for other plugins like MMOInventory or ItemJoin.
+# Leave to [] to disable.
+# Example: [ 9, 10, 11, 12 ]
+inventory-slot-blacklist: [ ]
+
+# Amount of ticks MMOProfiles will wait before opening the profile
+# selection GUI again, in case the player hasn't chosen a profile yet.
+gui-close-timeout: 40
+
+# When enabled, sets the player's game mode on profile selection.
+force-game-mode:
+  enabled: false
+  game-mode: SURVIVAL
+
+# When enabled, makes the player invulnerable during profile selection.
+# Not necessary when you already have a plugin like WorldGuard that
+# disables PvP and damage in the spawn region.
+# Requires a server restart when changed.
+profile-selection-invulnerability: true
+
+# When enabled, disables/resets invulnerability when the player selects a profile.
+disable_invulnerability_on_profile_select: true
+
+# Periodically saves player data at a set interval
+auto-save:
+  enabled: true
+  interval: 1800 # In seconds (1800 = 30 minutes)
+  log: true
+
+# When enabled, every player only has one profile which gets
+# automatically selected when entering the server.
+#
+# This option can be used to disable profiles, in which case
+# MMOProfiles will just synchronize all the data among your
+# SQL-connected servers. For this feature to work, you'll need
+# SQL data storage enabled or it will just be useless.
+unique_profile:
+  enabled: false
+
+  # When toggled on, players will be temporarily teleported
+  # to the profile selection location on login.
+  login_black_box: true
+
+resource-pack-options:
+
+  # Toggle on this option if your server has a resource pack.
+  # This will force MMOProfiles to wait for the resource pack
+  # to be loaded client-side before opening the profile selection
+  # UI for the first time.
+  wait-for-resource-pack: false
+
+  # If 'wait-for-resource-pack' is enabled, you can choose the
+  # amount of ticks to wait before opening the profile selection
+  # UI for the first time. Default value is set to 40 (ticks)
+  resource-pack-load-delay: 40
+
+# !! WARNING potential data loss !!
+#
+# When enabled, MMOProfiles will NOT automatically open the profile GUI on
+# login. You can then manually open it using "/mmoprofiles open <player_name>"
+#
+# This option is compatible with proxy-based profile selection.
+#
+# !! This command must be RAN only once, otherwise it might run into severe data problems !!
+# !! Do NOT let users play before choosing their profile as they will lose their progression !!
+no-gui-on-login: false
+
+# When enabled, players automatically re-enter their last used profile when
+# logging back into the server. Makes the gameplay experience feel "smoother".
+# If a player leaves their profile before logging out, they will be prompted to
+# choose a profile again.
+select_last_profile_on_login: false
+
+# Run the following command to quit your profile or have another
+# quit the profile they are currently playing and re-enter profile
+# selection
+#
+# /mmoprofiles quit (player)
+#
+# !!!! This command does NOT support proxy-based profiles yet  !!!!!
+quit_profile:
+
+  # When quiting the current profile, toggle on to teleport
+  # the player to the profile selection location.
+  teleport_back: true
+
+  # When toggled on, the profile selection GUI will
+  # automatically open when quiting the current profile.
+  open_gui: true
+
+# Default amount of character slots if the player has no rank
+default-slots: 5
+
+# Ranks let you define the amount of profile slots player have
+# access to. If the player has multiple ranks, the highest slot
+# number will take effect.
+ranks:
+  hero:
+    permission: 'group.hero'
+    slots: 10
+    name: '&6Hero'
+  rank_hero:
+    permission: 'rank.hero'
+    slots: 10
+    name: '&6Hero'
+  perm_hero:
+    permission: 'hero'
+    slots: 10
+    name: '&6Hero'
+  vip:
+    permission: 'group.vip'
+    slots: 7
+    name: 'VIP'
+  rank_vip:
+    permission: 'rank.vip'
+    slots: 7
+    name: 'VIP'
+  vip_plus:
+    permission: 'group.vip+'
+    slots: 8
+    name: 'VIP+'
+  champion:
+    permission: 'group.champion'
+    slots: 12
+    name: 'Champion'
+  legend:
+    permission: 'group.legend'
+    slots: 15
+    name: 'Legend'
+  slots_6:
+    permission: 'mmoprofiles.slots.6'
+    slots: 6
+    name: '6 Slots'
+  slots_7:
+    permission: 'mmoprofiles.slots.7'
+    slots: 7
+    name: '7 Slots'
+  slots_8:
+    permission: 'mmoprofiles.slots.8'
+    slots: 8
+    name: '8 Slots'
+  slots_9:
+    permission: 'mmoprofiles.slots.9'
+    slots: 9
+    name: '9 Slots'
+  slots_10:
+    permission: 'mmoprofiles.slots.10'
+    slots: 10
+    name: '10 Slots'
+  slots_12:
+    permission: 'mmoprofiles.slots.12'
+    slots: 12
+    name: '12 Slots'
+  slots_15:
+    permission: 'mmoprofiles.slots.15'
+    slots: 15
+    name: '15 Slots'
+script:
+
+  # MythicLib script ran when a player creates a new profile.
+  profile-create:
+    mechanics:
+      - 'tell{format="&eProfile created. Have fun!"}'
+
+  # MythicLib script ran when a player logs in (before profile selection)
+  # or just after a player leaves their current profile
+  login:
+    mechanics:
+      - 'tell{format="&eWelcome! Please choose the profile you''d like to play on."}'
+
+  # MythicLib script ran when a player chooses a profile (after login).
+  profile-select:
+    mechanics:
+      - 'sound{sound=ENTITY_PLAYER_LEVELUP}'
+      - 'tell{format="Profile selected. Have fun!"}'
+
+  # MythicLib script ran when leaving current profile (/mmoprofiles quit <player>)
+  # or when switching to another profile through /mmoprofiles open <player>
+  profile-leave:
+    mechanics:
+      - 'sound{sound=ENTITY_VILLAGER_NO}'
+      - 'tell{format="&eYou successfully left your profile"}'
+
+  # MythicLib script ran when a player deletes one of their profiles.
+  profile-delete:
+    mechanics:
+      - 'sound{sound=ENTITY_VILLAGER_NO}'
+      - 'tell{format="&eProfile deleted."}'
+
+# When enabled, MMOProfiles switches to a proxy-based behaviour, enabling
+# players to switch UUIDs. This tricks other plugins into thinking another
+# player is joining the server, enabling profile-specific progress with
+# literally ANY plugin.
+#
+# !! WARNING risk of data loss !!
+# Please check the documentation before enabling this option to understand
+# exactly what you are doing. If misconfigured, you can damage your player data.
+# !! WARNING !!
+proxy_based_profiles:
+
+  # This option MUST be enabled on every Spigot server.
+  enabled: false
+
+  # Servers to where players will be sent to when choosing their profile.
+  # When using this option, make sure you force profile selection.
+  #
+  # When option 'back_to_initial_server' is toggled on, this becomes
+  # the list for temporary servers where players will be teleported
+  # to have their UUID switched.
+  #
+  # Leave empty to NOT teleport the player automatically on profile selection.
+  # This will leave the player the option to choose the server they would like
+  # to play on. As soon as they switch servers (as long as the connection does
+  # not fail), the selected profile will be applied.
+  target_servers:
+    - 'play'
+
+  # When enabled, on profile selection, the player will be sent to the target
+  # server before being sent back to the server they came from. Use this option
+  # if you want players to BOTH choose their profile AND play in the same server.
+  #
+  # You need at least two backend servers to run MMOProfiles proxy-based profiles.
+  # The player UUID switch can only happen when switching servers, this is why
+  # using such a "temporary" server is necessary.
+  back_to_initial_server:
+    enabled: false
+    delay: 10
+
+  # This ONLY WORKS IF proxy-based profiles are enabled.
+  #
+  # Make sure you toggle on 'synced-data.permissions' otherwise this option is useless.
+  # Make sure you have also installed a permission plugin as well as Vault, and that
+  # your permission plugin supports Vault.
+  #
+  # This option dictates how permissions are shared between profiles.
+  # Usually, you'll want to share at least admin/rank permissions in case
+  # they want to create switch profiles, otherwise these will be lost.
+  shared_permissions:
+
+    # By default, you need to provide a list of all the permissions that should
+    # be shared between all the different profiles (whitelist behaviour).
+    # When toggling on this option, it turns into a blacklist, which means all
+    # permissions are shared by default, EXCEPT for the permissions which are
+    # present in the following list.
+    blacklist_instead: false
+
+    # Whitelist/blacklist of shared permissions.
+    list:
+      - 'mmocore.admin'
+      - 'rank.vip'
+      - 'rank.vip_plus'
+      - 'rank.mvp'
+      - 'rank.mvp_plus'
+      - 'group.test'

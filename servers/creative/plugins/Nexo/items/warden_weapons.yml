@@ -1,0 +1,120 @@
+# Bellcraft Warden Weapons — Nexo items
+# Namespace: astra (matches house pack assets)
+# Give: /nexo give <player> warden_wand|warden_echo_staff|warden_bow
+
+warden_wand:
+  itemname: <gradient:#5CFFF7:#00E8E8:#2A2A32>Warden Wand</gradient>
+  material: NETHERITE_SWORD
+  lore:
+  - <#6f737d>» <#D5D6D8>Sculk-forged mace of the deep
+  - '<#6f737d>» <#5CFFF7>On hit: chance of sculk burst'
+  - <#6f737d>» <#88AAAA>Heavy · Slow · Brutal
+  unbreakable: true
+  disable_enchanting: true
+  AttributeModifiers:
+  - attribute: ATTACK_DAMAGE
+    amount: 11
+    operation: ADD_NUMBER
+    slot: MAINHAND
+  - attribute: ATTACK_SPEED
+    amount: -2.8
+    operation: ADD_NUMBER
+    slot: MAINHAND
+  Pack:
+    model: astra:item/warden_wand
+  Components:
+    item_model: astra:warden_wand
+    enchantable: 0
+    tooltip_display:
+    - minecraft:attribute_modifiers
+    - minecraft:unbreakable
+    - minecraft:enchantments
+  PersistentData:
+  - type: STRING
+    key: bellcraft:warden_weapon
+    value: wand
+  Mechanics:
+    custom:
+      WardenWandHitFX:
+        # Hit-entity events vary by Nexo version; left-click air/block also sparks FX.
+        # Primary hit burst is also in Mythic WardenWandOnHit (mm item / Skript binder).
+        event: CLICK:left:all
+        actions:
+        - '[console] mm test cast WardenWandOnHit <player>'
+        - '{source=HOSTILE volume=0.6 pitch=1.3} [sound] block.sculk_sensor.clicking'
+
+warden_echo_staff:
+  itemname: <gradient:#E8E0D0:#5CFFF7:#00E8E8>Warden Echo Staff</gradient>
+  material: NETHERITE_SWORD
+  lore:
+  - <#6f737d>» <#D5D6D8>Channel the Warden's sonic cry
+  - '<#6f737d>» <#5CFFF7>Right-click: Sonic Boom ray'
+  - <#6f737d>» <#88AAAA>Long reach · Melee + Skill
+  unbreakable: true
+  disable_enchanting: true
+  AttributeModifiers:
+  - attribute: ATTACK_DAMAGE
+    amount: 9
+    operation: ADD_NUMBER
+    slot: MAINHAND
+  - attribute: ATTACK_SPEED
+    amount: -2.6
+    operation: ADD_NUMBER
+    slot: MAINHAND
+  - attribute: ENTITY_INTERACTION_RANGE
+    amount: 1.5
+    operation: ADD_NUMBER
+    slot: MAINHAND
+  Pack:
+    model: astra:item/warden_echo_staff
+  Components:
+    item_model: astra:warden_echo_staff
+    enchantable: 0
+    tooltip_display:
+    - minecraft:attribute_modifiers
+    - minecraft:unbreakable
+    - minecraft:enchantments
+  PersistentData:
+  - type: STRING
+    key: bellcraft:warden_weapon
+    value: echo_staff
+  Mechanics:
+    custom:
+      WardenEchoSonicCast:
+        event: CLICK:right:all
+        actions:
+        - '[console] mm test cast WardenEchoSonic <player>'
+        - '{source=HOSTILE volume=0.9 pitch=1.1} [sound] entity.warden.sonic_boom'
+        - '[actionbar] <gradient:#5CFFF7:#00E8E8>Sonic Boom</gradient>'
+
+warden_bow:
+  itemname: <gradient:#2A2A32:#5CFFF7:#00E8E8>Warden Bow</gradient>
+  material: BOW
+  lore:
+  - <#6f737d>» <#D5D6D8>Draw sculk-stringed limbs
+  - <#6f737d>» <#5CFFF7>Arrows trail sculk souls
+  - <#6f737d>» <#88AAAA>Functional custom bow
+  unbreakable: true
+  disable_enchanting: true
+  AttributeModifiers:
+  - attribute: ATTACK_DAMAGE
+    amount: 2
+    operation: ADD_NUMBER
+    slot: MAINHAND
+  Pack:
+    model: astra:item/warden_bow
+    pulling_models:
+    - astra:item/warden_bow_pulling_0
+    - astra:item/warden_bow_pulling_1
+    - astra:item/warden_bow_pulling_2
+  Components:
+    item_model: astra:warden_bow
+    enchantable: 0
+    tooltip_display:
+    - minecraft:attribute_modifiers
+    - minecraft:unbreakable
+    - minecraft:enchantments
+  PersistentData:
+  - type: STRING
+    key: bellcraft:warden_weapon
+    value: bow

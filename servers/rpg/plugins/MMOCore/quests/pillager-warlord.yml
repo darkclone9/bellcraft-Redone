@@ -1,0 +1,43 @@
+
+# Display options
+name: 'Pillager Warlord'
+lore:
+- 'The pillager warlord commands an army'
+- 'of crossbowmen and ravagers. Crush his'
+- 'forces and end his reign of terror!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Kill 30 pillagers'
+- '&7► Phase 2: Kill 10 ravagers'
+- ''
+- '&eRewards:'
+- '&7► 5161 EXP'
+- '&7► 140 Gold Coins'
+- '&7► Falcon Blade'
+
+level-req:
+    main: 35
+
+parent:
+- 'ravager-rampage'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=PILLAGER;amount=30}'
+        lore: 'Kill 30 pillagers.'
+        triggers:
+        - message{format="&aGuard Captain> &fThe crossbowmen are routed! Now destroy the ravagers!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=RAVAGER;amount=10}'
+        lore: 'Kill 10 ravagers.'
+        triggers:
+        - message{format="&aGuard Captain> &fThe warlord's army is no more! This blade is your prize."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 140"}
+        - 'mmoitem{type=SWORD;id=FALCON_BLADE}'
+        - 'experience{amount=5161}'

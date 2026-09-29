@@ -1,0 +1,134 @@
+display:
+  name: 'Paladin'
+  lore:
+    - '&eClass Role: Tank / Holy Knight'
+    - '&7A righteous warrior who channels'
+    - '&7divine radiance to protect allies'
+    - '&7and smite the unholy.'
+  item: GOLDEN_CHESTPLATE
+  slot: 20
+
+mana:
+  char: "✠"
+  icon: "&6✠"
+  name: 'Radiance'
+  color:
+    full: GOLD
+    half: YELLOW
+    empty: DARK_GRAY
+
+stats:
+  MAX_HEALTH:
+    base: 30.0
+    per-level: 3.5
+  MAX_MANA:
+    base: 25.0
+    per-level: 4.0
+  ARMOR:
+    base: 8.0
+    per-level: 1.5
+  PHYSICAL_DAMAGE:
+    base: 3.0
+    per-level: 1.0
+  HEALING_RATING:
+    base: 5.0
+    per-level: 1.0
+  MOVEMENT_SPEED:
+    base: 0.10
+    per-level: 0.0
+  HEALTH_REGENERATION:
+    base: 2.0
+    per-level: 0.5
+  KNOCKBACK_RESISTANCE:
+    base: 5.0
+    per-level: 1.0
+  PARRY_RATING:
+    base: 3.0
+    per-level: 0.5
+
+attributes:
+  strength:
+    base: 12
+    per-level: 2.5
+  dexterity:
+    base: 4
+    per-level: 0.5
+  intelligence:
+    base: 5
+    per-level: 1.0
+  wisdom:
+    base: 8
+    per-level: 1.5
+
+options:
+  default: false
+  display: true
+  needs-permission: false
+  off-combat-health-regen: true
+  off-combat-mana-regen: true
+
+exp-curve: 'levels'
+exp-table: class_exp_table
+
+skill-slots:
+  1:
+    name: '&6Holy Strike'
+    unlocked-by-default: true
+    lore:
+      - '&7Smite your enemies with holy power'
+  2:
+    name: '&6Divine Shield'
+    unlocked-by-default: true
+    lore:
+      - '&7A stronger, more noticeable protection'
+
+main-exp-sources:
+  - 'killmob{type=ZOMBIE;amount=2-4}'
+  - 'killmob{type=SKELETON;amount=2-3}'
+  - 'killmob{type=CREEPER;amount=3-5}'
+  - 'killmob{type=BLAZE;amount=4-6}'
+  - 'killmob{type=WITHER_SKELETON;amount=5-8}'
+
+skill-trees:
+  - 'paladin-guardian'
+  - 'profession-mining'
+  - 'profession-woodcutting'
+  - 'profession-farming'
+  - 'profession-fishing'
+  - 'profession-alchemy'
+  - 'profession-smithing'
+  - 'profession-enchanting'
+  - 'profession-smelting'
+
+skills:
+  SMITE:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  HUMAN_SHIELD:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  # New skills
+  PALADIN_AVENGING_WRATH:
+    level: 5
+    max-level: 30
+    unlocked-by-default: false
+
+  PALADIN_HOLY_GROUND:
+    level: 10
+    max-level: 30
+    unlocked-by-default: false
+
+  PALADIN_SACRIFICIAL_SHIELD:
+    level: 15
+    max-level: 30
+    unlocked-by-default: false
+
+triggers:
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-ap %player_name%"}'
+    - 'command{format="bellcraft-grant-sp %player_name%"}'
+    - 'command{format="bellcraft-grant-stp %player% paladin-guardian"}'

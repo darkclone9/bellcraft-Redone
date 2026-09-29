@@ -1,0 +1,381 @@
+id: cleric-divinity
+name: "&bDivinity's Path"
+type: CUSTOM
+lore:
+  - '&bWalk the path of divine devotion'
+max-point-spent: 30
+icon:
+  material: GOLDEN_APPLE
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+  a1:
+    root: true
+    name: Healing Power I
+    coordinates:
+      x: -1
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALING_RATING";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealing rating +%3'
+  a2:
+    name: Healing Power II
+    coordinates:
+      x: -2
+      y: 1
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALING_RATING";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealing rating +%4'
+      1:
+        - '&eHealing rating +%3'
+  a3:
+    name: Healing Power III
+    coordinates:
+      x: -3
+      y: 0
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALING_RATING";amount=6;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealing rating +%6'
+      1:
+        - '&eHealing rating +%7'
+  b1:
+    root: true
+    name: Divine Devotion I
+    coordinates:
+      x: -2
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=3;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eDevotional energy regen +%3'
+  b2:
+    name: Divine Devotion II
+    coordinates:
+      x: -1
+      y: -2
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=4;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eDevotional energy regen +%4'
+      1:
+        - '&eDevotional energy regen +%3'
+  b3:
+    name: Divine Devotion III
+    coordinates:
+      x: 0
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=6;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eDevotional energy regen +%6'
+      1:
+        - '&eDevotional energy regen +%7'
+  c1:
+    root: true
+    name: Mana Flow I
+    coordinates:
+      x: 0
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax devotion +%5'
+  c2:
+    name: Mana Flow II
+    coordinates:
+      x: -1
+      y: 0
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=8;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax devotion +%8'
+      1:
+        - '&eMax devotion +%5'
+  c3:
+    name: Mana Flow III
+    coordinates:
+      x: 0
+      y: 1
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=12;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax devotion +%12'
+      1:
+        - '&eMax devotion +%13'
+  d1:
+    root: true
+    name: Life Renewal I
+    coordinates:
+      x: 1
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALTH_REGENERATION";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealth regen +%1'
+  d2:
+    name: Life Renewal II
+    coordinates:
+      x: 2
+      y: 1
+    parents:
+      strong: {d1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALTH_REGENERATION";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealth regen +%1'
+      1:
+        - '&eHealth regen +%1'
+  d3:
+    name: Life Renewal III
+    coordinates:
+      x: 2
+      y: 2
+    parents:
+      strong: {d2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALTH_REGENERATION";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealth regen +%2'
+      1:
+        - '&eHealth regen +%2'
+  e1:
+    root: true
+    name: Divine Shield I
+    coordinates:
+      x: 3
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ARMOR";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eArmor +%1'
+  e2:
+    name: Divine Shield II
+    coordinates:
+      x: 4
+      y: 2
+    parents:
+      strong: {e1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ARMOR";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eArmor +%2'
+      1:
+        - '&eArmor +%1'
+  e3:
+    name: Divine Shield III
+    coordinates:
+      x: 4
+      y: 1
+    parents:
+      strong: {e2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ARMOR";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eArmor +%3'
+      1:
+        - '&eArmor +%3'
+  f1:
+    root: true
+    name: Sacred Vitality I
+    coordinates:
+      x: 4
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=3;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMax health +%3'
+  f2:
+    name: Sacred Vitality II
+    coordinates:
+      x: 4
+      y: -1
+    parents:
+      strong: {f1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=4;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMax health +%4'
+      1:
+        - '&eMax health +%3'
+  f3:
+    name: Sacred Vitality III
+    coordinates:
+      x: 4
+      y: -2
+    parents:
+      strong: {f2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMax health +%5'
+      1:
+        - '&eMax health +%5'
+  g1:
+    root: true
+    name: Grace I
+    coordinates:
+      x: 3
+      y: -2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALING_RATING";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eHealing power +%5'
+  g2:
+    name: Grace II
+    coordinates:
+      x: 2
+      y: -2
+    parents:
+      strong: {g1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALING_RATING";amount=7;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eHealing power +%7'
+      1:
+        - '&eHealing power +%5'
+  g3:
+    name: Grace III
+    coordinates:
+      x: 2
+      y: -1
+    parents:
+      strong: {g2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALING_RATING";amount=10;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eHealing power +%10'
+      1:
+        - '&eHealing power +%12'
+
+  # --- SKILL UNLOCK NODES ---
+
+  skill_resurgence:
+    root: true
+    name: '&bUnlock: Holy Resurgence'
+    coordinates:
+      x: -4
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=CLERIC_HOLY_RESURGENCE}'
+    lores:
+      0:
+        - '&fHeals yourself or a nearby ally'
+        - '&fwith a surge of divine light.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &bHoly Resurgence&7 ability!'
+
+  skill_blessed_ground:
+    root: true
+    name: '&bUnlock: Blessed Ground'
+    coordinates:
+      x: 0
+      y: 3
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=CLERIC_BLESSED_GROUND}'
+    lores:
+      0:
+        - '&fConsecrate the earth beneath you,'
+        - '&fhealing allies who stand upon it.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &bBlessed Ground&7 ability!'
+
+  skill_martyrs_resolve:
+    root: true
+    name: '&6Unlock: Martyr''s Resolve'
+    coordinates:
+      x: 5
+      y: -3
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=CLERIC_MARTYRS_RESOLVE}'
+    lores:
+      0:
+        - '&fChannel divine resolve, reducing'
+        - '&fdamage taken for a short duration.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &6Martyr''s Resolve&7 ability!'

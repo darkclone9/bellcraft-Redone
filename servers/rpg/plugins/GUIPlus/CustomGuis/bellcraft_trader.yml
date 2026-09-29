@@ -1,0 +1,471 @@
+# Bellcraft Traveling Merchant (Cycle 24)
+id: bellcraft_trader
+rows: 4
+type: chest
+title: '&8Bellcraft &7| &6Traveling Merchant'
+commandAlias: trader
+commandAliasTarget: DISABLED
+disable-scene-animation: false
+scenes:
+  '0':
+    delay: 0
+    items:
+      '1':
+        slot: 4
+        item: CLOCK
+        amount: 1
+        item-name: '&6&lCaravan Schedule'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7The Traveling Merchant arrives for &e12 hours&7,'
+            - '&7then ventures into the wilds for &e6 hours&7.'
+            - ''
+            - '&fMarket Status: &a&lOPEN'
+            - '&fDeparts in: &e7h 6m'
+            - ''
+            - '&8Wares rotate every caravan visit.'
+        item-flags: []
+        unbreakable: false
+      '2':
+        slot: 10
+        item: ELYTRA
+        amount: 1
+        item-name: '&b&lNanotech Exo-Glider'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Experimental tactical flight suite.'
+            - '&7Engineered with integrated nano-thrusters.'
+            - ''
+            - '&7Price: &a$7,500.00'
+            - ''
+            - '&6&l★ EXCLUSIVE CUSTOM ITEM ★'
+            - ''
+            - '&e> Click to purchase'
+        item-flags: []
+        unbreakable: false
+        conditionFailMessage: '&cYou cannot afford that.'
+        conditions:
+          c0000000-0000-0000-0000-000000000021:
+            condition: has-money
+            amount: '7500.00'
+        click-events:
+          c0000000-0000-0000-0000-000000000022:
+            type: money-remove
+            amount: '7500.00'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000023:
+            type: command
+            commands:
+            - nexo give %player% nanotech_elytra 1
+            setOp: true
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000024:
+            type: message
+            message: '&aPurchased &b&lNanotech Exo-Glider&a for &e$7,500.00&a!'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+      '3':
+        slot: 12
+        item: DIAMOND_SWORD
+        amount: 1
+        item-name: '&b&lFrozen Blade'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Infused with permafrost.'
+            - '&7Freezes targets upon impact.'
+            - ''
+            - '&7Price: &a$3,200.00'
+            - ''
+            - '&6&l★ EXCLUSIVE CUSTOM ITEM ★'
+            - ''
+            - '&e> Click to purchase'
+        item-flags: []
+        unbreakable: false
+        conditionFailMessage: '&cYou cannot afford that.'
+        conditions:
+          c0000000-0000-0000-0000-000000000031:
+            condition: has-money
+            amount: '3200.00'
+        click-events:
+          c0000000-0000-0000-0000-000000000032:
+            type: money-remove
+            amount: '3200.00'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000033:
+            type: command
+            commands:
+            - mi give SWORD FROZEN_BLADE %player% 1
+            setOp: true
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000034:
+            type: message
+            message: '&aPurchased &b&lFrozen Blade&a for &e$3,200.00&a!'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+      '4':
+        slot: 14
+        item: WIND_CHARGE
+        amount: 18
+        item-name: '&fWind Charges &7x18'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Price: &a$270.00'
+            - ''
+            - '&8Rare survival commodity.'
+            - ''
+            - '&e> Click to purchase'
+        item-flags: []
+        unbreakable: false
+        conditionFailMessage: '&cYou cannot afford that.'
+        conditions:
+          c0000000-0000-0000-0000-000000000041:
+            condition: has-money
+            amount: '270.00'
+        click-events:
+          c0000000-0000-0000-0000-000000000042:
+            type: money-remove
+            amount: '270.00'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000043:
+            type: custom-item-give
+            item:
+              ==: org.bukkit.inventory.ItemStack
+              DataVersion: 4903
+              id: minecraft:wind_charge
+              count: 18
+              schema_version: 1
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000044:
+            type: message
+            message: '&aPurchased &fWind Charges x18&a for &e$270.00&a!'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+      '5':
+        slot: 16
+        item: EMERALD_BLOCK
+        amount: 2
+        item-name: '&aEmerald Block &7x2'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Price: &a$400.00'
+            - ''
+            - '&8Rare survival commodity.'
+            - ''
+            - '&e> Click to purchase'
+        item-flags: []
+        unbreakable: false
+        conditionFailMessage: '&cYou cannot afford that.'
+        conditions:
+          c0000000-0000-0000-0000-000000000051:
+            condition: has-money
+            amount: '400.00'
+        click-events:
+          c0000000-0000-0000-0000-000000000052:
+            type: money-remove
+            amount: '400.00'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000053:
+            type: custom-item-give
+            item:
+              ==: org.bukkit.inventory.ItemStack
+              DataVersion: 4903
+              id: minecraft:emerald_block
+              count: 2
+              schema_version: 1
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000054:
+            type: message
+            message: '&aPurchased &aEmerald Block x2&a for &e$400.00&a!'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+      '6':
+        slot: 18
+        item: NETHERITE_SCRAP
+        amount: 4
+        item-name: '&8Netherite Scrap &7x4'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Price: &a$2,000.00'
+            - ''
+            - '&8Rare survival commodity.'
+            - ''
+            - '&e> Click to purchase'
+        item-flags: []
+        unbreakable: false
+        conditionFailMessage: '&cYou cannot afford that.'
+        conditions:
+          c0000000-0000-0000-0000-000000000061:
+            condition: has-money
+            amount: '2000.00'
+        click-events:
+          c0000000-0000-0000-0000-000000000062:
+            type: money-remove
+            amount: '2000.00'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000063:
+            type: custom-item-give
+            item:
+              ==: org.bukkit.inventory.ItemStack
+              DataVersion: 4903
+              id: minecraft:netherite_scrap
+              count: 4
+              schema_version: 1
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000064:
+            type: message
+            message: '&aPurchased &8Netherite Scrap x4&a for &e$2,000.00&a!'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+      '7':
+        slot: 20
+        item: TRIDENT
+        amount: 1
+        item-name: '&bTrident &7x1'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Price: &a$3,000.00'
+            - ''
+            - '&8Rare survival commodity.'
+            - ''
+            - '&e> Click to purchase'
+        item-flags: []
+        unbreakable: false
+        conditionFailMessage: '&cYou cannot afford that.'
+        conditions:
+          c0000000-0000-0000-0000-000000000071:
+            condition: has-money
+            amount: '3000.00'
+        click-events:
+          c0000000-0000-0000-0000-000000000072:
+            type: money-remove
+            amount: '3000.00'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000073:
+            type: custom-item-give
+            item:
+              ==: org.bukkit.inventory.ItemStack
+              DataVersion: 4903
+              id: minecraft:trident
+              count: 1
+              schema_version: 1
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000074:
+            type: message
+            message: '&aPurchased &bTrident x1&a for &e$3,000.00&a!'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+      '8':
+        slot: 24
+        item: ENCHANTED_GOLDEN_APPLE
+        amount: 2
+        item-name: '&dEnchanted Golden Apple &7x2'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Price: &a$2,400.00'
+            - ''
+            - '&8Rare survival commodity.'
+            - ''
+            - '&e> Click to purchase'
+        item-flags: []
+        unbreakable: false
+        conditionFailMessage: '&cYou cannot afford that.'
+        conditions:
+          c0000000-0000-0000-0000-000000000081:
+            condition: has-money
+            amount: '2400.00'
+        click-events:
+          c0000000-0000-0000-0000-000000000082:
+            type: money-remove
+            amount: '2400.00'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000083:
+            type: custom-item-give
+            item:
+              ==: org.bukkit.inventory.ItemStack
+              DataVersion: 4903
+              id: minecraft:enchanted_golden_apple
+              count: 2
+              schema_version: 1
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000084:
+            type: message
+            message: '&aPurchased &dEnchanted Golden Apple x2&a for &e$2,400.00&a!'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+      '9':
+        slot: 26
+        item: BUNDLE
+        amount: 2
+        item-name: '&6Leather Bundle &7x2'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Price: &a$240.00'
+            - ''
+            - '&8Rare survival commodity.'
+            - ''
+            - '&e> Click to purchase'
+        item-flags: []
+        unbreakable: false
+        conditionFailMessage: '&cYou cannot afford that.'
+        conditions:
+          c0000000-0000-0000-0000-000000000091:
+            condition: has-money
+            amount: '240.00'
+        click-events:
+          c0000000-0000-0000-0000-000000000092:
+            type: money-remove
+            amount: '240.00'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000093:
+            type: custom-item-give
+            item:
+              ==: org.bukkit.inventory.ItemStack
+              DataVersion: 4903
+              id: minecraft:bundle
+              count: 2
+              schema_version: 1
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000094:
+            type: message
+            message: '&aPurchased &6Leather Bundle x2&a for &e$240.00&a!'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+      '10':
+        slot: 22
+        item: PAPER
+        amount: 1
+        item-name: '&a&lLand Claim Ticket'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Official territorial deed issued by the realm.'
+            - '&7Grants sovereign ownership of land.'
+            - ''
+            - '&a+ &fAdds +1 Town Claim Plot'
+            - '&a+ &fClaims current chunk for your town'
+            - ''
+            - '&7Price: &a$2,000.00'
+            - ''
+            - '&6&l★ OFFICIAL REALM DEED ★'
+            - ''
+            - '&e> Click to purchase'
+        item-flags: []
+        unbreakable: false
+        conditionFailMessage: '&cYou cannot afford a Land Claim Ticket ($2,000.00).'
+        conditions:
+          c0000000-0000-0000-0000-000000000101:
+            condition: has-money
+            amount: '2000.00'
+        click-events:
+          c0000000-0000-0000-0000-000000000102:
+            type: money-remove
+            amount: '2000.00'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000103:
+            type: command
+            commands:
+            - mi give CONSUMABLE LAND_CLAIM_TICKET %player% 1
+            setOp: true
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c0000000-0000-0000-0000-000000000104:
+            type: message
+            message: '&aPurchased a &2Land Claim Ticket&a for &e$2,000.00&a!'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+      '11':
+        slot: 31
+        item: BARRIER
+        amount: 1
+        item-name: '&cClose'
+        item-flags: []
+        unbreakable: false
+        click-events:
+          c0000000-0000-0000-0000-000000000999:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true

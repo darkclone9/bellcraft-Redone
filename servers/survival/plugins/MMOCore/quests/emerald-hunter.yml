@@ -1,0 +1,33 @@
+
+# Display options
+name: 'Emerald Hunter'
+lore:
+- 'Emeralds are the rarest gems in the'
+- 'mountains. The traders will offer a'
+- 'premium for even a small supply!'
+- ''
+- '&6Objective:'
+- '&7► Mine 8 emerald ore'
+- ''
+- '&eRewards:'
+- '&7► 1863 EXP'
+- '&7► 20 Gold Coins'
+
+level-req:
+    main: 25
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=EMERALD_ORE;amount=8}'
+        lore: 'Mine 8 emerald ore.'
+        triggers:
+        - message{format="&aMiner> &fEmeralds! The traders will fight over these beauties."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 20"}
+        - 'experience{amount=1863}'

@@ -1,0 +1,317 @@
+# Envoy Class Skills (Forge-01)
+ENVOY_INSPIRE:
+  name: '&6Inspire'
+  icon: BLAZE_POWDER
+  source: default:SWIFTNESS
+  parameters:
+    cooldown:
+      player:
+        base: 12
+        per-level: -0.1
+        min: 6
+        max: 12
+      name: Cooldown
+    mana:
+      player:
+        base: 6
+        per-level: 0.12
+      name: Mana
+    duration:
+      player:
+        base: 6
+        per-level: 0.1
+      name: Duration
+  triggers:
+    cast:
+    - stat{stat=ATTACK_DAMAGE;amount=12;operation=RELATIVE;duration={duration}}
+    - potion{type=SPEED;duration={duration};amplifier=0}
+    - particle{p=HAPPY_VILLAGER;amount=40;speed=0.4;hS=1.5;vS=1.5}
+    - sound{s=BLOCK_BELL_USE;v=1.2;p=1.5}
+ENVOY_RALLY:
+  name: '&6Rally'
+  icon: GOLDEN_APPLE
+  source: default:EMPOWERED_ATTACK
+  parameters:
+    cooldown:
+      player:
+        base: 18
+        per-level: -0.14
+        min: 10
+        max: 18
+      name: Cooldown
+    mana:
+      player:
+        base: 10
+        per-level: 0.18
+      name: Mana
+    duration:
+      player:
+        base: 8
+        per-level: 0.12
+      name: Duration
+  triggers:
+    cast:
+    - stat{stat=ATTACK_DAMAGE;amount=20;operation=RELATIVE;duration={duration}}
+    - stat{stat=ARMOR;amount=15;operation=RELATIVE;duration={duration}}
+    - particle{p=TOTEM_OF_UNDYING;amount=60;speed=0.4;hS=2;vS=2}
+    - sound{s=ENTITY_PLAYER_LEVELUP;v=1;p=1.3}
+ENVOY_TACTICAL_MARK:
+  name: '&6Tactical Mark'
+  icon: SPECTRAL_ARROW
+  source: default:POWER_MARK
+  parameters:
+    cooldown:
+      player:
+        base: 10
+        per-level: -0.08
+        min: 5
+        max: 10
+      name: Cooldown
+    mana:
+      player:
+        base: 5
+        per-level: 0.1
+      name: Mana
+    damage:
+      player:
+        base: 6.033
+        per-level: 0.377
+      name: Damage
+    duration:
+      player:
+        base: 5
+        per-level: 0.08
+      name: Duration
+  triggers:
+    cast:
+    - damage{amount={damage}}
+    - potion{type=GLOWING;duration={duration};amplifier=0}
+    - potion{type=WEAKNESS;duration={duration};amplifier=0}
+    - particle{p=CRIT;amount=30;speed=0.3;hS=0.5;vS=0.5}
+    - sound{s=ENTITY_ARROW_HIT_PLAYER;v=1;p=1.5}
+ENVOY_SUPPRESSING_FIRE:
+  name: '&6Suppressing Fire'
+  icon: CROSSBOW
+  source: default:ARCANE_HAIL
+  parameters:
+    cooldown:
+      player:
+        base: 14
+        per-level: -0.1
+        min: 7
+        max: 14
+      name: Cooldown
+    mana:
+      player:
+        base: 8
+        per-level: 0.15
+      name: Mana
+    damage:
+      player:
+        base: 9.049
+        per-level: 0.527
+      name: Damage
+    duration:
+      player:
+        base: 3
+        per-level: 0.05
+      name: Duration
+  triggers:
+    cast:
+    - damage{amount={damage}}
+    - potion{type=SLOWNESS;duration={duration};amplifier=1}
+    - particle{p=LARGE_SMOKE;amount=50;speed=0.5;hS=2;vS=1}
+    - sound{s=ENTITY_ARROW_SHOOT;v=1.5;p=0.8}
+ENVOY_TACTICAL_RETREAT:
+  name: '&6Tactical Retreat'
+  icon: LEATHER_BOOTS
+  source: default:SWIFTNESS
+  parameters:
+    cooldown:
+      player:
+        base: 22
+        per-level: -0.15
+        min: 12
+        max: 22
+      name: Cooldown
+    mana:
+      player:
+        base: 8
+        per-level: 0.15
+      name: Mana
+    duration:
+      player:
+        base: 6
+        per-level: 0.1
+      name: Duration
+  triggers:
+    cast:
+    - potion{type=SPEED;duration={duration};amplifier=1}
+    - stat{stat=ARMOR;amount=20;operation=RELATIVE;duration={duration}}
+    - particle{p=CLOUD;amount=60;speed=0.4;hS=2;vS=1.5}
+    - sound{s=BLOCK_BELL_USE;v=1.2;p=1.6}
+ENVOY_BATTLE_STANCE:
+  name: '&c⚔ Battle Stance'
+  icon: SLIME_BLOCK
+  source: default:MAGICAL_SHIELD
+  lore:
+  - '&7Adopt a hardened combat posture'
+  - '&7ready for frontline engagement.'
+  parameters:
+    cooldown:
+      player:
+        base: 26
+        per-level: -0.18
+        min: 14
+        max: 26
+      name: Cooldown
+    mana:
+      player:
+        base: 10
+        per-level: 0.18
+      name: Mana
+    duration:
+      player:
+        base: 8
+        per-level: 0.12
+      name: Duration
+  triggers:
+    cast:
+    - particle{p=CRIT;amount=20;speed=0.05;hS=0.8;vS=1}
+    - sound{s=ITEM_ARMOR_EQUIP_IRON;v=1;p=0.8}
+    - potion{type=RESISTANCE;duration=5;amplifier=0}
+    - potion{type=SLOWNESS;duration=5;amplifier=0}
+ENVOY_COMMANDING_SHOUT:
+  name: '&6Commanding Shout'
+  icon: BELL
+  source: default:GRAND_HEAL
+  parameters:
+    cooldown:
+      player:
+        base: 28
+        per-level: -0.18
+        min: 16
+        max: 28
+      name: Cooldown
+    mana:
+      player:
+        base: 12
+        per-level: 0.2
+      name: Mana
+    heal:
+      player:
+        base: 8.5
+        per-level: 0.51
+      name: Heal
+    duration:
+      player:
+        base: 4
+        per-level: 0.1
+      name: Duration
+  triggers:
+    cast:
+    - heal{amount={heal}}
+    - potion{type=REGENERATION;duration={duration};amplifier=1}
+    - potion{type=RESISTANCE;duration={duration};amplifier=1}
+    - particle{p=TOTEM_OF_UNDYING;amount=90;speed=0.6;hS=2.5;vS=2.5}
+    - sound{s=BLOCK_BELL_USE;v=1.6;p=1.2}
+
+
+# ---- Specialisation skills (generated by spec_builder.py) ----
+WARLORD_MOMENTUM:
+  name: '&6Momentum'
+  icon: IRON_SWORD
+  source: default:EMPOWERED_ATTACK
+  lore:
+  - '&7Passive. Command is earned swing by swing -'
+  - '&7each hit sharpens your weapon work.'
+  - '&8Lead from the front or do not lead.'
+  parameters:
+    cooldown:
+      base: 2
+      per-level: -0.02
+      min: 1
+    duration:
+      base: 5
+      per-level: 0.06
+  triggers:
+    attack:
+    - stat{stat=WEAPON_DAMAGE;amount=9;operation=RELATIVE;duration={duration};target=caster}
+    - particle{p=CRIT;amount=10;speed=0.1;hS=0.3;vS=0.3}
+    - sound{s=ITEM_ARMOR_EQUIP_GOLD;v=0.4;p=1.6}
+WARLORD_WAR_CRY:
+  name: '&6War Cry'
+  icon: GOAT_HORN
+  source: default:EMPOWERED_ATTACK
+  lore:
+  - '&7Put an order in the air and follow it:'
+  - '&7strength, resilience and a heavier swing.'
+  parameters:
+    cooldown:
+      base: 40
+      per-level: -0.22
+      min: 24
+    mana:
+      base: 12
+      per-level: 0.2
+    duration:
+      base: 9
+      per-level: 0.09
+  triggers:
+    cast:
+    - potion{type=STRENGTH;duration={duration};amplifier=1;target=caster}
+    - potion{type=RESISTANCE;duration={duration};amplifier=0;target=caster}
+    - stat{stat=WEAPON_DAMAGE;amount=25;operation=RELATIVE;duration={duration};target=caster}
+    - particle{p=ENCHANTED_HIT;amount=50;speed=0.3;hS=1;vS=1}
+    - sound{s=EVENT_RAID_HORN;v=1;p=1.2}
+STRATEGIST_ADAPT:
+  name: '&bAdapt'
+  icon: SPYGLASS
+  source: default:MAGICAL_SHIELD
+  lore:
+  - '&7Passive. A hit taken is information:'
+  - '&7shorter cooldowns and faster mana while you'
+  - '&7reread the field.'
+  - '&8Losing ground is not losing.'
+  parameters:
+    cooldown:
+      base: 6
+      per-level: -0.04
+      min: 3
+    duration:
+      base: 6
+      per-level: 0.07
+  triggers:
+    damaged:
+    - stat{stat=COOLDOWN_REDUCTION;amount=7;operation=FLAT;duration={duration};target=caster}
+    - stat{stat=MANA_REGENERATION;amount=2;operation=FLAT;duration={duration};target=caster}
+    - particle{p=ENCHANT;amount=20;speed=0.2;hS=0.5;vS=0.7}
+    - sound{s=BLOCK_BEACON_AMBIENT;v=0.6;p=1.9}
+STRATEGIST_FIELD_ORDERS:
+  name: '&bField Orders'
+  icon: PAPER
+  source: default:REGEN_ALLY
+  lore:
+  - '&7Patch whoever is in front of you and push them'
+  - '&7back into it: a heal and lasting regeneration.'
+  - '&8Mends your target - point it at an ally.'
+  parameters:
+    cooldown:
+      base: 18
+      per-level: -0.11
+      min: 10
+    mana:
+      base: 12
+      per-level: 0.2
+    heal:
+      base: 12
+      per-level: 0.75
+    duration:
+      base: 7
+      per-level: 0.07
+  triggers:
+    cast:
+    - heal{amount={heal}}
+    - potion{type=REGENERATION;duration={duration};amplifier=0}
+    - particle{p=HAPPY_VILLAGER;amount=40;speed=0.2;hS=0.8;vS=0.9}
+    - sound{s=ENTITY_PLAYER_LEVELUP;v=0.8;p=1.4}

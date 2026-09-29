@@ -1,0 +1,118 @@
+#
+# Item Configuration Options
+#
+# More information about Mythic item features can be found here:
+# https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Items/Items
+#
+Configuration:
+  
+  # ================================================================================
+  # Item Updater
+  # ================================================================================
+  ItemUpdating:
+    Enabled: false
+    OnLogin: true
+    OnScroll: true
+    OnInvClose: true
+  
+  # ================================================================================
+  # FancyDrop Everything (EXPERIMENTAL)
+  # ================================================================================
+  EnableFancyDropEffectsEverywhere: false
+  
+  # ================================================================================
+  # Item Defaults - choose what item options default to
+  # ================================================================================
+  DefaultItemOptions:
+    Material: STONE
+    PreventEnchanting: false # Can be true or false
+    PreventCrafting: modeled # Can be true, false, modeled, or default
+    PreventAnviling: default # Can be true, false, modeled, or default
+    PreventSmithing: default # Can be true, false, modeled, or default
+  
+  # ================================================================================
+  # Item Skills (requires Crucible)
+  # ================================================================================
+  ItemSkills:
+    JoinDelay: 20 # Delay when joining before items are scanned
+    # Whether the swap-offhand key triggers onPressF while an inventory is open.
+    PressFInInventories: false
+  
+  # ================================================================================
+  # Item Stats (requires Crucible)
+  # ================================================================================
+  ItemStats:
+    Rounding: 2 # Default decimal places to round stats to when generated
+    SaveRatios: false # Save generated stat ratios for the Item Updater
+  
+  # ================================================================================
+  # Lore Templates (requires Crucible)
+  # ================================================================================
+  LoreTemplates:
+    EnableDefaultTemplate: false # If the default template should be applied to all items
+    DefaultTemplateName: DEFAULT # The name of the default template
+    DefaultTemplate: # The default lore template
+      - Line:
+        - '{stats}'
+        - '{stats}<gray>Bonus Stats:'
+        - '{stats-each}<green> <stat.display>'
+      - Filler: ''
+      - Line:
+        - '{augments:GEM}<gray>Gems:'
+        - '{augments-each:GEM}<yellow><augment.display>'
+      - Filler: ''
+      - Line:
+        - '{lore}'
+  
+  # ================================================================================
+  # Custom Blocks (requires Crucible)
+  # ================================================================================
+  CustomBlocks:
+    SwapIsPickBlock: true # Can be true or false
+  
+  # ================================================================================
+  # Custom Equippables (requires Crucible)
+  # ================================================================================
+  Equippables:
+    Enabled: false
+    CustomSlots:
+    - Id: NECKLACE
+      Display: Neck
+      EquipConditions:
+      - itemGroup{group=NECK}
+    - Id: RING_1
+      Display: Ring
+      EquipConditions:
+      - itemGroup{group=RING}
+    - Id: RING_2
+      Display: Ring
+      EquipConditions:
+      - itemGroup{group=RING}
+  
+  # ================================================================================
+  # Custom Furniture (requires Crucible)
+  # ================================================================================
+  Furniture:
+    DefaultType: DISPLAY # Can be DISPLAY, ARMOR_STAND or ITEM_FRAME
+    # Occlusion Culling
+    # Hides furniture behind solid walls per-player to reduce render load.
+    # Per-furniture override: set Cullable: true/false in the furniture item config.
+    Culling:
+      Enabled: false # Master toggle for furniture culling
+      Interval: 1 # Check frequency in ticks
+      ForceAll: true # Cull all furniture by default (per-furniture Cullable overrides this)
+      MinDistance: 0.0 # Never cull closer than this distance (blocks)
+      MaxDistance: 64.0 # Stop culling beyond this distance (blocks)
+      PaddingWidth: 0.0 # Extra width added to culling AABB
+      PaddingHeight: 0.0 # Extra height added to culling AABB
+  
+  Bags:
+    AutoPickup:
+      DefaultRadius: 5.0 # Default pickup radius in blocks
+      EnabledByDefault: true # Whether auto-pickup is enabled by default
+      UseTimer: false # Whether to use a timer for auto-pickup checks
+      CheckInterval: 20 # Check interval in ticks (if UseTimer is true)
+  
+  ItemUpgrades:
+    Stats:
+      Equations: []

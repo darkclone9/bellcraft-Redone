@@ -1,0 +1,40 @@
+# Display options
+name: 'Subterranean Forge'
+level-req:
+    main: 5
+lore:
+- 'The richest iron seam plunges through an ancient sinkhole'
+- 'where cavern lurkers nest in the black water. Secure the'
+- 'shaft and extract the high-grade ore.'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Slay 6 Cavern Zombies securing the shaft'
+- '&7► Phase 2: Mine 24 Iron Ore from the deep vein'
+- ''
+- '&eRewards:'
+- '&7► 280 EXP'
+- '&7► 18 Gold Coins'
+- '&7► Steel Ingot'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=ZOMBIE;amount=6}'
+        lore: 'Slay 6 Cavern Zombies near the shaft.'
+        triggers:
+        - message{format="&6Deep Miner> &fThe caverns are cleared! Now dig out that rich iron vein!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'mineblock{type=IRON_ORE;amount=24}'
+        lore: 'Mine 24 Iron Ore.'
+        triggers:
+        - message{format="&6Blacksmith> &fMagnificent ore! Take this refined steel ingot as your rightful bounty."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 18"}
+        - 'mmoitem{type=MATERIAL;id=STEEL_INGOT}'
+        - 'experience{amount=280}'

@@ -1,0 +1,21 @@
+sculk_sentinel_helmet:
+  armorAttributes: '{CraftAttribute{holder=Reference{ResourceKey[minecraft:attribute
+    / minecraft:attack_speed]=net.minecraft.world.entity.ai.attributes.RangedAttribute@621b0773}}=[AttributeModifier{key=mmoitems:decoy,
+    operation=ADD_NUMBER, amount=0.0, slot=any}]}'
+  recipes:
+  - nexoaddon:sculk_sentinel_helmet_smithing
+  passed: true
+sculk_sentinel_sword:
+  recipes:
+  - nexoaddon:sculk_sentinel_sword_smithing
+  passed: true
+sculk_sentinel_pickaxe:
+  recipes:
+  - nexoaddon:sculk_sentinel_pickaxe_smithing
+  passed: true
+sculk_sentinel_axe:
+  recipes:
+  - nexoaddon:sculk_sentinel_axe_smithing
+  passed: true
+passed: true
+timestamp: '2026-09-11T07:12:36.166295218Z'

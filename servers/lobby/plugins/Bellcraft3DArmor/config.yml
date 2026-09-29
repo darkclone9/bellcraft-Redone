@@ -1,0 +1,42 @@
+# ==============================================================================
+# Bellcraft3DArmor — Paper 26.2 / ModelEngine 4 Bridge Configuration
+# ==============================================================================
+
+model:
+  # ModelEngine blueprint model ID registered in ModelEngine/blueprints/
+  blueprint_id: "operative_chestplate"
+  # Enforce base entity skin visibility so player is not invisible
+  set_base_entity_visible: true
+  # Disable main hitbox so the model does not modify the player's vanilla hitbox
+  set_main_hitbox: false
+
+item:
+  # Primary CustomModelData value configured in Nexo and item models
+  custom_model_data: 2003
+
+  # Tier 1 & 3: Recognized Nexo item identifiers (Nexo API and PDC 'nexo:id')
+  nexo_ids:
+    - "operative_chestplate"
+    - "operative_light_armor_chestplate"
+
+  # Tier 2: Recognized MMOItems item IDs (NBT 'MMOITEMS_ITEM_ID')
+  mmoitems_ids:
+    - "OPERATIVE_CHESTPLATE"
+    - "OPERATIVE-LIGHT-CHEST"
+
+  # Tier 5: Whitelisted item materials for fallback detection
+  material_whitelist:
+    - "NETHERITE_CHESTPLATE"
+    - "CHAINMAIL_CHESTPLATE"
+    - "LEATHER_CHESTPLATE"
+
+  # Tier 5: Display name keywords for fallback detection (case-insensitive)
+  name_whitelist:
+    - "Operative Chestplate"
+    - "Operative Light Chestplate"
+
+settings:
+  # Delay in server ticks before checking equipment on join/respawn/world change
+  reconnect_check_delay_ticks: 2
+  # Verbose debug logging to server console
+  debug: false

@@ -1,0 +1,68 @@
+
+# For the vanilla inventory, this option is not very important,
+# it only has to be different from other inventories
+id: vanilla_inventory
+
+# Will place items in the player's vanilla 3x9 inventory grid
+# Either 'vanilla' or 'custom'
+type: vanilla
+
+# Toggle on/off for temporary disabling this inventory.
+# Vanilla inventory is disabled by default.
+enabled: false
+
+slots:
+
+  # Amulet, bracelet and gloves slots
+  AMULET:
+    type: accessory
+    material: GOLD_NUGGET
+    custom_model_data_string: "amulet"
+    name: "&6Amulet Slot"
+    slot: 9
+    restrictions:
+      - "mmoitemstype{type=AMULET}"
+    lore:
+      - Drag & drop an item to equip it.
+  BRACELET:
+    type: accessory
+    material: GOLD_NUGGET
+    custom_model_data_string: "bracelet"
+    name: "&6Bracelet Slot"
+    slot: 10
+    restrictions:
+      - "mmoitemstype{type=BRACELET}"
+    lore:
+      - Drag & drop an item to equip it.
+  GLOVES:
+    type: accessory
+    material: GOLD_NUGGET
+    custom_model_data_string: "gloves"
+    name: "&6Gloves Slot"
+    slot: 11
+    restrictions:
+      - "mmoitemstype{type=GLOVES}"
+    lore:
+      - Drag & drop an item to equip it.
+
+  # Two ring slots
+  LEFT_RING:
+    type: accessory
+    material: GOLD_NUGGET
+    custom_model_data_string: "ring1"
+    name: "&6Left Ring Slot"
+    slot: 12
+    restrictions:
+      - "mmoitemstype{type=RING}"
+    lore:
+      - Drag & drop an item to equip it.
+  RIGHT_RING:
+    type: accessory
+    material: GOLD_NUGGET
+    custom_model_data_string: "ring2"
+    name: "&6Right Ring Slot"
+    slot: 13
+    restrictions:
+      - "mmoitemstype{type=RING}"
+    lore:
+      - Drag & drop an item to equip it.

@@ -1,0 +1,39 @@
+# Display options
+name: 'Spider Nest Breach'
+level-req:
+    main: 5
+lore:
+- 'An aggressive arachnid brood has burrowed beneath an old'
+- 'gravel bed. Break through the loose rubble and eliminate'
+- 'the swarm before their webbing chokes the water springs.'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Excavate 12 Gravel blocking the nest entrance'
+- '&7► Phase 2: Exterminate 16 Spiders in the burrow'
+- ''
+- '&eRewards:'
+- '&7► 260 EXP'
+- '&7► 18 Gold Coins'
+
+parent:
+- 'pest-control'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=GRAVEL;amount=12}'
+        lore: 'Excavate 12 Gravel blocking the burrow.'
+        triggers:
+        - message{format="&cScout> &fThe passage is open! Draw your weapon — the brood is swarming!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=SPIDER;amount=16}'
+        lore: 'Exterminate 16 Spiders in the burrow.'
+        triggers:
+        - message{format="&aScout> &fThe nest is purged! The springs are clear once more."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 18"}
+        - 'experience{amount=260}'

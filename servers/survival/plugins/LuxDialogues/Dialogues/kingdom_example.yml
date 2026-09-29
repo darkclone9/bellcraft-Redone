@@ -1,0 +1,110 @@
+Settings:
+  typing-speed: 1 # Ticks(Second/20)
+  range: 3 # -1 To Disable
+  effect: Slowness # Slowness / Freeze
+  answer-numbers: true
+  prevent-exit: false
+  prevent-skip: false
+  character-name: true
+  character-image: true
+  background-fog: true
+  npc-focus: true # Turn the player to face the NPC that started the dialogue (needs a Citizens / FancyNPCs / MythicMobs hook enabled).
+
+Sounds:
+  typing:
+    id: luxdialogues:luxdialogues.sounds.kingdom-typing
+    source: MASTER
+    volume: 1.0
+    pitch: 1.0
+  selection:
+    id: luxdialogues:luxdialogues.sounds.selection
+    source: MASTER
+    volume: 1.0
+    pitch: 1.0
+
+Offsets:
+  name: 0
+  name-background: 25
+  dialogue-background: 0
+  dialogue-line: 12
+  answer-background: 135
+  answer-line: 13
+  arrow: -7
+  character: -16
+  information: 27
+
+Character:
+  name: The King
+
+Images:
+  character-background: kingdom-character
+  arrow: kingdom-hand
+  dialogue-background: kingdom-dialogue
+  answer-background: kingdom-answer
+  name-start: kingdom-name-start
+  name-mid: kingdom-name-mid
+  name-end: kingdom-name-end
+  fog: fog
+
+Colors:
+  name: '#f2e399'
+  name-background: '#ffffff'
+  dialogue: '#f2e399'
+  dialogue-background: '#ffffff'
+  answer: '#f2e399'
+  answer-background: '#ffffff'
+  character-background: '#ffffff'
+  arrow: '#cdff29'
+  selected: '#f2e399'
+  fog: '#000000'
+  information: '#ffffff'
+
+Pages:
+  '1a':
+    lines:
+      - 'Kingdom Pack now auto-installs'
+      - 'on the first setup.'
+      - 'Isn’t it great?'
+    typing-info-line: 'Right Click To Skip Typing'
+    steady-info-line: ''
+    goto: "" # If this is not empty, answers will be disabled.
+    timer: 0
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+    answers:
+      '1':
+        text: I’ll check now!
+        goto: ""
+        reply:
+          - '#f2e399Glad to hear that! <3'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.ding
+          source: MASTER
+          volume: 1.0
+          pitch: 1.0
+        actions: { }
+      '2':
+        text: Is it really free?
+        goto: ""
+        condition: :luxdialogues.test:==true
+        reply:
+          - '#f2e399Yes!!'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.ding
+          source: MASTER
+          volume: 1.0
+          pitch: 1.0
+        actions: { }
+      '3':
+        text: Wow!!
+        goto: ""
+        reply:
+          - '#f2e399Haha ^^'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.ding
+          source: MASTER
+          volume: 1.0
+          pitch: 1.0
+        actions: { }
+#d21891d819abf57b5a57f22e6b637384

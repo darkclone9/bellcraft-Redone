@@ -1,0 +1,162 @@
+# You can create restriction lists containing as many materials,
+# plugins, item IDs, and item types (from MMOItems)
+# as you want to define which skins can be applied to which items.
+#
+# After creating your lists, you need to add them
+# to the skin settings as shown in the example below.
+#
+# material_list=main_hand_materials
+# plugin_list=my_plugin_list
+# id_list=my_id_list
+# type_list=my_type_list #MMOItems only
+#
+# - item3{.......;material_list=main_hand_materials;.....}
+#
+# `id_list` and `type_list` must always be used together with `plugin_list`.
+
+restriction:
+  main_hand_materials:
+    - iron_sword
+    - stone_sword
+    - wooden_sword
+    - golden_sword
+    - diamond_sword
+    - netherite_sword
+  off_hand_materials: [shield]
+  helmet_materials: [chainmail_helmet,iron_helmet,golden_helmet,diamond_helmet,netherite_helmet,player_head,carved_pumpkin]
+  chestplate_materials: [chainmail_chestplate,iron_chestplate,golden_chestplate,diamond_chestplate,netherite_chestplate]
+  leggings_materials: [chainmail_leggings,iron_leggings,golden_leggings,diamond_leggings,netherite_leggings]
+  boots_materials: [chainmail_boots,iron_boots,golden_boots,diamond_boots,netherite_boots]
+
+    # my_plugin_list:
+    # - mmoitems
+    # - nexo
+    # - vanilla
+    # my_id_list:
+    # - long_sword
+    # - cutlass
+    # - falcon_blade
+    # my_type_list:
+    # - sword
+    # - spear
+
+# This setting is only relevant to MMOProfiles users.
+# If you are not using MMOProfiles, leave it as false.
+# If you are using it, please refer to the wiki for detailed information.
+mmoprofiles_account: false
+
+# Category lists allow you to configure which categories your
+# existing skin items will be displayed in based on their materials.
+category_list:
+  helmet: [leather_helmet,chainmail_helmet,iron_helmet,golden_helmet,diamond_helmet,netherite_helmet,player_head,carved_pumpkin]
+  chestplate: [leather_chestplate,chainmail_chestplate,iron_chestplate,golden_chestplate,diamond_chestplate,netherite_chestplate]
+  leggings: [leather_leggings,chainmail_leggings,iron_leggings,golden_leggings,diamond_leggings,netherite_leggings]
+  boots: [leather_boots,chainmail_boots,iron_boots,golden_boots,diamond_boots,netherite_boots]
+  main_hand: [wooden_sword,iron_sword]
+  off_hand: [shield]
+
+skins:
+  # Main Hand Item Examples
+  - item1{
+    name="<red>1Test Item";
+    lore="Line 1,Line 2,Line 3";
+    material=wooden_sword;
+    material_list=main_hand_materials;
+    flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";
+    component_custom_model_data=MyStringValue;
+    locked=true;
+    cost=10
+    }
+  - item2{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:2";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item3{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:3";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item4{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:4";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item5{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:5";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item6{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:6";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item7{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:7";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item8{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:8";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item9{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:9";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item10{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:10";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item11{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:11";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item12{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:12";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item13{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:13";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item14{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:14";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item15{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:15";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item16{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:16";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item17{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:17";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item18{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:18";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item19{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:19";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+  - item20{name="<red>Test Item";lore="Line 1,Line 2,Line 3";material="wooden_sword:20";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=main_hand_materials;cost=10}
+
+  # Off Hand Item Examples
+  - shield1{name="<red>Shield Restrict";lore="Line 1,Line 2,Line 3";material="shield:2";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;material_list=off_hand_materials;cost=10}
+  - shield2{name="<red>Shield";lore="Line 1,Line 2,Line 3";material="shield:2";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";locked=false;cost=10}
+
+  # Armor Examples
+  - player_had{
+    name="<red>Player Head";
+    lore="Line 1,Line 2,Line 3";
+    material=player_head;
+    material_list=helmet_materials;
+    texture="eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWZmODAyM2U3NWU0OWJkODllZDQyZTc2MmU1Nzc4ZDAzYWY5ZmQ2ZTk3NzQxOTEyMWQ5Y2EyMDE5NjU0OTNhYSJ9fX0=";
+    locked=false;
+    cost=10
+    }
+
+  - trim{
+    name="<red>Trim";
+    lore="Line 1,Line 2,Line 3";
+    material=IRON_CHESTPLATE;
+    material_list=chestplate_materials;
+    flags="HIDE_ARMOR_TRIM";
+    locked=false;
+    trim_material="emerald";
+    trim_pattern="minecraft:rib";
+    cost=10
+    }
+
+  - equippable{
+    name="<red>Equippable";
+    lore="Line 1,Line 2,Line 3";
+    material=IRON_CHESTPLATE;
+    material_list=chestplate_materials;
+    flags="HIDE_ARMOR_TRIM";
+    locked=false;
+    equippable_model="nexo:crimsonempress";
+    equippable_slot="chest";
+    cost=10
+    }
+
+  - leather11{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="1,1,1";material="leather_helmet:1";plugin_list=my_plugin_list;locked=false;material_list=helmet_materials;cost=10}
+  - leather13{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="1,1,1";material="leather_chestplate:1";plugin_list=my_plugin_list;locked=false;material_list=chestplate_materials;cost=10}
+  - leather12{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="1,1,1";material="leather_leggings:1";plugin_list=my_plugin_list;locked=false;material=leggings_materials;cost=10}
+  - leather14{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="1,1,1";material="leather_boots:1";plugin_list=my_plugin_list;locked=false;material_list=boots_materials;cost=10}
+
+  - leather21{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="2,2,2";material="leather_helmet:2";plugin_list=my_plugin_list;locked=false;material_list=helmet_materials;cost=10}
+  - leather23{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="2,2,2";material="leather_chestplate:2";plugin_list=my_plugin_list;locked=false;material_list=chestplate_materials;cost=10}
+  - leather22{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="2,2,2";material="leather_leggings:2";plugin_list=my_plugin_list;locked=false;material_list=leggings_materials;cost=10}
+  - leather24{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="2,2,2";material="leather_boots:2";plugin_list=my_plugin_list;locked=false;material_list=boots_materials;cost=10}
+
+  - leather31{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="3,3,3";material="leather_helmet:3";plugin_list=my_plugin_list;locked=false;material_list=helmet_materials;cost=10}
+  - leather33{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="3,3,3";material="leather_chestplate:3";plugin_list=my_plugin_list;locked=false;material_list=chestplate_materials;cost=10}
+  - leather32{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="3,3,3";material="leather_leggings:3";plugin_list=my_plugin_list;locked=false;material_list=leggings_materials;cost=10}
+  - leather34{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="3,3,3";material="leather_boots:3";plugin_list=my_plugin_list;locked=false;material_list=boots_materials;cost=10}
+
+  - leather41{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="4,4,4";material="leather_helmet:4";plugin_list=my_plugin_list;locked=false;material_list=helmet_materials;cost=10}
+  - leather43{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="4,4,4";material="leather_chestplate:4";plugin_list=my_plugin_list;locked=false;material_list=chestplate_materials;cost=10}
+  - leather42{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="4,4,4";material="leather_leggings:4";plugin_list=my_plugin_list;locked=false;material_list=leggings_materials;cost=10}
+  - leather44{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="4,4,4";material="leather_boots:4";plugin_list=my_plugin_list;locked=false;material_list=boots_materials;cost=10}
+
+  - leather51{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="5,5,5";material="leather_helmet:5";plugin_list=my_plugin_list;locked=false;material_list=helmet_materials;cost=10}
+  - leather53{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="5,5,5";material="leather_chestplate:5";plugin_list=my_plugin_list;locked=false;material_list=chestplate_materials;cost=10}
+  - leather52{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="5,5,5";material="leather_leggings:5";plugin_list=my_plugin_list;locked=false;material_list=leggings_materials;cost=10}
+  - leather54{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="5,5,5";material="leather_boots:5";plugin_list=my_plugin_list;locked=false;material_list=boots_materials;cost=10}
+
+  - leather61{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="6,6,6";material="leather_helmet:6";plugin_list=my_plugin_list;locked=false;material_list=helmet_materials;cost=10}
+  - leather63{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="6,6,6";material="leather_chestplate:6";plugin_list=my_plugin_list;locked=false;material_list=chestplate_materials;cost=10}
+  - leather62{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="6,6,6";material="leather_leggings:6";plugin_list=my_plugin_list;locked=false;material_list=leggings_materials;cost=10}
+  - leather64{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="6,6,6";material="leather_boots:6";plugin_list=my_plugin_list;locked=false;material_list=boots_materials;cost=10}
+
+  - leather71{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="7,7,7";material="leather_helmet:7";plugin_list=my_plugin_list;locked=false;material_list=helmet_materials;cost=10}
+  - leather73{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="7,7,7";material="leather_chestplate:7";plugin_list=my_plugin_list;locked=false;material_list=chestplate_materials;cost=10}
+  - leather72{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="7,7,7";material="leather_leggings:7";plugin_list=my_plugin_list;locked=false;material_list=leggings_materials;cost=10}
+  - leather74{name="<red>Leather";lore="Line 1,Line 2,Line 3";color="7,7,7";material="leather_boots:7";plugin_list=my_plugin_list;locked=false;material_list=boots_materials;cost=10}

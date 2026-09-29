@@ -1,0 +1,150 @@
+display:
+  name: 'Envoy'
+  lore:
+    - '&eClass Role: Tactician / Battlefield Commander'
+    - '&7The Envoy reads the battlefield like no other.'
+    - '&7Their words inspire allies, their presence'
+    - '&7unnerves enemies, and their tactics win wars.'
+  item: BOOK
+  slot: 15
+
+mana:
+  char: '★'
+  icon: '&6★'
+  name: 'Influence'
+  color:
+    full: GOLD
+    half: YELLOW
+    empty: DARK_GRAY
+
+stats:
+  MAX_HEALTH:
+    base: 24.0
+    per-level: 2.8
+  MAX_MANA:
+    base: 40.0
+    per-level: 6.0
+  HEALING_RATING:
+    base: 8.0
+    per-level: 1.5
+  MAGIC_DAMAGE:
+    base: 1.5
+    per-level: 0.8
+  WEAPON_DAMAGE:
+    base: 1.5
+    per-level: 0.8
+  COOLDOWN_REDUCTION:
+    base: 8.0
+    per-level: 1.0
+  ADDITIONAL_EXPERIENCE:
+    base: 8.0
+    per-level: 1.0
+  MOVEMENT_SPEED:
+    base: 0.12
+    per-level: 0.005
+
+attributes:
+  # Completely locks the Envoy out of the Strength attribute
+  strength:
+    base: 0
+    per-level: 0
+    max-points: 0
+    max: 0 # Including both ensures compatibility across all MMOCore versions
+    
+  wisdom:
+    base: 10
+    per-level: 2.0
+    
+  intelligence:
+    base: 10
+    per-level: 2.0
+
+options:
+  default: false
+  display: true
+  needs-permission: false
+  off-combat-health-regen: true
+  off-combat-mana-regen: true
+
+exp-curve: 'levels'
+exp-table: class_exp_table
+
+skill-slots:
+  1:
+    name: "&6Inspire"
+    unlocked-by-default: true
+    lore:
+      - '&7Boost allies and control the tempo'
+  2:
+    name: "&6Rally"
+    unlocked-by-default: true
+    lore:
+      - '&7Support heal and regroup'
+
+main-exp-sources:
+  - 'killmob{type=ZOMBIE;amount=4-6}'
+  - 'killmob{type=SKELETON;amount=4-7}'
+  - 'killmob{type=CREEPER;amount=6-10}'
+  - 'killmob{type=PILLAGER;amount=8-13}'
+  - 'killmob{type=BLAZE;amount=8-13}'
+
+# Use MythicLib builtin skills (known-good handlers)
+skills:
+  EMPOWERED_ATTACK:
+    level: 1
+    max-level: 33
+    unlocked-by-default: true
+
+  REGEN_ALLY:
+    level: 1
+    max-level: 33
+    unlocked-by-default: true
+
+  # Existing Envoy Skills
+  ENVOY_TACTICAL_RETREAT:
+    level: 5
+    max-level: 33
+    unlocked-by-default: false
+
+  ENVOY_BATTLE_STANCE:
+    level: 10
+    max-level: 33
+    unlocked-by-default: false
+
+  ENVOY_COMMANDING_SHOUT:
+    level: 15
+    max-level: 33
+    unlocked-by-default: false
+
+  # --- Skill Tree Unlocks ---
+  ASTRAL_LINK:
+    level: 1
+    max-level: 33
+    unlocked-by-default: false
+
+  STELLAR_HEAL:
+    level: 1
+    max-level: 33
+    unlocked-by-default: false
+
+  DEBILITATING_SHOT:
+    level: 1
+    max-level: 33
+    unlocked-by-default: false
+
+skill-trees:
+  - 'envoy'
+  - 'profession-mining'
+  - 'profession-woodcutting'
+  - 'profession-farming'
+  - 'profession-fishing'
+  - 'profession-alchemy'
+  - 'profession-smithing'
+  - 'profession-enchanting'
+  - 'profession-smelting'
+
+triggers:
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-ap %player_name%"}'
+    - 'command{format="bellcraft-grant-sp %player_name%"}'
+    - 'command{format="bellcraft-grant-stp %player% envoy"}'

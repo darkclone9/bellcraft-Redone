@@ -1,0 +1,24 @@
+name: 'The Broodmother'
+lore:
+- 'Something in the tangled woods has been'
+- 'laying eggs the size of shields.'
+- ''
+- '&6Objective:'
+- '&7► Slay 3 Thornmaw Broodmothers'
+- ''
+- '&eRewards:'
+- '&7► 2842 EXP'
+level-req:
+    main: 49
+parent:
+- 'deepstone-delve'
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'killmythicmob{name="thornmaw_broodmother";amount=3}'
+        lore: 'Slay 3 Thornmaw Broodmothers.'
+        triggers:
+        - 'experience{amount=2842}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

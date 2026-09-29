@@ -1,0 +1,24 @@
+name: 'Chorus Harvest'
+lore:
+- 'The chorus grows over everything'
+- 'that stops moving out here.'
+- ''
+- '&6Objective:'
+- '&7► Harvest 60 chorus flowers'
+- ''
+- '&eRewards:'
+- '&7► 12090 EXP'
+level-req:
+    main: 88
+parent:
+- 'endermite-purge'
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'mineblock{type=CHORUS_FLOWER;amount=60}'
+        lore: 'Harvest 60 chorus flowers.'
+        triggers:
+        - 'experience{amount=12090}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

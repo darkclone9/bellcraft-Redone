@@ -1,0 +1,27 @@
+# ==============================================================================
+# NEXO SMITHING RECIPES: NANOTECH EXO-GLIDER
+# ==============================================================================
+
+nanotech_elytra_smithing_echo:
+  keep_durability: true
+  copy_enchantments: true
+  result:
+    nexo_item: nanotech_elytra
+  template:
+    nexo_item: nanotech_upgrade_matrix
+  base:
+    minecraft_item: ELYTRA
+  addition:
+    minecraft_item: ECHO_SHARD
+
+nanotech_elytra_smithing_netherite:
+  keep_durability: true
+  copy_enchantments: true
+  result:
+    nexo_item: nanotech_elytra
+  template:
+    nexo_item: nanotech_upgrade_matrix
+  base:
+    minecraft_item: ELYTRA
+  addition:
+    minecraft_item: NETHERITE_INGOT

@@ -1,0 +1,121 @@
+#!/usr/bin/env python3
+"""bellcraft-export: stream a tar (stdout) of the tracked, secret-redacted config of Bellcraft's servers.
+
+This is the server half of the bellcraft-Redone repo sync. It decides what the repo is allowed to see:
+text configs, Skript scripts and datapacks only. Never jars, worlds, databases, player data, logs,
+generated resource packs, or anything whose name says it is a key.
+
+Any line whose key looks like a credential has its value replaced with <<REDACTED>>. The deploy side
+(bellcraft-deploy) refuses to install a file that still contains that marker, so a redacted file can
+be read and discussed in the repo but can only be changed on the server itself.
+
+Usage: bellcraft-export [server ...]      (default: every tracked server)
+"""
+import io, os, re, sys, tarfile
+
+ROOT = '/opt/bellcraft'
+SERVERS = ['proxy', 'lobby', 'survival', 'creative', 'classic', 'rpg', 'test']
+TOP_FILES = ['bukkit.yml', 'spigot.yml', 'commands.yml', 'help.yml', 'permissions.yml', 'server.properties',
+             'velocity.toml', 'start.sh', 'wepif.yml']
+TREES = ['config', 'plugins', 'world/datapacks']
+EXTS = {'.yml', '.yaml', '.toml', '.json', '.sk', '.conf', '.properties', '.mcfunction', '.mcmeta', '.txt', '.md'}
+MAX_BYTES = 400_000
+SKIP_DIRS = {
+    'userdata', 'playerdata', 'data', 'logs', 'Logs', 'libs', 'lib', 'libraries', 'cache', 'backups', 'backup',
+    'DatabaseBackups', 'Saves', 'sessions', 'history', 'tmp', 'web', 'pack', 'textures', 'models', 'sounds',
+    'storage', 'bStats', 'translations', 'Translations', 'lang', 'language', 'languages', 'locale', 'locales',
+    'LanguageFiles', 'sellLogs', 'transactions', 'uploads', 'renders', 'tiles', 'maps', 'worlds', 'world',
+    'dimensions', 'region', 'entities', 'poi', 'stats', 'advancements', 'schematics', 'schems', 'terrain',
+    'Images', 'assets', 'external_packs', 'generated', 'recordings', 'clips', 'discs', 'examples', '-examples',
+    'Geyser-Spigot', 'packs', 'extensions', 'custom_mappings', 'aliases',
+}
+SKIP_NAME = re.compile(r'(security\.key|forwarding[-.]secret|\.secret$|discord/config\.toml$|credentials|'
+                       r'\.bak|\.pre[-_.a-z]|\.old$|\.orig$|\.disabled$|~$|usercache|banned-|ops\.json|whitelist\.json|'
+                       r'discovery\.yml$|variables\.csv|registry\.yml$|voice_mutes|transaction-log|\.lck$|log\.txt$)',
+                       re.I)
+# Matched against the whole key name (the part before ':' or '='), lower-cased.
+SECRET_KEY = re.compile(r'(?i)^(.*[-_.])?(pass|password|passwd|secret|token|api[-_]?key|apikey|license[-_]?key|'
+                        r'secret[-_]?key|access[-_]?key|private[-_]?key|client[-_]?secret|auth[-_]?key|bot[-_]?token|'
+                        r'webhook[-_]?url|webhookurl|webhook)$|^management-server-secret$|^forwarding-secret(-file)?$')
+LINE = re.compile(r'^(\s*-?\s*["\']?)([A-Za-z0-9_.\- ]+?)(["\']?\s*[:=]\s*)(.+?)\s*$')
+SECRET_VALUE = re.compile(r'(sk_live_[0-9A-Za-z]+|[MN][A-Za-z\d_-]{23,25}\.[\w-]{6}\.[\w-]{27,}|'
+                          r'discord(app)?\.com/api/webhooks/\S+|ghp_[0-9A-Za-z]{30,}|xox[bap]-[\w-]+|'
+                          r'-----BEGIN [A-Z ]*PRIVATE KEY-----|mysql://\S+:\S+@|mariadb://\S+:\S+@|[?&]password=[^&\s]+)')
+MARK = '<<REDACTED>>'
+HARMLESS = {'', '""', "''", 'false', 'true', 'null', '~', '[]', '{}', 'none', 'change-me', 'changeme', 'password', "''"}
+
+
+def redact(text):
+    out, hits = [], 0
+    for line in text.splitlines(keepends=True):
+        m = LINE.match(line.rstrip('\r\n'))
+        val = m.group(4).strip().strip('"\'') if m else ''
+        # Message text (spaces, colour codes, placeholders) is not a credential.
+        if m and SECRET_KEY.search(m.group(2).strip()) and val.lower() not in HARMLESS \
+                and not re.fullmatch(r'-?\d+(\.\d+)?', val) and not re.search(r'[\s&%<{§]', val):
+            nl = line[len(line.rstrip('\r\n')):]
+            v = m.group(4).strip()
+            q = v[0] if v[:1] in ('"', "'") else ''   # keep TOML/YAML quoting valid
+            line = f'{m.group(1)}{m.group(2)}{m.group(3)}{q}{MARK}{q}{nl}'
+            hits += 1
+        elif SECRET_VALUE.search(line):
+            line = SECRET_VALUE.sub(MARK, line)
+            hits += 1
+        out.append(line)
+    return ''.join(out), hits
+
+
+def tracked(server):
+    base = os.path.join(ROOT, server)
+    for f in TOP_FILES:
+        p = os.path.join(base, f)
+        if os.path.isfile(p):
+            yield p
+    for tree in TREES:
+        top = os.path.join(base, tree)
+        for dirpath, dirnames, filenames in os.walk(top):
+            rel_parts = os.path.relpath(dirpath, top).split(os.sep)
+            # datapacks are wanted in full; everything else skips data-ish folders
+            if tree != 'world/datapacks':
+                dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS and not d.startswith('.')]
+            for f in filenames:
+                p = os.path.join(dirpath, f)
+                if os.path.splitext(f)[1].lower() not in EXTS or SKIP_NAME.search(p):
+                    continue
+                if os.path.islink(p) or os.path.getsize(p) > MAX_BYTES:
+                    continue
+                yield p
+
+
+def main():
+    servers = sys.argv[1:] or SERVERS
+    bad = [s for s in servers if s not in SERVERS]
+    if bad:
+        sys.exit(f'unknown server(s): {bad}')
+    report = []
+    with tarfile.open(fileobj=sys.stdout.buffer, mode='w|') as tar:
+        for s in servers:
+            if not os.path.isdir(os.path.join(ROOT, s)):
+                continue
+            for p in tracked(s):
+                try:
+                    raw = open(p, 'rb').read()
+                    text = raw.decode('utf-8')
+                except (UnicodeDecodeError, OSError):
+                    continue
+                text, hits = redact(text)
+                if hits:
+                    report.append(f'{hits:3d}  {os.path.relpath(p, ROOT)}')
+                data = text.encode('utf-8')
+                info = tarfile.TarInfo('servers/' + os.path.relpath(p, ROOT))
+                info.size, info.mode, info.mtime = len(data), 0o644, int(os.path.getmtime(p))
+                tar.addfile(info, io.BytesIO(data))
+        rep = ('# Files with redacted lines (count  path). Edit these on the server, not in git.\n'
+               + '\n'.join(sorted(report)) + '\n').encode()
+        info = tarfile.TarInfo('servers/REDACTED.txt')
+        info.size, info.mode = len(rep), 0o644
+        tar.addfile(info, io.BytesIO(rep))
+
+
+if __name__ == '__main__':
+    main()

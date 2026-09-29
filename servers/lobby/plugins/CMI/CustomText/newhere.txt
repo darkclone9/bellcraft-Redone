@@ -1,0 +1,29 @@
+<AutoAlias>
+&8&m
+&a&lWelcome to Bellcraft &8- &7your first ten minutes
+&8&m
+&7You are in the &b&lLobby &7right now. Nothing is built here -
+&7this is just the doorway. Pick a world to start in.
+
+&6&l1. Choose where to play
+&a&lSurvival &7- build a town, take a job, claim land.
+&7This is where most people start.
+<T>&8  [&aGo to Survival&8]</T><H>&7Sends you to the survival world</H><C>/server survival</C>
+
+&6&lRPG &7- classes, skills, custom items and quests,
+&7with its own separate progression.
+<T>&8  [&6Go to RPG&8]</T><H>&7Sends you to the RPG world</H><C>/server rpg</C>
+
+&6&l2. Once you land
+&7Run &f/rtp &7to get out into the wild, then &f/sethome
+&7to mark your spot. Found a town with &f/town new <name>
+&7to protect what you build.
+
+&6&l3. Earn some money
+&7&f/jobs browse &7lists everything that pays. You can hold
+&7&f2 &7jobs at once, more with a donor rank.
+
+&8&7These commands live on Survival and RPG, not here in
+&8&7the lobby - travel first, then run them.
+&8&m
+<T>&8[&6Guide&8]</T><H>&7Back to the main guide</H><C>/guide</C><Next><T>  &8[&eRanks&8]</T><H>&7See every rank</H><C>/ranks</C><Next><T>  &8[&cRules&8]</T><H>&7Read the rules</H><C>/rules</C>

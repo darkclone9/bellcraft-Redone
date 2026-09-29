@@ -1,0 +1,65 @@
+# Group formatting for TAB
+# Automatically inherits %luckperms-prefix% for overhead nametags (tagprefix) and tablist (tabprefix)
+
+_DEFAULT_:
+  tabprefix: "%luckperms-prefix%"
+  tagprefix: "%luckperms-prefix%"
+  customtabname: "%player%"
+  tabsuffix: "%luckperms-suffix%"
+  tagsuffix: "%luckperms-suffix%"
+
+owner:
+  tabprefix: "&4&lOwner &r"
+  tagprefix: "&4&lOwner &r"
+
+president:
+  tabprefix: "&c&lPresident &r"
+  tagprefix: "&c&lPresident &r"
+
+vicepresident:
+  tabprefix: "&6&lVice President &r"
+  tagprefix: "&6&lVice President &r"
+
+developer:
+  tabprefix: "&b&lDeveloper &r"
+  tagprefix: "&b&lDeveloper &r"
+
+admin:
+  tabprefix: "&9&lAdmin &r"
+  tagprefix: "&9&lAdmin &r"
+
+officer:
+  tabprefix: "&5&lOfficer &r"
+  tagprefix: "&5&lOfficer &r"
+
+moderator:
+  tabprefix: "&2&lModerator &r"
+  tagprefix: "&2&lModerator &r"
+
+headbuilder:
+  tabprefix: "&5&lHead Builder &r"
+  tagprefix: "&5&lHead Builder &r"
+
+helper:
+  tabprefix: "&aHelper &r"
+  tagprefix: "&aHelper &r"
+
+builder:
+  tabprefix: "&5Builder &r"
+  tagprefix: "&5Builder &r"
+
+donator:
+  tabprefix: "&e&lDonator &r"
+  tagprefix: "&e&lDonator &r"
+
+vip+:
+  tabprefix: "&6&lVIP+ &r"
+  tagprefix: "&6&lVIP+ &r"
+
+vip:
+  tabprefix: "&6VIP &r"
+  tagprefix: "&6VIP &r"
+
+default:
+  tabprefix: "&8Player &r"
+  tagprefix: "&8Player &r"

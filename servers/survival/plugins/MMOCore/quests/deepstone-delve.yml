@@ -1,0 +1,30 @@
+name: 'Deepstone Delve'
+lore:
+- 'Everything worth having out here'
+- 'is buried under a mile of deepslate.'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Mine 150 deepslate'
+- '&7► Phase 2: Mine 12 emerald ore'
+- ''
+- '&eRewards:'
+- '&7► 2842 EXP'
+level-req:
+    main: 47
+parent:
+- 'sundered-vanguard'
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'mineblock{type=DEEPSLATE;amount=150}'
+        lore: 'Mine 150 deepslate.'
+        triggers:
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'
+    2:
+        type: 'mineblock{type=EMERALD_ORE;amount=12}'
+        lore: 'Mine 12 emerald ore.'
+        triggers:
+        - 'experience{amount=2842}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

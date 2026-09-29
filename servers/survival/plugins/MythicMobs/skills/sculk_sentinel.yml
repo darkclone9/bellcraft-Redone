@@ -1,0 +1,7 @@
+SculkSentinelBeam_Cast:
+  Skills:
+    - 'effect:sound{s=entity.warden.sonic_charge;volume=1.5;pitch=1}'
+    - 'delay 18'
+    - 'effect:sound{s=entity.warden.sonic_boom;volume=1.8;pitch=1}'
+    - 'effect:particleline{particle=sonic_boom;distanceBetween=1;fromOrigin=true} @Forward{f=20}'
+    - 'damage{a="<skill.damage>";ignoreArmor=true;pk=true} @EntitiesInCone{angle=14;range=20;rotation=0}'

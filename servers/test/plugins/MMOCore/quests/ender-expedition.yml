@@ -1,0 +1,36 @@
+
+# Display options
+name: 'Ender Expedition'
+lore:
+- 'The endermen grow in number, tearing'
+- 'holes in reality. Launch an expedition'
+- 'to thin their ranks once and for all!'
+- ''
+- '&6Objective:'
+- '&7► Kill 25 endermen'
+- ''
+- '&eRewards:'
+- '&7► 12090 EXP'
+- '&7► 90 Gold Coins'
+- '&7► Legendary Weapon Essence'
+
+level-req:
+    main: 80
+
+parent:
+- 'enderman-stalker'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=ENDERMAN;amount=25}'
+        lore: 'Kill 25 endermen.'
+        triggers:
+        - message{format="&aAncient Sage> &fThe veil stabilizes. Reality itself thanks you."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 90"}
+        - 'mmoitem{type=MATERIAL;id=LEGENDARY_WEAPON_ESSENCE}'
+        - 'experience{amount=12090}'

@@ -1,0 +1,40 @@
+debug:
+  enabled: false
+  verbose: false
+
+model_engine:
+  camera_rotation:
+    yaw_offset: 0.0
+    pitch_offset: 0.0
+
+qte:
+  indicator:
+    defaults:
+      jump:
+        pressed: "&a[Jump]"
+        unpressed: "&7[Jump]"
+      sneak:
+        pressed: "&a[Sneak]"
+        unpressed: "&7[Sneak]"
+      sprint:
+        pressed: "&a[Sprint]"
+        unpressed: "&7[Sprint]"
+      forward:
+        pressed: "&a[W]"
+        unpressed: "&7[W]"
+      backward:
+        pressed: "&a[S]"
+        unpressed: "&7[S]"
+      left:
+        pressed: "&a[A]"
+        unpressed: "&7[A]"
+      right:
+        pressed: "&a[D]"
+        unpressed: "&7[D]"
+    type_overrides:
+      spam:
+        jump:
+          pressed: "&e&l[Jump]"
+          unpressed: "&8[Jump]"
+
+#26651a04d6829dbc2dfebfe6627b3f80

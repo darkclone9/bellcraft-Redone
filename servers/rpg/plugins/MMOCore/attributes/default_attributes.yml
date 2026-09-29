@@ -1,0 +1,47 @@
+
+# Attribute ID
+strength:
+
+    name: Strength
+    
+    # Maximum amount of points players 
+    # may spend in this attribute.
+    max-points: 100
+    
+    # Buffs given every 1 attribute point spent
+    # in this specific attribute.
+    #
+    # Strength is a physical combat attribute that improves
+    # melee damage, critical strikes, sustain via saturation,
+    # and natural health regeneration (Healing Factor).
+    # Max health boost has been removed for balance.
+    buff:
+        attack_damage: 0.5              # +0.5 flat attack damage per point (balance tuning: adjust this value as needed)
+        critical_strike_chance: 0.5%     # +0.5% critical strike chance on basic attacks per point
+        saturation: 1%                   # +1% saturation retention/efficiency per point
+        health_regeneration: 0.1         # +0.1 health regen/sec per point (contributes to Healing Factor)
+
+dexterity:
+    name: Dexterity
+    max-points: 100
+    buff:
+        physical_damage: 1.5   # +1.5 physical skill/weapon damage per point
+        projectile_damage: 1   # +1 projectile damage per point
+        attack_speed: 0.5%     # +0.5% attack speed per point
+        movement_speed: 0.3%   # +0.3% movement speed per point
+
+intelligence:
+    name: Intelligence
+    max-points: 100
+    buff:
+        max_mana: 1            # +1 to class resource pool per point (Focus, Mana, Nanites, Casting Bars, etc.)
+        magic_damage: 0.8      # +0.8 magic skill damage per point
+        cooldown_reduction: 1  # +1% cooldown reduction per point
+
+wisdom:
+    name: Wisdom
+    max-points: 100
+    buff:
+        health_regeneration: 0.1  # +0.1 health regen/sec per point
+        max_mana: 0.8%            # +0.8% max mana per point
+        mana_regeneration: 0.3    # +0.3 mana regen/sec per point

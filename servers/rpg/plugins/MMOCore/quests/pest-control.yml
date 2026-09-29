@@ -1,0 +1,32 @@
+
+# Display options
+name: 'Pest Control'
+level-req:
+    main: 1
+lore:
+- 'Spiders have infested the outskirts'
+- 'of the settlement. Their webs are'
+- 'everywhere. Squash them!'
+- ''
+- '&6Objective:'
+- '&7► Kill 8 spiders'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 5 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=SPIDER;amount=8}'
+        lore: 'Kill 8 spiders.'
+        triggers:
+        - message{format="&aScout> &fThe webs are cleared! Travelers can pass safely again."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 5"}
+        - 'experience{amount=170}'

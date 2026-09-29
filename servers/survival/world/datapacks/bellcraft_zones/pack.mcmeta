@@ -1,0 +1,10 @@
+{
+  "pack": {
+    "description": "Bellcraft zone levels",
+    "min_format": [
+      107,
+      1
+    ],
+    "max_format": 107
+  }
+}

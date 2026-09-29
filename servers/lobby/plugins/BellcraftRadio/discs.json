@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "namespace": "bellcraft",
+  "generatedAt": "2026-09-18T06:43:12.053Z",
+  "resourcePackSha1": "6618eb854e1cb7e25537f339bb974aae5e8e40c2",
+  "tracks": [
+    {
+      "id": "subwoofer_lullaby",
+      "namespace": "bellcraft",
+      "songKey": "bellcraft:subwoofer_lullaby",
+      "soundEvent": "bellcraft:music_disc.subwoofer_lullaby",
+      "title": "Subwoofer Lullaby",
+      "artist": "C418",
+      "durationSeconds": 208.68,
+      "radioTrackId": "trk_lib_2",
+      "comparatorOutput": 12,
+      "giveCommand": "/give @s minecraft:music_disc_wait[minecraft:jukebox_playable=\"bellcraft:subwoofer_lullaby\"]"
+    },
+    {
+      "id": "sweden",
+      "namespace": "bellcraft",
+      "songKey": "bellcraft:sweden",
+      "soundEvent": "bellcraft:music_disc.sweden",
+      "title": "Sweden",
+      "artist": "C418",
+      "durationSeconds": 215.63,
+      "radioTrackId": "trk_lib_1",
+      "comparatorOutput": 2,
+      "giveCommand": "/give @s minecraft:music_disc_wait[minecraft:jukebox_playable=\"bellcraft:sweden\"]"
+    },
+    {
+      "id": "wet_hands",
+      "namespace": "bellcraft",
+      "songKey": "bellcraft:wet_hands",
+      "soundEvent": "bellcraft:music_disc.wet_hands",
+      "title": "Wet Hands",
+      "artist": "C418",
+      "durationSeconds": 90,
+      "radioTrackId": "trk_lib_3",
+      "comparatorOutput": 8,
+      "giveCommand": "/give @s minecraft:music_disc_wait[minecraft:jukebox_playable=\"bellcraft:wet_hands\"]"
+    },
+    {
+      "id": "mice_on_venus",
+      "namespace": "bellcraft",
+      "songKey": "bellcraft:mice_on_venus",
+      "soundEvent": "bellcraft:music_disc.mice_on_venus",
+      "title": "Mice on Venus",
+      "artist": "C418",
+      "durationSeconds": 281.5,
+      "radioTrackId": "trk_lib_4",
+      "comparatorOutput": 3,
+      "giveCommand": "/give @s minecraft:music_disc_wait[minecraft:jukebox_playable=\"bellcraft:mice_on_venus\"]"
+    },
+    {
+      "id": "pigstep",
+      "namespace": "bellcraft",
+      "songKey": "bellcraft:pigstep",
+      "soundEvent": "bellcraft:music_disc.pigstep",
+      "title": "Pigstep",
+      "artist": "Lena Raine",
+      "durationSeconds": 149.65,
+      "radioTrackId": "trk_lib_5",
+      "comparatorOutput": 13,
+      "giveCommand": "/give @s minecraft:music_disc_wait[minecraft:jukebox_playable=\"bellcraft:pigstep\"]"
+    },
+    {
+      "id": "otherside",
+      "namespace": "bellcraft",
+      "songKey": "bellcraft:otherside",
+      "soundEvent": "bellcraft:music_disc.otherside",
+      "title": "Otherside",
+      "artist": "Lena Raine",
+      "durationSeconds": 195.27,
+      "radioTrackId": "trk_lib_6",
+      "comparatorOutput": 14,
+      "giveCommand": "/give @s minecraft:music_disc_wait[minecraft:jukebox_playable=\"bellcraft:otherside\"]"
+    },
+    {
+      "id": "aria_math",
+      "namespace": "bellcraft",
+      "songKey": "bellcraft:aria_math",
+      "soundEvent": "bellcraft:music_disc.aria_math",
+      "title": "Aria Math",
+      "artist": "C418",
+      "durationSeconds": 309.14,
+      "radioTrackId": "trk_d0e605c00c59",
+      "comparatorOutput": 9,
+      "giveCommand": "/give @s minecraft:music_disc_wait[minecraft:jukebox_playable=\"bellcraft:aria_math\"]"
+    },
+    {
+      "id": "infinite_amethyst",
+      "namespace": "bellcraft",
+      "songKey": "bellcraft:infinite_amethyst",
+      "soundEvent": "bellcraft:music_disc.infinite_amethyst",
+      "title": "Infinite Amethyst",
+      "artist": "Lena Raine",
+      "durationSeconds": 271.79,
+      "radioTrackId": "trk_1ef6211a0f7f",
+      "comparatorOutput": 7,
+      "giveCommand": "/give @s minecraft:music_disc_wait[minecraft:jukebox_playable=\"bellcraft:infinite_amethyst\"]"
+    },
+    {
+      "id": "dreiton",
+      "namespace": "bellcraft",
+      "songKey": "bellcraft:dreiton",
+      "soundEvent": "bellcraft:music_disc.dreiton",
+      "title": "Dreiton",
+      "artist": "C418",
+      "durationSeconds": 497,
+      "radioTrackId": "trk_363b528a40b3",
+      "comparatorOutput": 6,
+      "giveCommand": "/give @s minecraft:music_disc_wait[minecraft:jukebox_playable=\"bellcraft:dreiton\"]"
+    },
+    {
+      "id": "blind_spots",
+      "namespace": "bellcraft",
+      "songKey": "bellcraft:blind_spots",
+      "soundEvent": "bellcraft:music_disc.blind_spots",
+      "title": "Blind Spots",
+      "artist": "C418",
+      "durationSeconds": 332.5,
+      "radioTrackId": "trk_3308223b422b",
+      "comparatorOutput": 5,
+      "giveCommand": "/give @s minecraft:music_disc_wait[minecraft:jukebox_playable=\"bellcraft:blind_spots\"]"
+    },
+    {
+      "id": "moog_city",
+      "namespace": "bellcraft",
+      "songKey": "bellcraft:moog_city",
+      "soundEvent": "bellcraft:music_disc.moog_city",
+      "title": "Moog City",
+      "artist": "C418",
+      "durationSeconds": 160.12,
+      "radioTrackId": "trk_a250444bdb20",
+      "comparatorOutput": 4,
+      "giveCommand": "/give @s minecraft:music_disc_wait[minecraft:jukebox_playable=\"bellcraft:moog_city\"]"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+# The `vanilla_hud` feature allows you to control the default
+# HUD data that players see without any resource pack additions.
+#
+# The armor_bar feature is entirely client-side.
+# To use it, you need to install the PacketEvents plugin on your server.
+
+vanilla_hud:
+  enabled: false
+  # At what intervals will the information be
+  # updated when there are no bar-specific events?
+  # 20 Tick = 1 second
+  repeater: 20
+
+  bars:
+    hunger_bar:
+      enabled: false
+      current: '%mmocore_stamina%'
+      max: '%mmocore_stat_max_stamina%'
+      saturation: '5'
+
+    armor_bar:
+      enabled: false
+      current: '%mmoitems_stat_defense%'
+      max: 100
+
+    # This is a % bar. Your final number have to between 0-100
+    # Any number over 100 will be auto
+    experience_bar:
+      enabled: false
+      current: '%mmoitems_stat_defense%'
+      max: 100
+
+    level:
+      enabled: false
+      current: '%mmoitems_stat_defense%'
+
+    # How many hearts should be displayed in total?
+    # There can be a maximum of 10 in each row.
+    #
+    # This adjustment is made only once, based on the
+    # delay value you provide below,
+    # after the player joins the server.
+    healthscale_heart:
+      enabled: false
+      delay: 10
+      current: 10

@@ -1,0 +1,547 @@
+id: soldier
+name: "&cIron Will"
+type: CUSTOM
+lore:
+  - "&7Available to Soldiers only"
+  - "&7Master the art of frontline combat,"
+  - "&7fortify your body and crush your enemies."
+max-point-spent: 27
+icon:
+  material: IRON_CHESTPLATE
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+  a1:
+    root: true
+    name: Combat Tempo I
+    coordinates:
+      x: -1
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="ATTACK_SPEED";amount=5;type="RELATIVE"}
+    lores:
+      0:
+        - "&eAttack speed +%5"
+      1:
+        - "&eAttack speed +%5"
+  a2:
+    name: Combat Tempo II
+    coordinates:
+      x: -2
+      y: 1
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="ATTACK_SPEED";amount=10;type="RELATIVE"}
+    lores:
+      0:
+        - "&eAttack speed +%10"
+      1:
+        - "&eAttack speed +%10"
+  a3:
+    name: Combat Tempo III
+    coordinates:
+      x: -3
+      y: 0
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="ATTACK_SPEED";amount=15;type="RELATIVE"}
+    lores:
+      0:
+        - "&eAttack speed +%15"
+      1:
+        - "&eAttack speed +%15"
+  b1:
+    name: Battle Recovery I
+    coordinates:
+      x: -2
+      y: -1
+    parents:
+      strong: {a3: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="HEALTH_REGENERATION";amount=1;type="FLAT"}
+    lores:
+      0:
+        - "&eHealth regeneration +1"
+      1:
+        - "&eHealth regeneration +1"
+  b2:
+    name: Battle Recovery II
+    coordinates:
+      x: -1
+      y: -2
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="HEALTH_REGENERATION";amount=1;type="FLAT"}
+    lores:
+      0:
+        - "&eHealth regeneration +1"
+      1:
+        - "&eHealth regeneration +1"
+  b3:
+    name: Battle Recovery III
+    coordinates:
+      x: 0
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="HEALTH_REGENERATION";amount=2;type="FLAT"}
+    lores:
+      0:
+        - "&eHealth regeneration +2"
+      1:
+        - "&eHealth regeneration +2"
+  c1:
+    name: Iron Hide I
+    coordinates:
+      x: 0
+      y: -1
+    parents:
+      strong: {b3: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="ARMOR";amount=2;type="FLAT"}
+    lores:
+      0:
+        - "&eArmor +2"
+      1:
+        - "&eArmor +2"
+  c2:
+    name: Iron Hide II
+    coordinates:
+      x: -1
+      y: 0
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="ARMOR";amount=2;type="FLAT"}
+    lores:
+      0:
+        - "&eArmor +2"
+      1:
+        - "&eArmor +2"
+  c3:
+    name: Iron Hide III
+    coordinates:
+      x: 0
+      y: 1
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="ARMOR";amount=4;type="FLAT"}
+    lores:
+      0:
+        - "&eArmor +4"
+      1:
+        - "&eArmor +4"
+  d1:
+    name: Brute Force I
+    coordinates:
+      x: 1
+      y: 1
+    parents:
+      strong: {c3: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="PHYSICAL_DAMAGE";amount=5;type="RELATIVE"}
+    lores:
+      0:
+        - "&ePhysical skill damage +%5"
+      1:
+        - "&ePhysical skill damage +%5"
+  d2:
+    name: Brute Force II
+    coordinates:
+      x: 2
+      y: 1
+    parents:
+      strong: {d1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="PHYSICAL_DAMAGE";amount=10;type="RELATIVE"}
+    lores:
+      0:
+        - "&ePhysical skill damage +%10"
+      1:
+        - "&ePhysical skill damage +%10"
+  d3:
+    name: Brute Force III
+    coordinates:
+      x: 2
+      y: 2
+    parents:
+      strong: {d2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="PHYSICAL_DAMAGE";amount=15;type="RELATIVE"}
+    lores:
+      0:
+        - "&ePhysical skill damage +%15"
+      1:
+        - "&ePhysical skill damage +%15"
+  e1:
+    name: Immovable I
+    coordinates:
+      x: 3
+      y: 2
+    parents:
+      strong: {d3: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="KNOCKBACK_RESISTANCE";amount=5;type="FLAT"}
+    lores:
+      0:
+        - "&eKnockback resistance +%5"
+      1:
+        - "&eKnockback resistance +%5"
+  e2:
+    name: Immovable II
+    coordinates:
+      x: 4
+      y: 2
+    parents:
+      strong: {e1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="KNOCKBACK_RESISTANCE";amount=10;type="FLAT"}
+    lores:
+      0:
+        - "&eKnockback resistance +%10"
+      1:
+        - "&eKnockback resistance +%10"
+  e3:
+    name: Immovable III
+    coordinates:
+      x: 4
+      y: 1
+    parents:
+      strong: {e2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="KNOCKBACK_RESISTANCE";amount=15;type="FLAT"}
+    lores:
+      0:
+        - "&eKnockback resistance +%15"
+      1:
+        - "&eKnockback resistance +%15"
+  f1:
+    name: Weapon Mastery I
+    coordinates:
+      x: 4
+      y: 0
+    parents:
+      strong: {e3: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="WEAPON_DAMAGE";amount=1;type="FLAT"}
+    lores:
+      0:
+        - "&eWeapon hit damage +1"
+      1:
+        - "&eWeapon hit damage +1"
+  f2:
+    name: Weapon Mastery II
+    coordinates:
+      x: 4
+      y: -1
+    parents:
+      strong: {f1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="WEAPON_DAMAGE";amount=2;type="FLAT"}
+    lores:
+      0:
+        - "&eWeapon hit damage +2"
+      1:
+        - "&eWeapon hit damage +2"
+  f3:
+    name: Weapon Mastery III
+    coordinates:
+      x: 4
+      y: -2
+    parents:
+      strong: {f2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="WEAPON_DAMAGE";amount=3;type="FLAT"}
+    lores:
+      0:
+        - "&eWeapon hit damage +3"
+      1:
+        - "&eWeapon hit damage +3"
+  g1:
+    name: Warrior Constitution I
+    coordinates:
+      x: 3
+      y: -2
+    parents:
+      strong: {f3: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="MAX_HEALTH";amount=5;type="RELATIVE"}
+    lores:
+      0:
+        - "&eMax health +%5"
+      1:
+        - "&eMax health +%5"
+  g2:
+    name: Warrior Constitution II
+    coordinates:
+      x: 2
+      y: -2
+    parents:
+      strong: {g1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="MAX_HEALTH";amount=10;type="RELATIVE"}
+    lores:
+      0:
+        - "&eMax health +%10"
+      1:
+        - "&eMax health +%10"
+  g3:
+    name: Warrior Constitution III
+    coordinates:
+      x: 2
+      y: -1
+    parents:
+      strong: {g2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="MAX_HEALTH";amount=15;type="RELATIVE"}
+    lores:
+      0:
+        - "&eMax health +%15"
+      1:
+        - "&eMax health +%15"
+  h1:
+    root: true
+    name: Battle Rhythm I
+    coordinates:
+      x: 5
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="COOLDOWN_REDUCTION";amount=3;type="FLAT"}
+    lores:
+      0:
+        - "&eCooldown reduction +%3"
+  h2:
+    name: Battle Rhythm II
+    coordinates:
+      x: 6
+      y: 2
+    parents:
+      strong: {h1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="COOLDOWN_REDUCTION";amount=4;type="FLAT"}
+    lores:
+      0:
+        - "&eCooldown reduction +%4"
+      1:
+        - "&eCooldown reduction +%3"
+  h3:
+    name: Battle Rhythm III
+    coordinates:
+      x: 6
+      y: 1
+    parents:
+      strong: {h2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="COOLDOWN_REDUCTION";amount=6;type="FLAT"}
+    lores:
+      0:
+        - "&eCooldown reduction +%6"
+      1:
+        - "&eCooldown reduction +%7"
+  i1:
+    root: true
+    name: Combat Mastery I
+    coordinates:
+      x: 5
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="SKILL_DAMAGE";amount=5;type="RELATIVE"}
+    lores:
+      0:
+        - "&eSkill damage +%5"
+  i2:
+    name: Combat Mastery II
+    coordinates:
+      x: 5
+      y: -2
+    parents:
+      strong: {i1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="SKILL_DAMAGE";amount=8;type="RELATIVE"}
+    lores:
+      0:
+        - "&eSkill damage +%8"
+      1:
+        - "&eSkill damage +%5"
+  i3:
+    name: Combat Mastery III
+    coordinates:
+      x: 6
+      y: -2
+    parents:
+      strong: {i2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - stat{stat="SKILL_DAMAGE";amount=12;type="RELATIVE"}
+    lores:
+      0:
+        - "&eSkill damage +%12"
+      1:
+        - "&eSkill damage +%13"
+
+  # --- SKILL UNLOCK NODES ---
+
+  skill_shield_bash:
+    root: true
+    name: '&cUnlock: Shield Bash'
+    coordinates:
+      x: -4
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=SOLDIER_SHIELD_BASH}'
+    lores:
+      0:
+        - '&fSlam your shield into enemies,'
+        - '&fdamaging and slowing them.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &cShield Bash&7 ability!'
+
+  skill_warriors_leap:
+    root: true
+    name: '&cUnlock: Warrior''s Leap'
+    coordinates:
+      x: 0
+      y: 3
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=SOLDIER_WARRIORS_LEAP}'
+    lores:
+      0:
+        - '&fLeap toward your foe and'
+        - '&fcrash down with crushing force.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &cWarrior''s Leap&7 ability!'
+
+  skill_battle_cry:
+    root: true
+    name: '&cUnlock: Battle Cry'
+    coordinates:
+      x: 4
+      y: 4
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=SOLDIER_BATTLE_CRY}'
+    lores:
+      0:
+        - '&fLet out a fierce war cry,'
+        - '&fboosting your attack and damage.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &cBattle Cry&7 ability!'
+
+  skill_combat_stance:
+    root: true
+    name: '&6Unlock: Combat Stance'
+    coordinates:
+      x: -4
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=COMBAT_STANCE}'
+    lores:
+      0:
+        - '&fAdopt a hardened combat posture,'
+        - '&fboosting defenses while active.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &6Combat Stance&7 ability!'
+
+  skill_suppressing_fire:
+    root: true
+    name: '&6Unlock: Suppressing Fire'
+    coordinates:
+      x: 7
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=SUPPRESSING_FIRE}'
+    lores:
+      0:
+        - '&fUnleash a barrage of fire to'
+        - '&fslow and weaken your enemies.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &6Suppressing Fire&7 ability!'
+
+  skill_tactical_reload:
+    root: true
+    name: '&7Unlock: Tactical Reload'
+    coordinates:
+      x: 7
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=TACTICAL_RELOAD}'
+    lores:
+      0:
+        - '&fSwiftly reload and recover,'
+        - '&freducing your cooldowns.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &7Tactical Reload&7 ability!'

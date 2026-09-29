@@ -1,0 +1,317 @@
+# ============================================================
+#  magic_shop.yml - LuxDialogues Example
+#
+#  Showcases:
+#   - Multi-page shop with goto navigation
+#   - Answer conditions (permission + placeholder)
+#   - @condition. on goto for conditional purchase routing
+#   - @triggerGoto returning to menu on timer (no external command)
+#   - @console purchase commands
+#   - Conditional lines showing balance hints
+#   - && operator in conditional lines
+#   - Gradient answer text
+#   - VIP item teaser
+#
+#  Usage: /ld send <player> magic_shop welcome
+# ============================================================
+
+Settings:
+  typing-speed: 1
+  range: 3
+  effect: Slowness
+  answer-numbers: true
+  prevent-exit: false
+  prevent-skip: false
+  npc-focus: false # Turn the player to face the NPC that started the dialogue (needs a Citizens / FancyNPCs / MythicMobs hook).
+  character-name: true
+  character-image: true
+  background-fog: true
+
+Sounds:
+  typing:
+    id: luxdialogues:luxdialogues.sounds.typing
+    source: MASTER
+    volume: 0.8
+    pitch: 1.2
+  selection:
+    id: luxdialogues:luxdialogues.sounds.selection
+    source: MASTER
+    volume: 1.0
+    pitch: 1.0
+
+Offsets:
+  name: 0
+  name-background: 20
+  dialogue-background: 0
+  dialogue-line: 10
+  answer-background: 140
+  answer-line: 13
+  arrow: -7
+  character: -16
+
+Character:
+  name: Mira's Magic Emporium
+
+Images:
+  character-background: character-background
+  arrow: hand
+  dialogue-background: dialogue-background
+  answer-background: answer-background
+  name-start: name-start
+  name-mid: name-mid
+  name-end: name-end
+  fog: fog
+
+Colors:
+  name: '#4f4a3e'
+  name-background: '#f8ffe0'
+  dialogue: '#4f4a3e'
+  dialogue-background: '#f8ffe0'
+  answer: '#4f4a3e'
+  answer-background: '#f8ffe0'
+  character-background: '#ffffff'
+  arrow: '#cdff29'
+  selected: '#4f4a3e'
+  fog: '#000000'
+
+Pages:
+  'welcome':
+    lines:
+      - 'Welcome, %player_name%! I''m #9b59b6Mira#4f4a3e.'
+      # Conditional lines — different message per balance tier using && operator
+      - '[condition.%vault_eco_balance%>=500]You have plenty — treat yourself!'
+      - '[condition.%vault_eco_balance%<500&&%vault_eco_balance%>=100]Some coins — browse carefully.'
+      - '[condition.%vault_eco_balance%<100]Funds are tight — just browse today.'
+      - 'What can I help you with?'
+    timer: 0
+    timer-actions: {}
+    pre-actions: {}
+    post-actions: {}
+    exit-actions:
+      - '@console msg %player_name% &5[Shop] &7Come back soon!'
+    goto: 'menu'
+
+  'menu':
+    lines:
+      - '#9b59b6Available today:#4f4a3e'
+      - '  #c87941Flame Sword  #4f4a3e— 300 coins'
+      - '  #3498dbIce Wand     #4f4a3e— 150 coins'
+      - '  #82d850Healing Brew #4f4a3e— 50 coins'
+      # Tease locked item for non-VIP, show price for VIP
+      - '[condition.:luxdialogues.vip:==false]#888888[VIP] Shadow Cloak — locked'
+      - '[condition.:luxdialogues.vip:==true]#9b59b6[VIP] Shadow Cloak — 500 coins'
+    timer: 0
+    timer-actions: {}
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+    answers:
+      '1':
+        text: "<gradient:#e55b3a:#f39c12>Flame Sword — 300c</gradient>"
+        goto: 'buy_flame_sword'
+        reply: []
+        sound:
+          id: luxdialogues:luxdialogues.sounds.beep
+          source: MASTER
+          volume: 1.0
+          pitch: 1.1
+        actions: {}
+      '2':
+        text: "<gradient:#3498db:#9b59b6>Ice Wand — 150c</gradient>"
+        goto: 'buy_ice_wand'
+        reply: []
+        sound:
+          id: luxdialogues:luxdialogues.sounds.beep
+          source: MASTER
+          volume: 1.0
+          pitch: 1.1
+        actions: {}
+      '3':
+        text: "<gradient:#82d850:#3cb84e>Healing Brew — 50c</gradient>"
+        goto: 'buy_healing_brew'
+        reply: []
+        sound:
+          id: luxdialogues:luxdialogues.sounds.beep
+          source: MASTER
+          volume: 1.0
+          pitch: 1.1
+        actions: {}
+      '4':
+        text: 'Goodbye.'
+        goto: ''
+        reply:
+          - '#9b59b6Safe travels!'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.ding
+          source: MASTER
+          volume: 0.8
+          pitch: 0.9
+        actions: {}
+
+  'buy_flame_sword':
+    lines:
+      - '#e55b3aFlame Sword#4f4a3e — Forged in dragon fire.'
+      - 'Price: #c87941300 coins#4f4a3e'
+      - '[condition.%vault_eco_balance%>=300]You have enough coins.'
+      - '[condition.%vault_eco_balance%<300]#e52b2bYou cannot afford this item.'
+      - 'Confirm your purchase?'
+    timer: 0
+    timer-actions: {}
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+    answers:
+      '1':
+        text: 'Confirm purchase'
+        # Conditional goto — success if balance sufficient, otherwise no_funds
+        goto:
+          - '@condition.%vault_eco_balance%>=300 purchase_success'
+          - 'no_funds'
+        reply:
+          - '#82d850Excellent choice!'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.ding
+          source: MASTER
+          volume: 1.0
+          pitch: 1.0
+        actions:
+          # @condition. on actions — only charge if balance is sufficient
+          - '@condition.%vault_eco_balance%>=300 @console eco take %player_name% 300'
+          - '@condition.%vault_eco_balance%>=300 @console give %player_name% diamond_sword 1'
+      '2':
+        text: 'Go back'
+        goto: 'menu'
+        reply: []
+        sound:
+          id: luxdialogues:luxdialogues.sounds.beep
+          source: MASTER
+          volume: 0.6
+          pitch: 1.0
+        actions: {}
+
+  'buy_ice_wand':
+    lines:
+      - '#3498dbIce Wand#4f4a3e — Channels frost.'
+      - 'Price: #c87941150 coins#4f4a3e'
+      - '[condition.%vault_eco_balance%>=150]You have enough coins.'
+      - '[condition.%vault_eco_balance%<150]#e52b2bYou cannot afford this item.'
+      - 'Confirm your purchase?'
+    timer: 0
+    timer-actions: {}
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+    answers:
+      '1':
+        text: 'Confirm purchase'
+        goto:
+          - '@condition.%vault_eco_balance%>=150 purchase_success'
+          - 'no_funds'
+        reply:
+          - '#82d850Excellent choice!'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.ding
+          source: MASTER
+          volume: 1.0
+          pitch: 1.0
+        actions:
+          - '@condition.%vault_eco_balance%>=150 @console eco take %player_name% 150'
+          - '@condition.%vault_eco_balance%>=150 @console give %player_name% stick 1'
+      '2':
+        text: 'Go back'
+        goto: 'menu'
+        reply: []
+        sound:
+          id: luxdialogues:luxdialogues.sounds.beep
+          source: MASTER
+          volume: 0.6
+          pitch: 1.0
+        actions: {}
+
+  'buy_healing_brew':
+    lines:
+      - '#82d850Healing Brew#4f4a3e — Restores 10 hearts.'
+      - 'Price: #c8794150 coins#4f4a3e'
+      - '[condition.%vault_eco_balance%>=50]You have enough coins.'
+      - '[condition.%vault_eco_balance%<50]#e52b2bYou cannot afford this item.'
+      - 'Confirm your purchase?'
+    timer: 0
+    timer-actions: {}
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+    answers:
+      '1':
+        text: 'Confirm purchase'
+        goto:
+          - '@condition.%vault_eco_balance%>=50 purchase_success'
+          - 'no_funds'
+        reply:
+          - '#82d850Excellent choice!'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.ding
+          source: MASTER
+          volume: 1.0
+          pitch: 1.0
+        actions:
+          - '@condition.%vault_eco_balance%>=50 @console eco take %player_name% 50'
+          - '@condition.%vault_eco_balance%>=50 @console give %player_name% potion 1'
+      '2':
+        text: 'Go back'
+        goto: 'menu'
+        reply: []
+        sound:
+          id: luxdialogues:luxdialogues.sounds.beep
+          source: MASTER
+          volume: 0.6
+          pitch: 1.0
+        actions: {}
+
+  'no_funds':
+    lines:
+      - "#e52b2bYou don't have enough coins for that!"
+      - 'Come back with more coins.'
+    # @triggerGoto returns to the menu after 3 seconds using this page's goto target.
+    # Old approach (no longer needed): '@redirect' + '@console ld redirect %player_name% magic_shop menu'
+    goto: 'menu'
+    timer: 60
+    timer-actions:
+      - '@triggerGoto'
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+
+  'purchase_success':
+    lines:
+      - '#82d850Done! Thank you, %player_name%.'
+      - 'The item is in your inventory.'
+      - 'Anything else I can help with?'
+    timer: 0
+    timer-actions: {}
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+    answers:
+      '1':
+        text: 'Browse more items'
+        goto: 'menu'
+        reply: []
+        sound:
+          id: luxdialogues:luxdialogues.sounds.beep
+          source: MASTER
+          volume: 1.0
+          pitch: 1.1
+        actions: {}
+      '2':
+        text: "That's all, thanks!"
+        goto: ''
+        reply:
+          - '#9b59b6Come back anytime!'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.ding
+          source: MASTER
+          volume: 1.0
+          pitch: 1.0
+        actions: {}
+
+#d21891d819abf57b5a57f22e6b637384

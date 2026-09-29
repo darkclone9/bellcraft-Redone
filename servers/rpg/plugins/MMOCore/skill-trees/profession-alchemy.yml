@@ -1,0 +1,192 @@
+id: profession-alchemy
+name: "&dAlchemist's Art"
+type: CUSTOM
+lore:
+  - '&7Available to all players'
+  - '&7Brew more potent concoctions,'
+  - '&7sharpen your insight, and restore vitality.'
+max-point-spent: 12
+icon:
+  material: BREWING_STAND
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+  a1:
+    root: true
+    name: Brew Mastery I
+    coordinates:
+      x: 0
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +2'
+  a2:
+    name: Brew Mastery II
+    coordinates:
+      x: -1
+      y: 2
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +3'
+      1:
+        - '&eAdditional experience +2'
+  a3:
+    name: Brew Mastery III
+    coordinates:
+      x: -2
+      y: 2
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +5'
+      1:
+        - '&eAdditional experience +5'
+  b1:
+    root: true
+    name: Potion Potency I
+    coordinates:
+      x: -2
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALTH_REGENERATION";amount=0.5;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealth regeneration +0.5'
+  b2:
+    name: Potion Potency II
+    coordinates:
+      x: -2
+      y: -1
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALTH_REGENERATION";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealth regeneration +1'
+      1:
+        - '&eHealth regeneration +0.5'
+  b3:
+    name: Potion Potency III
+    coordinates:
+      x: -2
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALTH_REGENERATION";amount=1.5;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealth regeneration +1.5'
+      1:
+        - '&eHealth regeneration +1.5'
+  c1:
+    root: true
+    name: Alchemical Insight I
+    coordinates:
+      x: 0
+      y: -2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="LUCK";amount=0.5;type="FLAT"}'
+    lores:
+      0:
+        - '&eLuck +0.5'
+  c2:
+    name: Alchemical Insight II
+    coordinates:
+      x: 1
+      y: -2
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="LUCK";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eLuck +1'
+      1:
+        - '&eLuck +0.5'
+  c3:
+    name: Alchemical Insight III
+    coordinates:
+      x: 2
+      y: -2
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="LUCK";amount=1.5;type="FLAT"}'
+    lores:
+      0:
+        - '&eLuck +1.5'
+      1:
+        - '&eLuck +1.5'
+  d1:
+    root: true
+    name: Scholar's Mind I
+    coordinates:
+      x: 2
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax mana +5'
+  d2:
+    name: Scholar's Mind II
+    coordinates:
+      x: 2
+      y: 1
+    parents:
+      strong: {d1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=6;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax mana +6'
+      1:
+        - '&eMax mana +5'
+  d3:
+    name: Scholar's Mind III
+    coordinates:
+      x: 2
+      y: 2
+    parents:
+      strong: {d2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=8;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax mana +8'
+      1:
+        - '&eMax mana +8'

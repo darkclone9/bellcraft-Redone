@@ -1,0 +1,14 @@
+SCULK_SENTINEL_BEAM:
+  name: '&3Sonic Resonance'
+  icon: ECHO_SHARD
+  source: 'mythicmobs:SculkSentinelBeam_Cast'
+  parameters:
+    cooldown:
+      base: 25
+      per-level: -0.1
+      min: 15
+    mana:
+      base: 0
+    damage:
+      base: 14
+      per-level: 0.4

@@ -1,0 +1,47 @@
+name: Bug report
+description: Something on the server is broken or behaves wrong
+labels: [bug]
+body:
+  - type: dropdown
+    id: server
+    attributes:
+      label: Server
+      options:
+        - RPG survival (classes)
+        - Classic survival
+        - Lobby
+        - Build server
+        - Proxy / joining / Bedrock
+        - Website or radio
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you saw. Include exact chat/error messages if there were any.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to reproduce
+      placeholder: |
+        1. Pick the Cleric class
+        2. Hold a diamond chestplate and right-click
+        3. ...
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should happen instead
+  - type: input
+    id: when
+    attributes:
+      label: When, and which player
+      description: Rough date/time and player name help find it in the logs.
+  - type: dropdown
+    id: edition
+    attributes:
+      label: Game edition
+      options: [Java, Bedrock (console/phone/Windows), Both, Not relevant]

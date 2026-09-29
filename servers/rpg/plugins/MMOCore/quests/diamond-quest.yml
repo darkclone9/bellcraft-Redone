@@ -1,0 +1,35 @@
+
+# Display options
+name: 'Precious Stones'
+lore:
+- 'Deep within the earth lie the most'
+- 'valuable gems. Prove your worth as'
+- 'a miner and bring back diamonds!'
+- ''
+- '&6Objective:'
+- '&7► Mine 5 diamond ore'
+- ''
+- '&eRewards:'
+- '&7► 1863 EXP'
+- '&7► 25 Gold Coins'
+- '&7► Stone Sword'
+
+level-req:
+    main: 22
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=DIAMOND_ORE;amount=5}'
+        lore: 'Mine 5 diamond ore.'
+        triggers:
+        - message{format="&aJeweler> &fIncredible! These diamonds are worth a fortune!"}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - 'item{type=STONE_SWORD}'
+        - command{format="mmocore coins %player_name% 25"}
+        - 'experience{amount=1863}'

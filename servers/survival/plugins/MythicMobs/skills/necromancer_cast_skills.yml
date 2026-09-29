@@ -1,0 +1,271 @@
+# Necromancer Mythic cast skills (MythicMobs 5.13 + ModelEngine pets)
+# Locked CAST IDs from Bellcraft-Classes PR #51 — do not rename.
+#
+# MythicLib bridge (swap class stubs later):
+#   NECROMANCER_RAISE_DEAD      → mythicmobs:NecromancerRaiseDead_Cast
+#   NECROMANCER_SOUL_DRAIN      → mythicmobs:NecromancerSoulDrain_Cast
+#   NECROMANCER_RAISE_ELITE     → mythicmobs:NecromancerRaiseElite_Cast
+#   NECROMANCER_LIFE_SIPHON     → mythicmobs:NecromancerLifeSiphon_Cast
+#   NECROMANCER_DEATH_GRASP     → mythicmobs:NecromancerDeathGrasp_Cast
+#   NECROMANCER_RAISE_MINION    → mythicmobs:NecromancerRaiseMinion_Cast
+#   NECROMANCER_UNHOLY_COMMAND  → mythicmobs:NecromancerUnholyCommand_Cast
+#   NECROMANCER_CORPSE_EXPLOSION→ mythicmobs:NecromancerCorpseExplosion_Cast
+#
+# Pet TypeIds (Blockbench / MEG):
+#   Raise Elite  → NecroReaperElite
+#   Raise Minion / Raise Dead → random NecroMinionSkulker | NecroMinionWretch (shared cap 4)
+#
+# Placeholders from MythicLib when wired: <skill.damage> <skill.heal> <skill.duration>
+
+# ============================================================================
+# Fail messages
+# ============================================================================
+NecromancerMsg_NoCorpse:
+  Skills:
+  - message{m="<&5>Necromancer<&7>: No corpse within <&d>6<&7> blocks."} @self
+  - effect:sound{s=entity.wither.hurt;volume=0.5;pitch=1.6} @self
+
+NecromancerMsg_MinionCap:
+  Skills:
+  - message{m="<&5>Necromancer<&7>: Army cap reached (<&d>4<&7> minions)."} @self
+  - effect:sound{s=entity.wither.hurt;volume=0.5;pitch=1.2} @self
+
+NecromancerMsg_EliteCap:
+  Skills:
+  - message{m="<&5>Necromancer<&7>: Elite cap reached (<&d>1<&7>)."} @self
+  - effect:sound{s=entity.wither.hurt;volume=0.5;pitch=0.9} @self
+
+NecromancerMsg_NoExplodeSource:
+  Skills:
+  - message{m="<&5>Necromancer<&7>: Need a corpse or owned minion nearby."} @self
+  - effect:sound{s=entity.wither.hurt;volume=0.5;pitch=1.4} @self
+
+# ============================================================================
+# Corpse sourcing
+# ============================================================================
+NecromancerDropCorpse_FromKill:
+  Skills:
+  - summon{m=NecromancerCorpseMarker;amount=1;radius=0.15;summonerIsOwner=false;summonerIsParent=false;inheritFaction=false} @Origin
+  - effect:particles{p=soul;amount=18;hS=0.45;vS=0.4;speed=0.02;y=0.5} @Origin
+  - effect:particles{p=soul_fire_flame;amount=8;hS=0.3;vS=0.3;speed=0.01;y=0.3} @Origin
+  - effect:sound{s=entity.wither.ambient;volume=0.45;pitch=1.7} @Origin
+
+# MythicLib KILL / ON_KILL passive → player kills drop markers (@Trigger = victim)
+NecromancerDropCorpse_Cast:
+  Skills:
+  - skill{s=NecromancerDropCorpse_FromKill} @TriggerLocation
+
+NecromancerCorpseMarker_Expire:
+  Skills:
+  - delay 200
+  - effect:particles{p=smoke_large;amount=10;hS=0.3;vS=0.3;speed=0.02} @self
+  - remove @self
+
+# ============================================================================
+# Cap bookkeeping — caster/owner INTEGER vars
+#   necro_minion_count — living Skulker+Wretch
+#   necro_elite_count  — living NecroReaperElite
+# ============================================================================
+NecromancerPet_OnSummonMinion:
+  Skills:
+  - variableAdd{var=necro_minion_count;amount=1} @Owner
+  - effect:particles{p=soul;amount=25;hS=0.6;vS=0.8;speed=0.03;y=0.5} @self
+  - effect:sound{s=entity.skeleton.converted_to_stray;volume=1.0;pitch=0.7} @self
+
+NecromancerPet_OnDeathMinion:
+  Skills:
+  - variableAdd{var=necro_minion_count;amount=-1} @Owner
+  - skill{s=NecromancerDropCorpse_FromKill} @SelfLocation
+  - effect:particles{p=soul;amount=20;hS=0.5;vS=0.6;speed=0.04} @self
+
+NecromancerPet_OnSummonElite:
+  Skills:
+  - variableAdd{var=necro_elite_count;amount=1} @Owner
+  - effect:particles{p=soul_fire_flame;amount=40;hS=0.8;vS=1.0;speed=0.04;y=0.6} @self
+  - effect:particles{p=smoke_large;amount=15;hS=0.5;vS=0.5;speed=0.02} @self
+  - effect:sound{s=entity.wither.spawn;volume=0.9;pitch=0.85} @self
+
+NecromancerPet_OnDeathElite:
+  Skills:
+  - variableAdd{var=necro_elite_count;amount=-1} @Owner
+  - skill{s=NecromancerDropCorpse_FromKill} @SelfLocation
+  - effect:particles{p=soul_fire_flame;amount=30;hS=0.7;vS=0.8;speed=0.05} @self
+
+NecromancerCap_ClampMinion:
+  Conditions:
+  - compareValues{value1="<caster.var.necro_minion_count>";operator=<;value2=0;type=INTEGER}
+  Skills:
+  - setvariable{var=caster.necro_minion_count;type=INTEGER;value=0} @self
+
+NecromancerCap_ClampElite:
+  Conditions:
+  - compareValues{value1="<caster.var.necro_elite_count>";operator=<;value2=0;type=INTEGER}
+  Skills:
+  - setvariable{var=caster.necro_elite_count;type=INTEGER;value=0} @self
+
+NecromancerCap_InitMinionIfUnset:
+  Conditions:
+  - variableIsSet{var=caster.necro_minion_count} castinstead NecromancerCap_ClampMinion
+  Skills:
+  - setvariable{var=caster.necro_minion_count;type=INTEGER;value=0} @self
+
+NecromancerCap_InitEliteIfUnset:
+  Conditions:
+  - variableIsSet{var=caster.necro_elite_count} castinstead NecromancerCap_ClampElite
+  Skills:
+  - setvariable{var=caster.necro_elite_count;type=INTEGER;value=0} @self
+
+# ============================================================================
+# Shared Raise Dead — corpse + random minion variant (army pool cap 4)
+# ============================================================================
+NecromancerRaiseDead_Cast:
+  Skills:
+  - skill{s=NecromancerCap_InitMinionIfUnset} @self
+  - skill{s=NecromancerRaiseMinion_Gate} @self
+
+# ============================================================================
+# Raise Minion (Lichlord) — random Skulker / Wretch, shared cap 4
+# ============================================================================
+NecromancerRaiseMinion_Cast:
+  Skills:
+  - skill{s=NecromancerCap_InitMinionIfUnset} @self
+  - skill{s=NecromancerRaiseMinion_Gate} @self
+
+NecromancerRaiseMinion_Gate:
+  Conditions:
+  - compareValues{value1="<caster.var.necro_minion_count>";operator=<;value2=4;type=INTEGER} orelsecast NecromancerMsg_MinionCap
+  - mobsInRadius{types=NecromancerCorpseMarker;amount=>0;radius=6} orelsecast NecromancerMsg_NoCorpse
+  Skills:
+  - skill{s=NecromancerRaiseMinion_Do} @MobsInRadius{types=NecromancerCorpseMarker;r=6;limit=1;sort=NEAREST}
+
+NecromancerRaiseMinion_Do:
+  Skills:
+  - effect:particles{p=soul;amount=50;hS=0.9;vS=1.0;speed=0.05;y=0.4} @Target
+  - effect:particles{p=witch;amount=20;hS=0.6;vS=0.6;speed=0.02} @Target
+  - effect:sound{s=entity.wither.shoot;volume=0.8;pitch=0.6} @Target
+  - effect:sound{s=entity.skeleton.converted_to_stray;volume=1.2;pitch=0.55} @Target
+  - remove @Target
+  # 50/50 Skulker vs Wretch toward shared army cap
+  - randomskill{s=NecromancerSummon_Skulker,NecromancerSummon_Wretch} @TargetLocation
+
+NecromancerSummon_Skulker:
+  Skills:
+  - summon{m=NecroMinionSkulker;amount=1;radius=0.4;y=0.1;summonerIsOwner=true;summonerIsParent=true;inheritFaction=true} @Origin
+
+NecromancerSummon_Wretch:
+  Skills:
+  - summon{m=NecroMinionWretch;amount=1;radius=0.4;y=0.1;summonerIsOwner=true;summonerIsParent=true;inheritFaction=true} @Origin
+
+# ============================================================================
+# Raise Elite (Reaper) — NecroReaperElite, cap 1
+# ============================================================================
+NecromancerRaiseElite_Cast:
+  Skills:
+  - skill{s=NecromancerCap_InitEliteIfUnset} @self
+  - skill{s=NecromancerRaiseElite_Gate} @self
+
+NecromancerRaiseElite_Gate:
+  Conditions:
+  - compareValues{value1="<caster.var.necro_elite_count>";operator=<;value2=1;type=INTEGER} orelsecast NecromancerMsg_EliteCap
+  - mobsInRadius{types=NecromancerCorpseMarker;amount=>0;radius=6} orelsecast NecromancerMsg_NoCorpse
+  Skills:
+  - skill{s=NecromancerRaiseElite_Do} @MobsInRadius{types=NecromancerCorpseMarker;r=6;limit=1;sort=NEAREST}
+
+NecromancerRaiseElite_Do:
+  Skills:
+  - effect:particles{p=soul_fire_flame;amount=70;hS=1.1;vS=1.4;speed=0.06;y=0.5} @Target
+  - effect:particles{p=smoke_large;amount=25;hS=0.7;vS=0.8;speed=0.03} @Target
+  - effect:sound{s=entity.wither.spawn;volume=1.1;pitch=0.75} @Target
+  - remove @Target
+  - summon{m=NecroReaperElite;amount=1;radius=0.5;y=0.1;summonerIsOwner=true;summonerIsParent=true;inheritFaction=true} @TargetLocation
+
+# ============================================================================
+# Personal drains (no corpse / pet)
+# ============================================================================
+NecromancerSoulDrain_Cast:
+  Skills:
+  - effect:particles{p=soul;amount=35;hS=0.7;vS=0.7;speed=0.04} @Target
+  - effect:particles{p=damage_indicator;amount=12;hS=0.4;vS=0.4;speed=0.15} @Target
+  - effect:sound{s=entity.wither.shoot;volume=0.9;pitch=1.45} @Target
+  - damage{a="<skill.damage>";pk=true} @Target
+  - heal{a="<skill.heal>"} @Self
+  - potion{type=WITHER;duration=60;level=0} @Target
+
+NecromancerLifeSiphon_Cast:
+  Skills:
+  - effect:particles{p=soul;amount=60;hS=1.0;vS=1.0;speed=0.05} @Target
+  - effect:particles{p=damage_indicator;amount=22;hS=0.55;vS=0.55;speed=0.2} @Target
+  - effect:particles{p=witch;amount=15;hS=0.5;vS=0.5;speed=0.02} @Self
+  - effect:sound{s=entity.illusioner.cast_spell;volume=1.1;pitch=0.65} @Target
+  - damage{a="<skill.damage>";pk=true} @Target
+  - heal{a="<skill.heal>"} @Self
+
+NecromancerDeathGrasp_Cast:
+  Skills:
+  - effect:particles{p=squid_ink;amount=40;hS=0.9;vS=0.7;speed=0.03} @Target
+  - effect:particles{p=soul;amount=30;hS=0.7;vS=0.7;speed=0.03} @Target
+  - effect:sound{s=entity.evoker.cast_spell;volume=1.1;pitch=0.7} @Target
+  - damage{a="<skill.damage>";pk=true} @Target
+  - heal{a="<skill.heal>"} @Self
+  - potion{type=SLOWNESS;duration=70;level=2} @Target
+  - potion{type=WITHER;duration=70;level=0} @Target
+
+# ============================================================================
+# Unholy Command — buff owned children (elite + both minion variants)
+# ============================================================================
+NecromancerUnholyCommand_Cast:
+  Skills:
+  - effect:particles{p=witch;amount=70;hS=1.8;vS=1.2;speed=0.04;y=0.5} @Self
+  - effect:particles{p=soul;amount=40;hS=1.4;vS=1.0;speed=0.03} @Self
+  - effect:sound{s=entity.wither.ambient;volume=1.0;pitch=1.25} @Self
+  - skill{s=NecromancerUnholyCommand_Buff} @Children
+  - message{m="<&5>Unholy Command<&7>: your dead surge with power."} @Self
+
+NecromancerUnholyCommand_Buff:
+  Skills:
+  - potion{type=SPEED;duration=160;level=1}
+  - potion{type=STRENGTH;duration=160;level=0}
+  - potion{type=RESISTANCE;duration=160;level=0}
+  - effect:particles{p=enchanted_hit;amount=18;hS=0.5;vS=0.6;speed=0.1;y=0.8}
+  - effect:sound{s=entity.wither.ambient;volume=0.35;pitch=1.6}
+
+# ============================================================================
+# Corpse Explosion — corpse marker preferred; else sacrifice nearest owned minion
+# ============================================================================
+NecromancerCorpseExplosion_Cast:
+  Skills:
+  - skill{s=NecromancerCorpseExplosion_TryCorpse} @self
+
+NecromancerCorpseExplosion_TryCorpse:
+  Conditions:
+  - mobsInRadius{types=NecromancerCorpseMarker;amount=>0;radius=8} orelsecast NecromancerCorpseExplosion_TryMinion
+  Skills:
+  - skill{s=NecromancerCorpseExplosion_DetonateMarker} @MobsInRadius{types=NecromancerCorpseMarker;r=8;limit=1;sort=NEAREST}
+
+NecromancerCorpseExplosion_TryMinion:
+  Conditions:
+  - compareValues{value1="<caster.var.necro_minion_count>";operator=>;value2=0;type=INTEGER} orelsecast NecromancerMsg_NoExplodeSource
+  Skills:
+  - skill{s=NecromancerCorpseExplosion_SacrificeMinion} @Children{limit=1;sort=NEAREST}
+
+NecromancerCorpseExplosion_DetonateMarker:
+  Skills:
+  - effect:particles{p=explosion_large;amount=6;hS=0.2;vS=0.2;speed=0.05} @Target
+  - effect:particles{p=soul;amount=80;hS=1.6;vS=1.2;speed=0.08} @Target
+  - effect:particles{p=soul_fire_flame;amount=35;hS=1.2;vS=1.0;speed=0.06} @Target
+  - effect:sound{s=entity.generic.explode;volume=1.4;pitch=0.85} @Target
+  - effect:sound{s=entity.wither.death;volume=0.7;pitch=1.3} @Target
+  - remove @Target
+  - damage{a="<skill.damage>";pk=true} @EIR{r=4.5;ignore=owner,players,armorstand}
+  - damage{a="<skill.damage>";pk=true} @EIR{r=4.5;target=monsters}
+
+NecromancerCorpseExplosion_SacrificeMinion:
+  TargetConditions:
+  - mythicMobType{type=NecroMinionSkulker,NecroMinionWretch}
+  Skills:
+  - effect:particles{p=explosion_large;amount=8;hS=0.3;vS=0.3;speed=0.05} @Target
+  - effect:particles{p=soul;amount=90;hS=1.8;vS=1.3;speed=0.09} @Target
+  - effect:sound{s=entity.generic.explode;volume=1.5;pitch=0.8} @Target
+  - damage{a="<skill.damage>";pk=true} @EIR{r=5;ignore=owner,players,armorstand}
+  - damage{a="<skill.damage>";pk=true} @EIR{r=5;target=monsters}
+  - remove @Target

@@ -1,0 +1,14 @@
+animations:
+  default:
+    display-name: Default
+    mm-id: teleport-in-default
+    duration: 20
+    delay: 0
+    GUI:
+      icon: STONE
+      ModelID: 0
+      Lore:
+      - '&7Automatically added'
+      - '&7please customize in GUI.yml'
+
+# affadadec20c3292c3ae6322224d86af

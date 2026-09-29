@@ -1,0 +1,33 @@
+
+# Display options
+name: 'Lapis Expedition'
+lore:
+- 'The enchanters guild requires lapis'
+- 'lazuli for their enchantment rituals.'
+- 'Venture into the mines and gather some!'
+- ''
+- '&6Objective:'
+- '&7► Mine 20 lapis ore'
+- ''
+- '&eRewards:'
+- '&7► 627 EXP'
+- '&7► 17 Gold Coins'
+
+level-req:
+    main: 12
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=LAPIS_ORE;amount=20}'
+        lore: 'Mine 20 lapis ore.'
+        triggers:
+        - message{format="&aAlchemist> &fSplendid lapis! The enchantments will flow with power."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 17"}
+        - 'experience{amount=627}'

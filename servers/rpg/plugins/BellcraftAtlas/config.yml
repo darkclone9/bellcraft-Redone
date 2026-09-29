@@ -1,0 +1,80 @@
+# Generated from specs/bellcraft_zones.json - do not hand-edit; regenerate instead.
+cell-size: 512
+chart-radius-cells: 1
+spawn-chart-radius-cells: 1
+fog-color: "#1B1E24"
+
+tiers:
+  - id: worn
+    name: "Worn Chart"
+    view-radius: 1500
+    charts-needed: 0
+    cost: 0
+  - id: ranger
+    name: "Ranger's Map"
+    view-radius: 3500
+    charts-needed: 12
+    cost: 8
+  - id: atlas
+    name: "Cartographer's Atlas"
+    view-radius: 7000
+    charts-needed: 40
+    cost: 24
+
+zones:
+  overworld-world: world
+  center: { x: 0, z: 0 }
+  rings:
+    hearthvale:
+      name: "Hearthvale"
+      color: "#7FE08A"
+      min-level: 1
+      max-level: 10
+      inner: 0
+      outer: 1000
+    thornwold_march:
+      name: "Thornwold March"
+      color: "#4E9A5A"
+      min-level: 10
+      max-level: 20
+      inner: 1000
+      outer: 2200
+    ashenmoor_expanse:
+      name: "Ashenmoor Expanse"
+      color: "#E0B15A"
+      min-level: 20
+      max-level: 32
+      inner: 2200
+      outer: 3600
+    stormhollow_frontier:
+      name: "Stormhollow Frontier"
+      color: "#9FD8F0"
+      min-level: 32
+      max-level: 45
+      inner: 3600
+      outer: 5000
+    sundered_wilds:
+      name: "The Sundered Wilds"
+      color: "#9B6FD8"
+      min-level: 45
+      max-level: 60
+      inner: 5000
+      outer: -1
+  nether:
+    name: "Cinderreach"
+    color: "#E2683C"
+    min-level: 55
+    max-level: 70
+    id: "cinderreach"
+  end:
+    name: "The Pale Crown"
+    color: "#C89BF0"
+    min-level: 80
+    max-level: 99
+    id: "pale_crown"
+  deep-dark:
+    name: "The Hollowing Choir"
+    color: "#19D9EF"
+    min-level: 70
+    max-level: 80
+    id: "hollowing_choir"

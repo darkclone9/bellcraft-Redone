@@ -1,0 +1,159 @@
+display:
+  name: 'Mystic'
+  lore:
+    - '&eClass Role: Caster / Cosmic Scholar'
+    - '&7Draws on what lies between the stars.'
+    - ''
+    - '&7Specialisations:'
+    - '&d- Astral &8: the cosmos answers when you are threatened'
+    - '&5- Void &8: drain and gravity - win it slowly'
+  item: AMETHYST_SHARD
+  slot: 13
+
+mana:
+  char: '✦'
+  icon: '&d✦'
+  name: 'Cosmic Energy'
+  color:
+    full: LIGHT_PURPLE
+    half: DARK_PURPLE
+    empty: DARK_GRAY
+
+stats:
+  # Rebalanced 2026-09-10 on a shared budget: every class carries one primary damage
+  # stat and lands within ~8% of the others at base and ~7% per level. Every class also
+  # carries MANA_REGENERATION; without it a class with no Wisdom could cast three times
+  # and then wait three minutes.
+  # Utility caster. Large mana pool and cooldown reduction with mid-range magic damage.
+  MAX_HEALTH:
+    base: 22
+    per-level: 2.3
+  MAX_MANA:
+    base: 54
+    per-level: 6.8
+  MAGIC_DAMAGE:
+    base: 4
+    per-level: 1.5
+  ARMOR:
+    base: 1
+    per-level: 0.2
+  COOLDOWN_REDUCTION:
+    base: 6
+    per-level: 0.06
+  MANA_REGENERATION:
+    base: 3
+    per-level: 0.9
+  MOVEMENT_SPEED:
+    base: 0.118
+    per-level: 0.0002
+
+attributes:
+  # Fixed budget for every class: 20 points at base, 4.0 per level.
+  intelligence:
+    base: 10
+    per-level: 2
+  wisdom:
+    base: 10
+    per-level: 2
+
+options:
+  default: false
+  display: true
+  needs-permission: false
+  off-combat-health-regen: true
+  off-combat-mana-regen: true
+
+exp-curve: 'levels'
+exp-table: class_exp_table
+
+skill-slots:
+  1:
+    name: "&dCosmic Rift"
+    unlocked-by-default: true
+    lore:
+      - '&7Open a rift to damage foes'
+  2:
+    name: "&dAstral Barrier"
+    unlocked-by-default: true
+    lore:
+      - '&7Protect yourself with cosmic shielding'
+
+main-exp-sources:
+  - 'killmob{type=ZOMBIE;amount=4-6}'
+  - 'killmob{type=SKELETON;amount=4-6}'
+  - 'killmob{type=CREEPER;amount=6-9}'
+  - 'killmob{type=BLAZE;amount=8-14}'
+
+# Use MythicLib builtin skills (known-good handlers)
+skills:
+  ARCANE_RIFT:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  MAGICAL_SHIELD:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  # New skills
+  MYSTIC_VOID_STEP:
+    level: 5
+    max-level: 30
+    unlocked-by-default: false
+
+  MYSTIC_STARFALL:
+    level: 10
+    max-level: 30
+    unlocked-by-default: false
+
+  MYSTIC_CELESTIAL_BOND:
+    level: 15
+    max-level: 30
+    unlocked-by-default: false
+
+  # Standalone MythicLib skill unlocks (via skill tree)
+  COSMIC_RIFT:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  GRAVITON_FIELD:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  # ---- Specialisation skills (generated) ----
+  ASTRAL_ALIGNMENT:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  ASTRAL_STARFALL:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  VOID_SIPHON:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  VOID_COLLAPSE:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+
+skill-trees:
+  - 'mystic'
+  - 'profession-mining'
+  - 'profession-woodcutting'
+  - 'profession-farming'
+  - 'profession-fishing'
+  - 'profession-alchemy'
+  - 'profession-smithing'
+  - 'profession-enchanting'
+  - 'profession-smelting'
+
+triggers:
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-ap %player_name%"}'
+    - 'command{format="bellcraft-grant-sp %player_name%"}'
+    - 'command{format="bellcraft-grant-stp %player% mystic"}'

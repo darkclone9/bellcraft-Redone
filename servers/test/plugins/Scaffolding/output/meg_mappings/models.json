@@ -1,0 +1,72 @@
+{
+ "format": 1,
+ "models": {
+  "warden_guard": {
+   "identifier": "scf:meg_warden_guard",
+   "bones": [
+    "body",
+    "crest",
+    "head",
+    "left_arm",
+    "left_forearm",
+    "left_leg",
+    "right_arm",
+    "right_forearm",
+    "right_leg",
+    "root"
+   ],
+   "bone_uuids": {
+    "body": "e23afc70-98a1-41a0-ae33-fa4fb9674852",
+    "crest": "38acb85b-f965-45da-b882-27f41573f661",
+    "head": "f0a427dd-d10a-46bb-9ea6-b83265561971",
+    "left_arm": "8f346e8c-50b4-48cc-9be2-76f852e89433",
+    "left_forearm": "dc4d98be-e631-4389-b4d9-d92f35296750",
+    "left_leg": "f2aa955e-a04f-4fa4-8d10-1d5764693f99",
+    "right_arm": "a4642576-b62a-4a95-8886-5555bb787eab",
+    "right_forearm": "0d2ecad5-4520-448a-bb03-dc65e199d41d",
+    "right_leg": "eb7e5775-4080-4921-b9e9-89503289b3f7",
+    "root": "5ea096be-df82-4241-8077-433d30111b46"
+   },
+   "animations": [
+    {
+     "name": "attack_slam",
+     "key": "attack_slam"
+    },
+    {
+     "name": "attack_sweep",
+     "key": "attack_sweep"
+    },
+    {
+     "name": "damage",
+     "key": "damage"
+    },
+    {
+     "name": "death",
+     "key": "death"
+    },
+    {
+     "name": "idle",
+     "key": "idle"
+    },
+    {
+     "name": "roar_summon",
+     "key": "roar_summon"
+    },
+    {
+     "name": "sonic_scream",
+     "key": "sonic_scream"
+    },
+    {
+     "name": "spawn",
+     "key": "spawn"
+    },
+    {
+     "name": "walk",
+     "key": "walk"
+    }
+   ],
+   "bone_properties": 1,
+   "animation_properties": 1
+  }
+ }
+}

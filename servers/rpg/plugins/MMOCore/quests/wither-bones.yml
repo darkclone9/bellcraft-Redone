@@ -1,0 +1,33 @@
+
+# Display options
+name: 'Shadow Bones'
+lore:
+- 'Wither Skeletons are some of the most'
+- 'feared warriors of the Nether. Only the'
+- 'bravest dare face them!'
+- ''
+- '&6Objective:'
+- '&7► Kill 5 wither skeletons'
+- ''
+- '&eRewards:'
+- '&7► 4661 EXP'
+- '&7► 40 Gold Coins'
+
+level-req:
+    main: 55
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=WITHER_SKELETON;amount=5}'
+        lore: 'Kill 5 wither skeletons.'
+        triggers:
+        - message{format="&aNether Scout> &fYou truly are a warrior of legend!"}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 40"}
+        - 'experience{amount=4661}'

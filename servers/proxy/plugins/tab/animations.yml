@@ -1,0 +1,54 @@
+# TAB Animations for BUG Network
+
+bug_logo:
+  change-interval: 150
+  texts:
+    - "&2&lB&6&lU&2&lG"
+    - "&a&lB&6&lU&2&lG"
+    - "&f&lB&e&lU&2&lG"
+    - "&a&lB&f&lU&6&lG"
+    - "&2&lB&e&lU&f&lG"
+    - "&2&lB&6&lU&a&lG"
+    - "&2&lB&6&lU&2&lG"
+
+bug_title:
+  change-interval: 120
+  texts:
+    - "&a&lBELHAVEN &e&lGAMING &2&lNETWORK"
+    - "&f&lB&a&lELHAVEN &e&lGAMING &2&lNETWORK"
+    - "&a&lB&f&lE&a&lLHAVEN &e&lGAMING &2&lNETWORK"
+    - "&a&lBE&f&lL&a&lHAVEN &e&lGAMING &2&lNETWORK"
+    - "&a&lBEL&f&lH&a&lAVEN &e&lGAMING &2&lNETWORK"
+    - "&a&lBELH&f&lA&a&lVEN &e&lGAMING &2&lNETWORK"
+    - "&a&lBELHA&f&lV&a&lEN &e&lGAMING &2&lNETWORK"
+    - "&a&lBELHAV&f&lE&a&lN &e&lGAMING &2&lNETWORK"
+    - "&a&lBELHAVE&f&lN &e&lGAMING &2&lNETWORK"
+    - "&a&lBELHAVEN &f&lG&e&lAMING &2&lNETWORK"
+    - "&a&lBELHAVEN &e&lG&f&lA&e&lMING &2&lNETWORK"
+    - "&a&lBELHAVEN &e&lGA&f&lM&e&lING &2&lNETWORK"
+    - "&a&lBELHAVEN &e&lGAM&f&lI&e&lNG &2&lNETWORK"
+    - "&a&lBELHAVEN &e&lGAMI&f&lN&e&lG &2&lNETWORK"
+    - "&a&lBELHAVEN &e&lGAMIN&f&lG &2&lNETWORK"
+    - "&a&lBELHAVEN &e&lGAMING &f&lN&2&lETWORK"
+    - "&a&lBELHAVEN &e&lGAMING &2&lN&f&lE&2&lTWORK"
+    - "&a&lBELHAVEN &e&lGAMING &2&lNE&f&lT&2&lWORK"
+    - "&a&lBELHAVEN &e&lGAMING &2&lNET&f&lW&2&lORK"
+    - "&a&lBELHAVEN &e&lGAMING &2&lNETW&f&lO&2&lRK"
+    - "&a&lBELHAVEN &e&lGAMING &2&lNETWO&f&lR&2&lK"
+    - "&a&lBELHAVEN &e&lGAMING &2&lNETWOR&f&lK"
+    - "&a&lBELHAVEN &e&lGAMING &2&lNETWORK"
+
+bug_border:
+  change-interval: 200
+  texts:
+    - "<#006633>&m                                                </#ffd700>"
+    - "<#00994d>&m                                                </#ffea75>"
+    - "<#33cc77>&m                                                </#ffffff>"
+    - "<#00994d>&m                                                </#ffea75>"
+    - "<#006633>&m                                                </#ffd700>"
+
+time:
+  change-interval: 3000
+  texts:
+    - '&7Time &b%time%'
+    - '&7Date &b%date%'

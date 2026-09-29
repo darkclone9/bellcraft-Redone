@@ -1,0 +1,44 @@
+sculk_sentinel_helmet_smithing:
+  keep_durability: true
+  copy_enchantments: true
+  result:
+    nexo_item: sculk_sentinel_helmet
+  template:
+    nexo_item: sculk_crystal
+  base:
+    minecraft_item: NETHERITE_HELMET
+  addition:
+    nexo_item: sculk_crystal
+sculk_sentinel_chestplate_smithing:
+  keep_durability: true
+  copy_enchantments: true
+  result:
+    nexo_item: sculk_sentinel_chestplate
+  template:
+    nexo_item: sculk_crystal
+  base:
+    minecraft_item: NETHERITE_CHESTPLATE
+  addition:
+    nexo_item: sculk_crystal
+sculk_sentinel_leggings_smithing:
+  keep_durability: true
+  copy_enchantments: true
+  result:
+    nexo_item: sculk_sentinel_leggings
+  template:
+    nexo_item: sculk_crystal
+  base:
+    minecraft_item: NETHERITE_LEGGINGS
+  addition:
+    nexo_item: sculk_crystal
+sculk_sentinel_boots_smithing:
+  keep_durability: true
+  copy_enchantments: true
+  result:
+    nexo_item: sculk_sentinel_boots
+  template:
+    nexo_item: sculk_crystal
+  base:
+    minecraft_item: NETHERITE_BOOTS
+  addition:
+    nexo_item: sculk_crystal

@@ -1,0 +1,40 @@
+warden_guard:
+  Type: ZOMBIE
+  Display: '<gradient:#19d9ef:#9ff8ff>Warden Guard</gradient>'
+  Health: 340
+  Damage: 13
+  Armor: 10
+  Options:
+    MovementSpeed: 0.23
+    FollowRange: 34
+    MaxCombatDistance: 64
+    KnockbackResistance: 0.85
+    PreventOtherDrops: true
+    PreventSunburn: true
+    PreventRandomEquipment: true
+    AlwaysShowName: false
+    Silent: true
+    Despawn: true
+  Modules:
+    ThreatTable: true
+  AIGoalSelectors:
+    - clear
+    - '0 meleeattack'
+    - '1 movetowardstarget'
+    - '2 lookatplayers'
+    - '3 randomstroll'
+  AITargetSelectors:
+    - clear
+    - '0 attacker'
+    - '1 players'
+  DropTable: warden_guard_drops
+  Skills:
+    - 'model{mid=warden_guard} @self ~onSpawn'
+    - 'skill{s=wg_emerge} @self ~onSpawn'
+    - 'skill{s=wg_hurt} @self ~onDamaged'
+    - 'skill{s=wg_slam} @self ~onAttack'
+    - 'skill{s=wg_sweep} @self ~onTimer:110 ?targetwithin{d=6}'
+    - 'skill{s=wg_sonic} @self ~onTimer:160 ?targetwithin{d=26}'
+    - 'skill{s=wg_roar} @self ~onTimer:300 ?targetwithin{d=18}'
+    - 'skill{s=wg_enrage} @self ~onDamaged ?health{h=<35%}'
+    - 'skill{s=wg_fall} @self ~onDeath'

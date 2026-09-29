@@ -1,0 +1,168 @@
+display:
+  name: 'Cleric'
+  lore:
+    - '&eClass Role: Support / Divine Healer'
+    - '&7Mends what the front line breaks.'
+    - ''
+    - '&7Specialisations:'
+    - '&e- Radiance &8: sustained healing, wards and mana'
+    - '&d- Penitent &8: strike to heal - atonement, not retreat'
+  item: GOLDEN_APPLE
+  slot: 23
+
+mana:
+  char: "♥"
+  icon: "&b♥"
+  name: 'Devotion'
+  color:
+    full: AQUA
+    half: DARK_AQUA
+    empty: DARK_GRAY
+
+stats:
+  # Rebalanced 2026-09-10 on a shared budget: every class carries one primary damage
+  # stat and lands within ~8% of the others at base and ~7% per level. Every class also
+  # carries MANA_REGENERATION; without it a class with no Wisdom could cast three times
+  # and then wait three minutes.
+  # Sustain support. Mana and health regeneration carry the role; healing power now
+  # scales through skill parameters, not the dead HEALING_RATING stat.
+  MAX_HEALTH:
+    base: 24
+    per-level: 2.6
+  MAX_MANA:
+    base: 46
+    per-level: 5.8
+  MAGIC_DAMAGE:
+    base: 2
+    per-level: 0.9
+  ARMOR:
+    base: 4
+    per-level: 0.7
+  HEALTH_REGENERATION:
+    base: 1.6
+    per-level: 0.3
+  MANA_REGENERATION:
+    base: 3.5
+    per-level: 0.9
+  MOVEMENT_SPEED:
+    base: 0.114
+    per-level: 0.0
+
+attributes:
+  # Fixed budget for every class: 20 points at base, 4.0 per level.
+  strength:
+    base: 2
+    per-level: 0.4
+  intelligence:
+    base: 6
+    per-level: 1.2
+  wisdom:
+    base: 12
+    per-level: 2.4
+
+options:
+  default: false
+  display: true
+  needs-permission: false
+  off-combat-health-regen: true
+  off-combat-mana-regen: true
+
+exp-curve: 'levels'
+exp-table: class_exp_table
+
+skill-slots:
+  1:
+    name: '&bHoly Mend'
+    unlocked-by-default: true
+    lore:
+      - '&7Restorative prayer'
+  2:
+    name: '&bSanctified Ward'
+    unlocked-by-default: true
+    lore:
+      - '&7Protective blessing'
+
+main-exp-sources:
+  - 'killmob{type=ZOMBIE;amount=3-6}'
+  - 'killmob{type=SKELETON;amount=3-6}'
+  - 'killmob{type=CREEPER;amount=6-9}'
+  - 'killmob{type=BLAZE;amount=9-15}'
+
+skill-trees:
+  - 'cleric-divinity'
+  - 'profession-mining'
+  - 'profession-woodcutting'
+  - 'profession-farming'
+  - 'profession-fishing'
+  - 'profession-alchemy'
+  - 'profession-smithing'
+  - 'profession-enchanting'
+  - 'profession-smelting'
+
+# Use MythicLib builtin skills (known-good handlers)
+skills:
+  GRAND_HEAL:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+    point-modifier: 1
+
+  HUMAN_SHIELD:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+    point-modifier: 1
+
+  CLERIC_HOLY_RESURGENCE:
+    level: 0
+    max-level: 30
+    unlocked-by-default: false
+    point-modifier: 1
+    unlock-conditions:
+      # Requires the player to be Class Level 5
+      - 'level{m=5}'
+      # Requires Grand Heal to be at least Level 3
+      - 'skill{s=GRAND_HEAL;m=3}'
+
+  CLERIC_BLESSED_GROUND:
+    level: 0
+    max-level: 30
+    unlocked-by-default: false
+    point-modifier: 2
+    unlock-conditions:
+      - 'level{m=10}'
+      - 'skill{s=CLERIC_HOLY_RESURGENCE;m=5}'
+
+  CLERIC_MARTYRS_RESOLVE:
+    level: 0
+    max-level: 30
+    unlocked-by-default: false
+    point-modifier: 3
+    unlock-conditions:
+      - 'level{m=15}'
+      - 'skill{s=CLERIC_BLESSED_GROUND;m=5}'
+      - 'skill{s=HUMAN_SHIELD;m=10}'
+
+  # ---- Specialisation skills (generated) ----
+  RADIANCE_BENEDICTION:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  RADIANCE_DAWNBREAK:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  PENITENT_ATONEMENT:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  PENITENT_AEGIS:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+
+triggers:
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-ap %player_name%"}'
+    - 'command{format="bellcraft-grant-sp %player_name%"}'
+    - 'command{format="bellcraft-grant-stp %player% cleric-divinity"}'

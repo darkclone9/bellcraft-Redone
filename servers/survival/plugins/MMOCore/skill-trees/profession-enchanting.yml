@@ -1,0 +1,192 @@
+id: profession-enchanting
+name: "&5Enchanter's Wisdom"
+type: CUSTOM
+lore:
+  - '&7Available to all players'
+  - '&7Deepen your arcane knowledge,'
+  - '&7expand your mana, and sharpen your luck.'
+max-point-spent: 12
+icon:
+  material: ENCHANTED_BOOK
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+  a1:
+    root: true
+    name: Arcane Study I
+    coordinates:
+      x: 0
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +2'
+  a2:
+    name: Arcane Study II
+    coordinates:
+      x: -1
+      y: 2
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +3'
+      1:
+        - '&eAdditional experience +2'
+  a3:
+    name: Arcane Study III
+    coordinates:
+      x: -2
+      y: 2
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +5'
+      1:
+        - '&eAdditional experience +5'
+  b1:
+    root: true
+    name: Mana Reserve I
+    coordinates:
+      x: -2
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax mana +5'
+  b2:
+    name: Mana Reserve II
+    coordinates:
+      x: -2
+      y: -1
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=6;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax mana +6'
+      1:
+        - '&eMax mana +5'
+  b3:
+    name: Mana Reserve III
+    coordinates:
+      x: -2
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=8;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax mana +8'
+      1:
+        - '&eMax mana +8'
+  c1:
+    root: true
+    name: Enchanter's Luck I
+    coordinates:
+      x: 0
+      y: -2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="LUCK";amount=0.5;type="FLAT"}'
+    lores:
+      0:
+        - '&eLuck +0.5'
+  c2:
+    name: Enchanter's Luck II
+    coordinates:
+      x: 1
+      y: -2
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="LUCK";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eLuck +1'
+      1:
+        - '&eLuck +0.5'
+  c3:
+    name: Enchanter's Luck III
+    coordinates:
+      x: 2
+      y: -2
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="LUCK";amount=1.5;type="FLAT"}'
+    lores:
+      0:
+        - '&eLuck +1.5'
+      1:
+        - '&eLuck +1.5'
+  d1:
+    root: true
+    name: Essence Flow I
+    coordinates:
+      x: 2
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=0.05;type="FLAT"}'
+    lores:
+      0:
+        - '&eMana regeneration +0.05'
+  d2:
+    name: Essence Flow II
+    coordinates:
+      x: 2
+      y: 1
+    parents:
+      strong: {d1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=0.1;type="FLAT"}'
+    lores:
+      0:
+        - '&eMana regeneration +0.1'
+      1:
+        - '&eMana regeneration +0.05'
+  d3:
+    name: Essence Flow III
+    coordinates:
+      x: 2
+      y: 2
+    parents:
+      strong: {d2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=0.15;type="FLAT"}'
+    lores:
+      0:
+        - '&eMana regeneration +0.15'
+      1:
+        - '&eMana regeneration +0.15'

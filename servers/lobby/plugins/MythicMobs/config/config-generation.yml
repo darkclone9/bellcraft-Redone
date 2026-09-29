@@ -1,0 +1,142 @@
+#
+# Generation Configuration Options
+#
+# More information about Mythic pack generation features can be found here:
+# https://git.mythiccraft.io/mythiccraft/mythiccrucible/-/wikis/ResourcePack-Generator
+#
+Generation:
+
+  #================================================================================
+  # General Generator Options
+  #================================================================================
+  Namespace: mythic                 # Namespace to save everything under
+  GenerateOnStartup: true           # If the pack should auto-generate on server startup
+
+  MergeModelEngine: true            # Whether to merge ModelEngine files if available
+  MergeHappyHUD: true               # Whether to merge HappyHUD files if available
+  MergeMythicHUD: true
+  MergeEmojy: true                  # Whether to merge Emojy files if available
+
+  # Import external resource packs into the generated pack. Imported atlases are merged and run
+  # through the same dedup/split/items-atlas handling as the built-in merges.
+  Import:
+    # Explicit folders or .zip packs to merge, in the order listed. Paths are resolved against the
+    # server root (or may be absolute). Each entry must contain (or be) a pack with an assets/ folder.
+    #   FromLocation:
+    #   - plugins/Emojy/pack.zip
+    #   - packs/my_extra_pack
+    FromLocation: []
+    # URLs of .zip packs to download and merge during generation, in the order listed.
+    # Each download must be a valid resource pack zip. Failed downloads are logged and skipped.
+    #   FromUrl:
+    #   - https://example.com/shared_assets.zip
+    FromUrl: []
+    # Drop folders or .zip packs into plugins/MythicCrucible/external_packs/ to merge them.
+    # Names listed here are applied first in this order; anything not listed follows alphabetically.
+    ExternalPackOrder: []
+
+  ZipPack: true                     # Whether to zip the pack after completion. Required for deployment.
+
+  #================================================================================
+  # Pack Validation
+  # - Runs over the fully assembled pack (merged content included) before zipping
+  #================================================================================
+  Validate:
+    MissingTextures: true           # Log model/font/atlas texture references that don't resolve to a real texture in the pack or vanilla assets
+    FixInvalidPng: true             # Detect files that aren't real PNGs (e.g. a renamed JPEG) and re-encode them when possible
+
+  #================================================================================
+  # PackSquash Integration
+  # - Optimizes the resource pack using PackSquash for smaller file sizes
+  # - Requires the PackSquash executable: https://github.com/ComunidadAyworthy/PackSquash
+  #================================================================================
+  PackSquash:
+    Enabled: false                    # Whether to run PackSquash after zipping. Requires ZipPack to be true.
+    ExecutablePath: plugins/MythicCrucible/generation/packsquash/packsquash  # Path to the PackSquash executable
+    SettingsPath: plugins/MythicCrucible/generation/packsquash/packsquash.toml  # Path to the PackSquash TOML config
+    CacheSize: 5                      # Number of cached squashed packs to keep
+  LegacyNoteblocksSupport: true     # Supports noteblocks id from Oraxen. Disabling it will allow to use the harp instrument and increasing the limit of 800 maximum blocks to 1150
+
+  ImplicitGeneration:
+    Enabled: false                  # Whether to automatically find and generate entries in model fields
+    PrependItemFolder: true         # Auto-prepend the item folder for implicitly generated models
+
+  # (1.21.6+) Default value of `oversized_in_gui` for every generated item.
+  # When true, custom models are allowed to exceed the 16x16 GUI slot boundary.
+  # Individual items can still opt out by setting `Generation.OversizedInGui: false`
+  # in their config. Has no effect on servers older than 1.21.6.
+  ForceOversizedInGui: false
+
+  Security:
+    ObfuscateFiles: false           # Randomizes file names to make them harder to read
+    #HashItemDefinitions: false      # [not yet implemented] Hashes item definitions to make them harder to read. Breaks existing items when turning on
+
+  # Overlays are generated for every supported MC version by default (your server's
+  # own version is always skipped — its content is in the main pack). Use this to
+  # OPT OUT of specific overlays. Matching versions are excluded (compared by
+  # pack format).
+  #
+  # Patterns: bare version → exact match. MythicMobs-style operators are supported:
+  #   1.21.5     → exclude exactly 1.21.5
+  #   = 1.21.5   → same
+  #   => 1.21.4  → exclude every version >= 1.21.4
+  #   =< 1.21.3  → exclude every version <= 1.21.3
+  #   < 1.21.6   → strictly less
+  #   '> 1.21.6' → strictly greater (>= and > must be quoted — bare > is special in YAML)
+  #
+  # Accepts a list, or a single (comma-separable) string:
+  #   ExcludeOverlays:
+  #   - < 1.21.4
+  #   - 1.21.6
+  #   ExcludeOverlays: =< 1.21.10
+  #   ExcludeOverlays: 1.21.4, => 1.21.9
+  ExcludeOverlays: []
+
+  #================================================================================
+  # Automatic Deployment Options
+  # - Used to automatically deploy the pack to an end-point once it's generated
+  #================================================================================
+  Deployment:
+    Enabled: true                   # Whether to enable automatic deployment
+    Type: MCPACKS                   # MCPACKS, SELFHOST, or S3
+    SkipUnchanged: true             # Skip the upload and SendOnUpdate rebroadcast when the generated pack is identical to the last successful deploy. If the remote copy was wiped, delete plugins/MythicCrucible/generation/.last_deploy to force a re-upload.
+    SelfHosting:
+      Port: 8080
+    S3:
+      Storage:
+        Key: pack
+        Bucket: packs
+        PathStyle: false              # Use path-style URLs (<endpoint>/<bucket>/<key>) instead of virtual-hosted (<bucket>.<endpoint>). Required for MinIO, plain-IP endpoints, and some Cloudflare R2 / Hetzner setups.
+        ChunkedEncoding: true         # Use AWS chunked transfer encoding on PUT. Disable for Cloudflare R2 — it rejects aws-chunked.
+        PublicRead: true              # Upload objects with public-read ACL so Minecraft clients can fetch them. Disable only if your bucket policy already grants public read.
+      Authentication:
+        Endpoint: ''
+        AccessKey: ''
+        SecretKey: ''
+        Region: us-east-1             # SigV4 region. Match your bucket's region (e.g. eu-central-1 for Hetzner FSN1, auto for Cloudflare R2). Wrong region → SignatureDoesNotMatch.
+    AutoSend:                       # Automatically sending the pack to players
+      Enabled: true
+      SendOnUpdate: true
+      DuringConfiguration: false  # (Paper 1.21.5+) Send the pack during the configuration phase, before the player actually joins the world. Falls back to PlayerJoinEvent on older servers.
+      PublicURL: https://s3.yourcoolwebsite.com    # Ignored when Type: MCPACKS — the upload response provides the URL.
+      Force: false                #Force players to accept the pack or be kicked
+      Prompt: "This server requires a resource pack to play!"         #Prompt to send to players when being sent resource pack
+
+  #================================================================================
+  # Custom Armor Generation Settings
+  # - These settings affect custom armor generation.
+  #================================================================================
+  CustomArmor:
+    DefaultMethod: COMPONENT
+    GenerateOptifineFiles: false
+    Trims:
+      Enabled: false
+      GenerateDataPack: true
+      HideBaseArmor: []
+      ConvertBaseArmor: false
+
+  #================================================================================
+  # Font Image Generation Settings
+  #================================================================================
+  FontImages:
+    StartingCharacter: "\u5001"

@@ -1,0 +1,41 @@
+
+# Display options
+name: 'Night Watch'
+lore:
+- 'The night sky brings terrors both old'
+- 'and new. Skeletons and phantoms stalk'
+- 'the darkness. Stand guard and fight!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Kill 10 skeletons'
+- '&7► Phase 2: Kill 5 phantoms'
+- ''
+- '&eRewards:'
+- '&7► 627 EXP'
+- '&7► 10 Gold Coins'
+
+level-req:
+    main: 18
+
+parent:
+- 'first-blood'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=SKELETON;amount=10}'
+        lore: 'Kill 10 skeletons.'
+        triggers:
+        - message{format="&aGuard Captain> &fThe bone archers are down! Now deal with the phantoms above!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=PHANTOM;amount=5}'
+        lore: 'Kill 5 phantoms.'
+        triggers:
+        - message{format="&aGuard Captain> &fThe skies are clear! You have earned a peaceful dawn."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 10"}
+        - 'experience{amount=627}'

@@ -1,0 +1,361 @@
+bramble_stalker:
+  Type: ZOMBIE
+  Display: '<gradient:#7FE08A:#3f7a4a>Bramble Stalker</gradient>'
+  Health: 45
+  Damage: 5
+  Armor: 2
+  Options:
+    MovementSpeed: 0.24
+    FollowRange: 32
+    MaxCombatDistance: 64
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    AlwaysShowName: false
+    Despawn: true
+  Modules:
+    ThreatTable: true
+  AIGoalSelectors:
+    - clear
+    - '0 meleeattack'
+    - '1 movetowardstarget'
+    - '2 lookatplayers'
+    - '3 randomstroll'
+  AITargetSelectors:
+    - clear
+    - '0 attacker'
+    - '1 players'
+  Level: 3
+  LevelModifiers:
+    Health: 4
+    Damage: 0.4
+    Armor: 0.2
+  DropTable: bramble_stalker_drops
+  Skills:
+    - 'skill{s=bs_lash} @self ~onTimer:120 ?targetwithin{d=12}'
+    - 'skill{s=bs_snare} @self ~onAttack'
+    - 'skill{s=bs_burst} @self ~onDeath'
+pinebark_revenant:
+  Type: SKELETON
+  Display: '<gradient:#4E9A5A:#2c5a33>Pinebark Revenant</gradient>'
+  Health: 80
+  Damage: 7
+  Armor: 4
+  Options:
+    MovementSpeed: 0.25
+    FollowRange: 32
+    MaxCombatDistance: 64
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    AlwaysShowName: false
+    Despawn: true
+  Modules:
+    ThreatTable: true
+  AIGoalSelectors:
+    - clear
+    - '0 meleeattack'
+    - '1 movetowardstarget'
+    - '2 lookatplayers'
+    - '3 randomstroll'
+  AITargetSelectors:
+    - clear
+    - '0 attacker'
+    - '1 players'
+  Level: 12
+  LevelModifiers:
+    Health: 6
+    Damage: 0.5
+    Armor: 0.3
+  DropTable: pinebark_revenant_drops
+  Skills:
+    - 'skill{s=pr_volley} @self ~onTimer:140 ?targetwithin{d=20}'
+    - 'skill{s=pr_pack} @self ~onTimer:400 ?targetwithin{d=16}'
+    - 'skill{s=pr_bark} @self ~onDamaged ?health{h=<40%}'
+duneshade_marauder:
+  Type: HUSK
+  Display: '<gradient:#E0B15A:#8a5f22>Duneshade Marauder</gradient>'
+  Health: 130
+  Damage: 10
+  Armor: 6
+  Options:
+    MovementSpeed: 0.26
+    FollowRange: 32
+    MaxCombatDistance: 64
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    AlwaysShowName: false
+    Despawn: true
+    PreventSunburn: true
+  Modules:
+    ThreatTable: true
+  AIGoalSelectors:
+    - clear
+    - '0 meleeattack'
+    - '1 movetowardstarget'
+    - '2 lookatplayers'
+    - '3 randomstroll'
+  AITargetSelectors:
+    - clear
+    - '0 attacker'
+    - '1 players'
+  Level: 22
+  LevelModifiers:
+    Health: 9
+    Damage: 0.7
+    Armor: 0.4
+  DropTable: duneshade_marauder_drops
+  Skills:
+    - 'skill{s=dm_sandblast} @self ~onTimer:150 ?targetwithin{d=14}'
+    - 'skill{s=dm_burrow} @self ~onTimer:260 ?targetwithin{d=22}'
+    - 'skill{s=dm_haze} @self ~onDamaged ?health{h=<45%}'
+abyssal_drowned:
+  Type: DROWNED
+  Display: '<gradient:#4FA9D8:#1d4f6b>Abyssal Drowned</gradient>'
+  Health: 150
+  Damage: 11
+  Armor: 7
+  Options:
+    MovementSpeed: 0.24
+    FollowRange: 32
+    MaxCombatDistance: 64
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    AlwaysShowName: false
+    Despawn: true
+  Modules:
+    ThreatTable: true
+  AIGoalSelectors:
+    - clear
+    - '0 meleeattack'
+    - '1 movetowardstarget'
+    - '2 lookatplayers'
+    - '3 randomstroll'
+  AITargetSelectors:
+    - clear
+    - '0 attacker'
+    - '1 players'
+  Level: 27
+  LevelModifiers:
+    Health: 10
+    Damage: 0.8
+    Armor: 0.45
+  DropTable: abyssal_drowned_drops
+  Skills:
+    - 'skill{s=ad_whirlpool} @self ~onTimer:150 ?targetwithin{d=14}'
+    - 'skill{s=ad_grasp} @self ~onAttack'
+    - 'skill{s=ad_surge} @self ~onDamaged ?health{h=<40%}'
+rimebound_colossus:
+  Type: STRAY
+  Display: '<gradient:#9FD8F0:#3f6f8a>Rimebound Colossus</gradient>'
+  Health: 200
+  Damage: 13
+  Armor: 9
+  Options:
+    MovementSpeed: 0.23
+    FollowRange: 32
+    MaxCombatDistance: 64
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    AlwaysShowName: false
+    Despawn: true
+  Modules:
+    ThreatTable: true
+  AIGoalSelectors:
+    - clear
+    - '0 meleeattack'
+    - '1 movetowardstarget'
+    - '2 lookatplayers'
+    - '3 randomstroll'
+  AITargetSelectors:
+    - clear
+    - '0 attacker'
+    - '1 players'
+  Level: 32
+  LevelModifiers:
+    Health: 13
+    Damage: 0.9
+    Armor: 0.55
+  DropTable: rimebound_colossus_drops
+  Skills:
+    - 'skill{s=rc_nova} @self ~onTimer:160 ?targetwithin{d=12}'
+    - 'skill{s=rc_spike} @self ~onAttack'
+    - 'skill{s=rc_shell} @self ~onDamaged ?health{h=<35%}'
+stormcaller_roc:
+  Type: PHANTOM
+  Display: '<gradient:#D8D8E8:#6c7fa8>Stormcaller Roc</gradient>'
+  Health: 240
+  Damage: 15
+  Armor: 8
+  Options:
+    MovementSpeed: 0.26
+    FollowRange: 32
+    MaxCombatDistance: 64
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    AlwaysShowName: false
+    Despawn: true
+  Modules:
+    ThreatTable: true
+  AIGoalSelectors:
+    - clear
+    - '0 meleeattack'
+    - '1 movetowardstarget'
+    - '2 lookatplayers'
+    - '3 randomstroll'
+  AITargetSelectors:
+    - clear
+    - '0 attacker'
+    - '1 players'
+  Level: 42
+  LevelModifiers:
+    Health: 15
+    Damage: 1.1
+    Armor: 0.5
+  DropTable: stormcaller_roc_drops
+  Skills:
+    - 'skill{s=sr_bolt} @self ~onTimer:170 ?targetwithin{d=24}'
+    - 'skill{s=sr_gale} @self ~onTimer:240 ?targetwithin{d=10}'
+    - 'skill{s=sr_dive} @self ~onAttack'
+thornmaw_broodmother:
+  Type: SPIDER
+  Display: '<gradient:#9B6FD8:#4a2f6b>Thornmaw Broodmother</gradient>'
+  Health: 300
+  Damage: 16
+  Armor: 10
+  Options:
+    MovementSpeed: 0.27
+    FollowRange: 32
+    MaxCombatDistance: 64
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    AlwaysShowName: false
+    Despawn: true
+  Modules:
+    ThreatTable: true
+  AIGoalSelectors:
+    - clear
+    - '0 meleeattack'
+    - '1 movetowardstarget'
+    - '2 lookatplayers'
+    - '3 randomstroll'
+  AITargetSelectors:
+    - clear
+    - '0 attacker'
+    - '1 players'
+  Level: 47
+  LevelModifiers:
+    Health: 18
+    Damage: 1.2
+    Armor: 0.6
+  DropTable: thornmaw_broodmother_drops
+  Skills:
+    - 'skill{s=tb_snare} @self ~onTimer:150 ?targetwithin{d=12}'
+    - 'skill{s=tb_venom} @self ~onAttack'
+    - 'skill{s=tb_brood} @self ~onTimer:420 ?targetwithin{d=18}'
+dripstone_behemoth:
+  Type: RAVAGER
+  Display: '<gradient:#59C7C7:#245c5c>Dripstone Behemoth</gradient>'
+  Health: 380
+  Damage: 19
+  Armor: 13
+  Options:
+    MovementSpeed: 0.22
+    FollowRange: 32
+    MaxCombatDistance: 64
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    AlwaysShowName: false
+    Despawn: true
+  Modules:
+    ThreatTable: true
+  AIGoalSelectors:
+    - clear
+    - '0 meleeattack'
+    - '1 movetowardstarget'
+    - '2 lookatplayers'
+    - '3 randomstroll'
+  AITargetSelectors:
+    - clear
+    - '0 attacker'
+    - '1 players'
+  Level: 57
+  LevelModifiers:
+    Health: 22
+    Damage: 1.4
+    Armor: 0.7
+  DropTable: dripstone_behemoth_drops
+  Skills:
+    - 'skill{s=db_quake} @self ~onTimer:170 ?targetwithin{d=10}'
+    - 'skill{s=db_spire} @self ~onTimer:220 ?targetwithin{d=18}'
+    - 'skill{s=db_hide} @self ~onDamaged ?health{h=<35%}'
+emberforged_tyrant:
+  Type: PIGLIN_BRUTE
+  Display: '<gradient:#E2683C:#7a2410>Emberforged Tyrant</gradient>'
+  Health: 450
+  Damage: 22
+  Armor: 15
+  Options:
+    MovementSpeed: 0.25
+    FollowRange: 32
+    MaxCombatDistance: 64
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    AlwaysShowName: false
+    Despawn: true
+  Modules:
+    ThreatTable: true
+  AIGoalSelectors:
+    - clear
+    - '0 meleeattack'
+    - '1 movetowardstarget'
+    - '2 lookatplayers'
+    - '3 randomstroll'
+  AITargetSelectors:
+    - clear
+    - '0 attacker'
+    - '1 players'
+  Level: 62
+  LevelModifiers:
+    Health: 26
+    Damage: 1.6
+    Armor: 0.8
+  DropTable: emberforged_tyrant_drops
+  Skills:
+    - 'skill{s=et_nova} @self ~onTimer:170 ?targetwithin{d=12}'
+    - 'skill{s=et_volley} @self ~onTimer:230 ?targetwithin{d=20}'
+    - 'skill{s=et_rage} @self ~onDamaged ?health{h=<30%}'
+void_harbinger:
+  Type: ENDERMAN
+  Display: '<gradient:#C89BF0:#5b2f8a>Void Harbinger</gradient>'
+  Health: 520
+  Damage: 26
+  Armor: 16
+  Options:
+    MovementSpeed: 0.28
+    FollowRange: 32
+    MaxCombatDistance: 64
+    PreventOtherDrops: true
+    PreventRandomEquipment: true
+    AlwaysShowName: false
+    Despawn: true
+  Modules:
+    ThreatTable: true
+  AIGoalSelectors:
+    - clear
+    - '0 meleeattack'
+    - '1 movetowardstarget'
+    - '2 lookatplayers'
+    - '3 randomstroll'
+  AITargetSelectors:
+    - clear
+    - '0 attacker'
+    - '1 players'
+  Level: 82
+  LevelModifiers:
+    Health: 30
+    Damage: 1.9
+    Armor: 0.9
+  DropTable: void_harbinger_drops
+  Skills:
+    - 'skill{s=vh_pull} @self ~onTimer:160 ?targetwithin{d=18}'
+    - 'skill{s=vh_blink} @self ~onTimer:200 ?targetwithin{d=26}'
+    - 'skill{s=vh_curse} @self ~onAttack'

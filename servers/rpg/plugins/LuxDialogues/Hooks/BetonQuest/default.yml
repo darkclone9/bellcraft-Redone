@@ -1,0 +1,59 @@
+Settings:
+  typing-speed: 1
+  range: 5
+  effect: Slowness
+  answer-numbers: true
+  prevent-exit: false
+  prevent-skip: false
+  character-name: true
+  character-image: true
+  background-fog: true
+  npc-focus: false
+
+Sounds:
+  typing:
+    id: luxdialogues:luxdialogues.sounds.typing
+    source: MASTER
+    volume: 1.0
+    pitch: 1.0
+  selection:
+    id: luxdialogues:luxdialogues.sounds.selection
+    source: MASTER
+    volume: 1.0
+    pitch: 1.0
+
+Offsets:
+  name: 0
+  name-background: 20
+  dialogue-background: 0
+  dialogue-line: 10
+  answer-background: 140
+  answer-line: 13
+  arrow: -7
+  character: -16
+  information: 27
+
+Images:
+  character-background: character-background
+  arrow: hand
+  dialogue-background: dialogue-background
+  answer-background: answer-background
+  name-start: name-start
+  name-mid: name-mid
+  name-end: name-end
+  fog: fog
+
+Colors:
+  name: '#4f4a3e'
+  name-background: '#f8ffe0'
+  dialogue: '#4f4a3e'
+  dialogue-background: '#f8ffe0'
+  answer: '#4f4a3e'
+  answer-background: '#f8ffe0'
+  character-background: '#ffffff'
+  arrow: '#cdff29'
+  selected: '#4f4a3e'
+  fog: '#000000'
+  information: '#f8ffe0'
+
+#d21891d819abf57b5a57f22e6b637384

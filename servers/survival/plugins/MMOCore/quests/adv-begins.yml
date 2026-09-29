@@ -1,0 +1,43 @@
+# Display options
+name: 'The Beginning of an Adventure'
+level-req:
+    main: 11
+lore:
+  - 'Yet another quest example.'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Head to the camp'
+- '&7► Phase 2: Go talk to the Blacksmith'
+  - ''
+  - '&eRewards:'
+  - '&7► Stone Tools'
+  - '&7► 627 EXP'
+
+# Parent quests
+parent:
+  - 'tutorial'
+
+bossbar:
+  # Enable bossbar during the quest
+  enabled: true
+  # If true, it will display the percent of progress of the
+  # current objective. If false, it will display the percent of
+  # total quest progress (for instance, 33% = 1/3 objectives completed).
+  objective: true
+
+# Quest objectives
+objectives:
+  1:
+    type: 'goto{world="world";x=120;y=46;z=652;range=10}'
+    lore: 'Head to the camp.'
+    triggers:
+      - 'message{format="Good job!"}'
+  2:
+    type: 'talkto{npc=0}'
+    lore: 'Go talk to the Blacksmith.'
+    triggers:
+      - 'message{format="The blacksmith told you to come see me... ?"}'
+      - 'item{type=STONE_SWORD}'
+      - 'item{type=STONE_AXE}'
+      - 'item{type=STONE_PICKAXE}'
+      - 'experience{amount=627}'

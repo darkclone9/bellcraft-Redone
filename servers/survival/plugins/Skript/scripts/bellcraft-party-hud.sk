@@ -1,0 +1,125 @@
+# ==============================================================================
+# Bellcraft Party HUD Sidebar Placeholders & Toggles
+# Registers:
+#   - %bellcraft_party_title%
+#   - %bellcraft_party_member_1% .. %bellcraft_party_member_8%
+# Commands:
+#   - /phud (alias for /partyhud)
+# ==============================================================================
+
+placeholderapi placeholder with the prefix "bellcraft":
+	set {_id} to the identifier
+
+	if {_id} is "party_title":
+		set {_party} to placeholder "parties_party" from player
+		if {_party} is not set:
+			set the result to ""
+			stop
+		if {_party} is "":
+			set the result to ""
+			stop
+		if {_party} is "<none>":
+			set the result to ""
+			stop
+
+		set {_icon} to placeholder "nexo_party_icon" from player
+		if {_icon} contains "%%":
+			set {_icon} to "&b⚔"
+		else if {_icon} is "":
+			set {_icon} to "&b⚔"
+
+		set the result to "%{_icon}% &b&lPARTY &7| &f%{_party}%"
+
+	else if {_id} starts with "party_member_":
+		set {_party} to placeholder "parties_party" from player
+		if {_party} is not set:
+			set the result to ""
+			stop
+		if {_party} is "":
+			set the result to ""
+			stop
+		if {_party} is "<none>":
+			set the result to ""
+			stop
+
+		set {_numText} to {_id}
+		replace "party_member_" with "" in {_numText}
+		set {_idx} to {_numText} parsed as integer
+		if {_idx} is not set:
+			set the result to ""
+			stop
+
+		set {_leaderName} to placeholder "parties_leader" from player
+		clear {_party_members::*}
+		clear {_non_leaders::*}
+		set {_leaderPlayer} to ""
+
+		loop all players:
+			if placeholder "parties_party" from loop-player is {_party}:
+				if name of loop-player is {_leaderName}:
+					set {_leaderPlayer} to loop-player
+				else:
+					add loop-player to {_non_leaders::*}
+
+		if {_leaderPlayer} is set:
+			add {_leaderPlayer} to {_party_members::*}
+		loop {_non_leaders::*}:
+			add loop-value to {_party_members::*}
+
+		if {_idx} > size of {_party_members::*}:
+			set the result to ""
+			stop
+
+		set {_m} to {_party_members::%{_idx}%}
+		if {_m} is not set:
+			set the result to ""
+			stop
+
+		# Leader badge vs normal indent
+		if name of {_m} is {_leaderName}:
+			set {_lead_tag} to "&e★ "
+		else:
+			set {_lead_tag} to "&7  "
+
+		# Health calculation & color coding
+		set {_hp} to round(health of {_m})
+		set {_max_hp} to round(max health of {_m})
+		if {_max_hp} <= 0:
+			set {_max_hp} to 20
+		set {_pct} to ({_hp} / {_max_hp}) * 100
+
+		if {_hp} <= 0:
+			set {_hp_str} to "&4☠ DEAD"
+		else if {_pct} > 50:
+			set {_hp_str} to "&a%{_hp}%❤"
+		else if {_pct} > 25:
+			set {_hp_str} to "&e%{_hp}%❤"
+		else:
+			set {_hp_str} to "&c%{_hp}%❤"
+
+		# MMOCore Class
+		set {_class} to placeholder "mmocore_class" from {_m}
+		if {_class} is not set:
+			set {_class} to "Adventurer"
+		else if {_class} is "":
+			set {_class} to "Adventurer"
+		else if {_class} is "None" or "none" or "<none>":
+			set {_class} to "Human"
+
+		# Cross-world indicator
+		if world of {_m} is not world of player:
+			set {_wname} to "%world of {_m}%"
+			if {_wname} contains "nether":
+				set {_extra} to "&8(&4Nether&8)"
+			else if {_wname} contains "end":
+				set {_extra} to "&8(&dThe End&8)"
+			else:
+				set {_extra} to "&8(&7Other&8)"
+			set the result to "%{_lead_tag}%&f%name of {_m}% %{_hp_str}% %{_extra}%"
+		else:
+			set the result to "%{_lead_tag}%&f%name of {_m}% %{_hp_str}% &7%{_class}%"
+
+command /phud:
+	description: Toggle party HUD visibility
+	trigger:
+		execute player command "/partyhud"

@@ -1,0 +1,45 @@
+
+# Display options
+name: 'The Nether Expedition'
+lore:
+- 'The Nether holds secrets and dangers'
+- 'untold. Explore its treacherous landscape'
+- 'and bring back proof of your journey!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Slay 5 blazes to prove you entered the Nether'
+- '&7► Phase 2: Kill 3 wither skeletons in the fortress'
+- ''
+- '&eRewards:'
+- '&7► 4661 EXP'
+- '&7► 50 Gold Coins'
+- '&7► Iron Armor Set'
+
+level-req:
+    main: 58
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=BLAZE;amount=5}'
+        lore: 'Slay 5 blazes to prove you entered the Nether.'
+        triggers:
+        - message{format="&aNether Scout> &fYou reached the fortress! Now go deeper and face the wither skeletons!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=WITHER_SKELETON;amount=3}'
+        lore: 'Kill 3 wither skeletons in the fortress.'
+        triggers:
+        - message{format="&aNether Scout> &fYou conquered the Nether fortress! Outstanding!"}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - 'item{type=IRON_HELMET}'
+        - 'item{type=IRON_CHESTPLATE}'
+        - 'item{type=IRON_LEGGINGS}'
+        - 'item{type=IRON_BOOTS}'
+        - command{format="mmocore coins %player_name% 50"}
+        - 'experience{amount=4661}'

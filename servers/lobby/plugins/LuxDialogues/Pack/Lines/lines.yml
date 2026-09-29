@@ -1,0 +1,16 @@
+Character-Name:
+  ascent: 40
+
+Dialogue-Lines:
+  count: 5
+  ascent: 25
+  space: 9
+
+Information-Line:
+  ascent: -25
+
+Answer-Lines:
+  count: 3
+  ascent: 75
+  space: 9
+# d21891d819abf57b5a57f22e6b637384

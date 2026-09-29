@@ -1,0 +1,215 @@
+{
+  "sculk_sentinel_helmet": {
+    "itemname": "<gradient:#19d9ef:#9ff8ff><bold>Sculk Sentinel Helmet</bold></gradient>",
+    "material": "NETHERITE_HELMET",
+    "Components": {
+      "equippable": {
+        "slot": "HEAD"
+      },
+      "max_damage": 700,
+      "unbreakable": false,
+      "attribute_modifiers": [
+        {
+          "attribute": "ARMOR",
+          "amount": 3,
+          "slot": "HEAD",
+          "operation": "ADD_NUMBER"
+        },
+        {
+          "attribute": "ARMOR_TOUGHNESS",
+          "amount": 3,
+          "slot": "HEAD",
+          "operation": "ADD_NUMBER"
+        },
+        {
+          "attribute": "KNOCKBACK_RESISTANCE",
+          "amount": 0.1,
+          "slot": "HEAD",
+          "operation": "ADD_NUMBER"
+        }
+      ],
+      "lore": [
+        "",
+        "<dark_gray>\u25aa <gray>Type: <gradient:#19d9ef:#9ff8ff>Sculk-Grown Deepslate Plate</gradient>",
+        "<dark_gray>\u25aa <gray>Set: <dark_aqua>Sculk Sentinel</dark_aqua>",
+        "",
+        "<dark_gray>\u25aa <white>Equipped:",
+        "  <blue>+3 Armor Rating",
+        "  <blue>+3 Armor Toughness",
+        "  <blue>+10% Knockback Resistance",
+        "",
+        "<dark_gray>\u25aa <white>Full Set:",
+        "  <dark_aqua>Sonic Resonance <gray>- right-click to loose",
+        "  <gray>the warden\u2019s cry in a line ahead of you.",
+        "",
+        "<dark_gray><italic>The sculk has not stopped growing. It has only agreed to hold your shape.</italic>"
+      ],
+      "item_model": "astra:sculk_sentinel_helmet"
+    },
+    "mmoitem": {
+      "type": "ARMOR",
+      "id": "SCULK_SENTINEL_HELMET"
+    },
+    "Pack": {
+      "custom_model_data": 2101,
+      "texture": "astra:item/sculk_sentinel_helmet",
+      "model": "astra:item/sculk_sentinel_helmet"
+    }
+  },
+  "sculk_sentinel_chestplate": {
+    "itemname": "<gradient:#19d9ef:#9ff8ff><bold>Sculk Sentinel Chestplate</bold></gradient>",
+    "material": "NETHERITE_CHESTPLATE",
+    "Components": {
+      "equippable": {
+        "slot": "CHEST",
+        "asset_id": "astra:sculk_sentinel"
+      },
+      "max_damage": 1000,
+      "unbreakable": false,
+      "attribute_modifiers": [
+        {
+          "attribute": "ARMOR",
+          "amount": 8,
+          "slot": "CHEST",
+          "operation": "ADD_NUMBER"
+        },
+        {
+          "attribute": "ARMOR_TOUGHNESS",
+          "amount": 3,
+          "slot": "CHEST",
+          "operation": "ADD_NUMBER"
+        },
+        {
+          "attribute": "KNOCKBACK_RESISTANCE",
+          "amount": 0.1,
+          "slot": "CHEST",
+          "operation": "ADD_NUMBER"
+        }
+      ],
+      "lore": [
+        "",
+        "<dark_gray>\u25aa <gray>Type: <gradient:#19d9ef:#9ff8ff>Sculk-Grown Deepslate Plate</gradient>",
+        "<dark_gray>\u25aa <gray>Set: <dark_aqua>Sculk Sentinel</dark_aqua>",
+        "",
+        "<dark_gray>\u25aa <white>Equipped:",
+        "  <blue>+8 Armor Rating",
+        "  <blue>+3 Armor Toughness",
+        "  <blue>+10% Knockback Resistance",
+        "",
+        "<dark_gray>\u25aa <white>Full Set:",
+        "  <dark_aqua>Sonic Resonance <gray>- right-click to loose",
+        "  <gray>the warden\u2019s cry in a line ahead of you.",
+        "",
+        "<dark_gray><italic>The sculk has not stopped growing. It has only agreed to hold your shape.</italic>"
+      ]
+    },
+    "mmoitem": {
+      "type": "ARMOR",
+      "id": "SCULK_SENTINEL_CHESTPLATE"
+    }
+  },
+  "sculk_sentinel_leggings": {
+    "itemname": "<gradient:#19d9ef:#9ff8ff><bold>Sculk Sentinel Leggings</bold></gradient>",
+    "material": "NETHERITE_LEGGINGS",
+    "Components": {
+      "equippable": {
+        "slot": "LEGS",
+        "asset_id": "astra:sculk_sentinel"
+      },
+      "max_damage": 950,
+      "unbreakable": false,
+      "attribute_modifiers": [
+        {
+          "attribute": "ARMOR",
+          "amount": 6,
+          "slot": "LEGS",
+          "operation": "ADD_NUMBER"
+        },
+        {
+          "attribute": "ARMOR_TOUGHNESS",
+          "amount": 3,
+          "slot": "LEGS",
+          "operation": "ADD_NUMBER"
+        },
+        {
+          "attribute": "KNOCKBACK_RESISTANCE",
+          "amount": 0.1,
+          "slot": "LEGS",
+          "operation": "ADD_NUMBER"
+        }
+      ],
+      "lore": [
+        "",
+        "<dark_gray>\u25aa <gray>Type: <gradient:#19d9ef:#9ff8ff>Sculk-Grown Deepslate Plate</gradient>",
+        "<dark_gray>\u25aa <gray>Set: <dark_aqua>Sculk Sentinel</dark_aqua>",
+        "",
+        "<dark_gray>\u25aa <white>Equipped:",
+        "  <blue>+6 Armor Rating",
+        "  <blue>+3 Armor Toughness",
+        "  <blue>+10% Knockback Resistance",
+        "",
+        "<dark_gray>\u25aa <white>Full Set:",
+        "  <dark_aqua>Sonic Resonance <gray>- right-click to loose",
+        "  <gray>the warden\u2019s cry in a line ahead of you.",
+        "",
+        "<dark_gray><italic>The sculk has not stopped growing. It has only agreed to hold your shape.</italic>"
+      ]
+    },
+    "mmoitem": {
+      "type": "ARMOR",
+      "id": "SCULK_SENTINEL_LEGGINGS"
+    }
+  },
+  "sculk_sentinel_boots": {
+    "itemname": "<gradient:#19d9ef:#9ff8ff><bold>Sculk Sentinel Boots</bold></gradient>",
+    "material": "NETHERITE_BOOTS",
+    "Components": {
+      "equippable": {
+        "slot": "FEET",
+        "asset_id": "astra:sculk_sentinel"
+      },
+      "max_damage": 800,
+      "unbreakable": false,
+      "attribute_modifiers": [
+        {
+          "attribute": "ARMOR",
+          "amount": 3,
+          "slot": "FEET",
+          "operation": "ADD_NUMBER"
+        },
+        {
+          "attribute": "ARMOR_TOUGHNESS",
+          "amount": 3,
+          "slot": "FEET",
+          "operation": "ADD_NUMBER"
+        },
+        {
+          "attribute": "KNOCKBACK_RESISTANCE",
+          "amount": 0.1,
+          "slot": "FEET",
+          "operation": "ADD_NUMBER"
+        }
+      ],
+      "lore": [
+        "",
+        "<dark_gray>\u25aa <gray>Type: <gradient:#19d9ef:#9ff8ff>Sculk-Grown Deepslate Plate</gradient>",
+        "<dark_gray>\u25aa <gray>Set: <dark_aqua>Sculk Sentinel</dark_aqua>",
+        "",
+        "<dark_gray>\u25aa <white>Equipped:",
+        "  <blue>+3 Armor Rating",
+        "  <blue>+3 Armor Toughness",
+        "  <blue>+10% Knockback Resistance",
+        "",
+        "<dark_gray>\u25aa <white>Full Set:",
+        "  <dark_aqua>Sonic Resonance <gray>- right-click to loose",
+        "  <gray>the warden\u2019s cry in a line ahead of you.",
+        "",
+        "<dark_gray><italic>The sculk has not stopped growing. It has only agreed to hold your shape.</italic>"
+      ]
+    },
+    "mmoitem": {
+      "type": "ARMOR",
+      "id": "SCULK_SENTINEL_BOOTS"
+    }
+  }
+}

@@ -1,0 +1,172 @@
+# Citizens NPC Storage
+last-created-npc-id: 3
+npc:
+- metadata:
+    cached-skin-uuid: 8667ba71-b85a-4004-af54-457a9734eed7
+    cached-skin-uuid-name: steve
+  traits:
+    scoreboardtrait:
+      tags:
+      - CITIZENS_NPC
+    commandtrait:
+      commands:
+      - command: hub
+        hand: RIGHT
+        player: true
+    skintrait:
+      signature: w2IRU0T1YTa5Axabt7JA9E/G0P3V+bpKeXXYL3BkhDcxwzl17ClfErE7pSodUb9u2vNRY3/DRTjL32FMGZvbfnCsUpes78+kgDLe9+LeArxT79soB/PtwKj/14/pjw/VulDHwbm0RYRZQS7c/BhQ/sMIg33aMUADDtXsGmbqc9Ds+IWqYMuD4mbd8Wi/ndQo49QCb0G3/1D/E1lOJ56fU8DyDP3croqRWl2pBtarSK84OpMAa1E+hCoERW2chHHiefuq9PX9wVvqQVFyC3nJ8ZQNI07aSdbh03t0Y9OZ6SDOIn07myjwxYcnKoCtJhB1efSZM5v/OrJ03USK4uUdrzroAvLn7JoDf+vbLUFJ2IbBjIsbLPNqdcbgv3oakO+C4PT+iYuzM0nbaHWYkPEOvoYUIDa/Sh2e3uuTLil7BMqE9aYkTWPTrcF3FAvjV95vBD/TMBPLD95DS4sR6zhX7gr5XACizxt60/gp93T2t6m2N38exTCqOYt59E9xpGauOJE7uhEjkT+TTF8dFTwDOGc1pvuEn8MkjwXEOSRudRVyggOWhfCafm7QcTJv1YXxu1MJXHrUdnD3pvdGmkzGqT9qTiePduqIO1Qz9YwU/b+VhQc+GrjdtPBCok+foJBAOAGS+/bWGlSYEBtrEiqyS1W/N6p5qxxKtWsIUeeHqTk=
+      skinName: Steve
+      textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTc4OTA4ODIxNTQxNCwKICAicHJvZmlsZUlkIiA6ICI4NjY3YmE3MWI4NWE0MDA0YWY1NDQ1N2E5NzM0ZWVkNyIsCiAgInByb2ZpbGVOYW1lIiA6ICJTdGV2ZSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS82MGE1YmQwMTZiM2M5YTFiOTI3MmU0OTI5ZTMwODI3YTY3YmU0ZWJiMjE5MDE3YWRiYmM0YTRkMjJlYmQ1YjEiCiAgICB9LAogICAgIkNBUEUiIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzk1M2NhYzhiNzc5ZmU0MTM4M2U2NzVlZTJiODYwNzFhNzE2NThmMjE4MGY1NmZiY2U4YWEzMTVlYTcwZTJlZDYiCiAgICB9CiAgfQp9
+    lookclose:
+      enabled: true
+      randomPitchRange:
+      - 0.0
+      - 0.0
+      randomYawRange:
+      - 0.0
+      - 360.0
+    location:
+      world: world
+      worldid: 7d761c0d-ad56-46ab-bcad-4d56836d651d
+      x: 0.0
+      y: 38.0
+      z: 0.0
+      bodyYaw: 0.0
+      pitch: 0.0
+      yaw: 0.0
+    type: PLAYER
+  traitnames: owner,scoreboardtrait,spawned,commandtrait,skintrait,leashedtrait,lookclose,location,type,inventory,targetable,chunktickettrait
+  name: Realm Navigator
+  navigator:
+    usedefaultstuckaction: false
+    speedmodifier: 1.0
+    avoidwater: false
+  uuid: 2a74c76b-9246-4f2d-85a3-d2c409981d90
+- metadata:
+    cached-skin-uuid: 4189332d-da5c-4f4c-b6e8-b3da4bd58b84
+    cached-skin-uuid-name: wandering_trader
+  traits:
+    scoreboardtrait:
+      tags:
+      - CITIZENS_NPC
+    commandtrait:
+      commands:
+      - command: trader
+        hand: RIGHT
+        player: true
+    hologramtrait: {
+      }
+    skintrait:
+      signature: jqVs2uxmyrTDpc1Kmb9tb6PMJSL5evPu9myfuDZ/UoTJjb80rp3EmLovOMbZQqxTmhInra6rNi4PMxb9Mq5XVvtwqkoZot+WYuQ2c3eWmDRNUdQmA32mJRuOmDeRa9lPSB6SkDkFvwoopt5iJNXVk9oG3mRmaSi0FLLUQ0/BD2vqhxLmCSP7oH+dQMEocYUrlrNC9YFd+bd9KHBO/66wkT1JQXvdBm99m5F4UxUfmEfr5d6IVKVQIbBpeSo9SAwtJRGGXku6Lie3Hq1BsT/kODQxq96i6D0VYhBWw1ZJWTZrESKrHQ7TZJ6cM8WBaxzGm5v87xdAlDm/cjkuGtiDf2QHzu3NOQQM3/gyzjzgWDDguwIqnN2H1bUC18TuY4Mz/jfwTwh+OsuYwuxsRuDPqCFWoN8aedTUQZWTVJ7uYQexd1pQAzdVbpQyFl6jZFupuqMVO+4HScphNJ14UJ0pcaGM0/7lkX1JIeI2/ce5XGU/EMz5StFJBj3sqQ9LLcvEb9Z1VYNFISMoOv7I/YhpmquQ7BOm51XNyDQwrkOAwPmx2RQOQE1E96HTxjS9hOG3DDn6IQWK83lKmqQ52hc8MBgGmOV77K57bbFHnnZHG3qwjncGvVi2NMyIRhx/NkmsYr8k4/cFBP7XSB3FSb954JWMlAQWtot9lUkQkbZXCPk=
+      skinName: Wandering_Trader
+      textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTc4OTA4ODIxNTI5NywKICAicHJvZmlsZUlkIiA6ICI0MTg5MzMyZGRhNWM0ZjRjYjZlOGIzZGE0YmQ1OGI4NCIsCiAgInByb2ZpbGVOYW1lIiA6ICJXYW5kZXJpbmdfVHJhZGVyIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzQ4Y2Q5YWQ4ZmZmMzY3Nzg2YWUwMDIzZjQyMjQ1YmQ2M2IxZGY1NDQyMzU3ODliY2JhNTlkMDg5ZDZiMzdkOTEiCiAgICB9LAogICAgIkNBUEUiIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzIzNDBjMGUwM2RkMjRhMTFiMTVhOGIzM2MyYTdlOWUzMmFiYjIwNTFiMjQ4MWQwYmE3ZGVmZDYzNWNhN2E5MzMiCiAgICB9CiAgfQp9
+    lookclose:
+      enabled: true
+      randomPitchRange:
+      - 0.0
+      - 0.0
+      randomYawRange:
+      - 0.0
+      - 360.0
+    location:
+      world: world
+      worldid: 7d761c0d-ad56-46ab-bcad-4d56836d651d
+      x: 220.6366
+      y: 75.0
+      z: 207.5125
+      bodyYaw: -83.503746
+      pitch: 2.3705
+      yaw: -83.5037
+    type: PLAYER
+    rotationtrait:
+      globalParameters: {
+        }
+  traitnames: owner,scoreboardtrait,spawned,rotationtrait,commandtrait,skintrait,lookclose,type,inventory,targetable,hologramtrait,leashedtrait,location,chunktickettrait
+  name: Traveling Merchant
+  navigator:
+    usedefaultstuckaction: false
+    speedmodifier: 1.0
+    avoidwater: false
+  uuid: 6a1bf012-cf00-4a0e-952e-da06654a69a4
+- metadata:
+    cached-skin-uuid: 9c4e70c2-b94a-4cdb-8e0e-8286df46a9ca
+    cached-skin-uuid-name: adventurer
+  traits:
+    scoreboardtrait:
+      tags:
+      - CITIZENS_NPC
+    rotationtrait:
+      globalParameters: {
+        }
+    commandtrait:
+      commands:
+      - command: zones
+        hand: RIGHT
+        player: true
+    skintrait:
+      signature: tX0tQ7HBTIFLVURMu0zEeCWfCoCSFk35IpGGOC0B0f8Rd5N3cD3alrw86oTTo+j3ToB3tQlqo14JtRZu0HOJc5fqd8ig+ZW3+tZ7mkTvegXDYgXmK7I62ohnk8V2tl+DiOxwpEz0MGS3AMlAZrOSV/UE0NcK3VxzrDbK+wurDQ2AQhyCdy8bvE3JjY3/zpMSPvO/o5C1a4Uox+yfmfAVL4ksL6x29/T3ZaprMvUqkEgoauqygx5VuLHI7yqgkTl57gFkb64NDbW+tZp5BVB+ybjvL5O3wHka9KjaiQlgHB0uxn0X8mluN0URxeHLBI4KF8GWAPRTNSYjFD6pCfw6DDkuOigMHt6SMeZ8p+ALE2fUeFgEbNXKn7j2XzAbDB95OmzIISGvRAO6LygqsO5Ebu3Ifs/jnp92EwO9i0QGfgW9q3/gpge/+M+1ffH8Zi5oanIe0emMHQxgKRTxPz4FR3HZAp6LhRdVGdEJibE1O81Xy/oDvVWAziwjq3lX7fTtsoDNngJRumujyKda9fyzAVT6SCXVmFDuw7tpuqHyvSflDpxtkgfDmeD2D8o5cIoFklL6MbsjY5NR3SMoE4o7t+rFl/cxz8J0vvpnRSDl5JcGOldGU3qytsYyBPsUbHF3T0sTF25Odei7IKzxgD4hDYAjHOfbr+c3UmK6Phek7AY=
+      skinName: adventurer
+      textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTc4OTA5MDY4NTEwNSwKICAicHJvZmlsZUlkIiA6ICI5YzRlNzBjMmI5NGE0Y2RiOGUwZTgyODZkZjQ2YTljYSIsCiAgInByb2ZpbGVOYW1lIiA6ICJBZHZlbnR1cmVyIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2NkODc0NDYyMmVhMjAyYTFiYTRkN2QyNjY4MTY1Y2ZjMWE1NTM1OTFkYWRhNzcyOGM0OTI5NTQzNzAyYTg5OWMiCiAgICB9CiAgfQp9
+    lookclose:
+      enabled: true
+      randomPitchRange:
+      - 0.0
+      - 0.0
+      randomYawRange:
+      - 0.0
+      - 360.0
+    location:
+      world: world
+      worldid: 7d761c0d-ad56-46ab-bcad-4d56836d651d
+      x: 254.8817
+      y: 74.0
+      z: 210.2191
+      bodyYaw: 61.35251
+      pitch: -4.5549
+      yaw: 61.3525
+    type: PLAYER
+  traitnames: owner,scoreboardtrait,spawned,rotationtrait,commandtrait,skintrait,lookclose,type,inventory,targetable,leashedtrait,location,chunktickettrait
+  name: Wilderness Guide
+  navigator:
+    usedefaultstuckaction: false
+    speedmodifier: 1.0
+    avoidwater: false
+  uuid: e0323ca0-104e-4036-ba98-40b8b619cbc8
+- traits:
+    skintrait:
+      skinName: Ranger
+      signature: rOAhOSHS98UXG1wt9R2avH8sDnwBTbLjGNjDtgi7CF5dbVwnD6Fq96n4xdJEaO+yMCK/NKXhnv2eO3FKwZOWKJNhKwNoZMxMYM/JriWGi6ohz4uCyPzQ8DgX+FCoLrxRZa5Jfb3XHPmQYcCmQfZGu76ImC/l5lMa6ECrE9wyVQARG3oWE0HHKfL1M9AahqS8D9G0W/RCkv64SM2qns9FCvNEsoUeenjmvKfPxdMYh2umv2DHhd3XUegmJG9fwaMU/MB7WLFwmR4XDtKG6xb4QJRs/O41IKN5Pcfxs8iRgENCUX9kdQG9f7aJIKfiw9kwr/TDNuMfBx9mSc1mmaLEYM6nb74w2r19524lW+p6a2Sm6dh9MOmeWT6LvoECt76kFiAh2VKHFVmBQEdmq25SWL4fcByq3VCY/F0BraKrjUqsdvKtPMhAlxkGRHMu7CzE7XnMeog6GFbgBoC59euQwFYizZXcTjxVh91RxGgDtmWi8CyqBBj0XRBUlu/xoWjlFZC/USUha0rwXIoBZsirzTw3aLBXJUztsJYK7h3dT41/QIhyocaALbjbZmDI46HcOdWSLsSD/CEaoOyEM4KjhWJCXi00B1keihTuXQXZxEZjgvcXHVR4ym8wzRvUGaK4Ns5iNYfNMJUv8OQFnMgRosIY5PfYlfP5ZyITkZwYz6k=
+      textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTc4OTY3MjEzMjgxMSwKICAicHJvZmlsZUlkIiA6ICI3ZDlkYjhkZjk5ZjA0NmJmOTE2NDE0ZTAyMzNhZTM5NiIsCiAgInByb2ZpbGVOYW1lIiA6ICJSYW5nZXIiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDVjNGVlNWNlMjBhZWQ5ZTMzZTg2NmM2NmNhYTM3MTc4NjA2MjM0YjM3MjEwODRiZjAxZDEzMzIwZmIyZWIzZiIsCiAgICAgICJtZXRhZGF0YSIgOiB7CiAgICAgICAgIm1vZGVsIiA6ICJzbGltIgogICAgICB9CiAgICB9LAogICAgIkNBUEUiIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzVjMjk0MTAwNTdlMzJhYmVjMDJkODcwZWNiNTJlYzI1ZmI0NWVhODFlNzg1YTc4NTRhZTg0MjlkNzIzNmNhMjYiCiAgICB9CiAgfQp9
+    type: PLAYER
+    location:
+      world: world
+      worldid: 7d761c0d-ad56-46ab-bcad-4d56836d651d
+      x: 441.5399
+      y: 48.0
+      z: 151.6502
+      pitch: 0.0
+      yaw: 175.8962
+      bodyYaw: 175.8962
+    hologramtrait: {
+      }
+    scoreboardtrait:
+      tags:
+      - CITIZENS_NPC
+    waypoints:
+      linear:
+        cachePaths: false
+        cycle: false
+        pathfind: true
+      provider: linear
+      wander: {
+        }
+  traitnames: owner,scoreboardtrait,spawned,hologramtrait,skintrait,leashedtrait,location,type,inventory,waypoints,chunktickettrait
+  name: Maneule The Conscriber
+  navigator:
+    usedefaultstuckaction: false
+    speedmodifier: 1.0
+    avoidwater: false
+  uuid: 7f3adcd9-6478-43fa-8077-be5780a081b7
+  metadata:
+    cached-skin-uuid: 7d9db8df-99f0-46bf-9164-14e0233ae396
+    cached-skin-uuid-name: ranger

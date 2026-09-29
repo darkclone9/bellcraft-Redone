@@ -1,0 +1,81 @@
+title: "Edit Gui Click Settings"
+rows: 3
+empty-fill:
+  enabled: true
+  slots:
+    - all
+  item:
+    name: '&r'
+    lore: [ ]
+    type: BLUE_STAINED_GLASS_PANE
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+modify-gui-click:
+  enabled: true
+  slot: 12
+  item:
+    name: "&eModify Gui Click"
+    lore:
+      - ""
+      - "&7Change the settings"
+      - "&7for this gui click."
+      - ""
+      - "&bClick to change"
+    type: "OAK_SIGN"
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+modify-conditions:
+  enabled: true
+  slot: 14
+  item:
+    name: "&eModify Conditions"
+    lore:
+      - ""
+      - "&7Change the conditions"
+      - "&7for this gui click."
+      - ""
+      - "&bClick to change"
+    type: "BOOK"
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+modify-execution-delay:
+  enabled: true
+  slot: 18
+  item:
+    name: "&eModify execution delay"
+    lore:
+      - ""
+      - "&7Change the delay by which the"
+      - "&7click event is executed."
+      - ""
+      - "&6Current: &f%execution_delay% ticks"
+      - ""
+      - "&bClick to change"
+    type: "COMMAND_BLOCK"
+exit:
+  enabled: true
+  slot: 26
+  item:
+    name: "&cBack"
+    lore:
+      - "&7Click to go back to the condition manager."
+    type: "PLAYER_HEAD"
+    texture-base64: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUxY2VkMmU2NDczNjZmOGYzYWQyZGZlNDE1Y2NhODU2NTFiZmFmOTczOWE5NWNkNTdiNmYyMWNiYTA1MyJ9fX0="
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0

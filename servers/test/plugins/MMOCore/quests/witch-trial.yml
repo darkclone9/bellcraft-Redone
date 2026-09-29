@@ -1,0 +1,41 @@
+# Display options
+name: 'Alchemical Purge'
+level-req:
+    main: 23
+lore:
+- 'Witches brew foul miasmas in the murky swamp hollows,'
+- 'harvesting slime essence to intensify their curses.'
+- 'Disrupt their rituals and cull their reagents.'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Hunt down 4 Witches in the swamp bogs'
+- '&7► Phase 2: Exterminate 12 Slimes to halt reagent brewing'
+- ''
+- '&eRewards:'
+- '&7► 2200 EXP'
+- '&7► 32 Gold Coins'
+- '&7► Large Health Potion'
+
+parent:
+- 'swamp-clearance'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=WITCH;amount=4}'
+        lore: 'Hunt down 4 Witches in the swamp.'
+        triggers:
+        - message{format="&aHealer> &fThe coven covens are scattered! Now clear out the slimes they harvest!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=SLIME;amount=12}'
+        lore: 'Exterminate 12 Slimes in the swamp.'
+        triggers:
+        - message{format="&aHealer> &fThe mire is purified! Take this draught for your bravery."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 32"}
+        - 'mmoitem{type=CONSUMABLE;id=LARGE_HEALTH_POTION}'
+        - 'experience{amount=2200}'

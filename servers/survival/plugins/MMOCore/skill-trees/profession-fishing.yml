@@ -1,0 +1,192 @@
+id: profession-fishing
+name: "&bAngler's Mastery"
+type: CUSTOM
+lore:
+  - '&7Available to all players'
+  - '&7Improve your fishing prowess,'
+  - '&7lucky catches, and water traversal.'
+max-point-spent: 12
+icon:
+  material: FISHING_ROD
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+  a1:
+    root: true
+    name: Keen Hook I
+    coordinates:
+      x: 0
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="FISHING_STRENGTH";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eFishing strength +5'
+  a2:
+    name: Keen Hook II
+    coordinates:
+      x: -1
+      y: 2
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="FISHING_STRENGTH";amount=8;type="FLAT"}'
+    lores:
+      0:
+        - '&eFishing strength +8'
+      1:
+        - '&eFishing strength +5'
+  a3:
+    name: Keen Hook III
+    coordinates:
+      x: -2
+      y: 2
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="FISHING_STRENGTH";amount=12;type="FLAT"}'
+    lores:
+      0:
+        - '&eFishing strength +12'
+      1:
+        - '&eFishing strength +13'
+  b1:
+    root: true
+    name: Angler's Luck I
+    coordinates:
+      x: -2
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="CRITICAL_FISHING_CHANCE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eCritical fishing chance +3'
+  b2:
+    name: Angler's Luck II
+    coordinates:
+      x: -2
+      y: -1
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="CRITICAL_FISHING_CHANCE";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eCritical fishing chance +5'
+      1:
+        - '&eCritical fishing chance +3'
+  b3:
+    name: Angler's Luck III
+    coordinates:
+      x: -2
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="CRITICAL_FISHING_CHANCE";amount=8;type="FLAT"}'
+    lores:
+      0:
+        - '&eCritical fishing chance +8'
+      1:
+        - '&eCritical fishing chance +8'
+  c1:
+    root: true
+    name: Fisherman's Fortitude I
+    coordinates:
+      x: 0
+      y: -2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +3'
+  c2:
+    name: Fisherman's Fortitude II
+    coordinates:
+      x: 1
+      y: -2
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +4'
+      1:
+        - '&eMax health +3'
+  c3:
+    name: Fisherman's Fortitude III
+    coordinates:
+      x: 2
+      y: -2
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +5'
+      1:
+        - '&eMax health +5'
+  d1:
+    root: true
+    name: River Legs I
+    coordinates:
+      x: 2
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="WATER_MOVEMENT_EFFICIENCY";amount=0.1;type="FLAT"}'
+    lores:
+      0:
+        - '&eWater movement efficiency +0.1'
+  d2:
+    name: River Legs II
+    coordinates:
+      x: 2
+      y: 1
+    parents:
+      strong: {d1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="WATER_MOVEMENT_EFFICIENCY";amount=0.15;type="FLAT"}'
+    lores:
+      0:
+        - '&eWater movement efficiency +0.15'
+      1:
+        - '&eWater movement efficiency +0.1'
+  d3:
+    name: River Legs III
+    coordinates:
+      x: 2
+      y: 2
+    parents:
+      strong: {d2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="WATER_MOVEMENT_EFFICIENCY";amount=0.2;type="FLAT"}'
+    lores:
+      0:
+        - '&eWater movement efficiency +0.2'
+      1:
+        - '&eWater movement efficiency +0.2'

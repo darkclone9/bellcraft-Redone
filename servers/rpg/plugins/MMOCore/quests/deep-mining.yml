@@ -1,0 +1,42 @@
+
+# Display options
+name: 'Deep Mining'
+lore:
+- 'The deepest caverns hold diamonds and'
+- 'redstone in abundance. A seasoned miner'
+- 'is needed to extract these treasures!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Mine 10 diamond ore'
+- '&7► Phase 2: Mine 20 redstone ore'
+- ''
+- '&eRewards:'
+- '&7► 1863 EXP'
+- '&7► 25 Gold Coins'
+- '&7► Uncommon Weapon Essence'
+
+level-req:
+    main: 22
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=DIAMOND_ORE;amount=10}'
+        lore: 'Mine 10 diamond ore.'
+        triggers:
+        - message{format="&aMiner> &fBeautiful gems! Now dig deeper for the redstone."}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'mineblock{type=REDSTONE_ORE;amount=20}'
+        lore: 'Mine 20 redstone ore.'
+        triggers:
+        - message{format="&aMiner> &fIncredible haul! You are a master of the deep."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 25"}
+        - 'mmoitem{type=MATERIAL;id=UNCOMMON_WEAPON_ESSENCE}'
+        - 'experience{amount=1863}'

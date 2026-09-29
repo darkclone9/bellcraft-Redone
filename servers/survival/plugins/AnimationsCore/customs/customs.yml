@@ -1,0 +1,15 @@
+animations:
+  demo_custom:
+    display-name: "Demo Custom Animation"
+    mm-id: custom-demo
+    duration: 0
+    permissions:
+      - animcore.custom.demo
+    GUI:
+      Displayname: "&bDemo Custom Animation"
+      Lore:
+        - "&7Trigger this animation manually using"
+        - "&7the /animcore play custom command or API."
+      icon: ENDER_EYE
+
+#affadadec20c3292c3ae6322224d86af

@@ -1,0 +1,192 @@
+id: profession-smelting
+name: "&6Smelter's Forge"
+type: CUSTOM
+lore:
+  - '&7Available to all players'
+  - '&7Harden yourself at the furnace,'
+  - '&7increase your endurance and resilience.'
+max-point-spent: 12
+icon:
+  material: FURNACE
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+  a1:
+    root: true
+    name: Forge Mastery I
+    coordinates:
+      x: 0
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +2'
+  a2:
+    name: Forge Mastery II
+    coordinates:
+      x: -1
+      y: 2
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +3'
+      1:
+        - '&eAdditional experience +2'
+  a3:
+    name: Forge Mastery III
+    coordinates:
+      x: -2
+      y: 2
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +5'
+      1:
+        - '&eAdditional experience +5'
+  b1:
+    root: true
+    name: Refiner's Touch I
+    coordinates:
+      x: -2
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +3'
+  b2:
+    name: Refiner's Touch II
+    coordinates:
+      x: -2
+      y: -1
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +4'
+      1:
+        - '&eMax health +3'
+  b3:
+    name: Refiner's Touch III
+    coordinates:
+      x: -2
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +5'
+      1:
+        - '&eMax health +5'
+  c1:
+    root: true
+    name: Heat Endurance I
+    coordinates:
+      x: 0
+      y: -2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALTH_REGENERATION";amount=0.5;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealth regeneration +0.5'
+  c2:
+    name: Heat Endurance II
+    coordinates:
+      x: 1
+      y: -2
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALTH_REGENERATION";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealth regeneration +1'
+      1:
+        - '&eHealth regeneration +0.5'
+  c3:
+    name: Heat Endurance III
+    coordinates:
+      x: 2
+      y: -2
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALTH_REGENERATION";amount=1.5;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealth regeneration +1.5'
+      1:
+        - '&eHealth regeneration +1.5'
+  d1:
+    root: true
+    name: Tempered Soul I
+    coordinates:
+      x: 2
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ARMOR";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eArmor +1'
+  d2:
+    name: Tempered Soul II
+    coordinates:
+      x: 2
+      y: 1
+    parents:
+      strong: {d1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ARMOR";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eArmor +2'
+      1:
+        - '&eArmor +1'
+  d3:
+    name: Tempered Soul III
+    coordinates:
+      x: 2
+      y: 2
+    parents:
+      strong: {d2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ARMOR";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eArmor +3'
+      1:
+        - '&eArmor +3'

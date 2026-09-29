@@ -1,0 +1,69 @@
+##############################################################################
+# Doomhammer Mark 2 — charged leap slam
+#
+# Two entry points, wired to the item as two abilities:
+#   doomhammer_quick_slam    RIGHT_CLICK        — short hop, small AoE, brief slow
+#   doomhammer_charged_slam  SHIFT_RIGHT_CLICK  — windup, high leap, big AoE + stun
+#
+# Syntax follows the shipped scripts in mmoitems_scripts.yml / elemental_attacks.yml.
+##############################################################################
+
+# ---------- quick (uncharged) ----------
+doomhammer_quick_slam:
+  public: true
+  mechanics:
+    - 'set_double{variable=power;value=".55"}'
+    - 'sound{sound=ENTITY_PLAYER_ATTACK_SWEEP;volume=1;pitch=1.4}'
+    - 'set_vector{variable=leap;x=0;y=0.55;z=0}'
+    - 'set_velocity{vector=leap}'
+    - 'delay{amount=11}'
+    - 'script{name=doomhammer_impact}'
+
+# ---------- charged ----------
+doomhammer_charged_slam:
+  public: true
+  mechanics:
+    - 'script{name=doomhammer_windup}'
+
+# 1s windup so the charge is readable to the player and to anyone nearby
+doomhammer_windup:
+  mechanics:
+    - 'sound{sound=BLOCK_ANVIL_LAND;volume=1;pitch=0.5}'
+    - 'particle{particle=CRIT;amount=14;speed=.08}'
+    - 'delay{amount=6}'
+    - 'sound{sound=BLOCK_NOTE_BLOCK_HAT;volume=.8;pitch=1.0}'
+    - 'particle{particle=FLAME;amount=18;speed=.05}'
+    - 'delay{amount=6}'
+    - 'sound{sound=BLOCK_NOTE_BLOCK_HAT;volume=.9;pitch=1.5}'
+    - 'particle{particle=FLAME;amount=26;speed=.08}'
+    - 'delay{amount=6}'
+    - 'sound{sound=BLOCK_NOTE_BLOCK_HAT;volume=1;pitch=2}'
+    - 'particle{particle=EXPLOSION_NORMAL;amount=10;speed=.1}'
+    - 'set_double{variable=power;value="1.6"}'
+    - 'sound{sound=ENTITY_GENERIC_EXPLODE;volume=.7;pitch=1.6}'
+    - 'potion{effect=DAMAGE_RESISTANCE;duration=70;level=4}'
+    - 'set_vector{variable=leap;x=0;y=1.15;z=0}'
+    - 'set_velocity{vector=leap}'
+    - 'delay{amount=22}'
+    - 'script{name=doomhammer_impact}'
+
+# ---------- shared impact ----------
+# power scales both damage and the stun length
+doomhammer_impact:
+  mechanics:
+    - 'sound{sound=ENTITY_GENERIC_EXPLODE;volume=1.4;pitch=0.6}'
+    - 'sound{sound=BLOCK_ANVIL_LAND;volume=1.2;pitch=0.5}'
+    - 'particle{particle=EXPLOSION_LARGE;amount=6;speed=.02}'
+    - 'particle{particle=LAVA;amount=40}'
+    - 'particle{particle=FIREWORKS_SPARK;amount=48;speed=.22}'
+    - 'script{name=doomhammer_hit;target={type=nearby_entities;radius="3.5 + <power> * 2.5";height=4;ignore_caster=true}}'
+
+doomhammer_hit:
+  conditions:
+    - 'can_target{}'
+  mechanics:
+    - 'damage{amount="(6 + <stat.attack_damage> * 0.6) * <power>";damage_type="WEAPON,PHYSICAL"}'
+    - 'potion{effect=SLOW;duration="30 + <power> * 40";level=6}'
+    - 'potion{effect=BLINDNESS;duration="20 + <power> * 25";level=1}'
+    - 'potion{effect=JUMP;duration="30 + <power> * 40";level=128}'
+    - 'particle{particle=CRIT;amount=12;speed=.15}'

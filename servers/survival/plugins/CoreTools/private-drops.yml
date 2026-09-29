@@ -1,0 +1,126 @@
+# After making changes to these settings,
+# you must restart your server for them to take effect.
+
+private_drops:
+  enabled: false
+
+  # At the specified intervals, it removes expired items from memory
+  # and ends ownership of the item, allowing any player to pick it up.
+  # This applies only to cooldown mode.
+  scan_period: 200
+
+  # In "Cooldown" mode, owned items that have been dropped and not picked up
+  # are immediately released for anyone to pick up without waiting for the
+  # cooldown when the owner leaves the server.
+  release_items_on_player_quit: true
+
+  # If you want, you can force players to share the items that drop for them, or you can give them the choice to do so.
+  share:
+    # If the condition returns true, players in the enabled party and clan
+    # plugins listed below who are in the same group as the player will
+    # also be able to receive the items that drop for that player.
+    party_clan_plugins:
+      mmocore: false    # https://www.spigotmc.org/resources/70575/
+      parties: false    # https://modrinth.com/plugin/parties
+      mcmmo: false      # https://www.spigotmc.org/resources/64348/
+      kingdomsx: false  # https://www.spigotmc.org/resources/77670/
+
+    # You can list conditions of any length, and you can choose whether
+    # only one of them must return true or all of them must return true.
+    #
+    # If this condition returns true, the player’s active party or clan
+    # plugins you enabled above will also be included, and the dropped
+    # item will be shared with the members of that group as well.
+    condition_all_need_true: true
+    conditions:
+      - Comparator{value1="{caster_name}";value2="Taner";operator="=="} true
+
+  ##################
+  #  Vanilla Drops #
+  ##################
+
+  # Items dropped by players.
+  player_drops:
+    enabled: true
+    mode: 'cooldown' # cooldown/hide
+    expire: 2400
+
+  # This applies to items dropped when a player dies.
+  # With self, only the dead player can pick up the items again.
+  # With killer, the player who killed can pick up the items.
+  player_dead_drops_self:
+    enabled: true
+    mode: 'cooldown'
+    expire: 2400
+  player_dead_drops_killer:
+    enabled: false
+    mode: 'cooldown'
+    expire: 2400
+
+  # Items dropped from vanilla blocks.
+  vanilla_block_drops:
+    enabled: true
+    mode: 'cooldown'
+    expire: 2400
+
+  # Items dropped from vanilla entities.
+  vanilla_mob_drops:
+    enabled: true
+    mode: 'cooldown'
+    expire: 2400
+
+  # Items dropped from vanilla fishing.
+  vanilla_fishing_drops:
+    enabled: true
+    mode: 'cooldown'
+    expire: 2400
+
+  ##################
+  # MMOItems Drops #
+  ##################
+
+  # Items dropped from MMOItems drops.yml `blocks` and `customblocks`.
+  mmoitems_block_drops:
+    enabled: false
+    mode: 'cooldown'
+    expire: 2400
+
+  # Items dropped from MMOItems drops.yml `monsters`.
+  mmoitems_mob_drops:
+    enabled: false
+    mode: 'cooldown'
+    expire: 2400
+
+  ###################
+  #  MMOCore Drops  #
+  ###################
+
+  # Items dropped from MMOCore `on-mine` mining system.
+  mmocore_block_drops:
+    enabled: false
+    mode: 'cooldown'
+    expire: 2400
+
+  # Items dropped from MMOCore `on-fish` fishing system.
+  mmocore_fishing_drops:
+    enabled: false
+    mode: 'cooldown'
+    expire: 2400
+
+  ###################
+  #  CustomFishing  #
+  ###################
+
+  customfishing_fishing_drops:
+    enabled: false
+    mode: 'cooldown'
+    expire: 2400
+
+  ###################
+  #   MythicMobs    #
+  ###################
+
+  mythicmobs_drops:
+    enabled: false
+    mode: 'cooldown'
+    expire: 2400

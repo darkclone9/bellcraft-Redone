@@ -1,0 +1,31 @@
+# Display options
+name: 'Creeper Cleanup'
+level-req:
+    main: 1
+lore:
+- 'The perimeter grows tense when the sun dips'
+- 'below the tree line. Sibilant hissing whispers'
+- 'from the tall grass near the outer palisade.'
+- ''
+- '&6Objective:'
+- '&7► Hunt down 6 Creepers near the perimeter'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 8 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=CREEPER;amount=6}'
+        lore: 'Hunt down 6 Creepers near the settlement perimeter.'
+        triggers:
+        - message{format="&aGuard Captain> &fThe outer fence is secure for now. Good hunting, recruit."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 8"}
+        - 'experience{amount=170}'

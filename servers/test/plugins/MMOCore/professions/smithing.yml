@@ -1,0 +1,45 @@
+
+# Display options
+name: Smithing
+
+# Experience given to the main level
+# when leveling up this profession
+experience:
+    base: 20
+    per-level: 3
+
+# Can be a file path to an existing .txt file inside the MMOCore/ folder.
+# | The TXT files contains only the experience required per level, one per line.
+# | Example: 'expcurves/profession_exp_curve.txt'
+# Or a formula using the {level} and PAPI placeholders.
+# | The formula should return the total experience required to reach the next
+# | level if {level} is the player's current profession level.
+# | Example: '{level} * 150'
+exp-curve: '{level} * 150'
+
+exp-sources:
+- 'repairitem{}'
+
+# Experience given by repairing 100
+# durability points from a specific material.
+
+# Warning, diamonds/iron ingots/<any material
+# which repairs a specific type of tool> do
+# not repair the same amount of durability!
+repair-exp:
+
+    # Swords
+    DIAMOND_SWORD: 1.923 # Max durability: 1561
+    GOLDEN_SWORD: 62.5 # Max durability: 32
+    IRON_SWORD: 8 # Md: 250
+    STONE_SWORD: 7.634 # Md: 131
+    WOODEN_SWORD: 13.56 # Md: 59
+    
+    # Picks
+    DIAMOND_PICKAXE: 1.923
+    GOLDEN_PICKAXE: 62.5
+    IRON_PICKAXE: 8
+    STONE_PICKAXE: 7.634
+    WOODEN_PICKAXE: 13.56
+    
+    # Add as many as you want: bows, shields..

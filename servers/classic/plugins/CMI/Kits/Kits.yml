@@ -1,0 +1,116 @@
+# Player should have appropriate permission node to use particular kit: cmi.kit.[kitName]
+# cmi.kit.newbie will allow to use newbie kit
+# Possible custom variables: {USERNAME} {DISPLAYNAME} {WORLDNAME} {KITNAME} {RANDOMPLAYER}
+# Edit kits ingame with /cmi kiteditor to avoid formating issues
+# Commands support specialized command format
+#
+# ---------------------------------------------------------------------------
+# Bellcraft survival kit ladder. Vanilla items only - no custom or RPG items
+# live on this server.
+#
+#   starter   everyone   once      enough to survive the first night after /rtp
+#   daily     everyone   24h       small top-up, the baseline everyone gets
+#   vip       vip        24h       daily, but cooked food and real iron
+#   vipplus   vip+       24h       more of everything, plus a diamond
+#   elite     donator    24h       the top of the ladder
+#
+# Each tier is a strict superset of the one below it, so the progression reads
+# clearly in /kit. Ranks inherit downward (vip+ -> vip -> default), so a vip+
+# player can claim vip and daily too.
+#
+# CMI has no "one time only" kit flag - only Delay - so `starter` uses a
+# 365 day cooldown, which is effectively once per player. If you ever need to
+# hand it out again, that is `/cmi kitcdreset <player> starter`.
+#
+# Delay is in seconds: 86400 = 24h, 31536000 = 365d.
+# ---------------------------------------------------------------------------
+
+starter:
+  Description:
+  - '&7One-off gear to get you through your first night.'
+  CommandName: starter
+  DisplayName: '&aStarter Kit'
+  Delay: 31536000
+  Items:
+    '1': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDNzcxLTS5KTCuxKi7Jz0uNLy7PL0phZmBNzi/NK2FgYGBkAACReVNSPgAAAA==
+    '2': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDPzcxLTS5KTCuxKi7Jz0uNL8hMzk6sSGVmYE3OL80rYWBgYGQAAEw6YmRAAAAA
+    '3': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDOzcxLTS5KTCuxKi7Jz0uNT6xIZWZgTc4vzSthYGBgZAAA+NrWmjwAAAA=
+    '4': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDLzcxLTS5KTCuxKi7Jz0uNL87IL0vNYWZgTc4vzSthYGBgZAAAgKUoij8AAAA=
+    '5': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYeDPzcxLTS5KTCuxSipKTUxhZmBNzi/NK2FgYBBgAABkHHSXOAAAAA==
+    '6': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYeDPzcxLTS5KTCuxKskvSs5gZmBNzi/NK2FgYFBgAAAyFq/0OAAAAA==
+    '7': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDJzcxLTS5KTCuxyk/Mji/ISczLLmZmYE3OL80rYWBgEGAAAGgsK3E9AAAA
+    '8': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYZDIzcxLTS5KTCuxApOZeenxJYlJOanMDKzJ+aV5JQwMDIwMAI/u7HlBAAAA
+    '9': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDOzcxLTS5KTCuxKs/ILEmNT0pNYWZgTc4vzSthYGBgZAAAtVNHXDwAAAA=
+daily:
+  Description:
+  - '&7A small top-up. Every player, once a day.'
+  CommandName: daily
+  DisplayName: '&fDaily Kit'
+  Delay: 86400
+  Items:
+    '1': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYeDPzcxLTS5KTCuxSipKTUxhZmBNzi/NK2FgYOBgAAA9hG8VOAAAAA==
+    '2': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYeDPzcxLTS5KTCuxKskvSs5gZmBNzi/NK2FgYBBgAADBIOkrOAAAAA==
+    '3': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDJzcxLTS5KTCuxyizKz4vPzEvPL2FmYE3OL80rYQDpAwDHT4yVPQAAAA==
+vip:
+  Description:
+  - '&7Cooked food and a proper handful of iron.'
+  CommandName: vip
+  DisplayName: '&2VIP Kit'
+  Delay: 86400
+  Items:
+    '1': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDNzcxLTS5KTCuxSs7Pz05NiU9KTU1jZmBNzi/NK2FgYBBgAADj0iNzPgAAAA==
+    '2': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYeDPzcxLTS5KTCuxKskvSs5gZmBNzi/NK2FgYFBgAAAyFq/0OAAAAA==
+    '3': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDJzcxLTS5KTCuxyizKz4vPzEvPL2FmYE3OL80rYWBg4GAAAAyWeHY9AAAA
+    '4': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDJzcxLTS5KTCuxSs5PzIlPyslPzmZmYE3OL80rYWBgYGIAAGxSrww9AAAA
+vipplus:
+  Description:
+  - '&7Everything in the VIP kit, and then some.'
+  CommandName: vipplus
+  DisplayName: '&bVIP+ Kit'
+  Delay: 86400
+  Items:
+    '1': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDNzcxLTS5KTCuxSs7Pz05NiU9KTU1jZmBNzi/NK2FgYJBgAADrWPq7PgAAAA==
+    '2': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYeDPzcxLTS5KTCuxKskvSs5gZmBNzi/NK2FgYDBgAABjBG2+OAAAAA==
+    '3': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDJzcxLTS5KTCuxyizKz4vPzEvPL2FmYE3OL80rYWBg4GEAAAhTFBI9AAAA
+    '4': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDJzcxLTS5KTCuxSs5PzIlPyslPzmZmYE3OL80rYWBgYGEAAOr19Vo9AAAA
+    '5': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDMzcxLTS5KTCuxSslMzM3PS2FmYE3OL80rYWBgYGQAAIcE74c6AAAA
+elite:
+  Description:
+  - '&7The top of the ladder.'
+  CommandName: elite
+  DisplayName: '&6Elite Kit'
+  Delay: 86400
+  Items:
+    '1': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDNzcxLTS5KTCuxSs7Pz05NiU9KTU1jZmBNzi/NK2FgYFBgAAAQ5GWsPgAAAA==
+    '2': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYeDPzcxLTS5KTCuxKskvSs5gZmBNzi/NK2FgYHBgAACVfVKROAAAAA==
+    '3': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDJzcxLTS5KTCuxyizKz4vPzEvPL2FmYE3OL80rYWBgEGAAAFUOY/Q9AAAA
+    '4': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDJzcxLTS5KTCuxSs5PzIlPyslPzmZmYE3OL80rYWBgYGMAAGiXw2g9AAAA
+    '5': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDMzcxLTS5KTCuxSslMzM3PS2FmYE3OL80rYQBpAgAFZtm1OgAAAA==
+    '6': !!binary |-
+      H4sIAAAAAAAA/+NiYGBm4HZJLEkMSy0qzszPY2AQVudgYMpMYRDNzcxLTS5KTCuxSs1LSS2KL0hNLMphZmBNzi/NK2FgYGBiAACaIBC/PgAAAA==

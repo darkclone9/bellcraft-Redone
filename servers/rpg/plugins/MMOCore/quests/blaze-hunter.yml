@@ -1,0 +1,33 @@
+
+# Display options
+name: 'Into the Flames'
+lore:
+- 'Blazes roam the Nether fortresses,'
+- 'guarding its secrets with fire and fury.'
+- 'Hunt them down and prove your courage!'
+- ''
+- '&6Objective:'
+- '&7► Kill 10 blazes'
+- ''
+- '&eRewards:'
+- '&7► 4661 EXP'
+- '&7► 30 Gold Coins'
+
+level-req:
+    main: 55
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=BLAZE;amount=10}'
+        lore: 'Kill 10 blazes.'
+        triggers:
+        - message{format="&aNether Scout> &fYou survived the Nether and came back stronger!"}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 30"}
+        - 'experience{amount=4661}'

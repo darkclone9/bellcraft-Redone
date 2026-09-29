@@ -1,0 +1,32 @@
+
+# Display options
+name: 'Black Gold'
+level-req:
+    main: 1
+lore:
+- 'The furnaces have run cold. We need coal'
+- 'to keep the forges burning. Venture into'
+- 'the mines and gather some for us.'
+- ''
+- '&6Objective:'
+- '&7► Mine 30 coal ore'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 5 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=COAL_ORE;amount=30}'
+        lore: 'Mine 30 coal ore.'
+        triggers:
+        - message{format="&aForge Master> &fThe forges will burn bright again, thanks to you!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 5"}
+        - 'experience{amount=170}'

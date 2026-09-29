@@ -1,0 +1,32 @@
+
+# Display options
+name: 'First Blood'
+level-req:
+    main: 1
+lore:
+- 'The undead are rising from the ground'
+- 'near the village. Take up arms and slay'
+- 'a few zombies to prove your courage!'
+- ''
+- '&6Objective:'
+- '&7► Kill 5 zombies'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 3 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=ZOMBIE;amount=5}'
+        lore: 'Kill 5 zombies.'
+        triggers:
+        - message{format="&aGuard Captain> &fNot bad for a newcomer! The village thanks you."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 3"}
+        - 'experience{amount=170}'

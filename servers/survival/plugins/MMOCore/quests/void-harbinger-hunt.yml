@@ -1,0 +1,24 @@
+name: 'The Harbinger'
+lore:
+- 'It has been waiting at the edge'
+- 'since long before the first bell.'
+- ''
+- '&6Objective:'
+- '&7► Slay 3 Void Harbingers'
+- ''
+- '&eRewards:'
+- '&7► 12090 EXP'
+level-req:
+    main: 90
+parent:
+- 'chorus-harvest'
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'killmythicmob{name="void_harbinger";amount=3}'
+        lore: 'Slay 3 Void Harbingers.'
+        triggers:
+        - 'experience{amount=12090}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

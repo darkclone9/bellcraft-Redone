@@ -1,0 +1,36 @@
+# ==============================================================================
+# NEXO SHAPED RECIPES: NANOTECH UPGRADE MATRIX & DUPLICATION
+# ==============================================================================
+
+nanotech_upgrade_matrix_crafting:
+  result:
+    nexo_item: nanotech_upgrade_matrix
+  ingredients:
+    A:
+      minecraft_type: AMETHYST_SHARD
+    E:
+      minecraft_type: ECHO_SHARD
+    R:
+      minecraft_type: REDSTONE_BLOCK
+    N:
+      minecraft_type: NETHERITE_SCRAP
+  shape:
+    - AEA
+    - RNR
+    - AEA
+
+nanotech_upgrade_matrix_duplication:
+  result:
+    nexo_item: nanotech_upgrade_matrix
+    amount: 2
+  ingredients:
+    D:
+      minecraft_type: DIAMOND
+    T:
+      nexo_item: nanotech_upgrade_matrix
+    E:
+      minecraft_type: ECHO_SHARD
+  shape:
+    - DTD
+    - DED
+    - DDD

@@ -1,0 +1,25 @@
+<AutoAlias>
+&8&m
+&a&lWelcome to Bellcraft &8- &7your first ten minutes
+&8&m
+&6&l1. Get out to the wild
+&7Spawn is a protected hub, so you cannot build here.
+&7Random teleport out to somewhere safe to start.
+<T>&8  [&aTeleport me to the wild&8]</T><H>&7Runs /rtp</H><C>/rtp</C>
+
+&6&l2. Claim before you build
+&7You can build anywhere in the wild, but nothing out
+&7there is protected. Found a town to lock your area down.
+<T>&8  [&eHow towns work&8]</T><H>&7Opens the Towny help</H><C>/towny</C>
+
+&6&l3. Set a home
+&7&f/sethome &7marks where you stand, &f/home &7brings you back.
+&7You get &f3 &7to start with - more as you rank up.
+
+&6&l4. Earn some money
+&7&f/jobs browse &7lists everything that pays. You can hold
+&7&f2 &7jobs at once, more with a donor rank.
+<T>&8  [&aBrowse jobs&8]</T><H>&7Opens the jobs menu</H><C>/jobs browse</C>
+
+&8&m
+<T>&8[&6Guide&8]</T><H>&7Back to the main guide</H><C>/guide</C><Next><T>  &8[&eRanks&8]</T><H>&7See every rank</H><C>/ranks</C><Next><T>  &8[&cRules&8]</T><H>&7Read the rules</H><C>/rules</C>

@@ -1,0 +1,37 @@
+
+
+#############################################################
+# Commands
+#############################################################
+
+# Errors
+player-command: '&cThis command is only for players.'
+specify-player: '&cPlease specify a player.'
+wrong-player: '&cCould not find the player called {arg}.'
+not-enough-perms: '&cYou don''t have enough permissions.'
+invalid-inventory: '&cCould not find the inventory called {arg}.'
+
+# Success
+reload: '&eMMOInventory {version} successfully reloaded.'
+inspect: '&eYou are now inspecting &6{player}&e''s inventory &6{inventory}&e.'
+
+#############################################################
+# Elytra slot
+#############################################################
+
+elytra-equip:
+  message: '&e&l☄ &a&lEquipped Elytras &e&l☄'
+  action-bar: true
+  duration: 40
+  priority: 31
+  sound: ITEM_ARMOR_EQUIP_ELYTRA
+  #script:
+  #- 'cmd{format="broadcast &e<caster.name> &ahas equipped &eelytras&a!"}'
+elytra-unequip:
+  message: '&e&l☄ &c&lUnequipped Elytras &e&l☄'
+  action-bar: true
+  duration: 40
+  priority: 31
+  sound: ITEM_HORSE_ARMOR_UNEQUIP,1,2
+  #script:
+  #- 'cmd{format="broadcast &e<caster.name> &ahas unequipped &eelytras&a!"}'

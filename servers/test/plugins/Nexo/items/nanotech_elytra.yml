@@ -1,0 +1,86 @@
+# ==============================================================================
+# NEXO CUSTOM ITEM DEFINITIONS: NANOTECH FLIGHT SUITE (1.21.x / Paper 26.2)
+# ==============================================================================
+
+nanotech_elytra:
+  itemname: "<gradient:#00f2fe:#4facfe><bold>NANOTECH EXO-GLIDER</bold></gradient>"
+  material: ELYTRA
+
+  Pack:
+    model: nexo:item/nanotech_elytra_held
+
+  Components:
+    equippable:
+      slot: CHEST
+      asset_id: nexo:nanotech_elytra
+    max_damage: 650
+    unbreakable: false
+    attribute_modifiers:
+      - attribute: ARMOR
+        amount: 2
+        slot: CHEST
+        operation: ADD_NUMBER
+      - attribute: ARMOR_TOUGHNESS
+        amount: 1
+        slot: CHEST
+        operation: ADD_NUMBER
+      - attribute: MOVEMENT_SPEED
+        amount: 0.05
+        slot: CHEST
+        operation: ADD_NUMBER
+    lore:
+      - ""
+      - "<dark_gray>▪ <gray>Type: <gradient:#00f2fe:#4facfe>Tactical Flight Exoskeleton</gradient>"
+      - "<dark_gray>▪ <gray>Tier: <aqua>Tier V - Quantum Overclocked</aqua>"
+      - "<dark_gray>▪ <gray>Status: <green>SYSTEMS ONLINE</green>"
+      - ""
+      - "<gradient:#00f2fe:#4facfe><bold>SPECIAL NANOTECH SYSTEMS</bold></gradient>"
+      - " <dark_aqua>◆ <white>Nano-Thruster Propulsion:"
+      - "   <gray>Shift (Sneak), Right-Click, or Double-Tap Jump"
+      - "   <gray>while gliding or in air to ignite rocket thrust."
+      - "   <dark_gray>⚡ <gray>Cooldown: <aqua>6.0s (Action-bar energy cell)</aqua>"
+      - " <dark_aqua>◆ <white>Kinetic Damping Field:"
+      - "   <gray>Absorbs <aqua>65%</aqua> of all wall-impact & fall damage."
+      - "   <gray>Emits a kinetic dispersion shockwave upon crash."
+      - " <dark_aqua>◆ <white>Nanite Self-Repair Matrix:"
+      - "   <gray>Regenerates <green>1 Durability</green> every <aqua>8s</aqua> while worn"
+      - "   <dark_gray>(<aqua>4s</aqua> when stationary/grounded)."
+      - ""
+      - "<dark_gray>▪ <white>Exosuit Buffs (Equipped):"
+      - "  <blue>+2 Armor Rating"
+      - "  <blue>+1 Armor Toughness"
+      - "  <blue>+5% Movement Speed"
+      - "  <blue>Passive Speed I & Resistance I"
+      - ""
+      - "<dark_gray><italic>Forged from deepslate titanium, quantum conduits, and nanite matrices.</italic>"
+
+  Mechanics:
+    armor_effects:
+      effects:
+        - type: SPEED
+          amplifier: 0
+          ambient: true
+          particles: false
+        - type: RESISTANCE
+          amplifier: 0
+          ambient: true
+          particles: false
+
+nanotech_upgrade_matrix:
+  itemname: "<gradient:#00f2fe:#4facfe><bold>NANOTECH UPGRADE MATRIX</bold></gradient>"
+  material: NETHERITE_UPGRADE_SMITHING_TEMPLATE
+
+  Pack:
+    texture: nexo:item/nanotech_upgrade_matrix
+
+  Components:
+    lore:
+      - ""
+      - "<dark_gray>▪ <gray>Type: <gradient:#00f2fe:#4facfe>Smithing Upgrade Matrix</gradient>"
+      - "<dark_gray>▪ <gray>Class: <aqua>High-Frequency Micro-Circuit</aqua>"
+      - ""
+      - "<gradient:#00f2fe:#4facfe><bold>SMITHING UPGRADE SPECIFICATIONS</bold></gradient>"
+      - " <dark_aqua>◆ <white>Applies to: <gray>Standard Elytra"
+      - " <dark_aqua>◆ <white>Ingredients: <gray>Echo Shard <dark_gray>or <gray>Netherite Ingot"
+      - ""
+      - "<dark_gray><italic>Contains compiled fabrication schematics for deployable nanotech flight vanes.</italic>"

@@ -1,0 +1,95 @@
+﻿# Bellcraft player hub ΓÇö CoreTools MenuCreator
+# Open with: /menu   or   /core-menu menu   or   /coremenu menu
+# Requires: CoreTools 1.4.3+, scripts in plugins/CoreTools/scripts/bellcraft-menu.yml
+#
+# Copy to: plugins/MenuCreator/menu.yml
+# Then:    /coretools reload
+
+menu:
+  permission: ''
+  bottom_inventory: false
+  name: '<gold><bold>Bellcraft Menu'
+  size: 3
+  fill_material: 'AIR'
+  enable_animation: false
+
+  start_script:
+    - menu_opening
+
+  buttons:
+    empty:
+      location: top
+      slots: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26 ]
+      source: vanilla
+      name: ' '
+      material: black_stained_glass_pane
+      flags: [ HIDE_ATTRIBUTES ]
+
+    auction_house:
+      location: top
+      slots: [ 11 ]
+      source: vanilla
+      material: GOLD_BLOCK
+      name: '<gold><bold>Auction House'
+      flags: [ HIDE_ATTRIBUTES ]
+      lore:
+        - ''
+        - '<gray>Buy and sell items with other players.'
+        - ''
+        - '<yellow>Γû║ Click to open Auction House.'
+      click:
+        Scripts:
+          - menu_click
+          - open_auctionhouse
+
+    bank:
+      location: top
+      slots: [ 13 ]
+      source: vanilla
+      material: ENDER_CHEST
+      name: '<aqua><bold>Bank'
+      flags: [ HIDE_ATTRIBUTES ]
+      lore:
+        - ''
+        - '<gray>View your balance, deposit or withdraw,'
+        - '<gray>and fund projects in your town.'
+        - ''
+        - '<white>Wallet: <gold>%vault_eco_balance%'
+        - '<white>Town: <yellow>%townyadvanced_town%'
+        - ''
+        - '<yellow>Γû║ Click to open Bank.'
+      click:
+        Scripts:
+          - menu_click
+          - open_bank
+
+    profile:
+      location: top
+      slots: [ 15 ]
+      source: vanilla
+      material: PLAYER_HEAD
+      texture: player
+      name: '<yellow><bold>Character'
+      flags: [ HIDE_ATTRIBUTES ]
+      lore:
+        - ''
+        - '<gray>Skills, professions, and class menu.'
+        - ''
+        - '<yellow>Γû║ Click to open /p.'
+      click:
+        Scripts:
+          - menu_click
+          - open_profile
+
+    close:
+      location: top
+      slots: [ 22 ]
+      source: vanilla
+      material: ARROW
+      name: '<red><bold>Close'
+      flags: [ HIDE_ATTRIBUTES ]
+      lore:
+        - '<gray>Click to close this menu.'
+      click:
+        Scripts:
+          - menu_click

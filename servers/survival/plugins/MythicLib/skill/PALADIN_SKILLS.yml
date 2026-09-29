@@ -1,0 +1,313 @@
+# Paladin Class Skills (Forge-01)
+PALADIN_HOLY_SMITE:
+  name: '&6⚔ Holy Smite'
+  icon: GOLDEN_SWORD
+  source: default:SMITE
+  parameters:
+    cooldown:
+      player:
+        base: 6
+        per-level: -0.05
+        min: 3
+        max: 6
+      name: Cooldown
+    mana:
+      player:
+        base: 8
+        per-level: 0.15
+      name: Mana
+    damage:
+      player:
+        base: 8.219
+        per-level: 0.493
+      name: Damage
+  triggers:
+    cast:
+    - damage{amount={damage}}
+    - particle{p=ENCHANTED_HIT;amount=30;speed=0.3;hS=0.5;vS=0.5}
+    - particle{p=FLASH;amount=10;speed=0.2;hS=0.3;vS=0.3}
+    - sound{s=ENTITY_PLAYER_ATTACK_STRONG;v=1.2;p=1.5}
+PALADIN_DIVINE_BULWARK:
+  name: '&6🛡 Divine Bulwark'
+  icon: IRON_CHESTPLATE
+  source: default:MAGICAL_SHIELD
+  parameters:
+    cooldown:
+      player:
+        base: 18
+        per-level: -0.12
+        min: 10
+        max: 18
+      name: Cooldown
+    mana:
+      player:
+        base: 12
+        per-level: 0.2
+      name: Mana
+    duration:
+      player:
+        base: 6
+        per-level: 0.1
+      name: Duration
+  triggers:
+    cast:
+    - stat{stat=ARMOR;amount=50;operation=RELATIVE;duration={duration}}
+    - stat{stat=KNOCKBACK_RESISTANCE;amount=30;operation=RELATIVE;duration={duration}}
+    - particle{p=BLOCK;material=IRON_BLOCK;amount=50;speed=0.2;hS=0.8;vS=0.8}
+    - sound{s=ITEM_ARMOR_EQUIP_IRON;v=1.5;p=0.8}
+PALADIN_CONSECRATED_GROUND:
+  name: '&6✦ Consecrated Ground'
+  icon: GLOWSTONE
+  source: default:CONTAMINATION
+  parameters:
+    cooldown:
+      player:
+        base: 25
+        per-level: -0.15
+        min: 14
+        max: 25
+      name: Cooldown
+    mana:
+      player:
+        base: 15
+        per-level: 0.25
+      name: Mana
+    heal:
+      player:
+        base: 4.0
+        per-level: 0.3
+      name: Heal
+    duration:
+      player:
+        base: 10
+        per-level: 0.1
+      name: Duration
+  triggers:
+    cast:
+    - heal{amount={heal}}
+    - particle{p=TOTEM_OF_UNDYING;amount=80;speed=0.4;hS=2;vS=1}
+    - particle{p=INSTANT_EFFECT;amount=60;speed=0.3;hS=2;vS=1}
+    - sound{s=BLOCK_BEACON_POWER_SELECT;v=1.5;p=1.2}
+PALADIN_JUDGMENT:
+  name: '&6&lJudgment'
+  icon: GOLDEN_AXE
+  source: default:SMITE
+  parameters:
+    cooldown:
+      player:
+        base: 60
+        per-level: -0.3
+        min: 40
+        max: 60
+      name: Cooldown
+    mana:
+      player:
+        base: 30
+        per-level: 0.4
+      name: Mana
+    damage:
+      player:
+        base: 16.439
+        per-level: 0.822
+      name: Damage
+  triggers:
+    cast:
+    - damage{amount={damage}}
+    - heal{amount={damage}}
+    - particle{p=FLASH;amount=20;speed=0.5;hS=2;vS=3}
+    - particle{p=TOTEM_OF_UNDYING;amount=200;speed=0.8;hS=3;vS=4}
+    - sound{s=ENTITY_LIGHTNING_BOLT_THUNDER;v=2;p=0.6}
+PALADIN_AVENGING_WRATH:
+  name: '&6Avenging Wrath'
+  icon: GOLDEN_SWORD
+  source: default:EMPOWERED_ATTACK
+  parameters:
+    cooldown:
+      player:
+        base: 25
+        per-level: -0.18
+        min: 12
+        max: 25
+      name: Cooldown
+    mana:
+      player:
+        base: 10
+        per-level: 0.2
+      name: Mana
+    duration:
+      player:
+        base: 6
+        per-level: 0.1
+      name: Duration
+  triggers:
+    cast:
+    - stat{stat=ATTACK_DAMAGE;amount=35;operation=RELATIVE;duration={duration}}
+    - stat{stat=ATTACK_SPEED;amount=20;operation=RELATIVE;duration={duration}}
+    - potion{type=STRENGTH;duration={duration};amplifier=2}
+    - particle{p=TOTEM_OF_UNDYING;amount=120;speed=0.8;hS=2;vS=3}
+    - sound{s=BLOCK_BEACON_ACTIVATE;v=1.8;p=0.8}
+PALADIN_HOLY_GROUND:
+  name: '&6Holy Ground'
+  icon: GLOWSTONE
+  source: default:REGEN_ALLY
+  parameters:
+    cooldown:
+      player:
+        base: 22
+        per-level: -0.14
+        min: 12
+        max: 22
+      name: Cooldown
+    mana:
+      player:
+        base: 14
+        per-level: 0.25
+      name: Mana
+    heal:
+      player:
+        base: 6.0
+        per-level: 0.35
+      name: Heal
+    duration:
+      player:
+        base: 6
+        per-level: 0.1
+      name: Duration
+  triggers:
+    cast:
+    - heal{amount={heal}}
+    - potion{type=REGENERATION;duration={duration};amplifier=1}
+    - particle{p=INSTANT_EFFECT;amount=120;speed=0.5;hS=3;vS=1}
+    - particle{p=END_ROD;amount=50;speed=0.2;hS=2.5;vS=2}
+    - sound{s=BLOCK_BELL_USE;v=1.2;p=1.0}
+PALADIN_SACRIFICIAL_SHIELD:
+  name: '&6Sacrificial Shield'
+  icon: TOTEM_OF_UNDYING
+  source: default:HUMAN_SHIELD
+  parameters:
+    cooldown:
+      player:
+        base: 18
+        per-level: -0.12
+        min: 10
+        max: 18
+      name: Cooldown
+    mana:
+      player:
+        base: 12
+        per-level: 0.2
+      name: Mana
+    duration:
+      player:
+        base: 7
+        per-level: 0.1
+      name: Duration
+  triggers:
+    cast:
+    - potion{type=ABSORPTION;duration={duration};amplifier=2}
+    - stat{stat=ARMOR;amount=30;operation=RELATIVE;duration={duration}}
+    - particle{p=GLOW;amount=30;speed=0.2;hS=1.2;vS=1.2}
+    - sound{s=ITEM_TOTEM_USE;v=1;p=1.2}
+
+
+# ---- Specialisation skills (generated by spec_builder.py) ----
+TEMPLAR_CONSECRATION:
+  name: '&fConsecration'
+  icon: GOLDEN_APPLE
+  source: default:HEAL
+  lore:
+  - '&7Passive. The ground you stand on answers for you -'
+  - '&7every blow you take mends a little of the damage.'
+  - '&8Faith is not passive. It is patient.'
+  parameters:
+    cooldown:
+      base: 5
+      per-level: -0.03
+      min: 2.5
+    heal:
+      base: 3
+      per-level: 0.25
+  triggers:
+    damaged:
+    - heal{amount={heal};target=caster}
+    - particle{p=INSTANT_EFFECT;amount=14;speed=0.15;hS=0.5;vS=0.6}
+    - sound{s=BLOCK_BEACON_AMBIENT;v=0.6;p=1.6}
+TEMPLAR_LAY_ON_HANDS:
+  name: '&fLay on Hands'
+  icon: TOTEM_OF_UNDYING
+  source: default:GRAND_HEAL
+  lore:
+  - '&7A hand on the wound and a refusal to fall:'
+  - '&7a heavy heal, absorption and hardened plate.'
+  parameters:
+    cooldown:
+      base: 70
+      per-level: -0.4
+      min: 42
+    mana:
+      base: 15
+      per-level: 0.22
+    heal:
+      base: 14
+      per-level: 0.8
+    duration:
+      base: 8
+      per-level: 0.08
+  triggers:
+    cast:
+    - heal{amount={heal};target=caster}
+    - potion{type=ABSORPTION;duration={duration};amplifier=1;target=caster}
+    - stat{stat=ARMOR;amount=35;operation=RELATIVE;duration={duration};target=caster}
+    - particle{p=TOTEM_OF_UNDYING;amount=70;speed=0.4;hS=1;vS=1.2}
+    - sound{s=ITEM_TOTEM_USE;v=1;p=1.2}
+CRUSADER_ZEAL:
+  name: '&6Zeal'
+  icon: BLAZE_POWDER
+  source: default:VAMPIRISM
+  lore:
+  - '&7Passive. Every kill is its own reward -'
+  - '&7health back and a surge of strength.'
+  - '&8Momentum, but paid in blood.'
+  parameters:
+    cooldown:
+      base: 1
+      per-level: 0
+    heal:
+      base: 4
+      per-level: 0.3
+    duration:
+      base: 6
+      per-level: 0.08
+  triggers:
+    kill_entity:
+    - heal{amount={heal};target=caster}
+    - stat{stat=PHYSICAL_DAMAGE;amount=14;operation=RELATIVE;duration={duration};target=caster}
+    - particle{p=INSTANT_EFFECT;amount=24;speed=0.25;hS=0.5;vS=0.8}
+    - sound{s=ENTITY_PLAYER_LEVELUP;v=0.7;p=1.3}
+CRUSADER_JUDGMENT:
+  name: '&6Judgement'
+  icon: GOLDEN_SWORD
+  source: default:SMITE
+  lore:
+  - '&7Call the verdict down. Heavy holy damage'
+  - '&7and nowhere left to hide.'
+  parameters:
+    cooldown:
+      base: 14
+      per-level: -0.09
+      min: 8
+    mana:
+      base: 10
+      per-level: 0.18
+    damage:
+      base: 15
+      per-level: 0.85
+    duration:
+      base: 6
+      per-level: 0.06
+  triggers:
+    cast:
+    - damage{amount={damage}}
+    - potion{type=GLOWING;duration={duration};amplifier=0}
+    - particle{p=ENCHANTED_HIT;amount=45;speed=0.5;hS=0.6;vS=1}
+    - sound{s=ITEM_TRIDENT_THUNDER;v=1.1;p=1.2}

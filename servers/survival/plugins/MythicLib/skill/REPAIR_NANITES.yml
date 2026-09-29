@@ -1,0 +1,20 @@
+REPAIR_NANITES:
+  name: '&a🔧 Repair Nanites'
+  icon: PHANTOM_MEMBRANE
+  source: default:HEAL
+  parameters:
+    heal:
+      base: 4
+      per-level: 1
+    cooldown:
+      base: 10
+      per-level: -0.05
+      min: 5
+    mana:
+      base: 6
+      per-level: 0.12
+  triggers:
+    cast:
+    - particle{p=HAPPY_VILLAGER;amount=20;speed=0;hS=0.7;vS=0.7}
+    - sound{s=BLOCK_ANVIL_USE;v=0.6;p=1.6}
+    - heal{amount={heal}}

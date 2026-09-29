@@ -1,0 +1,47 @@
+{
+ "format": 1,
+ "models": {
+  "cyber_golem": {
+   "identifier": "scf:meg_cyber_golem",
+   "bones": [
+    "body",
+    "head",
+    "left_arm",
+    "left_leg",
+    "right_arm",
+    "right_leg",
+    "root"
+   ],
+   "bone_uuids": {
+    "body": "c9292c87-2e3d-4dd5-84c1-b915419d9ab4",
+    "head": "e576d592-ca55-445d-a8e5-5407be14635c",
+    "left_arm": "11ecc3bb-67d7-4178-b780-1047556afddc",
+    "left_leg": "4651df8f-2bc8-4d15-a040-be45ff0e10bf",
+    "right_arm": "02c6b27a-db85-4a23-b53e-84588d59dfc1",
+    "right_leg": "b2f465e0-fcff-4010-9a3c-7f1ae94e67a1",
+    "root": "6911efc3-956f-4ff8-ad90-26091e89dc1f"
+   },
+   "animations": [],
+   "bone_properties": 1,
+   "animation_properties": 0
+  },
+  "operative_chestplate": {
+   "identifier": "scf:meg_operative_chestplate",
+   "bones": [
+    "body",
+    "left_arm",
+    "right_arm",
+    "root"
+   ],
+   "bone_uuids": {
+    "body": "6c9a24ee-09c5-47f4-8d32-2f18a205e853",
+    "left_arm": "017cdcef-5469-4bea-b41f-69f9fa65cf64",
+    "right_arm": "e19e2c40-07f7-43a5-8048-102fa2dcf5f5",
+    "root": "534eb919-d3d7-4963-acd8-4d528666a966"
+   },
+   "animations": [],
+   "bone_properties": 1,
+   "animation_properties": 0
+  }
+ }
+}

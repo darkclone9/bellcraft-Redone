@@ -1,0 +1,32 @@
+
+# Display options
+name: 'Stone Cold'
+level-req:
+    main: 1
+lore:
+- 'We need stone blocks to reinforce'
+- 'the village walls. Dig deep and'
+- 'bring back plenty of stone.'
+- ''
+- '&6Objective:'
+- '&7► Mine 64 stone blocks'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 3 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=STONE;amount=64}'
+        lore: 'Mine 64 stone blocks.'
+        triggers:
+        - message{format="&aBuilder> &fPerfect! The walls will be much sturdier now."}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 3"}
+        - 'experience{amount=170}'

@@ -1,0 +1,161 @@
+display:
+  name: 'Paladin'
+  lore:
+    - '&eClass Role: Tank / Holy Knight'
+    - '&7Armoured faith: endures, and answers.'
+    - ''
+    - '&7Specialisations:'
+    - '&f- Templar &8: sustain through punishment, hold the line'
+    - '&6- Crusader &8: holy burst, judgement, strength from kills'
+  item: GOLDEN_CHESTPLATE
+  slot: 20
+
+mana:
+  char: "✠"
+  icon: "&6✠"
+  name: 'Radiance'
+  color:
+    full: GOLD
+    half: YELLOW
+    empty: DARK_GRAY
+
+stats:
+  # Rebalanced 2026-09-10 on a shared budget: every class carries one primary damage
+  # stat and lands within ~8% of the others at base and ~7% per level. Every class also
+  # carries MANA_REGENERATION; without it a class with no Wisdom could cast three times
+  # and then wait three minutes.
+  # Armoured sustain tank. Trades the Soldier's raw health and knockback resistance
+  # for armour, regeneration, parry and a real mana pool.
+  MAX_HEALTH:
+    base: 27
+    per-level: 3.1
+  MAX_MANA:
+    base: 32
+    per-level: 4.2
+  PHYSICAL_DAMAGE:
+    base: 2.5
+    per-level: 0.9
+  ARMOR:
+    base: 8
+    per-level: 1.4
+  KNOCKBACK_RESISTANCE:
+    base: 6
+    per-level: 0.7
+  PARRY_RATING:
+    base: 3
+    per-level: 0.4
+  HEALTH_REGENERATION:
+    base: 1
+    per-level: 0.14
+  MANA_REGENERATION:
+    base: 1.2
+    per-level: 0.12
+  MOVEMENT_SPEED:
+    base: 0.1
+    per-level: 0.0
+
+attributes:
+  # Fixed budget for every class: 20 points at base, 4.0 per level.
+  strength:
+    base: 8
+    per-level: 1.6
+  dexterity:
+    base: 4
+    per-level: 0.8
+  intelligence:
+    base: 2
+    per-level: 0.4
+  wisdom:
+    base: 6
+    per-level: 1.2
+
+options:
+  default: false
+  display: true
+  needs-permission: false
+  off-combat-health-regen: true
+  off-combat-mana-regen: true
+
+exp-curve: 'levels'
+exp-table: class_exp_table
+
+skill-slots:
+  1:
+    name: '&6Holy Strike'
+    unlocked-by-default: true
+    lore:
+      - '&7Smite your enemies with holy power'
+  2:
+    name: '&6Divine Shield'
+    unlocked-by-default: true
+    lore:
+      - '&7A stronger, more noticeable protection'
+
+main-exp-sources:
+  - 'killmob{type=ZOMBIE;amount=3-7}'
+  - 'killmob{type=SKELETON;amount=3-5}'
+  - 'killmob{type=CREEPER;amount=5-8}'
+  - 'killmob{type=BLAZE;amount=7-10}'
+  - 'killmob{type=WITHER_SKELETON;amount=8-13}'
+
+skill-trees:
+  - 'paladin-guardian'
+  - 'profession-mining'
+  - 'profession-woodcutting'
+  - 'profession-farming'
+  - 'profession-fishing'
+  - 'profession-alchemy'
+  - 'profession-smithing'
+  - 'profession-enchanting'
+  - 'profession-smelting'
+
+skills:
+  SMITE:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  HUMAN_SHIELD:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  # New skills
+  PALADIN_AVENGING_WRATH:
+    level: 5
+    max-level: 30
+    unlocked-by-default: false
+
+  PALADIN_HOLY_GROUND:
+    level: 10
+    max-level: 30
+    unlocked-by-default: false
+
+  PALADIN_SACRIFICIAL_SHIELD:
+    level: 15
+    max-level: 30
+    unlocked-by-default: false
+
+  # ---- Specialisation skills (generated) ----
+  TEMPLAR_CONSECRATION:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  TEMPLAR_LAY_ON_HANDS:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  CRUSADER_ZEAL:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  CRUSADER_JUDGMENT:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+
+triggers:
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-ap %player_name%"}'
+    - 'command{format="bellcraft-grant-sp %player_name%"}'
+    - 'command{format="bellcraft-grant-stp %player% paladin-guardian"}'

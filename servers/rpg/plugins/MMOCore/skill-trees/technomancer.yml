@@ -1,0 +1,503 @@
+id: technomancer
+name: '&3Tech Mastery'
+type: CUSTOM
+lore:
+  - '&3Harness technology and mechanical power'
+max-point-spent: 30
+icon:
+  material: COMPARATOR
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+  a1:
+    root: true
+    name: Spellweaving I
+    coordinates:
+      x: -1
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eMagic damage +2'
+  a2:
+    name: Spellweaving II
+    coordinates:
+      x: -2
+      y: 1
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eMagic damage +3'
+      1:
+        - '&eMagic damage +2'
+  a3:
+    name: Spellweaving III
+    coordinates:
+      x: -3
+      y: 0
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eMagic damage +5'
+      1:
+        - '&eMagic damage +5'
+  b1:
+    root: true
+    name: Nanite Surge I
+    coordinates:
+      x: -2
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eSkill damage +%5'
+  b2:
+    name: Nanite Surge II
+    coordinates:
+      x: -1
+      y: -2
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eSkill damage +%8'
+      1:
+        - '&eSkill damage +%5'
+  b3:
+    name: Nanite Surge III
+    coordinates:
+      x: 0
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eSkill damage +%12'
+      1:
+        - '&eSkill damage +%13'
+  c1:
+    root: true
+    name: System Efficiency I
+    coordinates:
+      x: 0
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%2'
+  c2:
+    name: System Efficiency II
+    coordinates:
+      x: -1
+      y: 0
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%3'
+      1:
+        - '&eCooldown reduction +%2'
+  c3:
+    name: System Efficiency III
+    coordinates:
+      x: 0
+      y: 1
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%5'
+      1:
+        - '&eCooldown reduction +%5'
+  d1:
+    root: true
+    name: Nanite Refuel I
+    coordinates:
+      x: 1
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eNanite regen +%5'
+  d2:
+    name: Nanite Refuel II
+    coordinates:
+      x: 2
+      y: 1
+    parents:
+      strong: {d1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eNanite regen +%8'
+      1:
+        - '&eNanite regen +%5'
+  d3:
+    name: Nanite Refuel III
+    coordinates:
+      x: 2
+      y: 2
+    parents:
+      strong: {d2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eNanite regen +%12'
+      1:
+        - '&eNanite regen +%13'
+  e1:
+    root: true
+    name: Overclock I
+    coordinates:
+      x: 3
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&cOverclocked magic +%8'
+  e2:
+    name: Overclock II
+    coordinates:
+      x: 4
+      y: 2
+    parents:
+      strong: {e1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&cOverclocked magic +%12'
+      1:
+        - '&cOverclocked magic +%8'
+  e3:
+    name: Overclock III
+    coordinates:
+      x: 4
+      y: 1
+    parents:
+      strong: {e2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=20;type="RELATIVE"}'
+    lores:
+      0:
+        - '&cOverclocked magic +%20'
+      1:
+        - '&cOverclocked magic +%20'
+  f1:
+    root: true
+    name: Expanded Array I
+    coordinates:
+      x: 4
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=10;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax Nanites +10'
+  f2:
+    name: Expanded Array II
+    coordinates:
+      x: 4
+      y: -1
+    parents:
+      strong: {f1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=15;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax Nanites +15'
+      1:
+        - '&eMax Nanites +10'
+  f3:
+    name: Expanded Array III
+    coordinates:
+      x: 4
+      y: -2
+    parents:
+      strong: {f2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=20;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax Nanites +20'
+      1:
+        - '&eMax Nanites +25'
+  g1:
+    root: true
+    name: System Override I
+    coordinates:
+      x: 3
+      y: -2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&4Override skill damage +%8'
+  g2:
+    name: System Override II
+    coordinates:
+      x: 2
+      y: -2
+    parents:
+      strong: {g1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&4Override skill damage +%12'
+      1:
+        - '&4Override skill damage +%8'
+  g3:
+    name: System Override III
+    coordinates:
+      x: 2
+      y: -1
+    parents:
+      strong: {g2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=20;type="RELATIVE"}'
+    lores:
+      0:
+        - '&4Override skill damage +%20'
+      1:
+        - '&4Override skill damage +%20'
+  h1:
+    root: true
+    name: Overclock Protocol I
+    coordinates:
+      x: 5
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%3'
+  h2:
+    name: Overclock Protocol II
+    coordinates:
+      x: 6
+      y: 2
+    parents:
+      strong: {h1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%4'
+      1:
+        - '&eCooldown reduction +%3'
+  h3:
+    name: Overclock Protocol III
+    coordinates:
+      x: 6
+      y: 1
+    parents:
+      strong: {h2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=6;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%6'
+      1:
+        - '&eCooldown reduction +%7'
+  i1:
+    root: true
+    name: Power Matrix I
+    coordinates:
+      x: 5
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eSkill damage +%5'
+  i2:
+    name: Power Matrix II
+    coordinates:
+      x: 5
+      y: -2
+    parents:
+      strong: {i1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eSkill damage +%8'
+      1:
+        - '&eSkill damage +%5'
+  i3:
+    name: Power Matrix III
+    coordinates:
+      x: 6
+      y: -2
+    parents:
+      strong: {i2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eSkill damage +%12'
+      1:
+        - '&eSkill damage +%13'
+
+
+  # --- NEW SKILL UNLOCK NODES ---
+  
+  skill_drone:
+    root: true
+    name: '&bUnlock: Deploy Drone'
+    # This tells the menu what item to display!
+    material: DISPENSER
+    coordinates:
+      x: -4
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=DEPLOY_DRONE}'
+    lores:
+      0:
+        - '&7Spend 1 Point to unlock'
+        - '&7the &bDeploy Drone&7 ability!'
+
+  skill_beam:
+    root: true
+    name: '&bUnlock: Overload Beam'
+    material: BEACON
+    coordinates:
+      x: 0
+      y: 3
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=OVERLOAD_BEAM}'
+    lores:
+      0:
+        - '&7Spend 1 Point to unlock'
+        - '&7the &bOverload Beam&7 ability!'
+
+  skill_nanites:
+    root: true
+    name: '&aUnlock: Repair Nanites'
+    material: TURTLE_SCUTE
+    coordinates:
+      x: 4
+      y: 4
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=REPAIR_NANITES}'
+    lores:
+      0:
+        - '&7Spend 1 Point to unlock'
+        - '&7the &aRepair Nanites&7 ability!'
+
+  skill_overcharge:
+    root: true
+    name: '&eUnlock: Overcharge'
+    coordinates:
+      x: -4
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=OVERCHARGE}'
+    lores:
+      0:
+        - '&fOverload your systems to unleash'
+        - '&fa burst of electrical energy.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &eOvercharge&7 ability!'
+
+  skill_nanite_swarm:
+    root: true
+    name: '&aUnlock: Nanite Swarm'
+    coordinates:
+      x: 7
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=NANITE_SWARM}'
+    lores:
+      0:
+        - '&fRelease a swarm of nanites that'
+        - '&fdamage enemies in an area.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &aNanite Swarm&7 ability!'

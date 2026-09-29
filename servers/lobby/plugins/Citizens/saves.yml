@@ -1,0 +1,82 @@
+# Citizens NPC Storage
+last-created-npc-id: 1
+npc:
+- traits:
+    scoreboardtrait:
+      tags:
+      - CITIZENS_NPC
+    commandtrait:
+      commands:
+      - command: hub
+        hand: RIGHT
+        player: true
+    skintrait:
+      skinName: e74f696b-a4c0-48c2-b85e-d13ba964a9c3
+      signature: O2AgOBjPveDPpXgQ/4/kPQMZOntPm7tIgLjTKXSduX8R3Tt7RUQPkcY7dfnRRVhh5iv+buFIfC8Ka4x8NkgHtnk1h5A8PNzNlwutDCrWcua4PvUQgDNzgZAppsKnOkBJ/dNDbiLfdwB4CCDY9HyVC3sTfPPq+iANFI9ltzHfjm132uFGuj9i+lLiifQFHSxTZlMW9OUdAkbZTcT/d9Y7UkhTwpi0QN8Pqpq7GOGgBc2ThliAeqVCcIw4NgXpCbZmGkwv9My0V0+NGeajj22pf1H3dC9gAGy/keT6HYcNs0x90vxIwHB/rAKlRg+GRqX35l7pt0SX0Ua5txm5SY+ZQR3LEeffSPRfgBKP3g8fDj5VaCEdECKqzpA/pzBVVbZ9/9BzwS5yR1g2KyLqKJvW2lUZ3VWGfEO6AAE604PScyCWFi5xs94WL5HXOimhOH66cjmBbEvrcAbXP83jnfrBjk22Wj66AEtDReZD9mL/0/GeZhkjqoeBs/clk2OeFIBnd+hK5+hmw+y/YIa83UFeaFCCH0Eg9J26ejWtdKlz/C/HQeSjqkUxaTMTCkVilTqkoCQMM46VcIKjzDOE+nUl76PKnq9o8NYtpQn+XYm9ELfGd/69o4FxBofA9HRQ1iH0BcSV9FwQa3lGoGEbiOvpua4vvj07vUNaw/NDrVdyLnc=
+      textureRaw: ewogICJ0aW1lc3RhbXAiIDogMTc4OTA4OTg1MDE0OSwKICAicHJvZmlsZUlkIiA6ICJiNzM1N2M2MmFmMDc0ZDM2YjRiMmIwZTM4NzBkZmIyYSIsCiAgInByb2ZpbGVOYW1lIiA6ICJtaWxrY2g0biIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8zNTJhYTI1MTBiYTA0MmMzYTJlYTkzYWNmMzg1Y2RlNTkxN2JhMDM1N2M0ZGJjMGY4NWIwMDdlY2ZlOTk4NjUzIgogICAgfQogIH0KfQ==
+    lookclose:
+      enabled: true
+      randomPitchRange:
+      - 0.0
+      - 0.0
+      randomYawRange:
+      - 0.0
+      - 360.0
+    location:
+      world: world
+      x: 14.2023
+      y: 64.0
+      z: -12.3866
+      bodyYaw: 13.440277
+      pitch: 0.0
+      yaw: 13.4403
+      worldid: 4b99521f-d83c-4425-8de5-fe112c94f8b1
+    type: PLAYER
+    rotationtrait:
+      globalParameters: {
+        }
+  traitnames: owner,scoreboardtrait,spawned,rotationtrait,commandtrait,skintrait,lookclose,type,inventory,targetable,leashedtrait,location,chunktickettrait
+  name: Realm Navigator
+  navigator:
+    usedefaultstuckaction: false
+    speedmodifier: 1.0
+    avoidwater: false
+  uuid: 3b74c76b-9246-4f2d-85a3-d2c409981d99
+  metadata:
+    cached-skin-uuid: 8667ba71-b85a-4004-af54-457a9734eed7
+    cached-skin-uuid-name: e74f696b-a4c0-48c2-b85e-d13ba964a9c3
+- traits:
+    spawned: false
+    commandtrait:
+      commands:
+      - command: cmi msg [player] {#FFAA00}[Maneule The Conscriber] &7Greetings, traveler!
+          I am Maneule, recruiting able pioneers for the &6Frontier Mercenary Guild&7.
+          Join &aSurvival &7to take on our guild bounties!
+        hand: RIGHT
+        player: true
+    hologramtrait: {
+      }
+    skintrait:
+      skinName: Ranger
+    lookclose:
+      enabled: true
+      randomPitchRange:
+      - 0.0
+      - 0.0
+      randomYawRange:
+      - 0.0
+      - 360.0
+    location:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      pitch: 0.0
+      yaw: 0.0
+    type: PLAYER
+  traitnames: owner,spawned,commandtrait,hologramtrait,skintrait,leashedtrait,lookclose,location,type,chunktickettrait
+  name: Maneule The Conscriber
+  navigator:
+    usedefaultstuckaction: false
+    speedmodifier: 1.0
+    avoidwater: false
+  uuid: e0af26f6-68e5-47dd-a2d3-369394ea0b6d

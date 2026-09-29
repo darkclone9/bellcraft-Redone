@@ -1,0 +1,22 @@
+my_test_variable1:
+  type: integer
+  default: 33
+  min: -2000
+  max: 2000
+
+my_test_variable2:
+  type: double
+  default: 0
+  min: -6000,80
+  max: 6000,30
+  decimal: "#.00"
+  decimal_separator: "."
+
+my_test_variable3:
+  type: string
+  default: hello
+  allowed_values:
+    - "yes"
+    - "no"
+    - "true"
+    - "false"

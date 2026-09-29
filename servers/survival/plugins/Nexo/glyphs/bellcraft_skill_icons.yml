@@ -1,0 +1,714 @@
+# Auto-generated unique skill icons for Bellcraft skill bar
+# chars assigned so Nexo can render them in chat/actionbar
+
+skillicon_astral_link:
+  texture: bellcraft:hud/skills/skillicon_astral_link
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_astral_link:"
+  char: ꐞ
+
+skillicon_cleric_blessed_ground:
+  texture: bellcraft:hud/skills/skillicon_cleric_blessed_ground
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_cleric_blessed_ground:"
+  char: ꐟ
+
+skillicon_cleric_divine_intervention:
+  texture: bellcraft:hud/skills/skillicon_cleric_divine_intervention
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_cleric_divine_intervention:"
+  char: ꐠ
+
+skillicon_cleric_healing_prayer:
+  texture: bellcraft:hud/skills/skillicon_cleric_healing_prayer
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_cleric_healing_prayer:"
+  char: ꐡ
+
+skillicon_cleric_holy_resurgence:
+  texture: bellcraft:hud/skills/skillicon_cleric_holy_resurgence
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_cleric_holy_resurgence:"
+  char: ꐢ
+
+skillicon_cleric_martyrs_resolve:
+  texture: bellcraft:hud/skills/skillicon_cleric_martyrs_resolve
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_cleric_martyrs_resolve:"
+  char: ꐣ
+
+skillicon_cleric_purifying_light:
+  texture: bellcraft:hud/skills/skillicon_cleric_purifying_light
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_cleric_purifying_light:"
+  char: ꐤ
+
+skillicon_cleric_sanctified_ward:
+  texture: bellcraft:hud/skills/skillicon_cleric_sanctified_ward
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_cleric_sanctified_ward:"
+  char: ꐥ
+
+skillicon_combat_stance:
+  texture: bellcraft:hud/skills/skillicon_combat_stance
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_combat_stance:"
+  char: ꐦ
+
+skillicon_cosmic_rift:
+  texture: bellcraft:hud/skills/skillicon_cosmic_rift
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_cosmic_rift:"
+  char: ꐧ
+
+skillicon_debilitating_shot:
+  texture: bellcraft:hud/skills/skillicon_debilitating_shot
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_debilitating_shot:"
+  char: ꐨ
+
+skillicon_deploy_drone:
+  texture: bellcraft:hud/skills/skillicon_deploy_drone
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_deploy_drone:"
+  char: ꐩ
+
+skillicon_envoy_battle_stance:
+  texture: bellcraft:hud/skills/skillicon_envoy_battle_stance
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_envoy_battle_stance:"
+  char: ꐪ
+
+skillicon_envoy_commanding_shout:
+  texture: bellcraft:hud/skills/skillicon_envoy_commanding_shout
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_envoy_commanding_shout:"
+  char: ꐫ
+
+skillicon_envoy_inspire:
+  texture: bellcraft:hud/skills/skillicon_envoy_inspire
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_envoy_inspire:"
+  char: ꐬ
+
+skillicon_envoy_rally:
+  texture: bellcraft:hud/skills/skillicon_envoy_rally
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_envoy_rally:"
+  char: ꐭ
+
+skillicon_envoy_suppressing_fire:
+  texture: bellcraft:hud/skills/skillicon_envoy_suppressing_fire
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_envoy_suppressing_fire:"
+  char: ꐮ
+
+skillicon_envoy_tactical_mark:
+  texture: bellcraft:hud/skills/skillicon_envoy_tactical_mark
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_envoy_tactical_mark:"
+  char: ꐯ
+
+skillicon_envoy_tactical_retreat:
+  texture: bellcraft:hud/skills/skillicon_envoy_tactical_retreat
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_envoy_tactical_retreat:"
+  char: ꐰ
+
+skillicon_evasion_protocol:
+  texture: bellcraft:hud/skills/skillicon_evasion_protocol
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_evasion_protocol:"
+  char: ꐱ
+
+skillicon_graviton_field:
+  texture: bellcraft:hud/skills/skillicon_graviton_field
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_graviton_field:"
+  char: ꐲ
+
+skillicon_human_adapt:
+  texture: bellcraft:hud/skills/skillicon_human_adapt
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_human_adapt:"
+  char: ꐳ
+
+skillicon_human_resourceful_strike:
+  texture: bellcraft:hud/skills/skillicon_human_resourceful_strike
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_human_resourceful_strike:"
+  char: ꐴ
+
+skillicon_human_second_wind:
+  texture: bellcraft:hud/skills/skillicon_human_second_wind
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_human_second_wind:"
+  char: ꐵ
+
+skillicon_mystic_astral_barrier:
+  texture: bellcraft:hud/skills/skillicon_mystic_astral_barrier
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_mystic_astral_barrier:"
+  char: ꐶ
+
+skillicon_mystic_celestial_bond:
+  texture: bellcraft:hud/skills/skillicon_mystic_celestial_bond
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_mystic_celestial_bond:"
+  char: ꐷ
+
+skillicon_mystic_cosmic_heal:
+  texture: bellcraft:hud/skills/skillicon_mystic_cosmic_heal
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_mystic_cosmic_heal:"
+  char: ꐸ
+
+skillicon_mystic_mind_spike:
+  texture: bellcraft:hud/skills/skillicon_mystic_mind_spike
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_mystic_mind_spike:"
+  char: ꐹ
+
+skillicon_mystic_starfall:
+  texture: bellcraft:hud/skills/skillicon_mystic_starfall
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_mystic_starfall:"
+  char: ꐺ
+
+skillicon_mystic_stellar_convergence:
+  texture: bellcraft:hud/skills/skillicon_mystic_stellar_convergence
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_mystic_stellar_convergence:"
+  char: ꐻ
+
+skillicon_mystic_void_step:
+  texture: bellcraft:hud/skills/skillicon_mystic_void_step
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_mystic_void_step:"
+  char: ꐼ
+
+skillicon_nanite_swarm:
+  texture: bellcraft:hud/skills/skillicon_nanite_swarm
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_nanite_swarm:"
+  char: ꐽ
+
+skillicon_operative_evasion:
+  texture: bellcraft:hud/skills/skillicon_operative_evasion
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_operative_evasion:"
+  char: ꐾ
+
+skillicon_operative_exploit:
+  texture: bellcraft:hud/skills/skillicon_operative_exploit
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_operative_exploit:"
+  char: ꐿ
+
+skillicon_operative_poison_blade:
+  texture: bellcraft:hud/skills/skillicon_operative_poison_blade
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_operative_poison_blade:"
+  char: ꑀ
+
+skillicon_operative_shadow_strike:
+  texture: bellcraft:hud/skills/skillicon_operative_shadow_strike
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_operative_shadow_strike:"
+  char: ꑁ
+
+skillicon_operative_smoke_screen:
+  texture: bellcraft:hud/skills/skillicon_operative_smoke_screen
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_operative_smoke_screen:"
+  char: ꑂ
+
+skillicon_operative_stab:
+  texture: bellcraft:hud/skills/skillicon_operative_stab
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_operative_stab:"
+  char: ꑃ
+
+skillicon_operative_vanish:
+  texture: bellcraft:hud/skills/skillicon_operative_vanish
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_operative_vanish:"
+  char: ꑄ
+
+skillicon_overcharge:
+  texture: bellcraft:hud/skills/skillicon_overcharge
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_overcharge:"
+  char: ꑅ
+
+skillicon_overload_beam:
+  texture: bellcraft:hud/skills/skillicon_overload_beam
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_overload_beam:"
+  char: ꑆ
+
+skillicon_paladin_avenging_wrath:
+  texture: bellcraft:hud/skills/skillicon_paladin_avenging_wrath
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_paladin_avenging_wrath:"
+  char: ꑇ
+
+skillicon_paladin_consecrated_ground:
+  texture: bellcraft:hud/skills/skillicon_paladin_consecrated_ground
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_paladin_consecrated_ground:"
+  char: ꑈ
+
+skillicon_paladin_divine_bulwark:
+  texture: bellcraft:hud/skills/skillicon_paladin_divine_bulwark
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_paladin_divine_bulwark:"
+  char: ꑉ
+
+skillicon_paladin_holy_ground:
+  texture: bellcraft:hud/skills/skillicon_paladin_holy_ground
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_paladin_holy_ground:"
+  char: ꑊ
+
+skillicon_paladin_holy_smite:
+  texture: bellcraft:hud/skills/skillicon_paladin_holy_smite
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_paladin_holy_smite:"
+  char: ꑋ
+
+skillicon_paladin_judgment:
+  texture: bellcraft:hud/skills/skillicon_paladin_judgment
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_paladin_judgment:"
+  char: ꑌ
+
+skillicon_paladin_sacrificial_shield:
+  texture: bellcraft:hud/skills/skillicon_paladin_sacrificial_shield
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_paladin_sacrificial_shield:"
+  char: ꑍ
+
+skillicon_ranger_arrow_storm:
+  texture: bellcraft:hud/skills/skillicon_ranger_arrow_storm
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_ranger_arrow_storm:"
+  char: ꑎ
+
+skillicon_ranger_binding_shot:
+  texture: bellcraft:hud/skills/skillicon_ranger_binding_shot
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_ranger_binding_shot:"
+  char: ꑏ
+
+skillicon_ranger_camouflage:
+  texture: bellcraft:hud/skills/skillicon_ranger_camouflage
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_ranger_camouflage:"
+  char: ꑐ
+
+skillicon_ranger_evasive_roll:
+  texture: bellcraft:hud/skills/skillicon_ranger_evasive_roll
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_ranger_evasive_roll:"
+  char: ꑑ
+
+skillicon_ranger_explosive_arrow:
+  texture: bellcraft:hud/skills/skillicon_ranger_explosive_arrow
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_ranger_explosive_arrow:"
+  char: ꑒ
+
+skillicon_ranger_precision_shot:
+  texture: bellcraft:hud/skills/skillicon_ranger_precision_shot
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_ranger_precision_shot:"
+  char: ꑓ
+
+skillicon_ranger_venomous_trap:
+  texture: bellcraft:hud/skills/skillicon_ranger_venomous_trap
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_ranger_venomous_trap:"
+  char: ꑔ
+
+skillicon_repair_nanites:
+  texture: bellcraft:hud/skills/skillicon_repair_nanites
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_repair_nanites:"
+  char: ꑕ
+
+skillicon_sculk_sentinel_beam:
+  texture: bellcraft:hud/skills/skillicon_sculk_sentinel_beam
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_sculk_sentinel_beam:"
+  char: ꑖ
+
+skillicon_soldier_battle_cry:
+  texture: bellcraft:hud/skills/skillicon_soldier_battle_cry
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_soldier_battle_cry:"
+  char: ꑗ
+
+skillicon_soldier_combat_surge:
+  texture: bellcraft:hud/skills/skillicon_soldier_combat_surge
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_soldier_combat_surge:"
+  char: ꑘ
+
+skillicon_soldier_fortify:
+  texture: bellcraft:hud/skills/skillicon_soldier_fortify
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_soldier_fortify:"
+  char: ꑙ
+
+skillicon_soldier_last_stand:
+  texture: bellcraft:hud/skills/skillicon_soldier_last_stand
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_soldier_last_stand:"
+  char: ꑚ
+
+skillicon_soldier_shield_bash:
+  texture: bellcraft:hud/skills/skillicon_soldier_shield_bash
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_soldier_shield_bash:"
+  char: ꑛ
+
+skillicon_soldier_strike:
+  texture: bellcraft:hud/skills/skillicon_soldier_strike
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_soldier_strike:"
+  char: ꑜ
+
+skillicon_soldier_warriors_leap:
+  texture: bellcraft:hud/skills/skillicon_soldier_warriors_leap
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_soldier_warriors_leap:"
+  char: ꑝ
+
+skillicon_sorcerer_arcane_missiles:
+  texture: bellcraft:hud/skills/skillicon_sorcerer_arcane_missiles
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_sorcerer_arcane_missiles:"
+  char: ꑞ
+
+skillicon_sorcerer_elemental_shield:
+  texture: bellcraft:hud/skills/skillicon_sorcerer_elemental_shield
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_sorcerer_elemental_shield:"
+  char: ꑟ
+
+skillicon_sorcerer_fireball:
+  texture: bellcraft:hud/skills/skillicon_sorcerer_fireball
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_sorcerer_fireball:"
+  char: ꑠ
+
+skillicon_sorcerer_frost_nova:
+  texture: bellcraft:hud/skills/skillicon_sorcerer_frost_nova
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_sorcerer_frost_nova:"
+  char: ꑡ
+
+skillicon_sorcerer_lightning_chain:
+  texture: bellcraft:hud/skills/skillicon_sorcerer_lightning_chain
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_sorcerer_lightning_chain:"
+  char: ꑢ
+
+skillicon_sorcerer_meteor_strike:
+  texture: bellcraft:hud/skills/skillicon_sorcerer_meteor_strike
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_sorcerer_meteor_strike:"
+  char: ꑣ
+
+skillicon_sorcerer_time_warp:
+  texture: bellcraft:hud/skills/skillicon_sorcerer_time_warp
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_sorcerer_time_warp:"
+  char: ꑤ
+
+skillicon_stellar_heal:
+  texture: bellcraft:hud/skills/skillicon_stellar_heal
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_stellar_heal:"
+  char: ꑥ
+
+skillicon_suppressing_fire:
+  texture: bellcraft:hud/skills/skillicon_suppressing_fire
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_suppressing_fire:"
+  char: ꑦ
+
+skillicon_tactical_reload:
+  texture: bellcraft:hud/skills/skillicon_tactical_reload
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_tactical_reload:"
+  char: ꑧ
+
+skillicon_technomancer_arcane_bolt:
+  texture: bellcraft:hud/skills/skillicon_technomancer_arcane_bolt
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_technomancer_arcane_bolt:"
+  char: ꑨ
+
+skillicon_technomancer_cryo_grenade:
+  texture: bellcraft:hud/skills/skillicon_technomancer_cryo_grenade
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_technomancer_cryo_grenade:"
+  char: ꑩ
+
+skillicon_technomancer_deploy_turret:
+  texture: bellcraft:hud/skills/skillicon_technomancer_deploy_turret
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_technomancer_deploy_turret:"
+  char: ꑪ
+
+skillicon_technomancer_emp_blast:
+  texture: bellcraft:hud/skills/skillicon_technomancer_emp_blast
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_technomancer_emp_blast:"
+  char: ꑫ
+
+skillicon_technomancer_holographic_decoy:
+  texture: bellcraft:hud/skills/skillicon_technomancer_holographic_decoy
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_technomancer_holographic_decoy:"
+  char: ꑬ
+
+skillicon_technomancer_overload:
+  texture: bellcraft:hud/skills/skillicon_technomancer_overload
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_technomancer_overload:"
+  char: ꑭ
+
+skillicon_technomancer_system_override:
+  texture: bellcraft:hud/skills/skillicon_technomancer_system_override
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_technomancer_system_override:"
+  char: ꑮ
+
+skillicon_trick_attack:
+  texture: bellcraft:hud/skills/skillicon_trick_attack
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_trick_attack:"
+  char: ꑯ
+
+skillicon_empty:
+  texture: bellcraft:hud/skills/skillicon_empty
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_empty:"
+  char: ꑰ
+
+skillicon_power_mark:
+  texture: bellcraft:hud/skills/skillicon_power_mark
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_power_mark:"
+  char: ꑱ
+
+skillicon_evade:
+  texture: bellcraft:hud/skills/skillicon_evade
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_evade:"
+  char: ꑲ
+
+skillicon_fireball:
+  texture: bellcraft:hud/skills/skillicon_fireball
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_fireball:"
+  char: ꑳ
+
+skillicon_frozen_aura:
+  texture: bellcraft:hud/skills/skillicon_frozen_aura
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_frozen_aura:"
+  char: ꑴ
+
+skillicon_circular_slash:
+  texture: bellcraft:hud/skills/skillicon_circular_slash
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_circular_slash:"
+  char: ꑵ
+
+skillicon_magical_shield:
+  texture: bellcraft:hud/skills/skillicon_magical_shield
+  ascent: 12
+  height: 14
+  placeholders:
+    - ":si_magical_shield:"
+  char: ꑶ

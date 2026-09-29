@@ -1,0 +1,36 @@
+
+# Display options
+name: 'Warden Revenge'
+lore:
+- 'Three wardens have awakened in the deep'
+- 'dark. The ancient cities tremble with'
+- 'their fury. Silence them all!'
+- ''
+- '&6Objective:'
+- '&7► Kill 3 wardens'
+- ''
+- '&eRewards:'
+- '&7► 6160 EXP'
+- '&7► 150 Gold Coins'
+- '&7► Legendary Weapon Essence'
+
+level-req:
+    main: 74
+
+parent:
+- 'warden-awakening'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=WARDEN;amount=3}'
+        lore: 'Kill 3 wardens.'
+        triggers:
+        - message{format="&aAncient Sage> &fThe deep dark falls silent. You are beyond mortal limits."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 150"}
+        - 'mmoitem{type=MATERIAL;id=LEGENDARY_WEAPON_ESSENCE}'
+        - 'experience{amount=6160}'

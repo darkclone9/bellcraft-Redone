@@ -1,0 +1,48 @@
+﻿# Scripts used by MenuCreator/menu.yml
+# Copy to: plugins/CoreTools/scripts/bellcraft-menu.yml
+# Reload:  /coretools reload
+
+menu_click:
+  Conditions: []
+  Mechanics:
+    - playsound{sound="minecraft:ui.button.click";volume=1;pitch=1} @Self
+
+menu_opening:
+  Conditions: []
+  Mechanics:
+    - playsound{sound="minecraft:block.chest.open";volume=0.6;pitch=1.2} @Self
+
+# Open the CoreTools AuctionHouse for the clicking player as console
+# so the jar-default OP permission on /ah cannot swallow the click.
+# Auction config id: vanilla_example (jar default). Change the id if
+# your live AuctionHouse YAML uses a different name.
+open_auctionhouse:
+  Conditions: []
+  Mechanics:
+    - command{c="core-auctionhouse vanilla_example {target_name}";runas=console} @Self
+
+# GUIPlus personal + town bank (plugins/GUIPlus/CustomGuis/bank.yml)
+open_bank:
+  Conditions: []
+  Mechanics:
+    - command{c="gui open bank {target_name}";runas=console} @Self
+
+open_profile:
+  Conditions: []
+  Mechanics:
+    - command{c="gui open profile {target_name}";runas=console} @Self
+
+open_ranks:
+  Conditions: []
+  Mechanics:
+    - command{c="gui open ranks {target_name}";runas=console} @Self
+
+open_guide:
+  Conditions: []
+  Mechanics:
+    - command{c="gui open info-panel {target_name}";runas=console} @Self
+
+open_town_projects:
+  Conditions: []
+  Mechanics:
+    - command{c="townproject";runas=player} @Self

@@ -1,0 +1,39 @@
+# Player should have appropriate permission node to use particular kit: cmi.kit.[kitName]
+# cmi.kit.newbie will allow to use newbie kit
+# Possible custom variables: {USERNAME} {DISPLAYNAME} {WORLDNAME} {KITNAME} {RANDOMPLAYER}
+# Edit kits ingame with /cmi kiteditor to avoid formating issues
+# Commands support specialized command format
+Advanced:
+  Delay: 36000
+  Items:
+    '1':
+      v: 2730
+      type: STONE
+Ad2:
+  CommandName: Ad
+  Weight: 2
+  Delay: 36060
+  Group: resources
+  Items:
+    '1':
+      v: 2730
+      type: OAK_PLANKS
+      amount: 10
+Ad1:
+  CommandName: Ad
+  Weight: 1
+  Delay: 36000
+  Group: resources
+  Items:
+    '1':
+      v: 2730
+      type: STONE
+      amount: 10
+Ad3:
+  Delay: 36001
+  Group: resources
+  Items:
+    '1':
+      v: 2730
+      type: DIRT
+      amount: 10

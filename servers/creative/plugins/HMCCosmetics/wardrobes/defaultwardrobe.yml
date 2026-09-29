@@ -1,0 +1,27 @@
+default:
+  # Distance in blocks that a player can interact with the wardrobe. -1 to ignore.
+  distance: -1
+  # Permission required to use the wardrobe.
+  permission: "hmccosmetics.wardrobe.default"
+  default-menu: defaultmenu
+  npc-location:
+    world: "world"
+    x: 0
+    y: 0
+    z: 0
+    yaw: 0
+    pitch: 0
+  viewer-location:
+    world: "world"
+    x: 5
+    y: 0
+    z: 5
+    yaw: 0
+    pitch: 0
+  leave-location:
+    world: "world"
+    x: 5
+    y: 5
+    z: 5
+    yaw: 0
+    pitch: 0

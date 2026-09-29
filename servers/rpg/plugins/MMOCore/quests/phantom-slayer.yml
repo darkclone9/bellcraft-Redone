@@ -1,0 +1,34 @@
+
+# Display options
+name: 'Phantom Slayer'
+lore:
+- 'The phantoms grow bolder each night,'
+- 'diving from the sky in great swarms.'
+- 'Shoot them down and reclaim the night!'
+- ''
+- '&6Objective:'
+- '&7► Kill 20 phantoms'
+- ''
+- '&eRewards:'
+- '&7► 627 EXP'
+- '&7► 42 Gold Coins'
+
+level-req:
+    main: 19
+
+parent:
+- 'night-watch'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=PHANTOM;amount=20}'
+        lore: 'Kill 20 phantoms.'
+        triggers:
+        - message{format="&aScout> &fThe night sky is clear! No more swooping terrors."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 42"}
+        - 'experience{amount=627}'

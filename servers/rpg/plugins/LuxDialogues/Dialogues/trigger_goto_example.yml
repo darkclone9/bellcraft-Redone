@@ -1,0 +1,214 @@
+# ============================================================
+#  trigger_goto_showcase.yml - LuxDialogues Example
+#
+#  PURPOSE: Demonstrate every usage pattern of @triggerGoto.
+#
+#  WHAT IS @triggerGoto?
+#    A special action tag. When placed in timer-action or post-actions,
+#    it navigates to that page's defined goto target automatically.
+#    No external /ld redirect command is required.
+#
+#
+#  NEW APPROACH:
+#    goto: 'target_page'
+#    timer-actions:
+#      - '@triggerGoto'
+#
+#  @triggerGoto works alongside other actions:
+#    timer-actions:
+#      - '@console msg %player_name% Timer fired!'
+#      - '@triggerGoto'   <- recommended last
+#
+#  Usage: /ld send <player> trigger_goto_showcase intro
+# ============================================================
+
+Settings:
+  typing-speed: 1
+  range: 5
+  effect: Slowness
+  answer-numbers: true
+  prevent-exit: false
+  prevent-skip: false
+  npc-focus: false # Turn the player to face the NPC that started the dialogue (needs a Citizens / FancyNPCs / MythicMobs hook).
+  character-name: true
+  character-image: true
+  background-fog: true
+
+Sounds:
+  typing:
+    id: luxdialogues:luxdialogues.sounds.typing
+    source: MASTER
+    volume: 1.0
+    pitch: 1.0
+  selection:
+    id: luxdialogues:luxdialogues.sounds.selection
+    source: MASTER
+    volume: 1.0
+    pitch: 1.0
+
+Offsets:
+  name: 0
+  name-background: 20
+  dialogue-background: 0
+  dialogue-line: 10
+  answer-background: 140
+  answer-line: 13
+  arrow: -7
+  character: -16
+
+Character:
+  name: System Guide
+
+Images:
+  character-background: character-background
+  arrow: hand
+  dialogue-background: dialogue-background
+  answer-background: answer-background
+  name-start: name-start
+  name-mid: name-mid
+  name-end: name-end
+  fog: fog
+
+Colors:
+  name: '#4f4a3e'
+  name-background: '#f8ffe0'
+  dialogue: '#4f4a3e'
+  dialogue-background: '#f8ffe0'
+  answer: '#4f4a3e'
+  answer-background: '#f8ffe0'
+  character-background: '#ffffff'
+  arrow: '#cdff29'
+  selected: '#4f4a3e'
+  fog: '#000000'
+
+Pages:
+
+  # ─────────────────────────────────────────────────────────
+  # EXAMPLE 1: Basic @triggerGoto — advances after 3 seconds
+  # ─────────────────────────────────────────────────────────
+  'intro':
+    lines:
+      - 'This page will automatically advance'
+      - 'to the next page after 3 seconds.'
+      - '#888888(@triggerGoto demo — EXAMPLE 1)'
+    # goto is defined here — @triggerGoto resolves and navigates to it
+    goto: 'step2'
+    timer: 60   # 60 ticks = 3 seconds
+    timer-actions:
+      - '@triggerGoto'
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+
+  # ─────────────────────────────────────────────────────────
+  # EXAMPLE 2: @triggerGoto alongside another action
+  # ─────────────────────────────────────────────────────────
+  'step2':
+    lines:
+      - 'When the timer fires, a console'
+      - 'msg is sent, then @triggerGoto.'
+      - '#888888(@triggerGoto + @console)'
+    goto: 'step3'
+    timer: 80
+    timer-actions:
+      # Other actions run first, then @triggerGoto navigates
+      - '@console msg %player_name% &8[Demo] &7Step 2 complete!'
+      - '@triggerGoto'
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+
+  # ─────────────────────────────────────────────────────────
+  # EXAMPLE 3: @triggerGoto + conditional goto
+  #   Timer sends the player to different pages based on level
+  # ─────────────────────────────────────────────────────────
+  'step3':
+    lines:
+      - 'The timer sends you to a page'
+      - 'based on your level.'
+      - '[condition.%player_level%>=10]Level 10+ — the expert page.'
+      - '[condition.%player_level%<10]Below 10 — the basic page.'
+      - '#888888(conditional goto + || — EX 3)'
+    goto:
+      # Conditional goto — @triggerGoto resolves whichever entry passes first
+      - '@condition.%player_level%>=10 advanced'
+      # || operator — level 5+ OR knight permission also qualifies for advanced
+      - '@condition.%player_level%>=5||:quest.knight:==true advanced'
+      - 'basic'
+    timer: 100
+    timer-actions:
+      - '@triggerGoto'
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+
+  # ─────────────────────────────────────────────────────────
+  # EXAMPLE 4: @triggerGoto in post-actions
+  #   Automatically advances after the typing animation finishes
+  # ─────────────────────────────────────────────────────────
+  'basic':
+    lines:
+      - 'When typing finishes on this page,'
+      - 'it auto-advances to the next.'
+      - '#888888(@triggerGoto in post-actions)'
+    goto: 'finale'
+    timer: 0
+    timer-actions: {}
+    pre-actions: {}
+    # Typing done — @triggerGoto navigates to this page's goto target (finale)
+    post-actions:
+      - '@console msg %player_name% &8[Demo] &7Typing done, redirecting...'
+      - '@triggerGoto'
+    exit-actions: {}
+
+  'advanced':
+    lines:
+      - '#82d850You qualified as a fighter!'
+      - 'Advanced content is granted.'
+      - '#888888(Level 10+ or knight path)'
+    goto: 'finale'
+    timer: 80
+    timer-actions:
+      - '@triggerGoto'
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+
+  # ─────────────────────────────────────────────────────────
+  # Final page — player choice ending
+  # ─────────────────────────────────────────────────────────
+  'finale':
+    lines:
+      - '#82d850@triggerGoto showcase complete!'
+      - 'It removes the need for external'
+      - 'redirect commands entirely.'
+    timer: 0
+    timer-actions: {}
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+    answers:
+      '1':
+        text: "<gradient:#82d850:#3cb84e>Got it, thanks!</gradient>"
+        goto: ''
+        reply:
+          - '#82d850You learned it!'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.ding
+          source: MASTER
+          volume: 1.0
+          pitch: 1.2
+        actions:
+          - '@console msg %player_name% &a[Demo] &7@triggerGoto guide complete.'
+      '2':
+        text: 'Show me again'
+        goto: 'intro'
+        reply: []
+        sound:
+          id: luxdialogues:luxdialogues.sounds.beep
+          source: MASTER
+          volume: 0.8
+          pitch: 1.0
+        actions: {}
+
+#d21891d819abf57b5a57f22e6b637384

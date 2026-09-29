@@ -1,0 +1,31 @@
+# Display options
+name: "Woodcutter's Call"
+level-req:
+    main: 1
+lore:
+- 'The great canopy whispers in the autumn wind.'
+- 'Lumber is needed to keep the garrison fires burning'
+- 'and the mill wheel turning.'
+- ''
+- '&6Objective:'
+- '&7► Fell trees to collect 24 Oak Logs'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 6 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=OAK_LOG;amount=24}'
+        lore: 'Chop 24 Oak Logs.'
+        triggers:
+        - message{format="&aForester> &fClean cuts and fragrant timber. The settlement thanks you."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 6"}
+        - 'experience{amount=170}'

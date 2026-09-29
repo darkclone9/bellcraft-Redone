@@ -1,0 +1,43 @@
+
+# Display options
+name: 'Fortress Assault'
+lore:
+- 'The heart of the Nether fortress must'
+- 'be purged. Wither skeletons and blazes'
+- 'defend every corridor. Break through!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Kill 15 wither skeletons'
+- '&7► Phase 2: Kill 10 blazes'
+- ''
+- '&eRewards:'
+- '&7► 4661 EXP'
+- '&7► 50 Gold Coins'
+- '&7► Steel Ingot'
+
+level-req:
+    main: 62
+
+parent:
+- 'nether-vanguard'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=WITHER_SKELETON;amount=15}'
+        lore: 'Kill 15 wither skeletons.'
+        triggers:
+        - message{format="&aCommander> &fThe dark warriors fall! Now extinguish the blazes!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=BLAZE;amount=10}'
+        lore: 'Kill 10 blazes.'
+        triggers:
+        - message{format="&aCommander> &fThe fortress is conquered! A legendary victory!"}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 50"}
+        - 'mmoitem{type=MATERIAL;id=STEEL_INGOT}'
+        - 'experience{amount=4661}'

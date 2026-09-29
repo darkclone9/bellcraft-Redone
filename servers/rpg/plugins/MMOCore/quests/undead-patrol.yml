@@ -1,0 +1,39 @@
+
+# Display options
+name: 'Undead Patrol'
+level-req:
+    main: 1
+lore:
+- 'The roads are crawling with undead.'
+- 'Both zombies and skeletons threaten'
+- 'every caravan that passes through!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Kill 10 zombies'
+- '&7► Phase 2: Kill 5 skeletons'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 8 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=ZOMBIE;amount=10}'
+        lore: 'Kill 10 zombies.'
+        triggers:
+        - message{format="&aGuard Captain> &fGood work! Now deal with the skeletons on the ridge."}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=SKELETON;amount=5}'
+        lore: 'Kill 5 skeletons.'
+        triggers:
+        - message{format="&aGuard Captain> &fThe patrol route is secure. Outstanding work, soldier!"}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 8"}
+        - 'experience{amount=170}'

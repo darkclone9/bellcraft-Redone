@@ -1,0 +1,38 @@
+# Display options
+name: "Carpenter's Foundation"
+level-req:
+    main: 1
+lore:
+- 'A lasting homestead requires more than raw timber;'
+- 'it demands sound logs and firm stone to seat the beams.'
+- 'Supply the woodwright with materials for the new storehouse.'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Chop 16 Oak Logs'
+- '&7► Phase 2: Quarry 16 Cobblestone for foundation footings'
+- ''
+- '&eRewards:'
+- '&7► 250 EXP'
+- '&7► 12 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=OAK_LOG;amount=16}'
+        lore: 'Chop 16 Oak Logs.'
+        triggers:
+        - message{format="&aCarpenter> &fSturdy timber! Now we need stone to lay the foundation piers."}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'mineblock{type=COBBLESTONE;amount=16}'
+        lore: 'Quarry 16 Cobblestone.'
+        triggers:
+        - message{format="&aCarpenter> &fSuperb materials. The storehouse framing begins today!"}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 12"}
+        - 'experience{amount=250}'

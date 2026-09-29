@@ -1,0 +1,194 @@
+# Necromancer combat pets + corpse marker (MythicMobs 5.13 + ModelEngine)
+# Visual IDs match Blockbench pack: /workspace/necromancer-pack/
+# PR #51 logical names → canonical Mythic TypeIds (do not rename MEG mids):
+#   NecromancerElite  → NecroReaperElite   (mid=necro_reaper_elite)
+#   NecromancerMinion → NecroMinionSkulker + NecroMinionWretch (shared army cap 4)
+#
+# Caps (caster vars, enforced in skills):
+#   necro_elite_count  — NecroReaperElite living count (hard cap 1)
+#   necro_minion_count — Skulker+Wretch living count (hard cap 4)
+#
+# Ownership: summon{summonerIsOwner=true;summonerIsParent=true}
+# MEG: flat idle/walk/attack; hi_head look-at is on the blueprint (not Mythic YAML)
+
+# ---------------------------------------------------------------------------
+# Corpse marker — short-lived invisible ArmorStand at a real kill
+# ---------------------------------------------------------------------------
+NecromancerCorpseMarker:
+  Type: ARMOR_STAND
+  Display: '&8Grave Echo'
+  Health: 1
+  Damage: 0
+  Faction: NecromancerCorpses
+  Options:
+    Invisible: true
+    Marker: true
+    NoGravity: true
+    Invincible: true
+    Silent: true
+    Collidable: false
+    Despawn: true
+    PreventOtherDrops: true
+    PreventItemPickup: true
+    PreventRandomEquipment: true
+    AlwaysShowName: false
+    MovementSpeed: 0
+  Skills:
+  - skill{s=NecromancerCorpseMarker_Expire} @self ~onSpawn
+  - effect:particles{p=soul;amount=4;hS=0.25;vS=0.35;speed=0.01;y=0.4} @self ~onTimer:20
+  - effect:particles{p=smoke_normal;amount=2;hS=0.15;vS=0.1;speed=0.01;y=0.2} @self ~onTimer:40
+
+# ---------------------------------------------------------------------------
+# Reaper elite — tank/assassin (cap 1) | MEG mid=necro_reaper_elite
+# Extends Blockbench HUSK+model stub with owner pet AI + combat damage
+# ---------------------------------------------------------------------------
+NecroReaperElite:
+  Type: HUSK
+  Display: '<gradient:#E8E0D0:#B464FF>Death Knight</gradient>'
+  Health: 80
+  Damage: 9
+  Armor: 6
+  Faction: NecromancerPets
+  Options:
+    MovementSpeed: 0.30
+    FollowRange: 32
+    MaxCombatDistance: 40
+    Despawn: true
+    PreventOtherDrops: true
+    PreventSunburn: true
+    PreventItemPickup: true
+    PreventRandomEquipment: true
+    KnockbackResistance: 0.35
+    AlwaysShowName: true
+    Silent: true
+  Modules:
+    ThreatTable: true
+  AIGoalSelectors:
+  - clear
+  - 0 gotoowner{speed=1.15;distance=3}
+  - 1 meleeattack
+  - 2 lookatplayers
+  - 3 randomstroll
+  AITargetSelectors:
+  - clear
+  - 0 attacker
+  - 1 ownerstarget
+  - 2 monsters
+  Skills:
+  - model{mid=necro_reaper_elite} @self ~onSpawn
+  - state{s=idle;li=1;lo=1} @self ~onSpawn
+  - state{s=walk;li=1;lo=1} @self ~onEnterCombat
+  - state{s=idle;li=1;lo=1} @self ~onDropCombat
+  - state{s=attack;li=1;lo=1} @self ~onAttack
+  - skill{s=NecromancerPet_OnSummonElite} @self ~onSpawn
+  - skill{s=NecromancerPet_OnDeathElite} @self ~onDeath
+  - skill{s=NecromancerDropCorpse_FromKill} @TriggerLocation ~onKill
+  - effect:particles{p=soul_fire_flame;amount=5;hS=0.35;vS=0.5;speed=0.02} @self ~onTimer:40
+  - effect:particles{p=soul;amount=3;hS=0.25;vS=0.3;speed=0.01} @self ~onAttack 0.4
+  - effect:sound{s=entity.wither.ambient;volume=0.35;pitch=1.4} @self ~onAttack 0.25
+  - effect:particles{p=soul;amount=4;hS=0.3;vS=0.4;speed=0.01} @self ~onDamaged 0.4
+
+# ---------------------------------------------------------------------------
+# Lichlord minion A — fast skulker (shares army cap 4) | mid=necro_minion_skulker
+# ---------------------------------------------------------------------------
+NecroMinionSkulker:
+  Type: HUSK
+  Display: '<#E8E0D0>Skulker'
+  Health: 24
+  Damage: 4
+  Armor: 1
+  Faction: NecromancerPets
+  Options:
+    MovementSpeed: 0.34
+    FollowRange: 24
+    MaxCombatDistance: 28
+    Despawn: true
+    PreventOtherDrops: true
+    PreventSunburn: true
+    PreventItemPickup: true
+    PreventRandomEquipment: true
+    KnockbackResistance: 0.05
+    AlwaysShowName: true
+    Silent: true
+  Modules:
+    ThreatTable: true
+  AIGoalSelectors:
+  - clear
+  - 0 gotoowner{speed=1.2;distance=2.5}
+  - 1 meleeattack
+  - 2 lookatplayers
+  - 3 randomstroll
+  AITargetSelectors:
+  - clear
+  - 0 attacker
+  - 1 ownerstarget
+  - 2 monsters
+  Skills:
+  - model{mid=necro_minion_skulker} @self ~onSpawn
+  - state{s=idle;li=1;lo=1} @self ~onSpawn
+  - state{s=walk;li=1;lo=1} @self ~onEnterCombat
+  - state{s=idle;li=1;lo=1} @self ~onDropCombat
+  - state{s=attack;li=1;lo=1} @self ~onAttack
+  - skill{s=NecromancerPet_OnSummonMinion} @self ~onSpawn
+  - skill{s=NecromancerPet_OnDeathMinion} @self ~onDeath
+  - skill{s=NecromancerDropCorpse_FromKill} @TriggerLocation ~onKill
+  - effect:particles{p=soul;amount=2;hS=0.2;vS=0.2;speed=0.01} @self ~onTimer:60
+  - effect:particles{p=soul;amount=2;hS=0.2;vS=0.2;speed=0.01} @self ~onDamaged 0.3
+
+# ---------------------------------------------------------------------------
+# Lichlord minion B — tougher wretch (shares army cap 4) | mid=necro_minion_wretch
+# ---------------------------------------------------------------------------
+NecroMinionWretch:
+  Type: HUSK
+  Display: '<#90C878>Wretch'
+  Health: 32
+  Damage: 5
+  Armor: 2
+  Faction: NecromancerPets
+  Options:
+    MovementSpeed: 0.26
+    FollowRange: 22
+    MaxCombatDistance: 26
+    Despawn: true
+    PreventOtherDrops: true
+    PreventSunburn: true
+    PreventItemPickup: true
+    PreventRandomEquipment: true
+    KnockbackResistance: 0.12
+    AlwaysShowName: true
+    Silent: true
+  Modules:
+    ThreatTable: true
+  AIGoalSelectors:
+  - clear
+  - 0 gotoowner{speed=1.05;distance=2.5}
+  - 1 meleeattack
+  - 2 lookatplayers
+  - 3 randomstroll
+  AITargetSelectors:
+  - clear
+  - 0 attacker
+  - 1 ownerstarget
+  - 2 monsters
+  Skills:
+  - model{mid=necro_minion_wretch} @self ~onSpawn
+  - state{s=idle;li=1;lo=1} @self ~onSpawn
+  - state{s=walk;li=1;lo=1} @self ~onEnterCombat
+  - state{s=idle;li=1;lo=1} @self ~onDropCombat
+  - state{s=attack;li=1;lo=1} @self ~onAttack
+  - skill{s=NecromancerPet_OnSummonMinion} @self ~onSpawn
+  - skill{s=NecromancerPet_OnDeathMinion} @self ~onDeath
+  - skill{s=NecromancerDropCorpse_FromKill} @TriggerLocation ~onKill
+  - effect:particles{p=soul;amount=2;hS=0.25;vS=0.25;speed=0.01} @self ~onTimer:60
+  - effect:particles{p=soul;amount=2;hS=0.25;vS=0.25;speed=0.01} @self ~onDamaged 0.3
+
+# ---------------------------------------------------------------------------
+# Optional PR #51 alias TypeIds (thin Templates) — only if something still
+# summons NecromancerElite / NecromancerMinion by the old logical names.
+# Prefer summoning NecroReaperElite / NecroMinionSkulker|Wretch directly.
+# ---------------------------------------------------------------------------
+NecromancerElite:
+  Template: NecroReaperElite
+
+NecromancerMinion:
+  Template: NecroMinionSkulker

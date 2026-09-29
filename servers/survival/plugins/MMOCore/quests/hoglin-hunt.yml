@@ -1,0 +1,33 @@
+
+# Display options
+name: 'Hoglin Hunt'
+lore:
+- 'The crimson forest is home to savage'
+- 'hoglins that attack on sight. Thin'
+- 'their numbers for safe passage!'
+- ''
+- '&6Objective:'
+- '&7► Kill 15 hoglins'
+- ''
+- '&eRewards:'
+- '&7► 4661 EXP'
+- '&7► 48 Gold Coins'
+
+level-req:
+    main: 57
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=HOGLIN;amount=15}'
+        lore: 'Kill 15 hoglins.'
+        triggers:
+        - message{format="&aCommander> &fThe crimson forest is tamed! Few can boast such a feat."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 48"}
+        - 'experience{amount=4661}'

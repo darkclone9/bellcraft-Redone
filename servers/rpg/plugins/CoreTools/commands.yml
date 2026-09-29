@@ -1,0 +1,158 @@
+variables:
+  main: 'core-variables'
+  aliases:
+    - 'var'
+  permission: 'OP'
+  description: 'Allows you to change player and server variables.'
+  enabled: true
+
+variables-account:
+  main: 'core-variablesaccount'
+  aliases:
+    - 'varaccount'
+  permission: 'OP'
+  description: 'Allows you to change player account variables.(MMOProfiles)'
+  enabled: true
+
+variables-temp:
+  main: 'core-variables-temp'
+  aliases:
+    - 'var-temp'
+  permission: 'OP'
+  description: 'Allows you to change player temp variables.'
+  enabled: true
+
+respawn-control:
+  main: 'core-respawncontrol'
+  aliases:
+    - 'respawn'
+  permission: 'OP'
+  description: 'Allows you to control the spawn points where the player will be respawn after death.'
+  enabled: true
+
+playervault:
+  main: 'core-playervault'
+  aliases:
+    - 'vault'
+  permission: 'OP'
+  description: 'Allows players to open their vaults.'
+  enabled: true
+
+economy-admin:
+  main: 'core-economy'
+  aliases:
+    - 'eco'
+  permission: 'OP'
+  description: 'Allows you to modify player balance'
+  enabled: true
+
+economy-admin-account:
+  main: 'core-economy-account'
+  aliases: []
+  permission: 'OP'
+  description: 'Allows you to modify player account balance'
+  enabled: true
+
+economy-user-balance:
+  main: 'core-economy-balance'
+  aliases:
+    - 'balance'
+  permission: ''
+  description: 'Allows players check their balance'
+  enabled: true
+
+shops:
+  main: 'core-shops'
+  aliases:
+    - 'shops'
+  permission: 'OP'
+  description: 'Allows players open the shops'
+  enabled: true
+
+scripts:
+  main: 'core-cast'
+  aliases:
+    - 'corecast'
+  permission: 'OP'
+  description: 'Allows casting a script'
+  enabled: true
+
+menu-creator:
+  main: 'core-menu'
+  aliases:
+    - 'coremenu'
+  permission: ''
+  description: 'Allows opening custom menu'
+  enabled: true
+
+stations:
+  main: 'core-station'
+  aliases:
+    - 'station'
+  permission: 'OP'
+  description: 'Allows opening stations'
+  enabled: true
+
+private-drops:
+  main: 'core-privatedrops'
+  aliases:
+    - 'private-drop-item'
+  permission: 'OP'
+  description: 'Dropping items'
+  enabled: true
+
+core-items:
+  main: 'core-items'
+  aliases:
+    - ''
+  permission: 'OP'
+  description: 'Save/Remove and give items.'
+  enabled: true
+
+command-utils:
+  main: 'core-command-utils'
+  aliases:
+    - 'command-utils'
+  permission: 'OP'
+  description: 'Delay, repeat, run as console/player/op or sync commands in servers'
+  enabled: true
+
+auctionhouse:
+  main: 'core-auctionhouse'
+  aliases:
+    - 'ah'
+  permission: ''
+  description: 'Open AuctionHouse.'
+  enabled: true
+
+delivery:
+  main: 'core-delivery'
+  aliases:
+    - 'delivery'
+  permission: 'OP'
+  description: 'Delivery items to player inventory, PlayerVault or location.'
+  enabled: true
+
+wardrobe:
+  main: 'core-wardrobe'
+  aliases:
+    - 'wardrobe'
+  permission: 'OP'
+  description: 'Open Wardrobe.'
+  enabled: true
+
+core-perms:
+  main: 'core-perms'
+  aliases:
+    - 'cp'
+  permission: 'OP'
+  description: 'Add or remove Permissions'
+  enabled: true
+
+holograms:
+  main: 'core-holograms'
+  aliases:
+    - 'holograms'
+  permission: 'OP'
+  description: 'Manage Holograms'
+  enabled: true

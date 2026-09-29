@@ -1,0 +1,89 @@
+# Bellcraft: hostile mobs get tougher the further you travel
+#
+# MythicMobs' own WorldScaling (config-mobs.yml, ScaleVanillaMobs: true) never touched vanilla
+# mobs here - zombies 2,500 and 6,000 blocks out were still 20 HP / 3 damage. This does it
+# directly, keyed to the same zone rings as the bellcraft_zones datapack, mobxp and graves.
+#
+# A mob's "zone level" rises smoothly through each ring (Hearthvale 1-10 ... Sundered 45-60),
+# harsh biomes add 8, and the nether / deep dark / End sit on their own footing.
+#   health  x (1 + hp-per-level  * (level - 1))   set once at spawn, saved with the mob
+#   damage  x (1 + dmg-per-level * (level - 1))   applied per hit, so arrows, creeper blasts
+#                                                  and fireballs scale too
+# Plugin-spawned mobs (MythicMobs elites, pets, NPCs) and named mobs are left alone: they carry
+# their own numbers. Bosses are left alone too.
+#
+# Reference points at the defaults (health / damage multiplier):
+#   Hearthvale edge (lvl 10) 1.5x / 1.2x    Ashenmoor (lvl 26) 2.5x / 1.6x
+#   Sundered (lvl 50)        3.9x / 2.2x    Nether (62) 4.7x / 2.5x    End (85) 6.0x / 3.1x
+
+options:
+    hp-per-level: 0.06
+    dmg-per-level: 0.025
+    nether-level: 62
+    choir-level: 75
+    end-level: 85
+    max-ring-level: 60
+
+function mobZoneLevel(l: location) :: number:
+    set {_w} to "%world of {_l}%"
+    if {_w} is "world_nether":
+        return {@nether-level}
+    if {_w} is "world_the_end":
+        return {@end-level}
+    set {_b} to "%biome at {_l}%"
+    replace all " " with "_" in {_b}
+    if {_b} is "deep_dark":
+        return {@choir-level}
+    set {_x} to x of {_l}
+    set {_z} to z of {_l}
+    set {_d} to sqrt(({_x} * {_x}) + ({_z} * {_z}))
+    if {_d} < 1000:
+        set {_lvl} to 1 + 9 * {_d} / 1000
+    else if {_d} < 2200:
+        set {_lvl} to 10 + 10 * ({_d} - 1000) / 1200
+    else if {_d} < 3600:
+        set {_lvl} to 20 + 12 * ({_d} - 2200) / 1400
+    else if {_d} < 5000:
+        set {_lvl} to 32 + 13 * ({_d} - 3600) / 1400
+    else:
+        set {_lvl} to min(45 + 15 * ({_d} - 5000) / 3000, {@max-ring-level})
+    if {mobscale.harsh::%{_b}%} is set:
+        add 8 to {_lvl}
+    return {_lvl}
+
+function mobScalable(e: entity) :: boolean:
+    if {_e} is a warden, ender dragon, wither or elder guardian:
+        return false
+    if {_e}'s display name is set:
+        return false
+    if {_e} is a monster, slime, magma cube, ghast, phantom, shulker or hoglin:
+        return true
+    return false
+
+on script load:
+    delete {mobscale.harsh::*}
+    set {_harsh::*} to "deep_ocean deep_cold_ocean deep_lukewarm_ocean deep_frozen_ocean badlands wooded_badlands eroded_badlands jungle bamboo_jungle dark_forest pale_garden mangrove_swamp ice_spikes jagged_peaks frozen_peaks windswept_savanna dripstone_caves lush_caves sulfur_caves deep_dark" split at " "
+    loop {_harsh::*}:
+        set {mobscale.harsh::%loop-value%} to true
+
+on spawn of monster, slime, magma cube, ghast, phantom, shulker or hoglin:
+    "%spawn reason%" does not contain "custom"
+    # MythicMobs names its elites a tick after spawning; wait so they are skipped.
+    wait 1 tick
+    event-entity is alive
+    mobScalable(event-entity) is true
+    set {_lvl} to mobZoneLevel(location of event-entity)
+    if {_lvl} <= 1:
+        stop
+    set {_mult} to 1 + {@hp-per-level} * ({_lvl} - 1)
+    set {_base} to max health attribute of event-entity
+    set max health attribute of event-entity to {_base} * {_mult}
+    heal event-entity
+
+on damage of player:
+    attacker is set
+    mobScalable(attacker) is true
+    set {_lvl} to mobZoneLevel(location of victim)
+    if {_lvl} <= 1:
+        stop
+    set damage to damage * (1 + {@dmg-per-level} * ({_lvl} - 1))

@@ -1,0 +1,31 @@
+# Display options
+name: "Rattlin' Bones"
+level-req:
+    main: 1
+lore:
+- 'The rattle of dry joints and the twang of notched sinew'
+- 'disturb the quiet twilight. Keep the roadways safe from'
+- 'snipers among the pines.'
+- ''
+- '&6Objective:'
+- '&7► Defeat 8 Skeletons roaming the wilderness'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 8 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=SKELETON;amount=8}'
+        lore: 'Kill 8 skeletons.'
+        triggers:
+        - message{format="&aGuard Captain> &fNo more arrows flying at our merchants! Safe travels."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 8"}
+        - 'experience{amount=170}'

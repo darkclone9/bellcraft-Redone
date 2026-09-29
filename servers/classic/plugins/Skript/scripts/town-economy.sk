@@ -1,0 +1,395 @@
+# ============================================================
+#  Town Economy  ΓÇô  Bellcraft
+#  Requires: Skript 2.7+, PlaceholderAPI + Towny + Vault expansions,
+#            skript-placeholders, Towny, Vault economy
+#
+#  Each Towny town has an economy (the Towny town bank).
+#  Residents are taxed on a timer based on town size
+#  (claimed townblocks + resident count). Tax is deposited
+#  into the town bank via /t deposit. Upkeep is then pulled
+#  from the town bank via /ta town <town> withdraw.
+#
+#  Town projects are named funding goals. Depositing into a
+#  project also deposits into the Towny town bank.
+#
+#  Commands:
+#    /townproject              ΓÇô open the project GUI (residents)
+#    /townproject list         ΓÇô chat list
+#    /townproject deposit <name> <amount>
+#    /townproject create <name> <goal>     (mayor/banker/admin)
+#    /townproject complete <name>          (mayor/banker/admin)
+#    /towntax info             ΓÇô show your town's tax/upkeep
+#    /towntax collect          ΓÇô admin: run a collection now
+# ============================================================
+
+options:
+    prefix: &8[&6&lTown Bank&8] &7
+    gui-title: "&8&lTown Projects"
+    # Minutes between automatic tax + upkeep cycles
+    tax-interval: 60
+    # Resident tax: base + (plots * per-plot) + (residents * per-resident)
+    tax-base: 10
+    tax-per-plot: 2
+    tax-per-resident: 5
+    # Town upkeep withdrawn from the town bank after taxes
+    upkeep-base: 20
+    upkeep-per-plot: 4
+    upkeep-per-resident: 2
+    admin-perm: "towneconomy.admin"
+    max-projects: 7
+
+# -------------------------------------------------------
+# Town / number helpers (PlaceholderAPI)
+# -------------------------------------------------------
+function playerTown(p: player) :: text:
+    set {_t} to placeholder "townyadvanced_town" from {_p}
+    if {_t} is not set:
+        return ""
+    if {_t} is "" or "None" or "none" or "N/A" or "n/a" or "null":
+        return ""
+    return {_t}
+
+function parseNum(raw: text) :: number:
+    set {_s} to {_raw}
+    if {_s} is not set:
+        return 0
+    replace all "," in {_s} with ""
+    replace all "$" in {_s} with ""
+    replace all " " in {_s} with ""
+    set {_n} to {_s} parsed as number
+    if {_n} is not set:
+        return 0
+    return {_n}
+
+function townPlots(p: player) :: number:
+    set {_raw} to placeholder "townyadvanced_town_townblocks_used" from {_p}
+    return parseNum({_raw})
+
+function townResidents(p: player) :: number:
+    set {_raw} to placeholder "townyadvanced_town_residents_amount" from {_p}
+    set {_n} to parseNum({_raw})
+    if {_n} < 1:
+        return 1
+    return {_n}
+
+function playerWallet(p: player) :: number:
+    set {_raw} to placeholder "vault_eco_balance" from {_p}
+    return parseNum({_raw})
+
+function playerIsOfficer(p: player) :: boolean:
+    if {_p} has permission {@admin-perm}:
+        return true
+    set {_town} to playerTown({_p})
+    if {_town} is "":
+        return false
+    set {_name} to "%{_p}%"
+    if {townelection::%{_town}%::holder::mayor} is {_name}:
+        return true
+    if {townelection::%{_town}%::holder::banker} is {_name}:
+        return true
+    set {_mayor} to placeholder "townyadvanced_town_mayor" from {_p}
+    if {_mayor} is {_name}:
+        return true
+    set {_ranks} to placeholder "townyadvanced_town_ranks" from {_p}
+    if {_ranks} is set:
+        set {_low} to {_ranks} in lowercase
+        if {_low} contains "mayor", "banker" or "assistant":
+            return true
+    return false
+
+function residentTaxAmount(p: player) :: number:
+    set {_plots} to townPlots({_p})
+    set {_res} to townResidents({_p})
+    set {_tax} to {@tax-base} + ({_plots} * {@tax-per-plot}) + ({_res} * {@tax-per-resident})
+    if {_tax} < 0:
+        return 0
+    return {_tax}
+
+function townUpkeepAmount(p: player) :: number:
+    set {_plots} to townPlots({_p})
+    set {_res} to townResidents({_p})
+    set {_u} to {@upkeep-base} + ({_plots} * {@upkeep-per-plot}) + ({_res} * {@upkeep-per-resident})
+    if {_u} < 0:
+        return 0
+    return {_u}
+
+# -------------------------------------------------------
+# Tax a single online resident, then run upkeep once per town
+# -------------------------------------------------------
+function taxResident(p: player):
+    set {_town} to playerTown({_p})
+    if {_town} is "":
+        stop
+    set {_tax} to residentTaxAmount({_p})
+    if {_tax} <= 0:
+        stop
+    set {_bal} to playerWallet({_p})
+    if {_bal} < {_tax}:
+        send "{@prefix}&cTown tax of &f%{_tax}% &ccould not be collected ΓÇö not enough money. (Wallet: &f%{_bal}%&c)" to {_p}
+        stop
+    make {_p} execute command "t deposit %{_tax}%"
+    send "{@prefix}&7Paid &6%{_tax}% &7town tax for &e%{_town}%&7. Size: &f%townPlots({_p})% plots&7, &f%townResidents({_p})% residents&7." to {_p}
+
+function maybeUpkeepTown(town: text, sample: player):
+    if {_town} is "":
+        stop
+    set {_stamp} to "%now%"
+    if {towneconomy::upkeep-cycle::%{_town}%} is {towneconomy::cycle-id}:
+        stop
+    set {towneconomy::upkeep-cycle::%{_town}%} to {towneconomy::cycle-id}
+    set {_upkeep} to townUpkeepAmount({_sample})
+    if {_upkeep} <= 0:
+        stop
+    make console execute command "ta town %{_town}% withdraw %{_upkeep}%"
+    set {towneconomy::last-upkeep::%{_town}%} to {_upkeep}
+    send "{@prefix}&7Town upkeep of &6%{_upkeep}% &7was withdrawn from the &e%{_town}% &7bank." to {_sample}
+
+function collectAllTownTaxes():
+    add 1 to {towneconomy::cycle-id}
+    loop all players:
+        set {_town} to playerTown(loop-player)
+        if {_town} is not "":
+            taxResident(loop-player)
+            maybeUpkeepTown({_town}, loop-player)
+
+# Periodic collector
+on load:
+    set {towneconomy::scheduler} to true
+    wait 2 minutes
+    loop 999999 times:
+        if {towneconomy::scheduler} is not true:
+            stop
+        collectAllTownTaxes()
+        wait {@tax-interval} minutes
+
+# -------------------------------------------------------
+# /towntax
+# -------------------------------------------------------
+command /towntax <text>:
+    executable by: players
+    trigger:
+        set {_sub} to arg 1
+        if {_sub} is "info":
+            set {_town} to playerTown(player)
+            if {_town} is "":
+                send "{@prefix}&cYou are not in a town." to player
+                stop
+            set {_bank} to placeholder "townyadvanced_town_balance" from player
+            set {_last} to {towneconomy::last-upkeep::%{_town}%}
+            if {_last} is not set:
+                set {_last} to "never"
+            send "{@prefix}&e%{_town}% &7economy" to player
+            send "  &7Town bank: &6%{_bank}%" to player
+            send "  &7Plots: &f%townPlots(player)%  &7Residents: &f%townResidents(player)%" to player
+            send "  &7Your next tax: &6%residentTaxAmount(player)%" to player
+            send "  &7Town upkeep / cycle: &6%townUpkeepAmount(player)%" to player
+            send "  &7Last upkeep taken: &f%{_last}%" to player
+            stop
+        if {_sub} is "collect":
+            if player does not have permission {@admin-perm}:
+                send "{@prefix}&cYou do not have permission to force a tax collection." to player
+                stop
+            collectAllTownTaxes()
+            send "{@prefix}&aTax + upkeep cycle started for all online town residents." to player
+            stop
+        send "{@prefix}&cUsage: &f/towntax info &7or &f/towntax collect" to player
+
+
+# -------------------------------------------------------
+# Town projects
+# -------------------------------------------------------
+function projectCount(town: text) :: number:
+    set {_n} to 0
+    loop {@max-projects} times:
+        if {towneconomy::project::%{_town}%::%loop-number%::name} is set:
+            add 1 to {_n}
+    return {_n}
+
+function findProjectIndex(town: text, name: text) :: number:
+    set {_want} to {_name} in lowercase
+    loop {@max-projects} times:
+        set {_n} to {towneconomy::project::%{_town}%::%loop-number%::name}
+        if {_n} is set:
+            if {_n} in lowercase is {_want}:
+                return loop-number
+    return -1
+
+function firstFreeProjectSlot(town: text) :: number:
+    loop {@max-projects} times:
+        if {towneconomy::project::%{_town}%::%loop-number%::name} is not set:
+            return loop-number
+    return -1
+
+function depositToProject(p: player, town: text, idx: number, amount: number) :: boolean:
+    if {_amount} <= 0:
+        send "{@prefix}&cAmount must be a positive number." to {_p}
+        return false
+    if playerWallet({_p}) < {_amount}:
+        send "{@prefix}&cYou don't have enough money. Wallet: &f%playerWallet({_p})%" to {_p}
+        return false
+    set {_name} to {towneconomy::project::%{_town}%::%{_idx}%::name}
+    if {_name} is not set:
+        send "{@prefix}&cThat project does not exist." to {_p}
+        return false
+    make {_p} execute command "t deposit %{_amount}%"
+    add {_amount} to {towneconomy::project::%{_town}%::%{_idx}%::funded}
+    set {_funded} to {towneconomy::project::%{_town}%::%{_idx}%::funded}
+    set {_goal} to {towneconomy::project::%{_town}%::%{_idx}%::goal}
+    send "{@prefix}&aDeposited &6%{_amount}% &ainto &e%{_name}%&a. Progress: &f%{_funded}%&7/&f%{_goal}%" to {_p}
+    return true
+
+function openTownProjects(p: player):
+    set {_town} to playerTown({_p})
+    set {_inv} to chest inventory with 3 rows named {@gui-title}
+    loop 27 times:
+        set slot (loop-number - 1) of {_inv} to light blue stained glass pane named " "
+    if {_town} is "":
+        set slot 13 of {_inv} to barrier named "&cNot in a town" with lore "&7Join a town to fund projects."
+        set slot 22 of {_inv} to arrow named "&cClose"
+        open {_inv} to {_p}
+        stop
+    set {_bank} to placeholder "townyadvanced_town_balance" from {_p}
+    set {_wallet} to placeholder "vault_eco_balance" from {_p}
+    set slot 4 of {_inv} to gold ingot named "&6&l%{_town}%" with lore "&7Town bank: &6%{_bank}%||&7Wallet: &6%{_wallet}%||&7Click a project, then type an amount."
+    loop {@max-projects} times:
+        set {_idx} to loop-number
+        set {_slot} to 10 + {_idx} - 1
+        set {_name} to {towneconomy::project::%{_town}%::%{_idx}%::name}
+        if {_name} is set:
+            set {_goal} to {towneconomy::project::%{_town}%::%{_idx}%::goal} ? 0
+            set {_funded} to {towneconomy::project::%{_town}%::%{_idx}%::funded} ? 0
+            set slot {_slot} of {_inv} to writable book named "&a&l%{_name}%" with lore "&7Goal: &6%{_goal}%||&7Funded: &e%{_funded}%||&7||&eΓû║ Click, then type a deposit amount."
+        else:
+            if playerIsOfficer({_p}) is true:
+                set slot {_slot} of {_inv} to gray dye named "&7&oEmpty project slot" with lore "&7Officers: /townproject create <name> <goal>"
+            else:
+                set slot {_slot} of {_inv} to gray stained glass pane named " "
+    set slot 18 of {_inv} to compass named "&eBack to Bank" with lore "&7Opens /bank"
+    set slot 22 of {_inv} to arrow named "&cClose" with lore "&7Close this menu."
+    set slot 26 of {_inv} to paper named "&7How it works" with lore "&7Deposits use /t deposit so money||&7goes to the Towny town bank and||&7counts toward the project goal.||&7||&7Create: /townproject create <name> <goal>"
+    open {_inv} to {_p}
+
+on inventory click:
+    if name of player's current inventory is {@gui-title}:
+        cancel event
+        set {_slot} to event-slot
+        if {_slot} is 22:
+            close player's inventory
+            stop
+        if {_slot} is 18:
+            close player's inventory
+            make console execute command "gui open bank %player%"
+            stop
+        set {_town} to playerTown(player)
+        if {_town} is "":
+            stop
+        if {_slot} is between 10 and 16:
+            set {_idx} to {_slot} - 9
+            if {towneconomy::project::%{_town}%::%{_idx}%::name} is not set:
+                send "{@prefix}&7No project in that slot. Officers: &f/townproject create <name> <goal>" to player
+                stop
+            close player's inventory
+            set {towneconomy::await-deposit::%player's uuid%} to {_idx}
+            set {_name} to {towneconomy::project::%{_town}%::%{_idx}%::name}
+            send "{@prefix}&eType the amount to deposit into &f%{_name}%&e, or &ccancel&e." to player
+
+on chat:
+    set {_uuid} to player's uuid
+    if {towneconomy::await-deposit::%{_uuid}%} is set:
+        cancel event
+        set {_idx} to {towneconomy::await-deposit::%{_uuid}%}
+        delete {towneconomy::await-deposit::%{_uuid}%}
+        set {_msg} to message
+        if {_msg} in lowercase is "cancel":
+            send "{@prefix}&7Cancelled." to player
+            stop
+        set {_amt} to parseNum({_msg})
+        set {_town} to playerTown(player)
+        depositToProject(player, {_town}, {_idx}, {_amt})
+
+
+command /townproject <text>:
+    aliases: townprojects
+    executable by: players
+    trigger:
+        set {_parts::*} to arg 1 split at " "
+        set {_sub} to {_parts::1}
+        set {_town} to playerTown(player)
+
+        if {_sub} is "list":
+            if {_town} is "":
+                send "{@prefix}&cYou are not in a town." to player
+                stop
+            send "{@prefix}&eProjects for %{_town}%:" to player
+            set {_any} to false
+            loop {@max-projects} times:
+                set {_n} to {towneconomy::project::%{_town}%::%loop-number%::name}
+                if {_n} is set:
+                    set {_any} to true
+                    set {_funded} to {towneconomy::project::%{_town}%::%loop-number%::funded}
+                    set {_goal} to {towneconomy::project::%{_town}%::%loop-number%::goal}
+                    if {_funded} is not set:
+                        set {_funded} to 0
+                    send "  &f%{_n}% &7ΓÇö &e%{_funded}%&7/&6%{_goal}%" to player
+            if {_any} is false:
+                send "  &7None yet. Officers: &f/townproject create <name> <goal>" to player
+            stop
+
+        if {_sub} is "create":
+            if {_town} is "":
+                send "{@prefix}&cYou are not in a town." to player
+                stop
+            if playerIsOfficer(player) is false:
+                send "{@prefix}&cOnly the mayor, banker, or an admin can create projects." to player
+                stop
+            set {_goal} to parseNum({_parts::3})
+            set {_name} to {_parts::2}
+            if {_name} is not set:
+                send "{@prefix}&cUsage: &f/townproject create <name> <goal>" to player
+                stop
+            if {_goal} <= 0:
+                send "{@prefix}&cGoal must be a positive number." to player
+                stop
+            if findProjectIndex({_town}, {_name}) is not -1:
+                send "{@prefix}&cA project with that name already exists." to player
+                stop
+            set {_slot} to firstFreeProjectSlot({_town})
+            if {_slot} is -1:
+                send "{@prefix}&cThis town already has {@max-projects} projects." to player
+                stop
+            set {towneconomy::project::%{_town}%::%{_slot}%::name} to {_name}
+            set {towneconomy::project::%{_town}%::%{_slot}%::goal} to {_goal}
+            set {towneconomy::project::%{_town}%::%{_slot}%::funded} to 0
+            send "{@prefix}&aCreated project &e%{_name}% &awith goal &6%{_goal}%&a." to player
+            stop
+
+        if {_sub} is "complete":
+            if {_town} is "":
+                send "{@prefix}&cYou are not in a town." to player
+                stop
+            if playerIsOfficer(player) is false:
+                send "{@prefix}&cOnly the mayor, banker, or an admin can complete projects." to player
+                stop
+            set {_name} to {_parts::2}
+            set {_idx} to findProjectIndex({_town}, {_name})
+            if {_idx} is -1:
+                send "{@prefix}&cUnknown project." to player
+                stop
+            delete {towneconomy::project::%{_town}%::%{_idx}%::*}
+            send "{@prefix}&aProject &e%{_name}% &amarked complete and removed." to player
+            stop
+
+        if {_sub} is "deposit":
+            if {_town} is "":
+                send "{@prefix}&cYou are not in a town." to player
+                stop
+            set {_name} to {_parts::2}
+            set {_amt} to parseNum({_parts::3})
+            set {_idx} to findProjectIndex({_town}, {_name})
+            if {_idx} is -1:
+                send "{@prefix}&cUnknown project. Use &f/townproject list" to player
+                stop
+            depositToProject(player, {_town}, {_idx}, {_amt})
+            stop
+
+        openTownProjects(player)

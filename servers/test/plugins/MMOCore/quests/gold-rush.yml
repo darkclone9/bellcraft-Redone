@@ -1,0 +1,38 @@
+# Display options
+name: "The Alchemist's Crucible"
+level-req:
+    main: 12
+lore:
+- 'Gold possesses unique conductive properties when exposed'
+- 'to redstone charge. A traveling savant needs both minerals'
+- 'to calibrate a potent catalyst.'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Mine 12 Gold Ore'
+- '&7► Phase 2: Mine 12 Redstone Ore for alchemical conduits'
+- ''
+- '&eRewards:'
+- '&7► 750 EXP'
+- '&7► 22 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=GOLD_ORE;amount=12}'
+        lore: 'Mine 12 Gold Ore.'
+        triggers:
+        - message{format="&eAlchemist> &fBrilliant sheen! Now locate redstone to channel the resonant energy."}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'mineblock{type=REDSTONE_ORE;amount=12}'
+        lore: 'Mine 12 Redstone Ore.'
+        triggers:
+        - message{format="&eAlchemist> &fMagnificent! The reaction stabilizes. Take this as your patron fee."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 22"}
+        - 'experience{amount=750}'

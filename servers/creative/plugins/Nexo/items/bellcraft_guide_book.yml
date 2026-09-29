@@ -1,0 +1,16 @@
+bellcraft_guide_book:
+  itemname: <gold><bold>Bellcraft Guidebook</bold></gold>
+  material: WRITTEN_BOOK
+  Components:
+    lore:
+    - ""
+    - <gray>Right-click to open the server guide.
+    - <gray>Includes radio, boomboxes, ranks & commands.
+    - ""
+    - <dark_gray>Bellcraft
+  Mechanics:
+    commands:
+      player:
+      - guide
+      cooldown: 1s
+      one_usage: false

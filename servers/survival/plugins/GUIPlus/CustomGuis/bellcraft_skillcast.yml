@@ -1,0 +1,347 @@
+id: bellcraft_skillcast
+rows: 3
+type: chest
+title: '&6&lCast Skills'
+commandAlias: skillcast
+commandAliasTarget: DISABLED
+disable-scene-animation: false
+scenes:
+  '0':
+    delay: 0
+    items:
+      '1':
+        slot: 22
+        item: NETHER_STAR
+        amount: 1
+        click-events:
+          bcbb6f22-9575-4efd-bd3b-36c774a84b22:
+            type: command
+            commands:
+            - upgrade
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:nether_star
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"aqua",italic:0b,obfuscated:0b,strikethrough:0b,text:"Upgrade
+              Skills",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1140221834"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"aqua",italic:0b,obfuscated:0b,strikethrough:0b,text:"Upgrade
+          Skills",underlined:0b}],text:""}},count:1,id:"minecraft:nether_star"}'
+        item-name: '&b&lUpgrade Skills'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Open the MMOCore skill upgrade menu.'
+        item-flags: [
+          ]
+        unbreakable: false
+      '2':
+        slot: 10
+        item: BLAZE_POWDER
+        amount: 1
+        click-events:
+          752d00a3-4d07-45e7-a64a-819e4c119ae0:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          dc2b95b2-10cf-4fde-a338-422c81f23334:
+            type: command
+            commands:
+            - castslot 1
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.05
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:blaze_powder
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Skill
+              ",underlined:0b},{bold:0b,color:"white",italic:0b,text:"1"}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"139981141"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Skill
+          ",underlined:0b},{bold:0b,color:"white",italic:0b,text:"1"}],text:""}},count:1,id:"minecraft:blaze_powder"}'
+        item-name: '&e&lSkill &f1'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Bound: &f%mmocore_bound_1%'
+            - '&8ID: &7%mmocore_id_bound_1%'
+            - ''
+            - '&e> Tap to cast'
+            - '&7Or type &f/s 1'
+        item-flags: [
+          ]
+        unbreakable: false
+      '3':
+        slot: 26
+        item: BARRIER
+        amount: 1
+        click-events:
+          8c513317-1ca8-4852-9590-fbd8ef321718:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:barrier
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Close",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1966570413"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Close",underlined:0b}],text:""}},count:1,id:"minecraft:barrier"}'
+        item-name: '&c&lClose'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '4':
+        slot: 11
+        item: BLAZE_POWDER
+        amount: 1
+        click-events:
+          431b8cc4-ae0c-41b4-a2b3-0b5fdfc71a43:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          070b812e-a961-4cd4-8561-31049515bae1:
+            type: command
+            commands:
+            - castslot 2
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.05
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:blaze_powder
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Skill
+              ",underlined:0b},{bold:0b,color:"white",italic:0b,text:"2"}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"601331304"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Skill
+          ",underlined:0b},{bold:0b,color:"white",italic:0b,text:"2"}],text:""}},count:1,id:"minecraft:blaze_powder"}'
+        item-name: '&e&lSkill &f2'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Bound: &f%mmocore_bound_2%'
+            - '&8ID: &7%mmocore_id_bound_2%'
+            - ''
+            - '&e> Tap to cast'
+            - '&7Or type &f/s 2'
+        item-flags: [
+          ]
+        unbreakable: false
+      '5':
+        slot: 12
+        item: BLAZE_POWDER
+        amount: 1
+        click-events:
+          736112d6-d00a-4b20-a20e-24d8799334a4:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          7b314ca6-e3f4-42bb-b160-d12b65647585:
+            type: command
+            commands:
+            - castslot 3
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.05
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:blaze_powder
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Skill
+              ",underlined:0b},{bold:0b,color:"white",italic:0b,text:"3"}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1964571482"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Skill
+          ",underlined:0b},{bold:0b,color:"white",italic:0b,text:"3"}],text:""}},count:1,id:"minecraft:blaze_powder"}'
+        item-name: '&e&lSkill &f3'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Bound: &f%mmocore_bound_3%'
+            - '&8ID: &7%mmocore_id_bound_3%'
+            - ''
+            - '&e> Tap to cast'
+            - '&7Or type &f/s 3'
+        item-flags: [
+          ]
+        unbreakable: false
+      '6':
+        slot: 13
+        item: BLAZE_POWDER
+        amount: 1
+        click-events:
+          8bca32ea-1fd3-4c83-87ff-126c8d6766db:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          79ba1302-840c-4e41-8193-38267869706b:
+            type: command
+            commands:
+            - castslot 4
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.05
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:blaze_powder
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Skill
+              ",underlined:0b},{bold:0b,color:"white",italic:0b,text:"4"}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1798064784"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Skill
+          ",underlined:0b},{bold:0b,color:"white",italic:0b,text:"4"}],text:""}},count:1,id:"minecraft:blaze_powder"}'
+        item-name: '&e&lSkill &f4'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Bound: &f%mmocore_bound_4%'
+            - '&8ID: &7%mmocore_id_bound_4%'
+            - ''
+            - '&e> Tap to cast'
+            - '&7Or type &f/s 4'
+        item-flags: [
+          ]
+        unbreakable: false
+      '7':
+        slot: 14
+        item: BLAZE_POWDER
+        amount: 1
+        click-events:
+          f1764f1b-472f-49d5-89d5-ec86ca13538b:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          9d59bfa1-a188-4451-9a00-a759fa50918c:
+            type: command
+            commands:
+            - castslot 5
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.05
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:blaze_powder
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Skill
+              ",underlined:0b},{bold:0b,color:"white",italic:0b,text:"5"}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"500182164"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Skill
+          ",underlined:0b},{bold:0b,color:"white",italic:0b,text:"5"}],text:""}},count:1,id:"minecraft:blaze_powder"}'
+        item-name: '&e&lSkill &f5'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Bound: &f%mmocore_bound_5%'
+            - '&8ID: &7%mmocore_id_bound_5%'
+            - ''
+            - '&e> Tap to cast'
+            - '&7Or type &f/s 5'
+        item-flags: [
+          ]
+        unbreakable: false
+      '8':
+        slot: 15
+        item: BLAZE_POWDER
+        amount: 1
+        click-events:
+          ee7208a2-87f3-4bc7-9d6c-d506d1f6a358:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          4adab675-f5dd-438d-864b-8460d72c80d7:
+            type: command
+            commands:
+            - castslot 6
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.05
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:blaze_powder
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Skill
+              ",underlined:0b},{bold:0b,color:"white",italic:0b,text:"6"}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"204190726"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Skill
+          ",underlined:0b},{bold:0b,color:"white",italic:0b,text:"6"}],text:""}},count:1,id:"minecraft:blaze_powder"}'
+        item-name: '&e&lSkill &f6'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Bound: &f%mmocore_bound_6%'
+            - '&8ID: &7%mmocore_id_bound_6%'
+            - ''
+            - '&e> Tap to cast'
+            - '&7Or type &f/s 6'
+        item-flags: [
+          ]
+        unbreakable: false

@@ -1,0 +1,53 @@
+# Warden weapon skills — MythicMobs
+# Bound via Mythic items matching Nexo IDs / held item checks
+
+WardenWandOnHit:
+  Cooldown: 0.4
+  Skills:
+  - effect:particles{p=sculk_soul;amount=14;hS=0.35;vS=0.35;speed=0.04} @targetlocation
+  - effect:particles{p=sculk_charge_pop;amount=8;hS=0.25;vS=0.25;speed=0.02} @targetlocation
+  - effect:sound{s=block.sculk_sensor.clicking;v=0.7;p=1.3} @self
+  - damage{a=2;pi=true} @target
+
+WardenWandHitChance:
+  Cooldown: 0.2
+  Skills:
+  - skill{s=WardenWandOnHit} @trigger 0.35
+
+WardenEchoSonic:
+  Cooldown: 6
+  Skills:
+  - effect:sound{s=entity.warden.sonic_boom;v=0.9;p=1.1} @self
+  - effect:particles{p=sculk_soul;amount=25;hS=0.2;vS=0.2;speed=0.01} @self
+  - projectile{onTick=WardenEchoSonicTick;onHit=WardenEchoSonicHit;onHitBlock=WardenEchoSonicBlock;v=22;i=1;hR=1.2;vR=1.2;sE=true;sB=true;hnp=true;hp=true;syo=1.2;sfo=0.4;g=0;d=60;mr=18} @forward{f=18}
+
+WardenEchoSonicTick:
+  Skills:
+  - effect:particles{p=sculk_soul;amount=6;speed=0.01;hS=0.12;vS=0.12} @origin
+  - effect:particles{p=sonic_boom;amount=1;speed=0} @origin
+  - effect:particles{p=sculk_charge_pop;amount=2;speed=0;hS=0.1;vS=0.1} @origin
+
+WardenEchoSonicHit:
+  Skills:
+  - damage{a=8;pi=true}
+  - effect:particles{p=sculk_soul;amount=30;hS=0.6;vS=0.5;speed=0.08} @origin
+  - effect:particles{p=sonic_boom;amount=1;speed=0} @origin
+  - effect:sound{s=entity.warden.attack_impact;v=0.8;p=1.2} @origin
+  - throw{v=4;vy=0.6} @target
+
+WardenEchoSonicBlock:
+  Skills:
+  - effect:particles{p=sculk_charge_pop;amount=16;hS=0.4;vS=0.3;speed=0.04} @origin
+  - effect:sound{s=block.sculk.spread;v=0.7;p=0.9} @origin
+
+WardenBowTrail:
+  Cooldown: 0.05
+  Skills:
+  - effect:particles{p=sculk_soul;amount=3;speed=0.01;hS=0.05;vS=0.05} @origin
+  - effect:particles{p=sculk_charge_pop;amount=1;speed=0} @origin
+
+WardenBowArrowHit:
+  Cooldown: 0.1
+  Skills:
+  - effect:particles{p=sculk_soul;amount=20;hS=0.4;vS=0.4;speed=0.05} @origin
+  - effect:sound{s=block.sculk_sensor.clicking;v=0.5;p=1.5} @origin

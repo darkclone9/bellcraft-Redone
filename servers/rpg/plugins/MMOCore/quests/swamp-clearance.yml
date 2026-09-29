@@ -1,0 +1,41 @@
+
+# Display options
+name: 'Swamp Clearance'
+lore:
+- 'The swamps are overrun with drowned and'
+- 'witches. The villagers live in fear.'
+- 'Cleanse this cursed land!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Kill 15 drowned'
+- '&7► Phase 2: Kill 10 witches'
+- ''
+- '&eRewards:'
+- '&7► 1863 EXP'
+- '&7► 22 Gold Coins'
+
+level-req:
+    main: 22
+
+parent:
+- 'river-fisher'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=DROWNED;amount=15}'
+        lore: 'Kill 15 drowned.'
+        triggers:
+        - message{format="&aElder> &fThe waters recede! Now deal with the witches deeper in."}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=WITCH;amount=10}'
+        lore: 'Kill 10 witches.'
+        triggers:
+        - message{format="&aElder> &fThe swamp is purified at last! You have our deepest gratitude."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 22"}
+        - 'experience{amount=1863}'

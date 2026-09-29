@@ -1,0 +1,13 @@
+animations:
+  warp_pipe:
+    display-name: Warp Pipe
+    mm-id: join-warp_pipe
+    permission: animcore.join.warp_pipe
+    GUI:
+      icon: STONE
+      ModelID: 0
+      Lore:
+      - '&7Automatically added'
+      - '&7please customize in GUI.yml'
+
+# affadadec20c3292c3ae6322224d86af

@@ -1,0 +1,21 @@
+autoConvert: true
+debug: false
+cacheSize: 10
+iconSize: x64
+compression: BALANCED
+animatedItems: FULL
+splitPacks: false
+vanillaBackground:
+  convertOverrides: true
+  hideBackground: true
+invertedCubeHalo: true
+weaponUsePoses: false
+glyphFilter: SHARP
+soundQuality: original
+converter:
+  channel: STABLE
+  timeout: 10m
+sync:
+  type: PLUGIN_MESSAGE
+  folder: ''
+  serverId: ''

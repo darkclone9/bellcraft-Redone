@@ -1,0 +1,265 @@
+coretools_transmog_item1:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item2:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item3:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item4:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item5:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item6:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item7:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item8:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item9:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item10:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item11:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item12:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item13:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item14:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item15:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item16:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item17:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item18:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item19:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_item20:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_shield1:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_shield2:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_player_had:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_trim:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_equippable:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather11:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather13:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather12:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather14:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather21:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather23:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather22:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather24:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather31:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather33:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather32:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather34:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather41:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather43:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather42:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather44:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather51:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather53:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather52:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather54:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather61:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather63:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather62:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather64:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather71:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather73:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather72:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'
+coretools_transmog_leather74:
+  type: integer
+  default: '0'
+  min: '0'
+  max: '100'

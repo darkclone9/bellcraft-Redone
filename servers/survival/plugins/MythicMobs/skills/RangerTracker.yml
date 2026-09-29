@@ -1,0 +1,44 @@
+# Ranger Tracker dual-spec casts (Forge-01)
+# MythicLib IDs: RANGER_TRACK_PREY / RANGER_HUNT_MARK /
+#                RANGER_STRUCTURE_SENSE / RANGER_TRAILFINDER
+#
+# Prey / mark targeting: Skript/scripts/ranger-tracker.sk
+# Structure ping: PlaceholderAPI only (no parallel registry)
+#   %bellcraft_struct_nearest%
+#   %bellcraft_struct_nearest_id%
+#   %bellcraft_struct_nearest_dist%
+#   %bellcraft_struct_count%
+# Registry commands: /bcstruct list|info|save|place|register
+# Seeded IDs: stub_ruin, stub_watchtower
+
+RangerTrackPrey_Cast:
+  Skills:
+  - sound{s=entity.fox.sniff;v=1.2;p=1.4} @self
+  - potion{type=SPEED;duration=160;level=0} @self
+  - effect:particles{p=happy_villager;amount=30;hS=1;vS=1;speed=0.2} @self
+  - message{m="&6Track Prey &7— hunting for prey..."} @self
+  - command{c="bellcraft-tracker track-prey <caster.name>";asConsole=true} @self
+
+RangerHuntMark_Cast:
+  Skills:
+  - sound{s=entity.arrow.hit_player;v=1.1;p=1.35} @self
+  - potion{type=GLOWING;duration=160;level=0} @target
+  - effect:particles{p=crit;amount=35;hS=0.6;vS=0.6;speed=0.3} @target
+  - effect:particles{p=smoke;amount=12;hS=0.3;vS=0.4;speed=0.05} @target
+  - command{c="bellcraft-tracker hunt-mark <caster.name>";asConsole=true} @self
+
+RangerStructureSense_Cast:
+  Skills:
+  - sound{s=item.spyglass.stop_using;v=1;p=0.8} @self
+  - effect:particles{p=end_rod;amount=40;hS=1.2;vS=1.2;speed=0.15} @self
+  - message{m="&eStructure Sense &7— &6%bellcraft_struct_nearest_id% &8(&e%bellcraft_struct_nearest%&8) &e%bellcraft_struct_nearest_dist%m &7[&e%bellcraft_struct_count%&7]"} @self
+  - command{c="bellcraft-tracker structure-sense <caster.name>";asConsole=true} @self
+
+RangerTrailfinder_Cast:
+  Skills:
+  - sound{s=item.spyglass.use;v=1.2;p=1.1} @self
+  - potion{type=SPEED;duration=320;level=0} @self
+  - effect:particles{p=end_rod;amount=60;hS=2;vS=1.5;speed=0.2} @self
+  - effect:particles{p=happy_villager;amount=25;hS=1.5;vS=1;speed=0.15} @self
+  - message{m="&6Trailfinder &7— &6%bellcraft_struct_nearest_id% &8(&e%bellcraft_struct_nearest%&8) &e%bellcraft_struct_nearest_dist%m &7[&e%bellcraft_struct_count%&7]"} @self
+  - command{c="bellcraft-tracker trailfinder <caster.name>";asConsole=true} @self

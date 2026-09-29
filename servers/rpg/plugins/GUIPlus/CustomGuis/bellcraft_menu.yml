@@ -1,0 +1,468 @@
+id: bellcraft_menu
+rows: 4
+type: chest
+title: '&8Bellcraft &7| &6Realm Menu'
+commandAlias: menu
+commandAliasTarget: DISABLED
+disable-scene-animation: false
+scenes:
+  '0':
+    delay: 0
+    items:
+      '1':
+        slot: 16
+        item: IRON_PICKAXE
+        amount: 1
+        click-events:
+          71c1a5b2-2de6-4bd7-9f65-da93a5104b94:
+            type: command
+            commands:
+            - jobs browse
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:iron_pickaxe
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"white",italic:0b,obfuscated:0b,strikethrough:0b,text:"Jobs
+              & Careers",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"549834526"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"white",italic:0b,obfuscated:0b,strikethrough:0b,text:"Jobs
+          & Careers",underlined:0b}],text:""}},count:1,id:"minecraft:iron_pickaxe"}'
+        item-name: '&f&lJobs & Careers'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Earn money and XP while playing.'
+            - '&7Browse professions with: &f/jobs'
+            - ''
+            - '&e> Click to view jobs'
+        item-flags: [
+          ]
+        unbreakable: false
+      '2':
+        slot: 33
+        item: NETHER_STAR
+        amount: 1
+        click-events:
+          d269f05e-adbf-4608-9413-8790d663e2c2:
+            type: command
+            commands:
+            - class
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:nether_star
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Class
+              Selection",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"304513712"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Class
+          Selection",underlined:0b}],text:""}},count:1,id:"minecraft:nether_star"}'
+        item-name: '&6&lClass Selection'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Choose or view your active'
+            - '&7MMOCore class & abilities.'
+            - ''
+            - '&e> Click to choose class'
+        item-flags: [
+          ]
+        unbreakable: false
+      '3':
+        slot: 19
+        item: RED_BED
+        amount: 1
+        click-events:
+          64657b3d-aa6f-47a3-9961-ab4aedbb3d78:
+            type: command
+            commands:
+            - home
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:red_bed
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Go
+              Home",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"23036221"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Go
+          Home",underlined:0b}],text:""}},count:1,id:"minecraft:red_bed"}'
+        item-name: '&c&lGo Home'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Teleport to your saved home.'
+            - ''
+            - '&e> Click to travel'
+        item-flags: [
+          ]
+        unbreakable: false
+      '4':
+        slot: 21
+        item: WHITE_BED
+        amount: 1
+        click-events:
+          95e4219f-725d-432e-b31f-ead922a66784:
+            type: command
+            commands:
+            - sethome
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:white_bed
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"white",italic:0b,obfuscated:0b,strikethrough:0b,text:"Set
+              Home",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"829291883"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"white",italic:0b,obfuscated:0b,strikethrough:0b,text:"Set
+          Home",underlined:0b}],text:""}},count:1,id:"minecraft:white_bed"}'
+        item-name: '&f&lSet Home'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Save your current location'
+            - '&7as your personal home.'
+            - ''
+            - '&e> Click to set home'
+        item-flags: [
+          ]
+        unbreakable: false
+      '5':
+        slot: 23
+        item: OAK_DOOR
+        amount: 1
+        click-events:
+          4fe3cf6a-5430-462f-8081-092c96e6e276:
+            type: command
+            commands:
+            - town
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:oak_door
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"dark_green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Claim
+              Land",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1515177133"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"dark_green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Claim
+          Land",underlined:0b}],text:""}},count:1,id:"minecraft:oak_door"}'
+        item-name: '&2&lClaim Land'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Protect what you build.'
+            - '&7New town: &f/town new <name>'
+            - '&7Claim chunk: &fUse Land Ticket'
+            - ''
+            - '&e> Click for town status'
+        item-flags: [
+          ]
+        unbreakable: false
+      '6':
+        slot: 25
+        item: ENDER_PEARL
+        amount: 1
+        click-events:
+          e5c2f8a7-6397-4be9-9df4-c3856d87de2b:
+            type: command
+            commands:
+            - zones
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:ender_pearl
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"dark_purple",italic:0b,obfuscated:0b,strikethrough:0b,text:"Wilderness
+              Teleport",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1168731221"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"dark_purple",italic:0b,obfuscated:0b,strikethrough:0b,text:"Wilderness
+          Teleport",underlined:0b}],text:""}},count:1,id:"minecraft:ender_pearl"}'
+        item-name: '&5&lWilderness Teleport'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Explore level-scaled wilderness'
+            - '&7zones matching your combat tier.'
+            - ''
+            - '&e> Click to view Zones'
+        item-flags: [
+          ]
+        unbreakable: false
+      '7':
+        slot: 10
+        item: COMPASS
+        amount: 1
+        click-events:
+          1664010c-9615-44f6-8a14-e8f1821a79cf:
+            type: open-gui
+            gui: bellcraft_connections
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:compass
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"aqua",italic:0b,obfuscated:0b,strikethrough:0b,text:"Realm
+              Portals",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1917994492"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"aqua",italic:0b,obfuscated:0b,strikethrough:0b,text:"Realm
+          Portals",underlined:0b}],text:""}},count:1,id:"minecraft:compass"}'
+        item-name: '&b&lRealm Portals'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Travel between Bellcraft worlds.'
+            - '&fLobby Hub &8| &fSurvival &8| &fRPG'
+            - ''
+            - '&e> Click to travel'
+        item-flags: [
+          ]
+        unbreakable: false
+        extra-meta:
+          lodestone: false
+          lodestoneTracked: false
+      '8':
+        slot: 12
+        item: GOLD_INGOT
+        amount: 1
+        click-events:
+          761567ba-7649-4382-af36-0fa3f71da6e7:
+            type: command
+            commands:
+            - core-auctionhouse vanilla_example %player%
+            setOp: true
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:gold_ingot
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Auction
+              House",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"823550508"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Auction
+          House",underlined:0b}],text:""}},count:1,id:"minecraft:gold_ingot"}'
+        item-name: '&6&lAuction House'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Buy & sell with other players.'
+            - '&7List items from the Auction House GUI.'
+            - ''
+            - '&e> Click to browse'
+        item-flags: [
+          ]
+        unbreakable: false
+      '9':
+        slot: 29
+        item: ENCHANTED_BOOK
+        amount: 1
+        click-events:
+          2213a15e-2408-4040-9846-e53c4b9ac622:
+            type: open-gui
+            gui: bellcraft_classguide
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:enchanted_book
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"light_purple",italic:0b,obfuscated:0b,strikethrough:0b,text:"Class
+              & Combat Guide",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"478121846"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"light_purple",italic:0b,obfuscated:0b,strikethrough:0b,text:"Class
+          & Combat Guide",underlined:0b}],text:""}},count:1,id:"minecraft:enchanted_book"}'
+        item-name: '&d&lClass & Combat Guide'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Learn how to cast skills,'
+            - '&7manage resources, and'
+            - '&7master your MMOCore class.'
+            - ''
+            - '&e> Click to open guide'
+        item-flags: [
+          ]
+        unbreakable: false
+        extra-meta: {
+          }
+      '10':
+        slot: 14
+        item: EMERALD
+        amount: 1
+        click-events:
+          ed856c3c-b886-48c0-8623-1fbe645e71e2:
+            type: open-gui
+            gui: bellcraft_trader
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:emerald
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Traveling
+              Merchant",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1029731691"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Traveling
+          Merchant",underlined:0b}],text:""}},count:1,id:"minecraft:emerald"}'
+        item-name: '&a&lTraveling Merchant'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Rotating caravan market wares.'
+            - '&7Exclusive gear & rare commodities.'
+            - ''
+            - '&e> Click to browse shop'
+        item-flags: [
+          ]
+        unbreakable: false
+      '11':
+        slot: 15
+        item: ENDER_CHEST
+        amount: 1
+        click-events:
+          b8f4b57d-9567-4d6b-8731-3735f0dbadb6:
+            type: open-gui
+            gui: bank
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:ender_chest
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Bank",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1123345413"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Bank",underlined:0b}],text:""}},count:1,id:"minecraft:ender_chest"}'
+        item-name: '&e&lBank'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7View your balance and deposit'
+            - '&7into town projects.'
+            - ''
+            - '&e> Click to open bank'
+        item-flags: [
+          ]
+        unbreakable: false
+      '12':
+        slot: 31
+        item: BARRIER
+        amount: 1
+        click-events:
+          f00e64c8-84c0-4750-98fc-66744da18847:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:barrier
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Close
+              Menu",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"928915757"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Close
+          Menu",underlined:0b}],text:""}},count:1,id:"minecraft:barrier"}'
+        item-name: '&c&lClose Menu'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false

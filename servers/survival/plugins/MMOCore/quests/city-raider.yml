@@ -1,0 +1,24 @@
+name: 'City Raider'
+lore:
+- 'Every tower holds one more shulker'
+- 'than you planned for.'
+- ''
+- '&6Objective:'
+- '&7► Kill 40 shulkers'
+- ''
+- '&eRewards:'
+- '&7► 12090 EXP'
+level-req:
+    main: 94
+parent:
+- 'pale-quarry'
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'killmob{type=SHULKER;amount=40}'
+        lore: 'Kill 40 shulkers.'
+        triggers:
+        - 'experience{amount=12090}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

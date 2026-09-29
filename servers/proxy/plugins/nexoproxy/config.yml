@@ -1,0 +1,11 @@
+# NexoProxy Configuration
+
+# Enable debug logging for resource pack events.
+# Useful for diagnosing pack handshake issues; disable in production.
+debug: true
+
+# Enable interception and deduplication of Nexo resource packs.
+resourcePacks: true
+
+# Enable resolving <glyph:id> tags in tab-list and scoreboard packets.
+glyphs: true
