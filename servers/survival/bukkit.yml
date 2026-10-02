@@ -22,7 +22,8 @@ settings:
   minimum-api: none
   use-map-color-cache: true
 spawn-limits:
-  monsters: 50
+  # Vanilla is 70. 50 left a hostile farm (one player, one dimension) a third short of a normal cap.
+  monsters: 70
   animals: 10
   water-animals: 5
   water-ambient: 20
