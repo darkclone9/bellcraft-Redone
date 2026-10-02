@@ -4,10 +4,10 @@ level-req:
     main: 11
 lore:
   - 'Yet another quest example.'
-- ''
-- '&6Objective:'
-- '&7► Phase 1: Head to the camp'
-- '&7► Phase 2: Go talk to the Blacksmith'
+  - ''
+  - '&6Objective:'
+  - '&7► Phase 1: Head to the camp'
+  - '&7► Phase 2: Go talk to the Blacksmith'
   - ''
   - '&eRewards:'
   - '&7► Stone Tools'
