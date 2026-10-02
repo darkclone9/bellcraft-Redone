@@ -1,7 +1,7 @@
 # Bellcraft Redone
 
 Configuration, scripts and tooling for the **Bellcraft** Minecraft network (`bellcraft.online`),
-and the place to report and plan work on it.
+and the place to report, plan, and collect behind-the-scenes system work and bug fixes.
 
 - **Found a bug or want a feature?** [Open an issue](../../issues/new/choose). When a team member opens
   one, Claude reads it and posts a plan; comment `@claude implement this` to have it open a branch.
