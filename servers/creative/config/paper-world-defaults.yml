@@ -110,7 +110,7 @@ entities:
     phantoms-spawn-attempt-min-seconds: 60
     piglins-guard-chests: true
     pillager-patrols:
-      disable: false
+      disable: true
       spawn-chance: 0.2
       spawn-delay:
         per-player: false
@@ -197,7 +197,7 @@ entities:
       ambient: -1
       axolotls: -1
       creature: -1
-      monster: -1
+      monster: 0
       underground_water_creature: -1
       water_ambient: -1
       water_creature: -1

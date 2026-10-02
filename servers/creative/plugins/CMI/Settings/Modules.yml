@@ -115,7 +115,7 @@ vanish: true
 #  
 # Handles money cheques
 # Applies for servers from 1.7.x and up
-moneyCheque: true
+moneyCheque: false
 #  
 # Handles armor stand editor
 # Applies for servers from 1.8.x and up
@@ -187,7 +187,7 @@ jail: true
 #  
 # Handles cmi flight charge system
 # Applies for servers from 1.7.x and up
-flightCharge: true
+flightCharge: false
 #  
 # Handles shulker box as backpacks
 # Applies for servers from 1.11.x and up

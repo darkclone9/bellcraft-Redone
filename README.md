@@ -21,7 +21,7 @@ ops/                  the tools installed on the server box (deploy receiver, ex
 |---|---|---|
 | survival | Realm Portal → RPG Survival | Classes, skills, quests, zones, towns, economy |
 | classic | Realm Portal → Classic Survival | Plain survival, no class system |
-| build (`servers/creative`) | `/build` | Builders only |
+| build (`servers/creative`) | Realm Portal → Creative | Creative copy of the RPG survival world |
 | rpg, test | - | Dev backends for testing |
 
 ## Automation

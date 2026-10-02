@@ -1356,15 +1356,20 @@ DynamicViewRange:
   Enabled: false
 WorldLimits:
   # By setting to true fly and gamemode limitations per world will be aplied for player on world change if they don't have appropiate permission node
-  Enabled: false
+  # Creative copy of survival: stay in creative with flight. Staff with cmi.worldlimit.gamemode.bypass can still change mode.
+  Enabled: true
   # World list with default game modes
   # If player will have cmi.worldlimit.gamemode.bypass permission node, game mode wont be changed
   # Possible modes: creative, survival, adventure, spectator, 
   Gamemode:
-  - testWorld:Survival
+  - world:Creative
+  - world_nether:Creative
+  - world_the_end:Creative
   # If player will have cmi.worldlimit.fly.bypass permission node, fly mode wont be changed
   Fly:
-  - testWorld:False
+  - world:True
+  - world_nether:True
+  - world_the_end:True
   # When enabled player will be able to fly after death if they were flying before death
   ReenabledFlyAfterDeath: false
   # If player will have cmi.worldlimit.elytra.bypass permission node, elytra flight will not be prevented
