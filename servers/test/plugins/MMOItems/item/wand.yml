@@ -1,6 +1,11 @@
 OAK_WAND:
   base:
     material: STICK
+    # Sticks do not send a right-click packet on 1.21, so MythicLib reads the
+    # arm swing as the left-click staff attack and SPARKLE never casts.
+    # A huge consume time makes the item usable without eating it.
+    consume-seconds: 1000000.0
+    revision-id: 1
     name: '&f<wood> Wand'
     required-level: 1.0
     range: 20.0
@@ -25,6 +30,10 @@ OAK_WAND:
 BLAZE_WAND:
   base:
     material: BLAZE_ROD
+    # Blaze rods do not send a right-click packet on 1.21, so the arm swing
+    # runs staff_default and FIREBOLT / BURNING_HANDS never cast.
+    consume-seconds: 1000000.0
+    revision-id: 1
     hide-enchants: true
     enchants:
       unbreaking: 1
@@ -81,6 +90,9 @@ BLAZE_WAND:
 COSMOS_WAND:
   base:
     material: STICK
+    # Same as the other wands: a stick never sends a right-click packet.
+    consume-seconds: 1000000.0
+    revision-id: 1
     gem-sockets:
       - Blue
     staff-spirit: VOID_SPIRIT

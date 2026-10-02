@@ -96,6 +96,10 @@ BONE_STAFF:
 MANA_STAFF:
   base:
     material: DIAMOND_HOE
+    # Hoes have no air right-click, so the swing is treated as the staff's
+    # left-click attack and REGEN_ALLY never casts.
+    consume-seconds: 1000000.0
+    revision-id: 1
     name: §b§lMana Staff
     lore:
       - §b§oThis staff uses pure ambiant mana.
@@ -148,6 +152,9 @@ MANA_STAFF:
 VOID_STAFF:
   base:
     material: NETHERITE_HOE
+    # Same as Mana Staff: the hoe never sends a right-click packet.
+    consume-seconds: 1000000.0
+    revision-id: 1
     name: §5§lVoid Staff
     attack-damage: 25.0
     attack-speed: 1.5
