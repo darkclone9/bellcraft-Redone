@@ -1,0 +1,218 @@
+# Bellcraft: new character start (Ewoki Village or a random teleport)
+#
+# /home is unrelated. This is the first moment a character exists.
+#
+# MMOProfiles runs the profile-create script only when a profile is created:
+# a brand-new player making their first character, or someone adding another
+# one. It does not run when select_last_profile_on_login loads the last
+# character (PR #29). Returning on an existing character does not see this.
+#
+# The console command is /bcspawn. Players reopen a pending choice with
+# /spawnchoice. The flag is the new profile's id once PlaceholderAPI can
+# read it, so switching to an older character does not move that character.
+#
+# Ewoki is the live survival spawn (CMI Spawn.Main and MMOProfiles
+# new-profile-spawn-point): world 239.5, 74, 208.5. The March notes had
+# y=63 at the same column; the standing spot on this server is y=74.
+#
+# Random uses BetterRTP (/rtp), which stays out of claims and liquids and
+# puts a level 1 character in the starter ring (600-1000). A flat 3000-block
+# roll would drop them in a level 20-32 zone.
+
+options:
+    prefix: &8[&6Bellcraft&8] &r
+    title: &8Choose a start
+    ewoki-world: world
+    ewoki-x: 239.5
+    ewoki-y: 74
+    ewoki-z: 208.5
+    ewoki-yaw: 28.8
+    ewoki-pitch: 16.6
+    sel-x: 239.5
+    sel-y: 74
+    sel-z: 208.5
+
+on load:
+    send "[spawnchoice] loaded" to console
+
+function scph(p: player, key: text) :: text:
+    set {_v} to placeholder "%{_key}%" from {_p}
+    if {_v} is not set:
+        return "-"
+    if {_v} is "":
+        return "-"
+    return {_v}
+
+function showSpawnChoice(p: player):
+    if name of {_p}'s current inventory is "{@title}":
+        stop
+    set {_inv} to chest inventory with 3 rows named "{@title}"
+    loop 27 times:
+        set slot (loop-number - 1) of {_inv} to gray stained glass pane named " "
+    set slot 11 of {_inv} to emerald block named "&a&lEwoki Village" with lore "&7Start in the village.", "", "&7Safe ground, other players,", "&7and the road out.", "", and "&eClick to spawn here."
+    set slot 15 of {_inv} to compass named "&e&lRandom teleport" with lore "&7A safe spot in the starter wilds.", "&7Same search &f/rtp &7uses, so it", "&7stays out of towns and lava.", "", "&cMobs out there will fight you.", "", and "&eClick to go."
+    open {_inv} to {_p}
+
+function resolveSpawnChoice(p: player, mode: text) :: text:
+    set {_id} to uuid of {_p}
+    set {_flag} to {spawnchoice::%{_id}%}
+    if {_flag} is not set:
+        return "none"
+    set {_profile} to scph({_p}, "mmoprofiles_current_profile_uuid")
+    if {_flag} is "new":
+        if {_mode} is "use":
+            if {_profile} is not "-":
+                set {spawnchoice::%{_id}%} to {_profile}
+            return "opened"
+        if {_mode} is "bind":
+            if {_profile} is not "-":
+                set {spawnchoice::%{_id}%} to {_profile}
+            showSpawnChoice({_p})
+            return "opened"
+        return "wait"
+    if {_profile} is "-":
+        return "wait"
+    if {_profile} is {_flag}:
+        if {_mode} is "bind":
+            showSpawnChoice({_p})
+        else if {_mode} is "open":
+            showSpawnChoice({_p})
+        return "opened"
+    return "other"
+
+function markChosen(p: player):
+    set {_profile} to scph({_p}, "mmoprofiles_current_profile_uuid")
+    if {_profile} is not "-":
+        set {spawnchoice.done::%{_profile}%} to true
+
+function alreadyChose(p: player) :: boolean:
+    set {_profile} to scph({_p}, "mmoprofiles_current_profile_uuid")
+    if {_profile} is "-":
+        return false
+    if {spawnchoice.done::%{_profile}%} is set:
+        return true
+    return false
+
+function freshCharacter(p: player) :: boolean:
+    set {_lvl} to scph({_p}, "mmocore_level")
+    if {_lvl} is "-":
+        return true
+    if {_lvl} is "0":
+        return true
+    if {_lvl} is "1":
+        return true
+    return false
+
+function nearPoint(p: player, x: number, y: number, z: number) :: boolean:
+    set {_wn} to "%world of {_p}%"
+    if {_wn} is "{@ewoki-world}":
+        set {_here} to location of {_p}
+        set {_there} to location({_x}, {_y}, {_z}, world of {_p})
+        if distance between {_here} and {_there} is less than 40:
+            return true
+    return false
+
+function chooseEwoki(p: player):
+    set {_w} to world "{@ewoki-world}"
+    if {_w} is not set:
+        send "{@prefix}&cEwoki Village is not loaded right now. Try /spawnchoice again in a moment." to {_p}
+        stop
+    set {_loc} to location({@ewoki-x}, {@ewoki-y}, {@ewoki-z}, {_w})
+    if {_loc} is not set:
+        send "{@prefix}&cCould not find Ewoki Village. Try /spawnchoice again." to {_p}
+        stop
+    set yaw of {_loc} to {@ewoki-yaw}
+    set pitch of {_loc} to {@ewoki-pitch}
+    markChosen({_p})
+    set {spawnchoice.quiet::%uuid of {_p}%} to true
+    delete {spawnchoice::%uuid of {_p}%}
+    close {_p}'s inventory
+    teleport {_p} to {_loc}
+    send "{@prefix}&aWelcome to &2Ewoki Village&a." to {_p}
+    play sound "entity.player.levelup" with volume 0.8 and pitch 1.2 at {_p}
+
+function chooseWild(p: player):
+    markChosen({_p})
+    set {spawnchoice.quiet::%uuid of {_p}%} to true
+    delete {spawnchoice::%uuid of {_p}%}
+    close {_p}'s inventory
+    syncRtpPermissions({_p})
+    send "{@prefix}&eSearching for a safe spot in the starter wilds..." to {_p}
+    execute console command "rtp player %name of {_p}% world"
+    play sound "entity.enderman.teleport" with volume 0.8 and pitch 1 at {_p}
+
+command /bcspawn [<text>] [<player>]:
+    executable by: players and console
+    description: Internal. MMOProfiles calls this when a profile is created.
+    trigger:
+        if arg-1 is "begin":
+            set {_ok} to false
+            if sender is console:
+                if arg-2 is not set:
+                    stop
+                if arg-2 is not online:
+                    stop
+                set {_p} to arg-2
+                set {_ok} to true
+            else:
+                set {_p} to player
+                if alreadyChose({_p}) is true:
+                    stop
+                if freshCharacter({_p}) is true:
+                    if nearPoint({_p}, {@ewoki-x}, {@ewoki-y}, {@ewoki-z}) is true:
+                        set {_ok} to true
+                    if nearPoint({_p}, {@sel-x}, {@sel-y}, {@sel-z}) is true:
+                        set {_ok} to true
+            if {_ok} is true:
+                set {spawnchoice::%uuid of {_p}%} to "new"
+                wait 2 seconds
+                if {_p} is online:
+                    resolveSpawnChoice({_p}, "bind")
+        stop
+
+command /spawnchoice:
+    executable by: players
+    description: Reopen the new-character start choice, if you still have one pending.
+    trigger:
+        set {_result} to resolveSpawnChoice(player, "bind")
+        if {_result} is "opened":
+            stop
+        if {_result} is "other":
+            send "{@prefix}&7That start choice is for a different character." to player
+            stop
+        if {_result} is "wait":
+            send "{@prefix}&7Your new character is still loading. Try &f/spawnchoice &7again in a moment." to player
+            stop
+        send "{@prefix}&7A start choice is only offered when a character is first created." to player
+
+on join:
+    wait 3 seconds
+    if player is online:
+        resolveSpawnChoice(player, "open")
+
+on inventory click:
+    if name of event-inventory is "{@title}":
+        cancel event
+        if event-inventory is clicked inventory:
+            set {_slot} to index of event-slot
+            set {_result} to resolveSpawnChoice(player, "use")
+            if {_result} is "opened":
+                if {_slot} is 11:
+                    chooseEwoki(player)
+                else if {_slot} is 15:
+                    chooseWild(player)
+            else if {_result} is "other":
+                set {spawnchoice.quiet::%uuid of player%} to true
+                close player's inventory
+                send "{@prefix}&7That start choice is for a different character." to player
+
+on inventory close:
+    if name of event-inventory is "{@title}":
+        if {spawnchoice.quiet::%uuid of player%} is set:
+            delete {spawnchoice.quiet::%uuid of player%}
+            stop
+        if {spawnchoice::%uuid of player%} is set:
+            send "{@prefix}&7You can open that again with &f/spawnchoice&7." to player
+
+on quit:
+    delete {spawnchoice.quiet::%uuid of player%}
