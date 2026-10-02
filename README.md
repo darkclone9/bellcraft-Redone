@@ -28,8 +28,13 @@ ops/                  the tools installed on the server box (deploy receiver, ex
 
 | Workflow | When | What |
 |---|---|---|
-| Deploy to servers | push to `main` touching `servers/**`, or run by hand | installs changed files on the live servers, reloads Skript |
+| Deploy to servers | push to `main` touching `servers/**`, or run by hand | installs changed files on the live servers, reloads Skript, and leaves the proxy process running |
 | Sync from live servers | every 6 h, or run by hand | commits whatever changed on the servers outside git |
 | Validate configs | PRs and pushes | changed YAML/JSON/TOML must parse |
 | Claude issue planner | issue opened by a collaborator, or `needs-plan` label | posts a plan comment |
 | Claude | `@claude` in a comment | answers, or implements on a `claude/*` branch |
+
+Deploy needs three repository Actions secrets: `BELLCRAFT_DEPLOY_KEY`, `BELLCRAFT_KNOWN_HOSTS`,
+`BELLCRAFT_HOST`. A hand deploy is Actions → **Deploy to servers** → **Run workflow** on branch
+**main**, with `server` set to `proxy`, `lobby`, `survival`, `creative`, `classic`, `rpg`, or
+`test`. Details are in [ops/README.md](ops/README.md).

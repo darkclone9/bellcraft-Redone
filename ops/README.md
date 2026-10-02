@@ -18,8 +18,28 @@ The deploy key's `authorized_keys` line (user `ghdeploy`):
 Install: `sudo install -o root -g root -m 755 <file> /usr/local/sbin/`; for sudoers always check
 with `sudo visudo -cf <file>` before `install -m 440`.
 
-Repo secrets used by the workflows: `BELLCRAFT_DEPLOY_KEY` (private key), `BELLCRAFT_KNOWN_HOSTS`,
-`BELLCRAFT_HOST`, `CLAUDE_CODE_OAUTH_TOKEN`.
+## Deploy secrets
+
+`.github/workflows/deploy.yml` reads three repository Actions secrets
+(Settings → Secrets and variables → Actions). Set these names; do not put the values in git.
+
+| Secret | Role |
+|---|---|
+| `BELLCRAFT_DEPLOY_KEY` | Private key for user `ghdeploy`, stored as the raw key text |
+| `BELLCRAFT_KNOWN_HOSTS` | `known_hosts` line for that host (strict host-key checking is on) |
+| `BELLCRAFT_HOST` | Host name or IP. `deploy.py` connects as `ghdeploy@<this>` on SSH port 22 |
+
+`BELLCRAFT_KNOWN_HOSTS` must be the host key of `BELLCRAFT_HOST`. The workflow writes the key to
+`~/.ssh/deploy` and the host key to `~/.ssh/known_hosts`, which is where `deploy.py` looks.
+
+A push to `main` that touches `servers/**` deploys only the servers with changed files. Deploys
+share the `bellcraft-deploy` concurrency group and wait their turn. The job never restarts a
+server; the proxy keeps running.
+
+Manual deploy: Actions → **Deploy to servers** → **Run workflow**, choose branch **main**, and
+set `server` to one folder name: `proxy`, `lobby`, `survival`, `creative`, `classic`, `rpg`, or
+`test` (`creative` is the build server). That re-sends every tracked file for that server; the
+host skips files that already match. Leave `server` blank and the run stops before SSH.
 
 ## Creative world snapshot
 
