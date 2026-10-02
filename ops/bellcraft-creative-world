@@ -1,0 +1,690 @@
+#!/usr/bin/env python3
+"""Copy a consistent survival snapshot onto the creative (build) server.
+
+The creative overworld, nether and end become a copy of the RPG survival world
+that players build in, in creative mode. Install by hand (ops scripts are not
+deployed):
+
+    sudo install -o root -g root -m 755 ops/bellcraft-creative-world /usr/local/sbin/
+
+Run it on the Minecraft box only after the creative config from git is on disk
+(bukkit.yml must not set generator: BellcraftBuild, and BellcraftBuild's plot
+world must not be "world"). Stop creative first. Survival keeps running.
+
+    sudo systemctl stop bellcraft-creative
+    # Prefer a backup. This does not read survival's live world.
+    sudo bellcraft-creative-world copy --from backup --replace
+    # Or a live snapshot. save-off / save-all flush, then save-on. Survival is not stopped.
+    sudo bellcraft-creative-world copy --from live --replace
+    sudo systemctl start bellcraft-creative
+    sudo bellcraft-creative-world perms
+
+The copy is one-time. Creative builds diverge as soon as someone places a block,
+and refreshing replaces that work. Do not schedule this. A later run without
+--replace does nothing to the terrain. --replace archives the current creative
+worlds under /opt/bellcraft/_backups/creative-world/<timestamp>/ and copies again.
+
+What is copied: region files, entities, poi, level.dat, datapacks and the other
+world files. What is not copied: playerdata, stats, advancements, uid.dat,
+session.lock, symlinks, plugin data, databases. Creative keeps the playerdata it
+already had, so survival inventories are not imported and nothing is written
+back to survival. Chest contents are part of the terrain snapshot; items taken
+from those chests stay in creative's own player files.
+
+level.dat is patched so the snapshot world itself is creative + peaceful
+(survival's GameType would otherwise load as survival). server.properties on
+creative is updated in place. That file is redacted and is not deployed from
+git; rcon password, ports and other keys are left as they are.
+
+--dry-run prints the plan and writes nothing. It does not send save-off.
+"""
+import argparse, datetime, gzip, json, os, shutil, struct, subprocess, sys, time
+
+WORLDS = ('world', 'world_nether', 'world_the_end')
+ROOT_SKIP = {
+    'playerdata', 'stats', 'advancements', 'uid.dat', 'session.lock',
+    'paper-world.yml', 'level.dat_old',
+}
+KEEP_PLAYER = ('playerdata', 'stats', 'advancements')
+PROPERTY_UPDATES = {
+    'gamemode': 'creative',
+    'force-gamemode': 'true',
+    'allow-nether': 'true',
+    'allow-flight': 'true',
+    'difficulty': 'peaceful',
+    'spawn-monsters': 'false',
+    'spawn-protection': '0',
+    'motd': 'Bellcraft creative',
+}
+FORBIDDEN_PLUGINS = (
+    'MMOCore', 'MMOProfiles', 'MMOItems', 'MMOInventory', 'MythicLib', 'MythicMobs',
+    'Towny', 'Jobs', 'EconomyShopGUI', 'CrazyAuctions', 'Quests',
+)
+PERM_COMMANDS = (
+    'lp group default permission set velocity.command.server.build true',
+    'lp sync',
+)
+RCON_SERVERS = ('lobby', 'survival', 'creative', 'classic', 'rpg', 'test')
+
+TAG_END, TAG_BYTE, TAG_SHORT, TAG_INT = 0, 1, 2, 3
+TAG_LONG, TAG_FLOAT, TAG_DOUBLE = 4, 5, 6
+TAG_BYTE_ARRAY, TAG_STRING, TAG_LIST, TAG_COMPOUND = 7, 8, 9, 10
+TAG_INT_ARRAY, TAG_LONG_ARRAY = 11, 12
+
+SURVIVAL_ROOT = '/opt/bellcraft/survival'
+CREATIVE_ROOT = '/opt/bellcraft/creative'
+BACKUP_ROOT = '/opt/backups/bellcraft'
+ARCHIVE_ROOT = '/opt/bellcraft/_backups/creative-world'
+
+
+def contained(path, root):
+    path = os.path.realpath(path)
+    root = os.path.realpath(root)
+    return path == root or path.startswith(root + os.sep)
+
+
+def _refuse_survival_delete(path, survival_root):
+    if contained(path, survival_root):
+        raise RuntimeError(f'refusing to delete or move aside anything under survival: {path}')
+
+
+def safe_rmtree(path, survival_root):
+    if os.path.islink(path):
+        raise RuntimeError(f'refusing to remove a symlink: {path}')
+    _refuse_survival_delete(path, survival_root)
+    shutil.rmtree(path)
+
+
+def safe_move(src, dst, survival_root):
+    if os.path.islink(src):
+        raise RuntimeError(f'refusing to move a symlink: {src}')
+    _refuse_survival_delete(src, survival_root)
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    shutil.move(src, dst)
+
+
+def set_properties(text, updates):
+    """Replace named keys. Every other line, including secrets, is kept."""
+    lines = text.splitlines(keepends=True)
+    if text and not text.endswith(('\n', '\r')):
+        # splitlines(keepends) already kept a newline if there was one
+        pass
+    seen = set()
+    out = []
+    newline = '\n'
+    for line in lines:
+        body = line.splitlines()[0] if line.splitlines() else ''
+        newline = line[len(body):] or newline
+        stripped = body.strip()
+        if not stripped or stripped.startswith('#') or '=' not in stripped:
+            out.append(line)
+            continue
+        key = stripped.split('=', 1)[0]
+        if key in updates:
+            out.append(f'{key}={updates[key]}{newline}')
+            seen.add(key)
+        else:
+            out.append(line)
+    for key, value in updates.items():
+        if key not in seen:
+            if out and not out[-1].endswith(('\n', '\r')):
+                out[-1] += newline or '\n'
+            out.append(f'{key}={value}{newline or chr(10)}')
+    return ''.join(out)
+
+
+def _u16(buf, i):
+    return struct.unpack_from('>H', buf, i)[0], i + 2
+
+
+def _i32(buf, i):
+    return struct.unpack_from('>i', buf, i)[0], i + 4
+
+
+def _skip_payload(buf, i, tag_type):
+    if tag_type == TAG_BYTE:
+        return i + 1
+    if tag_type == TAG_SHORT:
+        return i + 2
+    if tag_type in (TAG_INT, TAG_FLOAT):
+        return i + 4
+    if tag_type in (TAG_LONG, TAG_DOUBLE):
+        return i + 8
+    if tag_type == TAG_BYTE_ARRAY:
+        n, i = _i32(buf, i)
+        if n < 0:
+            raise ValueError('negative byte array')
+        return i + n
+    if tag_type == TAG_STRING:
+        n, i = _u16(buf, i)
+        return i + n
+    if tag_type == TAG_LIST:
+        elem = buf[i]
+        n, i = _i32(buf, i + 1)
+        if n < 0:
+            raise ValueError('negative list')
+        for _ in range(n):
+            i = _skip_payload(buf, i, elem)
+        return i
+    if tag_type == TAG_COMPOUND:
+        return _walk_compound(buf, i, False, {})
+    if tag_type == TAG_INT_ARRAY:
+        n, i = _i32(buf, i)
+        if n < 0:
+            raise ValueError('negative int array')
+        return i + n * 4
+    if tag_type == TAG_LONG_ARRAY:
+        n, i = _i32(buf, i)
+        if n < 0:
+            raise ValueError('negative long array')
+        return i + n * 8
+    raise ValueError(f'unknown nbt tag {tag_type}')
+
+
+def _walk_compound(buf, i, in_data, found):
+    while i < len(buf):
+        tag_type = buf[i]
+        i += 1
+        if tag_type == TAG_END:
+            return i
+        nlen, i = _u16(buf, i)
+        name = buf[i:i + nlen].decode('utf-8')
+        i += nlen
+        if in_data and name in ('GameType', 'Difficulty'):
+            found[name] = (tag_type, i)
+        if tag_type == TAG_COMPOUND:
+            i = _walk_compound(buf, i, name == 'Data', found)
+        else:
+            i = _skip_payload(buf, i, tag_type)
+    raise ValueError('unterminated nbt compound')
+
+
+def _data_field_offsets(raw):
+    if not raw or raw[0] != TAG_COMPOUND:
+        raise ValueError('level.dat root is not a compound')
+    i = 1
+    nlen, i = _u16(raw, i)
+    i += nlen
+    found = {}
+    _walk_compound(raw, i, False, found)
+    return found
+
+
+def patch_level_dat_nbt(raw):
+    """Set Data.GameType to creative (1) and Data.Difficulty to peaceful (0)."""
+    found = _data_field_offsets(raw)
+    if 'GameType' not in found or 'Difficulty' not in found:
+        raise ValueError(f'level.dat Data is missing GameType or Difficulty ({sorted(found)})')
+    gt_type, gt_off = found['GameType']
+    df_type, df_off = found['Difficulty']
+    if gt_type != TAG_INT:
+        raise ValueError(f'GameType is tag type {gt_type}, expected int')
+    if df_type != TAG_BYTE:
+        raise ValueError(f'Difficulty is tag type {df_type}, expected byte')
+    out = bytearray(raw)
+    struct.pack_into('>i', out, gt_off, 1)
+    out[df_off] = 0
+    return bytes(out)
+
+
+def read_level_fields(raw):
+    found = _data_field_offsets(raw)
+    fields = {}
+    if 'GameType' in found and found['GameType'][0] == TAG_INT:
+        fields['GameType'] = struct.unpack_from('>i', raw, found['GameType'][1])[0]
+    if 'Difficulty' in found and found['Difficulty'][0] == TAG_BYTE:
+        fields['Difficulty'] = raw[found['Difficulty'][1]]
+    return fields
+
+
+def patch_level_dat(path):
+    with gzip.open(path, 'rb') as fh:
+        raw = fh.read()
+    patched = patch_level_dat_nbt(raw)
+    if read_level_fields(patched) != {'GameType': 1, 'Difficulty': 0}:
+        raise ValueError(f'patched level.dat did not read back as creative/peaceful: {path}')
+    tmp = path + '.tmp'
+    with gzip.open(tmp, 'wb') as fh:
+        fh.write(patched)
+    os.replace(tmp, path)
+
+
+def copy_entry(src, dst):
+    if os.path.islink(src):
+        raise RuntimeError(f'refusing symlink in world snapshot: {src}')
+    if os.path.isdir(src):
+        os.makedirs(dst, exist_ok=True)
+        for name in os.listdir(src):
+            copy_entry(os.path.join(src, name), os.path.join(dst, name))
+        return
+    if not os.path.isfile(src):
+        raise RuntimeError(f'unsupported snapshot entry: {src}')
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    shutil.copy2(src, dst, follow_symlinks=False)
+    if os.path.samestat(os.lstat(src), os.lstat(dst)):
+        raise RuntimeError(f'copy did not create a new file (hardlink or same inode): {dst}')
+
+
+def copy_filtered(src, dst):
+    os.makedirs(dst, exist_ok=True)
+    for name in os.listdir(src):
+        if name in ROOT_SKIP or name.endswith('.lock'):
+            continue
+        copy_entry(os.path.join(src, name), os.path.join(dst, name))
+
+
+def validate_roots(source, creative_root, survival_root, allow_live):
+    source = os.path.realpath(source)
+    creative_root = os.path.realpath(creative_root)
+    survival_root = os.path.realpath(survival_root)
+    if source == creative_root or contained(source, creative_root) or contained(creative_root, source):
+        raise SystemExit('source and creative trees overlap; refusing')
+    if not allow_live and (source == survival_root or contained(source, survival_root)):
+        raise SystemExit('refusing to read the live survival world without --from live')
+    if contained(creative_root, survival_root):
+        raise SystemExit('creative root is inside survival; refusing')
+    if not os.path.isfile(os.path.join(source, 'world', 'level.dat')):
+        raise SystemExit(f'no world/level.dat under {source}')
+    return source, creative_root, survival_root
+
+
+def find_survival_backups(backup_root, survival_root, max_depth=8):
+    """Return (directories named survival that contain world/level.dat, archive files)."""
+    backup_root = os.path.realpath(backup_root)
+    survival_root = os.path.realpath(survival_root)
+    if not os.path.isdir(backup_root):
+        raise SystemExit(f'backup root does not exist: {backup_root}')
+    found, archives = [], []
+    for dirpath, dirnames, filenames in os.walk(backup_root):
+        if os.path.realpath(dirpath) == survival_root:
+            dirnames[:] = []
+            continue
+        depth = 0 if dirpath == backup_root else os.path.relpath(dirpath, backup_root).count(os.sep) + 1
+        if depth > max_depth:
+            dirnames[:] = []
+            continue
+        for fn in filenames:
+            if fn.endswith(('.tar', '.tar.gz', '.tgz', '.zip')):
+                archives.append(os.path.join(dirpath, fn))
+        if os.path.basename(dirpath) == 'survival' and os.path.isfile(os.path.join(dirpath, 'world', 'level.dat')):
+            if os.path.realpath(dirpath) != survival_root:
+                found.append(dirpath)
+            dirnames[:] = []
+    found.sort(key=lambda p: os.path.getmtime(os.path.join(p, 'world', 'level.dat')), reverse=True)
+    return found, archives
+
+
+def assert_creative_config(creative_root):
+    bukkit = os.path.join(creative_root, 'bukkit.yml')
+    if os.path.isfile(bukkit):
+        with open(bukkit, encoding='utf-8') as fh:
+            for line in fh:
+                stripped = line.split('#', 1)[0]
+                if 'generator:' in stripped and 'BellcraftBuild' in stripped:
+                    raise SystemExit(
+                        'bukkit.yml still sets generator: BellcraftBuild. Deploy the creative config '
+                        'from git before copying, or the plot generator will overwrite the snapshot.'
+                    )
+    build = os.path.join(creative_root, 'plugins', 'BellcraftBuild', 'config.yml')
+    if os.path.isfile(build):
+        with open(build, encoding='utf-8') as fh:
+            for line in fh:
+                stripped = line.split('#', 1)[0].strip()
+                if stripped.startswith('world:') and stripped.split(':', 1)[1].strip().strip('"\'') == 'world':
+                    raise SystemExit(
+                        'BellcraftBuild plots.world is still "world". Deploy the creative config first '
+                        'so the plot grid is not the survival snapshot.'
+                    )
+    cmi = os.path.join(creative_root, 'plugins', 'CMI', 'Settings', 'DataBaseInfo.yml')
+    if os.path.isfile(cmi):
+        with open(cmi, encoding='utf-8') as fh:
+            for line in fh:
+                stripped = line.split('#', 1)[0].strip()
+                if stripped.startswith('method:'):
+                    method = stripped.split(':', 1)[1].strip().strip('"\'')
+                    if method.lower() != 'sqlite':
+                        raise SystemExit(
+                            f'CMI storage method is {method}. Creative must keep its own sqlite file '
+                            'so inventories and homes cannot meet survival\'s database.'
+                        )
+    plugins = os.path.join(creative_root, 'plugins')
+    if os.path.isdir(plugins):
+        hits = []
+        for name in sorted(os.listdir(plugins)):
+            if any(bad.lower() in name.lower() for bad in FORBIDDEN_PLUGINS):
+                hits.append(name)
+        if hits:
+            raise SystemExit(
+                'creative still has survival-only plugins installed: '
+                + ', '.join(hits)
+                + '. Remove those jars before starting the creative copy.'
+            )
+
+
+def worlds_in(source):
+    present = []
+    for name in WORLDS:
+        level = os.path.join(source, name, 'level.dat')
+        if os.path.isfile(level) and not os.path.islink(level):
+            present.append(name)
+        elif os.path.islink(os.path.join(source, name)):
+            raise RuntimeError(f'refusing symlinked world folder: {os.path.join(source, name)}')
+    if 'world' not in present:
+        raise SystemExit(f'no world/level.dat under {source}')
+    return present
+
+
+def replace_world(src_world, dst_world, archive_dir, survival_root):
+    if os.path.islink(src_world) or os.path.islink(dst_world):
+        raise RuntimeError(f'refusing symlink world path: {src_world} -> {dst_world}')
+    partial = dst_world + '.partial'
+    if os.path.lexists(partial):
+        safe_rmtree(partial, survival_root)
+    archived = None
+    renamed = False
+    try:
+        copy_filtered(src_world, partial)
+        level = os.path.join(partial, 'level.dat')
+        if not os.path.isfile(level):
+            raise RuntimeError(f'snapshot has no level.dat: {src_world}')
+        patch_level_dat(level)
+        if os.path.lexists(dst_world):
+            archived = os.path.join(archive_dir, os.path.basename(dst_world))
+            safe_move(dst_world, archived, survival_root)
+        os.rename(partial, dst_world)
+        renamed = True
+        if archived:
+            for folder in KEEP_PLAYER:
+                old = os.path.join(archived, folder)
+                if os.path.isdir(old) and not os.path.islink(old):
+                    copy_entry(old, os.path.join(dst_world, folder))
+    except Exception:
+        if not renamed and os.path.lexists(partial):
+            safe_rmtree(partial, survival_root)
+        if renamed and archived and os.path.lexists(dst_world):
+            safe_move(dst_world, dst_world + '.failed', survival_root)
+            safe_move(archived, dst_world, survival_root)
+        elif archived and not renamed and not os.path.lexists(dst_world):
+            safe_move(archived, dst_world, survival_root)
+        raise
+
+
+def archive_worldguard(creative_root, archive_dir, worlds, survival_root):
+    base = os.path.join(creative_root, 'plugins', 'WorldGuard', 'worlds')
+    moved = []
+    for name in worlds:
+        src = os.path.join(base, name)
+        if not os.path.lexists(src):
+            continue
+        if os.path.islink(src):
+            raise RuntimeError(f'WorldGuard world path is a symlink: {src}')
+        dest = os.path.join(archive_dir, 'WorldGuard', name)
+        safe_move(src, dest, survival_root)
+        moved.append(name)
+    return moved
+
+
+def apply_properties_file(path, dry_run):
+    if not os.path.isfile(path):
+        raise SystemExit(f'missing {path}')
+    with open(path, encoding='utf-8') as fh:
+        original = fh.read()
+    updated = set_properties(original, PROPERTY_UPDATES)
+    if not dry_run and updated != original:
+        tmp = path + '.tmp'
+        with open(tmp, 'w', encoding='utf-8') as fh:
+            fh.write(updated)
+        os.replace(tmp, path)
+    return updated
+
+
+def chown_minecraft(path):
+    if os.geteuid() != 0:
+        return
+    try:
+        import grp, pwd
+        uid = pwd.getpwnam('minecraft').pw_uid
+        gid = grp.getgrnam('minecraft').gr_gid
+    except KeyError:
+        return
+    for dirpath, dirnames, filenames in os.walk(path):
+        os.chown(dirpath, uid, gid)
+        for name in filenames:
+            os.chown(os.path.join(dirpath, name), uid, gid)
+
+
+def with_saves_paused(rcon, read_log, action, timeout=90, sleep=0.25):
+    """Pause survival autosave around action. save-on runs if save-off succeeded."""
+    reply = rcon('survival', 'save-off')
+    if reply is None:
+        raise RuntimeError('save-off failed')
+    finished = False
+    try:
+        before = read_log()
+        saved = rcon('survival', 'save-all flush')
+        if saved is None:
+            raise RuntimeError('save-all flush failed')
+        if 'Saved the game' not in (saved or ''):
+            deadline = time.time() + timeout
+            while time.time() < deadline:
+                text = read_log()
+                new = text[len(before):] if text.startswith(before) else text
+                if 'Saved the game' in new:
+                    break
+                time.sleep(sleep)
+            else:
+                raise TimeoutError('survival did not log "Saved the game" after save-all flush')
+        action()
+        finished = True
+    finally:
+        again = rcon('survival', 'save-on')
+        if again is None and finished:
+            raise RuntimeError('save-on failed; survival may still have saving disabled')
+        if again is None:
+            print('warning: save-on failed after a copy error', file=sys.stderr)
+
+
+def run_copy(*, source, creative_root, survival_root, archive_root, replace, dry_run,
+             allow_live, creative_active, survival_active=False, rcon=None, read_log=None,
+             now=None):
+    source, creative_root, survival_root = validate_roots(source, creative_root, survival_root, allow_live)
+    if contained(os.path.realpath(archive_root), survival_root):
+        raise SystemExit('archive root is inside survival; refusing')
+    for name in WORLDS:
+        world_path = os.path.join(creative_root, name)
+        archive_real = os.path.realpath(archive_root)
+        world_real = os.path.realpath(world_path)
+        if archive_real == world_real or contained(archive_root, world_path):
+            raise SystemExit('archive root must not be inside a creative world')
+    assert_creative_config(creative_root)
+    if creative_active and not dry_run:
+        raise SystemExit('bellcraft-creative is running. Stop it first: sudo systemctl stop bellcraft-creative')
+    present = worlds_in(source)
+    creative_level = os.path.join(creative_root, 'world', 'level.dat')
+    already = os.path.lexists(creative_level)
+    if dry_run:
+        return {
+            'action': 'dry-run', 'worlds': present, 'source': source,
+            'replace': bool(already and replace), 'exists': already,
+        }
+    if already and not replace:
+        apply_properties_file(os.path.join(creative_root, 'server.properties'), dry_run=False)
+        return {'action': 'kept', 'worlds': present, 'source': source}
+
+    def do_copy():
+        stamp = (now or datetime.datetime.now(datetime.timezone.utc)).strftime('%Y%m%dT%H%M%SZ')
+        archive_dir = os.path.join(archive_root, stamp)
+        copied = []
+        for name in present:
+            replace_world(
+                os.path.join(source, name),
+                os.path.join(creative_root, name),
+                archive_dir,
+                survival_root,
+            )
+            copied.append(name)
+            print(f'copied {name}')
+        moved = archive_worldguard(creative_root, archive_dir, present, survival_root)
+        if moved:
+            print('archived WorldGuard regions for: ' + ', '.join(moved))
+        for name in copied:
+            chown_minecraft(os.path.join(creative_root, name))
+        marker = {
+            'source': source,
+            'copied_at': stamp,
+            'worlds': copied,
+            'refresh': 'one-time',
+            'note': 'Do not schedule. --replace archives creative terrain and copies again. Survival is never written.',
+        }
+        path = os.path.join(creative_root, '.creative-snapshot.json')
+        with open(path, 'w', encoding='utf-8') as fh:
+            json.dump(marker, fh, indent=2)
+            fh.write('\n')
+        chown_minecraft(path)
+        return copied
+
+    if allow_live and os.path.realpath(source) == os.path.realpath(survival_root) and survival_active:
+        if rcon is None or read_log is None:
+            raise SystemExit('live copy needs rcon and the survival log')
+        print('pausing survival autosave (save-off, save-all flush, copy, save-on)')
+        holder = {}
+
+        def action():
+            holder['copied'] = do_copy()
+
+        with_saves_paused(rcon, read_log, action)
+        copied = holder['copied']
+    else:
+        if allow_live and os.path.realpath(source) == os.path.realpath(survival_root) and not survival_active:
+            print('survival is stopped; copying its world files without save-off')
+        copied = do_copy()
+    apply_properties_file(os.path.join(creative_root, 'server.properties'), dry_run=False)
+    return {'action': 'copied', 'worlds': copied, 'source': source}
+
+
+def apply_perms(rcon, via):
+    if via not in RCON_SERVERS:
+        raise SystemExit(f'--via must be one of: {" ".join(RCON_SERVERS)}')
+    for command in PERM_COMMANDS:
+        reply = rcon(via, command)
+        if reply is None:
+            raise SystemExit(f'rcon failed: {command}')
+        text = (reply or '').strip()
+        print(f'{via}: {command}')
+        if text:
+            print(text)
+        else:
+            print('(empty reply — normal when the plugin answers with a component; check the console if the node did not apply)')
+
+
+def _systemctl_active(unit):
+    return subprocess.run(['systemctl', 'is-active', '--quiet', unit]).returncode == 0
+
+
+def _rcon(server, command):
+    proc = subprocess.run(['bellcraft-rcon', server, *command.split()], capture_output=True, text=True)
+    if proc.returncode != 0:
+        sys.stderr.write(proc.stderr or proc.stdout)
+        return None
+    return proc.stdout
+
+
+def _read_survival_log():
+    path = os.path.join(SURVIVAL_ROOT, 'logs', 'latest.log')
+    try:
+        with open(path, encoding='utf-8', errors='replace') as fh:
+            return fh.read()
+    except OSError:
+        return ''
+
+
+def _resolve_source(args):
+    if args.source:
+        return args.source
+    if args.origin == 'live':
+        return SURVIVAL_ROOT
+    found, archives = find_survival_backups(args.backup_root, SURVIVAL_ROOT)
+    if found:
+        print(f'using backup {found[0]}')
+        return found[0]
+    extra = ''
+    if archives:
+        extra = (
+            f'\nFound an archive ({archives[0]}) but this script does not extract it. '
+            'Extract survival/world, world_nether and world_the_end, then pass --source.'
+        )
+    raise SystemExit(f'no extracted survival world under {args.backup_root}.{extra}')
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = parser.add_subparsers(dest='cmd', required=True)
+    copy = sub.add_parser('copy', help='copy a survival snapshot onto creative')
+    copy.add_argument('--from', dest='origin', choices=('live', 'backup'), required=True)
+    copy.add_argument('--source', help='survival server directory to read (contains world/level.dat)')
+    copy.add_argument('--backup-root', default=BACKUP_ROOT)
+    copy.add_argument('--archive-root', default=ARCHIVE_ROOT)
+    copy.add_argument('--creative-root', default=CREATIVE_ROOT)
+    copy.add_argument('--survival-root', default=SURVIVAL_ROOT)
+    copy.add_argument('--replace', action='store_true',
+                      help='archive the current creative worlds and copy again')
+    copy.add_argument('--dry-run', action='store_true')
+    perms = sub.add_parser('perms', help='grant the default group /server build')
+    perms.add_argument('--via', default='survival', choices=RCON_SERVERS)
+    args = parser.parse_args(argv)
+
+    if args.cmd == 'perms':
+        if os.geteuid() != 0:
+            raise SystemExit('run with sudo')
+        apply_perms(_rcon, args.via)
+        return 0
+
+    if os.geteuid() != 0 and args.creative_root == CREATIVE_ROOT and not args.dry_run:
+        raise SystemExit('run with sudo')
+    source = _resolve_source(args)
+    creative_active = _systemctl_active('bellcraft-creative') if args.creative_root == CREATIVE_ROOT else False
+    survival_active = _systemctl_active('bellcraft-survival') if args.origin == 'live' else False
+    result = run_copy(
+        source=source,
+        creative_root=args.creative_root,
+        survival_root=args.survival_root,
+        archive_root=args.archive_root,
+        replace=args.replace,
+        dry_run=args.dry_run,
+        allow_live=args.origin == 'live',
+        creative_active=creative_active,
+        survival_active=survival_active,
+        rcon=_rcon,
+        read_log=_read_survival_log,
+    )
+    if result['action'] == 'kept':
+        print('creative world already exists; terrain was not refreshed.')
+        print('That is intentional. Creative builds are kept. Pass --replace only to discard them.')
+        print('server.properties creative settings were applied.')
+    elif result['action'] == 'dry-run':
+        if result['exists'] and not result['replace']:
+            print('would leave the creative terrain in place (pass --replace to refresh it)')
+        else:
+            print(f'would copy {", ".join(result["worlds"])} from {result["source"]}')
+            print('would not copy playerdata, stats, advancements, uid.dat or symlinks')
+            print('would patch level.dat to creative/peaceful')
+        print('would update creative server.properties (gamemode, force-gamemode, allow-nether, difficulty, spawn-monsters)')
+        if result['replace']:
+            print(f'would archive the current creative worlds under {args.archive_root}')
+        if args.origin == 'live':
+            print('would save-off, save-all flush, copy, then save-on. Survival would keep running.')
+    else:
+        print(f'copied {", ".join(result["worlds"])} from {result["source"]}')
+        print('server.properties now forces creative. Start creative, then run: bellcraft-creative-world perms')
+        print('Do not schedule a refresh. The next copy needs --replace and archives this terrain first.')
+    return 0
+
+
+if __name__ == '__main__':
+    try:
+        sys.exit(main())
+    except (SystemExit, KeyboardInterrupt):
+        raise
+    except Exception as exc:
+        print(f'error: {exc}', file=sys.stderr)
+        sys.exit(1)

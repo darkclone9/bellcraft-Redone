@@ -15,7 +15,7 @@ One Linux box runs the whole Minecraft stack under `/opt/bellcraft/<server>`, ea
 | `servers/lobby` | `lobby` | Hub. GUIPlus "Realm Portal" menu (`/guiplus:hub`) sends players to the other servers |
 | `servers/survival` | `survival` | **RPG survival**: MMOCore classes, skills, quests, MythicMobs, Nexo items, zone levels, Towny, economy |
 | `servers/classic` | `classic` | **Classic survival** (added 2026-09-29): same QoL plugins, *no* MMOCore/MythicLib/Nexo/classes. Own world, inventories and economy |
-| `servers/creative` | `build` | Builders-only build server (BellcraftBuild plugin, plots, `/build`, `/buildteam`) |
+| `servers/creative` | `build` | Creative copy of the survival world. Players build in creative; inventories stay on this server. Not the BellcraftBuild plot grid (`ops/bellcraft-creative-world`) |
 | `servers/rpg`, `servers/test` | `rpg`, `test` | **Dev backends**, normally stopped. Use them to test before touching live servers |
 
 The websites (join.bellcraft.online, the radio) live on a different host and are **not** in this repo.

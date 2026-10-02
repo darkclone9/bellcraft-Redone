@@ -2,27 +2,27 @@ minecraft:overworld:
   adjust-spawn: true
   alias: ''
   allow-advancement-grant: true
-  allow-flight: false
+  allow-flight: true
   allow-weather: true
   anchor-respawn: true
   auto-heal: true
   auto-load: true
   bed-respawn: true
   biome: ''
-  difficulty: easy
+  difficulty: peaceful
   entry-fee:
     enabled: false
     amount: 0.0
     currency: '@vault-economy'
-  gamemode: survival
+  gamemode: creative
   generator: ''
   hidden: false
-  hunger: true
+  hunger: false
   keep-spawn-in-memory: false
   meta: {}
   player-limit: -1
   portal-form: all
-  pvp: true
+  pvp: false
   respawn-world: ''
   scale: 1.0
   spawn-location:
@@ -34,7 +34,7 @@ minecraft:overworld:
     yaw: 0.0
   spawning:
     monster:
-      spawn: true
+      spawn: false
       tick-rate: '@unset'
       spawn-limit: '@unset'
       exceptions: []
@@ -84,27 +84,27 @@ minecraft:the_end:
   adjust-spawn: true
   alias: ''
   allow-advancement-grant: true
-  allow-flight: false
+  allow-flight: true
   allow-weather: true
   anchor-respawn: true
   auto-heal: true
   auto-load: true
   bed-respawn: true
   biome: ''
-  difficulty: easy
+  difficulty: peaceful
   entry-fee:
     enabled: false
     amount: 0.0
     currency: '@vault-economy'
-  gamemode: survival
+  gamemode: creative
   generator: ''
   hidden: false
-  hunger: true
+  hunger: false
   keep-spawn-in-memory: false
   meta: {}
   player-limit: -1
   portal-form: all
-  pvp: true
+  pvp: false
   respawn-world: ''
   scale: 1.0
   spawn-location:
@@ -116,7 +116,7 @@ minecraft:the_end:
     yaw: 0.0
   spawning:
     monster:
-      spawn: true
+      spawn: false
       tick-rate: '@unset'
       spawn-limit: '@unset'
       exceptions: []
@@ -166,27 +166,27 @@ minecraft:the_nether:
   adjust-spawn: true
   alias: ''
   allow-advancement-grant: true
-  allow-flight: false
+  allow-flight: true
   allow-weather: true
   anchor-respawn: true
   auto-heal: true
   auto-load: true
   bed-respawn: true
   biome: ''
-  difficulty: easy
+  difficulty: peaceful
   entry-fee:
     enabled: false
     amount: 0.0
     currency: '@vault-economy'
-  gamemode: survival
+  gamemode: creative
   generator: ''
   hidden: false
-  hunger: true
+  hunger: false
   keep-spawn-in-memory: false
   meta: {}
   player-limit: -1
   portal-form: all
-  pvp: true
+  pvp: false
   respawn-world: ''
   scale: 8.0
   spawn-location:
@@ -198,7 +198,7 @@ minecraft:the_nether:
     yaw: 0.0
   spawning:
     monster:
-      spawn: true
+      spawn: false
       tick-rate: '@unset'
       spawn-limit: '@unset'
       exceptions: []

@@ -126,6 +126,7 @@ luck-perms-meta:
 server-aliases:
   lobby: "&bLobby&r"
   survival: "&aSurvival&r"
+  build: "&dCreative&r"
   creative: "&dCreative&r"
   rpg: "&6RPG&r"
   test: "&7Test&r"
