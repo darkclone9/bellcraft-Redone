@@ -1,5 +1,6 @@
 BOOK_OF_STRENGTH:
   base:
+    revision: 1
     material: BOOK
     name: §cBook of Strength
     lore:
@@ -12,5 +13,6 @@ BOOK_OF_STRENGTH:
     weapon-damage: 10.0
     damage-reduction: 5.0
     required-class:
-      - Warrior
+      - Soldier
+      - Paladin
     required-level: 15.0

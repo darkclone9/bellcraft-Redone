@@ -136,6 +136,7 @@ NETHERITE_BOW:
     required-level: 14.0
 PRECISION_BOW:
   base:
+    revision: 1
     material: BOW
     name: §7§lPrecision Bow
     lore:
@@ -165,4 +166,4 @@ PRECISION_BOW:
     tier: RARE
     max-durability: 2400.0
     required-class:
-      - Archer
+      - Ranger

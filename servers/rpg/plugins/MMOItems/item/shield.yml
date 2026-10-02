@@ -128,6 +128,7 @@ OBSIDIAN_SHIELD:
     handworn: true
 SUPREME_SHIELD:
   base:
+    revision: 1
     material: SHIELD
     tier: LEGENDARY
     block-power: 100.0
@@ -142,7 +143,8 @@ SUPREME_SHIELD:
       spread: 0.1
       max-spread: 0.2
     required-class:
-      - Warrior
+      - Soldier
+      - Paladin
     name: §9§l§oSupreme Shield
     lore:
       - §7The mightiest of all §eshields§7.

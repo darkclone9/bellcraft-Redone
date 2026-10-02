@@ -29,6 +29,7 @@ SCOPE:
       max-spread: 0.3
 QUICKCASTER_CATALYST:
   base:
+    revision: 1
     material: PRISMARINE_CRYSTALS
     name: §b§l§oQuickcaster's Catalyst
     lore:
@@ -40,7 +41,10 @@ QUICKCASTER_CATALYST:
     max-mana: 5.0
     mana-regeneration: 1.0
     required-class:
-      - Mage
+      - Sorcerer
+      - Mystic
+      - Technomancer
+      - Necromancer
     required-level: 5.0
     tier: RARE
 CHARM_OF_LEVITATION:

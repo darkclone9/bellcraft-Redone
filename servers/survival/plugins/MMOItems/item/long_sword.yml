@@ -1,5 +1,6 @@
 DUAL_LONGSWORD:
   base:
+    revision: 1
     material: WOODEN_SWORD
     max-durability: 8400.0
     name: §f§l§oDual Lon§8§l§ogsword
