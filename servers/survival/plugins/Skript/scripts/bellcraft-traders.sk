@@ -1,0 +1,826 @@
+# Bellcraft hired traders (RPG survival)
+#
+# A player hires an unnamed adult villager inside their own Towny town. The villager
+# then sells items that player stocked. Rent is the server's Vault balance (CMI).
+# One payment covers one day. When the day runs out, the stall stops selling.
+# Stock stays in this script's variables until the owner takes it back, even if
+# the rent is never paid and even if the villager dies.
+#
+# Defaults the owner can change (the options below):
+#   daily-fee 50, max 2 stalls, 18 slots, price is per single item, minimum 1.
+# Rent is removed from the economy (it is not paid to the town). Missed days are
+# not back-charged. While the owner is online, in a character, and away from the
+# profile-selection spot, rent renews on its own if they can afford it.
+#
+# Earnings sit in {bctrader::purse::} until that player is online in a profile,
+# then they are paid into the active character's balance. MMOProfiles keeps a
+# separate balance per character, so the character that is online receives it.
+#
+# Needs a full boot of the backend to confirm it parsed. sk reload hides errors.
+
+options:
+    prefix: &8[&6Trader&8] &r
+    daily-fee: 50
+    max-traders: 2
+    min-price: 1
+    max-price: 1000000
+    reach: 5
+    stock-title: &8Stall Stock
+    shop-title: &8Stall
+    select-x: 239.5
+    select-y: 74
+    select-z: 208.5
+    select-radius: 12
+
+# ---------------------------------------------------------------- helpers
+
+function traderOpen(id: text) :: boolean:
+    if {bctrader::%{_id}%::until} is not set:
+        return false
+    if {bctrader::%{_id}%::until} < now:
+        return false
+    return true
+
+function traderCount(uuid: text) :: number:
+    set {_n} to 0
+    if {bctrader::list::*} is not set:
+        return 0
+    loop {bctrader::list::*}:
+        set {_id} to loop-value
+        if {bctrader::%{_id}%::owner} is {_uuid}:
+            if {bctrader::%{_id}%::missing} is not set:
+                add 1 to {_n}
+    return {_n}
+
+function traderStockCount(id: text) :: number:
+    set {_n} to 0
+    loop 18 times:
+        set {_slot} to loop-number - 1
+        if {bctrader::%{_id}%::item::%{_slot}%} is set:
+            add 1 to {_n}
+    return {_n}
+
+function traderMob(id: text) :: entity:
+    set {_e} to {bctrader::%{_id}%::entity}
+    if {_e} is set:
+        if {_e} is alive:
+            if "%uuid of {_e}%" is {_id}:
+                return {_e}
+
+function inProfile(p: player) :: boolean:
+    set {_id} to placeholder "mmoprofiles_profile_id" from {_p}
+    if {_id} is set:
+        if {_id} is not "":
+            if {_id} contains "mmoprofiles_profile_id":
+                set {_id} to ""
+            else:
+                return true
+    set {_c} to placeholder "mmocore_class" from {_p}
+    if {_c} is not set:
+        return false
+    if {_c} is "":
+        return false
+    if {_c} contains "mmocore_class":
+        return false
+    return true
+
+function awayFromSelect(p: player) :: boolean:
+    if "%world of {_p}%" is not "world":
+        return true
+    set {_spot} to location({@select-x}, {@select-y}, {@select-z}, world "world")
+    if distance between {_p} and {_spot} > {@select-radius}:
+        return true
+    return false
+
+function traderTownOk(p: player) :: boolean:
+    if {_p} is op:
+        return true
+    set {_mine} to placeholder "townyadvanced_town" from {_p}
+    if {_mine} is not set:
+        return false
+    if {_mine} is "":
+        return false
+    if {_mine} is "None":
+        return false
+    if {_mine} is "none":
+        return false
+    if {_mine} contains "townyadvanced_town":
+        return false
+    set {_here} to placeholder "townyadvanced_player_location_town_or_wildname" from {_p}
+    if {_here} is not set:
+        return false
+    if {_here} is {_mine}:
+        return true
+    return false
+
+function traderTarget(p: player) :: entity:
+    set {_e} to targeted entity of {_p}
+    if {_e} is not set:
+        stop
+    if {_e} is not a villager:
+        stop
+    if distance between {_p} and {_e} > {@reach}:
+        stop
+    return {_e}
+
+function traderTagged(e: entity) :: boolean:
+    set {_tags::*} to scoreboard tags of {_e}
+    if {_tags::*} contains "bellcraft_trader":
+        return true
+    if {_tags::*} contains "CITIZENS_NPC":
+        return true
+    return false
+
+function traderPayPurse(p: player):
+    if inProfile({_p}) is false:
+        stop
+    set {_uuid} to "%uuid of {_p}%"
+    set {_amt} to {bctrader::purse::%{_uuid}%}
+    if {_amt} is not set:
+        stop
+    if {_amt} <= 0:
+        stop
+    add {_amt} to {_p}'s balance
+    delete {bctrader::purse::%{_uuid}%}
+    send "{@prefix}&aYour trader earned &f%{_amt}%&a. It is in your balance." to {_p}
+
+function traderRenew(p: player, id: text) :: boolean:
+    if traderOpen({_id}) is true:
+        return true
+    if "%uuid of {_p}%" is not {bctrader::%{_id}%::owner}:
+        return false
+    if inProfile({_p}) is false:
+        return false
+    if {_p}'s balance < {@daily-fee}:
+        return false
+    set {_before} to {_p}'s balance
+    remove {@daily-fee} from {_p}'s balance
+    if {_p}'s balance > ({_before} - {@daily-fee}) + 0.001:
+        return false
+    set {_until} to now
+    add 1 day to {_until}
+    set {bctrader::%{_id}%::until} to {_until}
+    delete {bctrader::%{_id}%::told}
+    return true
+
+function traderTouch(mob: entity, id: text):
+    make {_mob} invulnerable
+    set AI of {_mob} to false
+    make {_mob} silent
+    show the custom name of {_mob}
+    add "bellcraft_trader" to scoreboard tags of {_mob}
+    set profession of {_mob} to nitwit
+    set {_who} to {bctrader::%{_id}%::ownername}
+    if traderOpen({_id}) is true:
+        set custom name of {_mob} to "&6Trader &7| &f%{_who}%"
+    else:
+        set custom name of {_mob} to "&cTrader &7| &f%{_who}% &8(closed)"
+    set {bctrader::%{_id}%::entity} to {_mob}
+
+function traderRelease(mob: entity):
+    make {_mob} vulnerable
+    set AI of {_mob} to true
+    unsilence {_mob}
+    set profession of {_mob} to none
+    hide the custom name of {_mob}
+    set custom name of {_mob} to ""
+    remove "bellcraft_trader" from scoreboard tags of {_mob}
+
+function traderForget(id: text):
+    delete {bctrader::%{_id}%::item::*}
+    delete {bctrader::%{_id}%::price::*}
+    delete {bctrader::%{_id}%::owner}
+    delete {bctrader::%{_id}%::ownername}
+    delete {bctrader::%{_id}%::until}
+    delete {bctrader::%{_id}%::entity}
+    delete {bctrader::%{_id}%::missing}
+    delete {bctrader::%{_id}%::town}
+    delete {bctrader::%{_id}%::told}
+    remove {_id} from {bctrader::list::*}
+
+function traderGiveAll(p: player, id: text) :: boolean:
+    loop 18 times:
+        set {_slot} to loop-number - 1
+        set {_it} to {bctrader::%{_id}%::item::%{_slot}%}
+        if {_it} is set:
+            if {_p} can hold {_it}:
+                give {_it} to {_p}
+                delete {bctrader::%{_id}%::item::%{_slot}%}
+                delete {bctrader::%{_id}%::price::%{_slot}%}
+            else:
+                return false
+    return true
+
+function traderDecorate(stack: item, price: number, mode: text) :: item:
+    set {_show} to {_stack}
+    set {_lore::*} to lore of {_show}
+    add "" to {_lore::*}
+    if {_mode} is "stock":
+        if {_price} > 0:
+            add "&7Price each: &a%{_price}%" to {_lore::*}
+            add "&eLeft click to change the price" to {_lore::*}
+            add "&7Shift click takes it back" to {_lore::*}
+        else:
+            add "&cNot for sale yet" to {_lore::*}
+            add "&eLeft click sets the price" to {_lore::*}
+            add "&7Shift click takes it back" to {_lore::*}
+    else if {_mode} is "shop":
+        add "&7Price each: &a%{_price}%" to {_lore::*}
+        add "&eLeft click buys 1" to {_lore::*}
+        add "&eShift click buys as many as you can pay for" to {_lore::*}
+    else:
+        add "&7Price each: &a%{_price}%" to {_lore::*}
+        add "&cRent is unpaid" to {_lore::*}
+        add "&7This stall is not selling." to {_lore::*}
+        add "&7The owner's items stay stored." to {_lore::*}
+    set lore of {_show} to {_lore::*}
+    return {_show}
+
+function traderShowStock(p: player, id: text):
+    set {_inv} to chest inventory with 3 rows named "{@stock-title}"
+    loop 27 times:
+        set slot (loop-number - 1) of {_inv} to gray stained glass pane named " "
+    loop 18 times:
+        set {_slot} to loop-number - 1
+        set {_it} to {bctrader::%{_id}%::item::%{_slot}%}
+        if {_it} is set:
+            set {_price} to {bctrader::%{_id}%::price::%{_slot}%}
+            if {_price} is not set:
+                set {_price} to 0
+            set slot {_slot} of {_inv} to traderDecorate({_it}, {_price}, "stock")
+        else:
+            set slot {_slot} of {_inv} to light gray stained glass pane named "&8Empty" with lore "&7Shift-click an item in your inventory" and "&7to stock this stall."
+    if traderOpen({_id}) is true:
+        set {_left} to difference between now and {bctrader::%{_id}%::until}
+        set {_status} to "&aOpen &7- %{_left}% left"
+    else:
+        set {_status} to "&cClosed &7- rent due. Items are still here."
+    set slot 19 of {_inv} to emerald named "&aRent" with lore "&7Fee: &f{@daily-fee}% &7for 1 day" and "%{_status}%" and "&eClick to pay one day if it is closed."
+    set slot 21 of {_inv} to book named "&eHow this stall works" with lore "&7Shift-click items from your inventory." and "&7Left click a stocked item, then type a price." and "&7Shift click a stocked item to take it back." and "&7Buyers pay your balance, per item." and "&7/hiretrader dismiss returns everything."
+    set slot 22 of {_inv} to paper named "&7Retire" with lore "&7Look at this trader and run" and "&f/hiretrader dismiss" and "&7You get every item back." and "&7Make inventory space first."
+    set {bctrader::view::%uuid of {_p}%::id} to {_id}
+    set {bctrader::view::%uuid of {_p}%::mode} to "stock"
+    open {_inv} to {_p}
+
+function traderShowShop(p: player, id: text):
+    set {_inv} to chest inventory with 3 rows named "{@shop-title}"
+    loop 27 times:
+        set slot (loop-number - 1) of {_inv} to gray stained glass pane named " "
+    set {_selling} to traderOpen({_id})
+    set {_owner} to {bctrader::%{_id}%::ownername}
+    set {_shown} to 0
+    loop 18 times:
+        set {_slot} to loop-number - 1
+        set {_it} to {bctrader::%{_id}%::item::%{_slot}%}
+        set {_price} to {bctrader::%{_id}%::price::%{_slot}%}
+        if {_it} is set:
+            if {_price} is set:
+                if {_price} >= {@min-price}:
+                    if {_selling} is true:
+                        set slot {_slot} of {_inv} to traderDecorate({_it}, {_price}, "shop")
+                    else:
+                        set slot {_slot} of {_inv} to traderDecorate({_it}, {_price}, "closed")
+                    add 1 to {_shown}
+    if {_shown} is 0:
+        set slot 13 of {_inv} to paper named "&7Nothing for sale" with lore "&7This stall has no priced items."
+    if {_selling} is true:
+        set slot 22 of {_inv} to emerald named "&a%{_owner}%'s stall" with lore "&7Prices are per item." and "&7Money is paid to the owner."
+    else:
+        set slot 22 of {_inv} to barrier named "&cStall closed" with lore "&7Rent is unpaid, so nothing can be bought." and "&7The owner's items are stored, not lost."
+    set {bctrader::view::%uuid of {_p}%::id} to {_id}
+    set {bctrader::view::%uuid of {_p}%::mode} to "shop"
+    open {_inv} to {_p}
+
+function traderHire(p: player):
+    set {_e} to traderTarget({_p})
+    if {_e} is not set:
+        send "{@prefix}&7Look at an unnamed adult villager and run &f/hiretrader&7." to {_p}
+        send "{@prefix}&7You must be inside your own town. Rent is &f{@daily-fee}% &7a day." to {_p}
+        stop
+    set {_id} to "%uuid of {_e}%"
+    if {bctrader::%{_id}%::owner} is set:
+        if {bctrader::%{_id}%::owner} is "%uuid of {_p}%":
+            traderPayPurse({_p})
+            if {_p} is sneaking:
+                traderShowStock({_p}, {_id})
+            else:
+                traderShowShop({_p}, {_id})
+        else:
+            set {_who} to {bctrader::%{_id}%::ownername}
+            send "{@prefix}&c%{_who}% &7already hired that villager." to {_p}
+        stop
+    if traderTagged({_e}) is true:
+        send "{@prefix}&cThat villager is already spoken for." to {_p}
+        stop
+    if {_e} is an adult:
+        set {_adult} to true
+    else:
+        send "{@prefix}&cYou can only hire an adult villager." to {_p}
+        stop
+    set {_cn} to custom name of {_e}
+    if {_cn} is set:
+        if {_cn} is not "":
+            send "{@prefix}&cThat villager already has a name, so it was left alone." to {_p}
+            stop
+    if traderTownOk({_p}) is false:
+        send "{@prefix}&cHire a villager inside your own town, not in the wilderness or someone else's town." to {_p}
+        stop
+    set {_uuid} to "%uuid of {_p}%"
+    if traderCount({_uuid}) >= {@max-traders}:
+        send "{@prefix}&cYou already have &f{@max-traders}% &ctraders. Dismiss one first." to {_p}
+        stop
+    if inProfile({_p}) is false:
+        send "{@prefix}&cFinish choosing a character before hiring a trader." to {_p}
+        stop
+    set {_bal} to {_p}'s balance
+    if {_bal} < {@daily-fee}:
+        send "{@prefix}&cHiring costs &f{@daily-fee}%&c. Your balance is &f%{_bal}%&c." to {_p}
+        stop
+    set {_before} to {_p}'s balance
+    remove {@daily-fee} from {_p}'s balance
+    if {_p}'s balance > ({_before} - {@daily-fee}) + 0.001:
+        send "{@prefix}&cThe rent could not be taken, so the villager was not hired." to {_p}
+        stop
+    set {_until} to now
+    add 1 day to {_until}
+    set {bctrader::%{_id}%::owner} to {_uuid}
+    set {bctrader::%{_id}%::ownername} to "%{_p}%"
+    set {bctrader::%{_id}%::until} to {_until}
+    set {bctrader::%{_id}%::town} to placeholder "townyadvanced_town" from {_p}
+    delete {bctrader::%{_id}%::missing}
+    if {bctrader::list::*} does not contain {_id}:
+        add {_id} to {bctrader::list::*}
+    traderTouch({_e}, {_id})
+    send "{@prefix}&aHired. &f{@daily-fee}% &apaid for one day." to {_p}
+    send "{@prefix}&7Sneak and click the trader to stock it. Other players click to buy." to {_p}
+    send "{@prefix}&7If the rent lapses, selling stops. Your items stay until you take them." to {_p}
+    traderShowStock({_p}, {_id})
+
+function traderMaintain(p: player, id: text):
+    if inProfile({_p}) is false:
+        stop
+    if awayFromSelect({_p}) is false:
+        stop
+    traderPayPurse({_p})
+    set {_before} to traderOpen({_id})
+    set {_ok} to traderRenew({_p}, {_id})
+    if {_before} is false:
+        if {_ok} is true:
+            set {_mob} to traderMob({_id})
+            if {_mob} is set:
+                traderTouch({_mob}, {_id})
+            send "{@prefix}&aRent paid (&f{@daily-fee}%&a). Your trader is selling again." to {_p}
+        else:
+            if {bctrader::%{_id}%::told} is not set:
+                set {bctrader::%{_id}%::told} to true
+                set {_mob} to traderMob({_id})
+                if {_mob} is set:
+                    traderTouch({_mob}, {_id})
+                send "{@prefix}&cRent is unpaid, so your trader stopped selling. Your items are still stored. &f/hiretrader pay" to {_p}
+
+function traderKeep(id: text, slot: number, have: number):
+    set {_back} to {bctrader::%{_id}%::item::%{_slot}%}
+    if {_back} is set:
+        set amount of {_back} to {_have}
+        set {bctrader::%{_id}%::item::%{_slot}%} to {_back}
+
+function traderBuy(p: player, id: text, slot: number, count: number):
+    if {bctrader::%{_id}%::owner} is not set:
+        send "{@prefix}&cThat stall is gone." to {_p}
+        stop
+    if traderOpen({_id}) is false:
+        send "{@prefix}&cThis trader's rent is unpaid, so nothing is for sale. The stock has not been removed." to {_p}
+        stop
+    if "%uuid of {_p}%" is {bctrader::%{_id}%::owner}:
+        send "{@prefix}&7This is your stall. Sneak and click the trader to stock it." to {_p}
+        stop
+    if inProfile({_p}) is false:
+        send "{@prefix}&cFinish choosing a character before buying." to {_p}
+        stop
+    set {_price} to {bctrader::%{_id}%::price::%{_slot}%}
+    if {_price} is not set:
+        stop
+    if {_price} < {@min-price}:
+        stop
+    set {_it} to {bctrader::%{_id}%::item::%{_slot}%}
+    if {_it} is not set:
+        stop
+    set {_have} to amount of {_it}
+    if {_count} > {_have}:
+        set {_count} to {_have}
+    if {_count} < 1:
+        stop
+    set {_cost} to {_price} * {_count}
+    set {_bal} to {_p}'s balance
+    if {_bal} < {_cost}:
+        send "{@prefix}&cThat costs &f%{_cost}%&c. Your balance is &f%{_bal}%&c." to {_p}
+        stop
+    set {_sample} to {bctrader::%{_id}%::item::%{_slot}%}
+    set amount of {_sample} to {_count}
+    if {_p} can hold {_sample}:
+        set {_fits} to true
+    else:
+        traderKeep({_id}, {_slot}, {_have})
+        send "{@prefix}&cMake space in your inventory first." to {_p}
+        stop
+    set {_bal} to {_p}'s balance
+    remove {_cost} from {_p}'s balance
+    if {_p}'s balance > ({_bal} - {_cost}) + 0.001:
+        traderKeep({_id}, {_slot}, {_have})
+        send "{@prefix}&cThe payment could not be taken." to {_p}
+        stop
+    set {_left} to {_have} - {_count}
+    if {_left} < 1:
+        delete {bctrader::%{_id}%::item::%{_slot}%}
+        delete {bctrader::%{_id}%::price::%{_slot}%}
+    else:
+        set {_stored} to {bctrader::%{_id}%::item::%{_slot}%}
+        set amount of {_stored} to {_left}
+        set {bctrader::%{_id}%::item::%{_slot}%} to {_stored}
+    give {_sample} to {_p}
+    set {_seller} to {bctrader::%{_id}%::owner}
+    if {bctrader::purse::%{_seller}%} is not set:
+        set {bctrader::purse::%{_seller}%} to 0
+    add {_cost} to {bctrader::purse::%{_seller}%}
+    set {_sellerPlayer} to player({_seller})
+    if {_sellerPlayer} is set:
+        traderPayPurse({_sellerPlayer})
+    send "{@prefix}&aBought &f%{_count}% &afor &f%{_cost}%&a." to {_p}
+    play sound "entity.villager.yes" with volume 0.6 and pitch 1.2 at {_p}
+    traderShowShop({_p}, {_id})
+
+function traderDismiss(p: player):
+    set {_e} to traderTarget({_p})
+    if {_e} is not set:
+        send "{@prefix}&cLook at your trader, then run &f/hiretrader dismiss&c." to {_p}
+        stop
+    set {_id} to "%uuid of {_e}%"
+    if {bctrader::%{_id}%::owner} is not "%uuid of {_p}%":
+        send "{@prefix}&cYou can only dismiss a trader you hired." to {_p}
+        stop
+    if traderGiveAll({_p}, {_id}) is false:
+        send "{@prefix}&eYour inventory filled up. What fit was returned. Make space and dismiss again for the rest." to {_p}
+        traderShowStock({_p}, {_id})
+        stop
+    traderRelease({_e})
+    traderForget({_id})
+    traderPayPurse({_p})
+    send "{@prefix}&aDismissed. Every stored item was returned. Today's rent is not refunded." to {_p}
+
+function traderRecover(p: player):
+    set {_uuid} to "%uuid of {_p}%"
+    set {_any} to false
+    if {bctrader::list::*} is not set:
+        send "{@prefix}&7You have no lost traders." to {_p}
+        stop
+    set {_ids::*} to {bctrader::list::*}
+    loop {_ids::*}:
+        set {_id} to loop-value
+        if {bctrader::%{_id}%::owner} is {_uuid}:
+            if {bctrader::%{_id}%::missing} is set:
+                set {_any} to true
+                if traderGiveAll({_p}, {_id}) is true:
+                    traderForget({_id})
+                    send "{@prefix}&aRecovered the stock from a trader that died." to {_p}
+                else:
+                    send "{@prefix}&eMake more inventory space, then run &f/hiretrader recover&e again." to {_p}
+                    stop
+    if {_any} is false:
+        send "{@prefix}&7None of your traders are missing. Stand next to one and use &f/hiretrader dismiss&7." to {_p}
+
+function traderInfo(p: player):
+    set {_uuid} to "%uuid of {_p}%"
+    send "{@prefix}&7Your traders (rent &f{@daily-fee}%&7 each day, up to &f{@max-traders}%&7):" to {_p}
+    set {_any} to false
+    if {bctrader::list::*} is set:
+        loop {bctrader::list::*}:
+            set {_id} to loop-value
+            if {bctrader::%{_id}%::owner} is {_uuid}:
+                set {_any} to true
+                set {_n} to traderStockCount({_id})
+                if {bctrader::%{_id}%::missing} is set:
+                    send " &8- &cmissing villager &7- &f%{_n}% &7stacks waiting. &f/hiretrader recover" to {_p}
+                else if traderOpen({_id}) is true:
+                    set {_left} to difference between now and {bctrader::%{_id}%::until}
+                    send " &8- &aopen &7- &f%{_n}% &7stacks &7- %{_left}% left" to {_p}
+                else:
+                    send " &8- &cclosed &7- rent due &7- &f%{_n}% &7stacks still stored" to {_p}
+    if {_any} is false:
+        send " &8- &7None. Look at a villager in your town and run &f/hiretrader&7." to {_p}
+    set {_purse} to {bctrader::purse::%{_uuid}%}
+    if {_purse} is set:
+        if {_purse} > 0:
+            send "{@prefix}&7Unpaid earnings waiting: &f%{_purse}%" to {_p}
+
+function traderPay(p: player):
+    traderPayPurse({_p})
+    set {_uuid} to "%uuid of {_p}%"
+    set {_e} to traderTarget({_p})
+    set {_hit} to false
+    if {_e} is set:
+        set {_id} to "%uuid of {_e}%"
+        if {bctrader::%{_id}%::owner} is {_uuid}:
+            set {_hit} to true
+            if traderOpen({_id}) is true:
+                set {_left} to difference between now and {bctrader::%{_id}%::until}
+                send "{@prefix}&7Already paid. Selling for another %{_left}%." to {_p}
+            else if traderRenew({_p}, {_id}) is true:
+                traderTouch({_e}, {_id})
+                send "{@prefix}&aPaid &f{@daily-fee}%&a. This trader is selling again." to {_p}
+            else:
+                set {_bal} to {_p}'s balance
+                send "{@prefix}&cYou need &f{@daily-fee}%&c. Balance: &f%{_bal}%&c. The stall stays closed and your items stay stored." to {_p}
+    if {_hit} is true:
+        stop
+    if {bctrader::list::*} is not set:
+        send "{@prefix}&7You have no traders." to {_p}
+        stop
+    set {_closed} to 0
+    loop {bctrader::list::*}:
+        set {_id} to loop-value
+        if {bctrader::%{_id}%::owner} is {_uuid}:
+            if {bctrader::%{_id}%::missing} is not set:
+                set {_was} to traderOpen({_id})
+                if {_was} is false:
+                    add 1 to {_closed}
+                    if traderRenew({_p}, {_id}) is true:
+                        set {_mob} to traderMob({_id})
+                        if {_mob} is set:
+                            traderTouch({_mob}, {_id})
+                        send "{@prefix}&aPaid &f{@daily-fee}%&a for one trader. It is selling again." to {_p}
+                    else:
+                        set {_bal} to {_p}'s balance
+                        send "{@prefix}&cNot enough money to pay every closed trader. Balance: &f%{_bal}%&c." to {_p}
+                        stop
+    if {_closed} is 0:
+        send "{@prefix}&7Your traders are already paid. Look at one and sneak-click it to stock it." to {_p}
+
+# ---------------------------------------------------------------- events
+
+on script load:
+    log "[traders] bellcraft-traders loaded (fee %{@daily-fee}%, max %{@max-traders}%)"
+
+on damage:
+    victim is a villager
+    set {_id} to "%uuid of victim%"
+    if {bctrader::%{_id}%::owner} is not set:
+        stop
+    cancel event
+
+on death:
+    victim is a villager
+    set {_id} to "%uuid of victim%"
+    if {bctrader::%{_id}%::owner} is not set:
+        stop
+    set {bctrader::%{_id}%::missing} to true
+    delete {bctrader::%{_id}%::entity}
+    set {_who} to player({bctrader::%{_id}%::owner})
+    if {_who} is set:
+        send "{@prefix}&cYour trader died. Items are safe. Use &f/hiretrader recover&c." to {_who}
+
+on right click on villager:
+    set {_id} to "%uuid of event-entity%"
+    if {bctrader::%{_id}%::owner} is not set:
+        stop
+    cancel event
+    set {bctrader::%{_id}%::entity} to event-entity
+    traderTouch(event-entity, {_id})
+    if "%uuid of player%" is {bctrader::%{_id}%::owner}:
+        traderPayPurse(player)
+        if player is sneaking:
+            traderShowStock(player, {_id})
+        else:
+            if traderOpen({_id}) is false:
+                if traderRenew(player, {_id}) is true:
+                    traderTouch(event-entity, {_id})
+                    send "{@prefix}&aRent paid. Selling again." to player
+            traderShowShop(player, {_id})
+    else:
+        traderShowShop(player, {_id})
+
+on inventory click:
+    set {_title} to name of player's current inventory
+    if {_title} is "{@stock-title}":
+        cancel event
+        set {_uuid} to "%uuid of player%"
+        set {_id} to {bctrader::view::%{_uuid}%::id}
+        if {_id} is not set:
+            close player's inventory
+            stop
+        if {bctrader::%{_id}%::owner} is not {_uuid}:
+            close player's inventory
+            stop
+        if clicked inventory is not set:
+            stop
+        set {_slot} to index of event-slot
+        if {_slot} < 0:
+            stop
+        if name of clicked inventory is "{@stock-title}":
+            if {_slot} is 19:
+                traderPayPurse(player)
+                if traderOpen({_id}) is true:
+                    send "{@prefix}&7This stall is already paid for." to player
+                else if traderRenew(player, {_id}) is true:
+                    set {_mob} to traderMob({_id})
+                    if {_mob} is set:
+                        traderTouch({_mob}, {_id})
+                    send "{@prefix}&aPaid &f{@daily-fee}%&a for another day." to player
+                else:
+                    send "{@prefix}&cYou need &f{@daily-fee}%&c. Balance: &f%player's balance%&c. Items stay in the stall." to player
+                traderShowStock(player, {_id})
+                stop
+            if {_slot} >= 18:
+                stop
+            set {_it} to {bctrader::%{_id}%::item::%{_slot}%}
+            if {_it} is not set:
+                stop
+            if "%click type%" contains "shift":
+                if player can hold {_it}:
+                    give {_it} to player
+                    delete {bctrader::%{_id}%::item::%{_slot}%}
+                    delete {bctrader::%{_id}%::price::%{_slot}%}
+                    traderShowStock(player, {_id})
+                else:
+                    send "{@prefix}&cMake inventory space, then shift-click it again." to player
+                stop
+            set {bctrader::await::%{_uuid}%::id} to {_id}
+            set {bctrader::await::%{_uuid}%::slot} to {_slot}
+            close player's inventory
+            send "{@prefix}&eType a price per item (&f{@min-price}%&e to &f{@max-price}%&e), or &ccancel&e." to player
+            stop
+        if "%click type%" contains "shift":
+            if {_slot} > 35:
+                send "{@prefix}&7Move that into your inventory first." to player
+                stop
+            set {_held} to event-item
+            if {_held} is not set:
+                stop
+            if {_held} is air:
+                stop
+            set {_free} to -1
+            loop 18 times:
+                set {_s} to loop-number - 1
+                if {_free} is -1:
+                    if {bctrader::%{_id}%::item::%{_s}%} is not set:
+                        set {_free} to {_s}
+            if {_free} is -1:
+                send "{@prefix}&cThis stall is full (18 stacks)." to player
+                stop
+            set {bctrader::%{_id}%::item::%{_free}%} to {_held}
+            set slot {_slot} of player's inventory to air
+            delete {bctrader::%{_id}%::price::%{_free}%}
+            set {bctrader::await::%{_uuid}%::id} to {_id}
+            set {bctrader::await::%{_uuid}%::slot} to {_free}
+            close player's inventory
+            send "{@prefix}&eStocked. Type a price per item, or &ccancel&e to leave it unpriced." to player
+        stop
+    if {_title} is "{@shop-title}":
+        cancel event
+        set {_uuid} to "%uuid of player%"
+        set {_id} to {bctrader::view::%{_uuid}%::id}
+        if {_id} is not set:
+            close player's inventory
+            stop
+        if clicked inventory is not set:
+            stop
+        if name of clicked inventory is not "{@shop-title}":
+            stop
+        set {_slot} to index of event-slot
+        if {_slot} < 0:
+            stop
+        if {_slot} >= 18:
+            stop
+        set {_count} to 1
+        if "%click type%" contains "shift":
+            set {_price} to {bctrader::%{_id}%::price::%{_slot}%}
+            set {_it} to {bctrader::%{_id}%::item::%{_slot}%}
+            if {_price} is not set:
+                stop
+            if {_it} is not set:
+                stop
+            if {_price} < {@min-price}:
+                stop
+            set {_count} to amount of {_it}
+            set {_afford} to floor(player's balance / {_price})
+            if {_count} > {_afford}:
+                set {_count} to {_afford}
+            if {_count} < 1:
+                send "{@prefix}&cYou cannot afford one. Price each: &f%{_price}%&c." to player
+                stop
+        traderBuy(player, {_id}, {_slot}, {_count})
+
+on quit:
+    delete {bctrader::await::%uuid of player%::*}
+    delete {bctrader::view::%uuid of player%::*}
+
+on chat:
+    set {_uuid} to "%uuid of player%"
+    if {bctrader::await::%{_uuid}%::id} is not set:
+        stop
+    cancel event
+    set {_id} to {bctrader::await::%{_uuid}%::id}
+    set {_slot} to {bctrader::await::%{_uuid}%::slot}
+    set {_raw} to message
+    if {_raw} is "cancel":
+        delete {bctrader::await::%{_uuid}%::*}
+        send "{@prefix}&7Price unchanged. Click the trader to continue." to player
+        stop
+    set {_price} to {_raw} parsed as a number
+    if {_price} is not set:
+        delete {bctrader::await::%{_uuid}%::*}
+        send "{@prefix}&cThat was not a number. Click the item again to set a price." to player
+        stop
+    set {_price} to floor({_price} * 100) / 100
+    if {_price} < {@min-price}:
+        delete {bctrader::await::%{_uuid}%::*}
+        send "{@prefix}&cThe lowest price is &f{@min-price}%&c. Click the item again." to player
+        stop
+    if {_price} > {@max-price}:
+        delete {bctrader::await::%{_uuid}%::*}
+        send "{@prefix}&cThe highest price is &f{@max-price}%&c. Click the item again." to player
+        stop
+    if {bctrader::%{_id}%::item::%{_slot}%} is not set:
+        delete {bctrader::await::%{_uuid}%::*}
+        send "{@prefix}&cThat item is no longer in the stall." to player
+        stop
+    delete {bctrader::await::%{_uuid}%::*}
+    set {bctrader::%{_id}%::price::%{_slot}%} to {_price}
+    send "{@prefix}&aPrice set to &f%{_price}% &aper item." to player
+
+on join:
+    wait 8 seconds
+    if player is not online:
+        stop
+    if inProfile(player) is false:
+        stop
+    if awayFromSelect(player) is false:
+        stop
+    traderPayPurse(player)
+    set {_uuid} to "%uuid of player%"
+    if {bctrader::list::*} is not set:
+        stop
+    loop {bctrader::list::*}:
+        set {_id} to loop-value
+        if {bctrader::%{_id}%::owner} is {_uuid}:
+            if {bctrader::%{_id}%::missing} is set:
+                send "{@prefix}&cA hired trader died. Your items are safe. &f/hiretrader recover" to player
+            else if traderOpen({_id}) is false:
+                send "{@prefix}&cA trader of yours is closed until rent is paid. Items are stored. &f/hiretrader pay" to player
+
+every 1 minute:
+    if {bctrader::list::*} is not set:
+        stop
+    loop {bctrader::list::*}:
+        set {_id} to loop-value
+        if {bctrader::%{_id}%::missing} is not set:
+            set {_owner} to {bctrader::%{_id}%::owner}
+            if {_owner} is set:
+                set {_who} to player({_owner})
+                if {_who} is set:
+                    traderMaintain({_who}, {_id})
+
+every 20 seconds:
+    if {bctrader::list::*} is not set:
+        stop
+    loop all players:
+        loop all living entities in radius 32 around loop-player:
+            if loop-entity is a villager:
+                set {_id} to "%uuid of loop-entity%"
+                if {bctrader::%{_id}%::owner} is set:
+                    if {bctrader::%{_id}%::missing} is not set:
+                        set {_mob} to loop-entity
+                        traderTouch({_mob}, {_id})
+
+command /hiretrader [<text>]:
+    description: Hire a villager to sell your items for a daily fee
+    executable by: players
+    trigger:
+        if arg-1 is set:
+            set {_parts::*} to arg-1 split at " "
+            set {_sub} to {_parts::1}
+        if {_sub} is not set:
+            traderHire(player)
+            stop
+        if {_sub} is "":
+            traderHire(player)
+            stop
+        if {_sub} is "help":
+            send "{@prefix}&f/hiretrader &7- hire the villager you are looking at (&f{@daily-fee}%&7 for a day)" to player
+            send "{@prefix}&f/hiretrader pay &7- pay a closed stall so it sells again" to player
+            send "{@prefix}&f/hiretrader dismiss &7- retire the one you are looking at and take every item" to player
+            send "{@prefix}&f/hiretrader recover &7- take items from a trader that died" to player
+            send "{@prefix}&f/hiretrader info &7- list your stalls" to player
+            stop
+        if {_sub} is "info":
+            traderInfo(player)
+            stop
+        if {_sub} is "pay":
+            traderPay(player)
+            stop
+        if {_sub} is "dismiss":
+            traderDismiss(player)
+            stop
+        if {_sub} is "recover":
+            traderRecover(player)
+            stop
+        send "{@prefix}&7Unknown. Try &f/hiretrader help&7." to player
