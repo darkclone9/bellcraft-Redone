@@ -1,0 +1,29 @@
+# "build" on the builders' plot server; "live" on survival and the lobby, where finished
+# builds are imported from.
+role: build
+
+# Velocity names of the other servers.
+build-server: build
+lobby-server: lobby
+
+# Every server reads and writes the team's shared data (plots, submissions and the
+# schematics themselves) here, so a build saved on the build server can be loaded anywhere.
+shared-dir: /opt/bellcraft/data/build
+
+# LuckPerms groups that make up the team.
+ranks:
+  builder: builder
+  head-builder: headbuilder
+
+plots:
+  # The build server's plot world. Its generator is set in bukkit.yml.
+  world: world
+  size: 128
+  road: 10
+  ground-y: 64
+  max-per-builder: 1
+  max-per-head-builder: 3
+
+submissions:
+  # Include the ground layer (paths, gardens, ponds) when a whole plot is submitted.
+  include-ground: true

@@ -1,0 +1,71 @@
+# ==============================================================================
+# Bellcraft RTP Permission Synchronizer
+# Automatically synchronizes player combat level (%mmocore_level%) with BetterRTP
+# permission groups:
+#   - Lv. 1-9:   Default (Zone 1: 600-1000 blocks)
+#   - Lv. 10-19: betterrtp.group.lvl10 (Zone 2: 1000-2200 blocks)
+#   - Lv. 20-29: betterrtp.group.lvl20 (Zone 3: 2200-3600 blocks)
+#   - Lv. 30-39: betterrtp.group.lvl30 (Zone 4: 3600-5000 blocks)
+#   - Lv. 40+:   betterrtp.group.lvl40 (Zone 5: 5000-9000 blocks)
+#
+# Triggers on:
+#   - Player join (with 40 ticks delay for PAPI / MMOCore cache initialization)
+#   - /rtp or /wild command dispatch
+#   - Manual console / admin command: /syncrtp [player]
+# ==============================================================================
+
+function syncRtpPermissions(p: player):
+    if {_p} is not online:
+        stop
+    set {_lvl_raw} to placeholder "mmocore_level" from {_p}
+    if {_lvl_raw} is not set:
+        stop
+    if {_lvl_raw} is "":
+        stop
+    set {_lvl} to {_lvl_raw} parsed as integer
+    if {_lvl} is not set:
+        stop
+
+    if {_lvl} < 10:
+        execute console command "lp user %name of {_p}% permission unset betterrtp.group.lvl10"
+        execute console command "lp user %name of {_p}% permission unset betterrtp.group.lvl20"
+        execute console command "lp user %name of {_p}% permission unset betterrtp.group.lvl30"
+        execute console command "lp user %name of {_p}% permission unset betterrtp.group.lvl40"
+    else if {_lvl} < 20:
+        execute console command "lp user %name of {_p}% permission set betterrtp.group.lvl10 true"
+        execute console command "lp user %name of {_p}% permission unset betterrtp.group.lvl20"
+        execute console command "lp user %name of {_p}% permission unset betterrtp.group.lvl30"
+        execute console command "lp user %name of {_p}% permission unset betterrtp.group.lvl40"
+    else if {_lvl} < 30:
+        execute console command "lp user %name of {_p}% permission set betterrtp.group.lvl10 true"
+        execute console command "lp user %name of {_p}% permission set betterrtp.group.lvl20 true"
+        execute console command "lp user %name of {_p}% permission unset betterrtp.group.lvl30"
+        execute console command "lp user %name of {_p}% permission unset betterrtp.group.lvl40"
+    else if {_lvl} < 40:
+        execute console command "lp user %name of {_p}% permission set betterrtp.group.lvl10 true"
+        execute console command "lp user %name of {_p}% permission set betterrtp.group.lvl20 true"
+        execute console command "lp user %name of {_p}% permission set betterrtp.group.lvl30 true"
+        execute console command "lp user %name of {_p}% permission unset betterrtp.group.lvl40"
+    else:
+        execute console command "lp user %name of {_p}% permission set betterrtp.group.lvl10 true"
+        execute console command "lp user %name of {_p}% permission set betterrtp.group.lvl20 true"
+        execute console command "lp user %name of {_p}% permission set betterrtp.group.lvl30 true"
+        execute console command "lp user %name of {_p}% permission set betterrtp.group.lvl40 true"
+
+on join:
+    wait 40 ticks
+    syncRtpPermissions(player)
+
+on command "/rtp" or "/wild" or "/randomtp" or "/brtp":
+    syncRtpPermissions(player)
+
+command /syncrtp [<player>]:
+    permission: bellcraft.admin
+    trigger:
+        if arg-1 is set:
+            syncRtpPermissions(arg-1)
+            send "&8[&bBellcraft&8] &7Synchronized RTP tier for &e%name of arg-1%&7." to sender
+        else:
+            loop all players:
+                syncRtpPermissions(loop-player)
+            send "&8[&bBellcraft&8] &7Synchronized RTP tiers for online players." to sender

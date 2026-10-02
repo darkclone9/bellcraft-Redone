@@ -1,0 +1,20 @@
+SUPPRESSING_FIRE:
+  name: '&6⚔ Suppressing Fire'
+  icon: CROSSBOW
+  source: default:SHOCKWAVE
+  parameters:
+    damage:
+      base: 4
+      per-level: 1
+    cooldown:
+      base: 10
+      per-level: -0.1
+      min: 6
+    mana:
+      base: 30
+      per-level: 0.5
+  triggers:
+    cast:
+    - particle{p=SMOKE;amount=30;speed=0.05;hS=1.5;vS=0.5}
+    - sound{s=ENTITY_GENERIC_EXPLODE;v=0.6;p=1.6}
+    - damage{amount={damage}}

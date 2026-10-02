@@ -1,0 +1,142 @@
+settings:
+  # Fallback scoreboard in case the scoreboard resource pack is rejected
+  # optional setting. If not set, the scoreboard will not be shown when the resource
+  # pack is rejected. This option is also not required when you do not use images.
+  fallback: "default"
+  label-color: "&e"
+  # The priority of the scoreboard. The higher the number -> higher priority
+  # Used when having more than one scoreboard assigned
+  priority: -10
+  assigning: 'PERMISSION'
+
+# Define images here
+images:
+  ## Each image should have an identifier which is used to select the image
+  - identifier: "heart-icon"
+    ## Supported image types: png, jpg
+    ## Not supported image types: gif, svg
+    ## An image can be loaded from file, relative to the "scoreboard" directory
+    # file: "test.png"
+    ## If you place an image in a folder /plugins/FeatherBoard/scoreboards/images/
+    # file: "/images/test.png"
+    ## An image can be loaded from URL
+    url: "https://featherboard.org/images/default/heart-icon.png"
+    ## Height is optional. When provided, it will scale down the image to X pixels
+    ## One scoreboard line is 16px
+    height: 16
+    ## Width is optional. When provided, it will scale the image. If EITHER height and width
+    ## are provided, it will scale down the image with the aspect ratio. If BOTH are provided
+    ## the image will be stretched (in this case I want a 16x16 icon)
+    width: 16
+    ## X and Y offset are the offset of the image.
+    x-offset: 0
+    y-offset: 0
+  - identifier: "star-icon"
+    url: "https://featherboard.org/images/default/star-icon.png"
+    width: 16
+  - identifier: "logo"
+    url: "https://featherboard.org/images/featherboard-logo.png"
+    # By only providing the height, the image scales with the aspect ratio in mind
+    height: 40
+    y-offset: 0
+  - identifier: "scroll-left"
+    url: "https://featherboard.org/images/default/scroll-left.png"
+    height: 16
+  - identifier: "scroll-middle"
+    url: "https://featherboard.org/images/default/scroll-middle.png"
+    height: 16
+  - identifier: "scroll-right"
+    url: "https://featherboard.org/images/default/scroll-right.png"
+    height: 16
+
+# Fonts
+fonts:
+  - identifier: "roboto"
+    # The font file should be placed in the /scoreboard/ directory
+    # file: "myfont.ttf"
+    url: "http://fonts.gstatic.com/s/roboto/v15/7MygqTe2zs9YkP0adA9QQQ.ttf"
+    # The size of the font
+    size: 16
+    shift-x: 0
+    shift-y: 0
+    oversample: 2.0
+
+lines:
+  title:
+    frames:
+      - '{{ image:logo }}'
+    interval: 2
+    random: false
+  header:
+    frames:
+      # Images have 1 pixel in between, so we need to offset the middle image by 1 pixel
+      - '{{ image:scroll-left }}{{ offset:-1 }}<multiply times="20">{{ image:scroll-middle }}{{ offset:-1 }}</multiply>{{ image:scroll-right }}'
+  player-label:
+    frames:
+      - '&b&l> {{ setting:label-color }}&lPlayer Info:'
+    interval: 100
+    random: false
+  player-line1:
+    frames:
+      - '|font:featherboard:roboto|<cmd repeatmiddle="20">%player_name%</cmd>'
+      - '|font:featherboard:default|<cmd repeatmiddle="20">%player_name%</cmd>'
+    interval: 2
+    random: false
+  player-line2:
+    frames:
+      - '&o%player_direction%'
+    interval: 2
+    random: false
+  spacer1:
+    frames: []
+    interval: 100
+    random: false
+  news-info:
+    frames:
+      - '&b&l> {{ setting:label-color }}&lNews:'
+    interval: 100
+    random: false
+  news:
+    frames:
+      - '<scroll width="29">&cAttention! &7Please do not forget to give this plugin a <multiply times="5">{{ image:star-icon }}</multiply> &7 rating!</scroll>'
+    interval: 2
+    random: false
+  spacer2:
+    frames: []
+    interval: 100
+    random: false
+  timesplayed-label:
+    text:
+      - '&b&l> {{ setting:label-color }}&lSite:'
+      - '&b&l> {{ setting:label-color }}&lPlayed:'
+    interval: 100
+    random: false
+  timesplayed:
+    frames:
+      - 'www.mvdw-software.com'
+      - '%statistic_leave_game%'
+    interval: 100
+    random: false
+  spacer3:
+    frames: []
+    interval: 100
+    random: false
+  server-label:
+    frames:
+      - '&b&l> {{ setting:label-color }}&lServer Info:'
+    interval: 100
+    random: false
+  server-line1:
+    frames:
+      - '<repeat times=200>%server_ram_used% &7MB &8&l/ &f%server_ram_total% &7MB</repeat>' #Refresh the ram 200 times
+      - '<repeat times=100>%server_tps_1_colored% &7TPS &7&o(Avg %server_tps_15%)</repeat>' #Refresh the tps 100 times
+    interval: 1
+    random: false
+  server-line2:
+    frames:
+      - '%server_online% &aonline players'
+    interval: 10
+    random: false
+  footer:
+    frames:
+      - '{{ image:scroll-left }}{{ offset:-1 }}<multiply times="20">{{ image:scroll-middle }}{{ offset:-1 }}</multiply>{{ image:scroll-right }}'

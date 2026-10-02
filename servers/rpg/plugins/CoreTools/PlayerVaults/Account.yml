@@ -1,0 +1,14 @@
+account:
+  permission: vip
+  no_permission: You don't have enough permissions to open this vault.
+  name: '[{page_no}] {caster_name} Account Vault'
+  size: 1
+  max_page: 5
+  start_script:
+    - menu_opening
+  close_script:
+    - beep
+  success: <green>✔
+  fail: <red>❌
+  purchased_page: 1
+  page_prices: []

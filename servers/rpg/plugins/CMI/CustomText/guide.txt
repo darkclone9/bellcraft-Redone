@@ -1,0 +1,22 @@
+<AutoAlias>
+&8&m
+&6&lThe Bellcraft Guide
+&8&m
+&7Everything about this network - the servers, the ranks,
+&7and how to get started.
+
+<T>&8[&a&lNew here? Start here&8]</T><H>&7Your first ten minutes</H><C>/newhere</C>
+&8  &7Wild teleport, claiming land, homes and jobs
+
+<T>&8[&6&lRanks and promotion&8]</T><H>&7All 21 ranks across three tracks</H><C>/ranks</C>
+&8  &7Staff, builders, donors and recognition tags
+
+<T>&8[&b&lThe servers&8]</T><H>&7What each world is for</H><C>/servers</C>
+&8  &7Lobby, Survival and RPG - and how to travel
+
+<T>&8[&c&lThe rules&8]</T><H>&7Read the server rules</H><C>/rules</C>
+&8  &7Read these before you start playing
+
+&8&m
+<T>&8[&d&lOpen the visual menu&8]</T><H>&7Java only - Bedrock use the links above</H><C>/cmi dialogs guide</C>
+&8&m

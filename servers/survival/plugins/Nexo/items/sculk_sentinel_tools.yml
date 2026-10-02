@@ -1,0 +1,35 @@
+{
+  "sculk_sentinel_sword": {
+    "itemname": "<gradient:#23D6DC:#B7C9B1>Sculk Sentinel Sword</gradient>",
+    "material": "NETHERITE_SWORD",
+    "lore": [
+      "<gray>Sculk-grown deepslate and fossil edges.",
+      "<dark_aqua>Forged with crystals from the Deep Dark."
+    ],
+    "Components": {
+      "item_model": "astra:sculk_sentinel_sword"
+    }
+  },
+  "sculk_sentinel_pickaxe": {
+    "itemname": "<gradient:#23D6DC:#B7C9B1>Sculk Sentinel Pickaxe</gradient>",
+    "material": "NETHERITE_PICKAXE",
+    "lore": [
+      "<gray>Sculk-grown deepslate and fossil edges.",
+      "<dark_aqua>Forged with crystals from the Deep Dark."
+    ],
+    "Components": {
+      "item_model": "astra:sculk_sentinel_pickaxe"
+    }
+  },
+  "sculk_sentinel_axe": {
+    "itemname": "<gradient:#23D6DC:#B7C9B1>Sculk Sentinel Axe</gradient>",
+    "material": "NETHERITE_AXE",
+    "lore": [
+      "<gray>Sculk-grown deepslate and fossil edges.",
+      "<dark_aqua>Forged with crystals from the Deep Dark."
+    ],
+    "Components": {
+      "item_model": "astra:sculk_sentinel_axe"
+    }
+  }
+}

@@ -1,0 +1,193 @@
+# ============================================================
+#  blacksmith_quest.yml - LuxDialogues Example
+#
+#  Showcases:
+#   - Conditional lines ([condition.X] syntax)
+#   - && operator in conditional lines
+#   - || operator in conditional goto
+#   - @condition. in actions (conditional reward)
+#   - timer + timer-action (auto-close low-level page)
+#   - pre-actions / post-actions / exit-actions
+#   - Multi-answer branching
+#   - Gradient text
+#   - Cross-page navigation
+#
+#  Usage: /ld send <player> blacksmith_quest greet
+# ============================================================
+
+Settings:
+  typing-speed: 1
+  range: 4
+  effect: Slowness
+  answer-numbers: true
+  prevent-exit: false
+  prevent-skip: false
+  npc-focus: false # Turn the player to face the NPC that started the dialogue (needs a Citizens / FancyNPCs / MythicMobs hook).
+  character-name: true
+  character-image: true
+  background-fog: true
+
+Sounds:
+  typing:
+    id: luxdialogues:luxdialogues.sounds.typing
+    source: MASTER
+    volume: 1.0
+    pitch: 1.0
+  selection:
+    id: luxdialogues:luxdialogues.sounds.selection
+    source: MASTER
+    volume: 1.0
+    pitch: 1.0
+
+Offsets:
+  name: 0
+  name-background: 20
+  dialogue-background: 0
+  dialogue-line: 10
+  answer-background: 140
+  answer-line: 13
+  arrow: -7
+  character: -16
+
+Character:
+  name: Aldric the Blacksmith
+
+Images:
+  character-background: character-background
+  arrow: hand
+  dialogue-background: dialogue-background
+  answer-background: answer-background
+  name-start: name-start
+  name-mid: name-mid
+  name-end: name-end
+  fog: fog
+
+Colors:
+  name: '#4f4a3e'
+  name-background: '#f8ffe0'
+  dialogue: '#4f4a3e'
+  dialogue-background: '#f8ffe0'
+  answer: '#4f4a3e'
+  answer-background: '#f8ffe0'
+  character-background: '#ffffff'
+  arrow: '#cdff29'
+  selected: '#4f4a3e'
+  fog: '#000000'
+
+Pages:
+  'greet':
+    lines:
+      # Conditional lines — each player sees personalised text
+      - '[condition.%player_level%>=20]Ah, a seasoned warrior approaches!'
+      - '[condition.%player_level%<20]A fresh face... welcome, newcomer!'
+      # && operator — both VIP and level check must pass
+      - '[condition.%player_level%>=10&&:luxdialogues.vip:==true]A VIP discount awaits you.'
+      - 'I am #c87941Aldric#4f4a3e, master blacksmith.'
+      - 'I have an urgent matter for you.'
+    timer: 0
+    timer-actions: {}
+    pre-actions:
+      - '@console msg %player_name% &8[Blacksmith] &7A new conversation started.'
+    post-actions: {}
+    exit-actions:
+      - '@console msg %player_name% &8[Blacksmith] &7You walked away from Aldric.'
+    goto: 'offer'
+
+  'offer':
+    lines:
+      - 'A dragon nears the #e55b3aEastern Mines#4f4a3e.'
+      - 'My hammer is trapped, #c87941glowing blue#4f4a3e.'
+      - 'I need a brave soul to retrieve it.'
+      - 'Are you up for the challenge?'
+    timer: 0
+    timer-actions: {}
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+    answers:
+      '1':
+        text: "<gradient:#82d850:#3cb84e>Accept the Quest</gradient>"
+        goto:
+          # Level 10+ goes to accept
+          - '@condition.%player_level%>=10 accept'
+          # || operator — level 5+ OR knight permission also qualifies
+          - '@condition.%player_level%>=5||:quest.knight:==true accept'
+          # Fallback if none of the above pass
+          - 'too_weak'
+        reply:
+          - '#82d850A true hero steps forward!'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.ding
+          source: MASTER
+          volume: 1.0
+          pitch: 1.0
+        actions: {}
+      '2':
+        text: 'What is the reward?'
+        goto: 'reward_info'
+        reply: []
+        sound:
+          id: luxdialogues:luxdialogues.sounds.beep
+          source: MASTER
+          volume: 1.0
+          pitch: 1.0
+        actions: {}
+      '3':
+        text: 'Not interested.'
+        goto: ''
+        reply:
+          - '#e52b2bDisappointing... come back if you change your mind.'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.beep
+          source: MASTER
+          volume: 0.5
+          pitch: 0.8
+        actions: {}
+
+  'too_weak':
+    lines:
+      - '#e52b2bYou lack the experience for this.'
+      - 'Return at #c87941Level 10#e52b2b or higher.'
+      - 'Train harder, and come back stronger.'
+    # Auto-closes after 5 seconds — no @triggerGoto, so clearDialogue is called automatically
+    timer: 100
+    timer-actions:
+      - '@console ld stop %player_name%'
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+
+  'accept':
+    lines:
+      - '#82d850Outstanding work, %player_name%!'
+      - 'Head east to the dragon''s shadow.'
+      - 'My hammer #c87941glows#4f4a3e in the chamber.'
+      # && operator — bonus tip only for high level players who haven't fought a dragon yet
+      - '[condition.%player_level%>=30&&:quest.dragon:==false]Tip: it is weak to ice.'
+      - 'Good luck out there!'
+    timer: 0
+    timer-actions: {}
+    pre-actions: {}
+    post-actions:
+      # Grant quest permission and notify
+      - '@console lp user %player_name% permission set quest.blacksmith.active true'
+      - '@console msg %player_name% &a[Quest]&7Retrieve Aldric''s Hammer — started!'
+      # High-level bonus via @condition. in action
+      - '@condition.%player_level%>=30 @console give %player_name% diamond 2'
+    exit-actions: {}
+
+  'reward_info':
+    lines:
+      - 'Upon success, you will receive:'
+      # Different reward shown depending on level
+      - '[condition.%player_level%>=20]#c87941A legendary sword#4f4a3e and #82d85050 diamonds#4f4a3e!'
+      - '[condition.%player_level%<20]#c87941A fine iron sword#4f4a3e and #82d85010 diamonds#4f4a3e.'
+      - 'The danger is real — choose wisely.'
+    timer: 0
+    timer-actions: {}
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+    goto: 'offer'
+
+#d21891d819abf57b5a57f22e6b637384

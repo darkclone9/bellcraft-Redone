@@ -1,0 +1,24 @@
+name: 'The Behemoth'
+lore:
+- 'A dripstone shape that moves only'
+- 'when it decides you are prey.'
+- ''
+- '&6Objective:'
+- '&7► Slay 3 Dripstone Behemoths'
+- ''
+- '&eRewards:'
+- '&7► 2842 EXP'
+level-req:
+    main: 53
+parent:
+- 'ravager-siege'
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'killmythicmob{name="dripstone_behemoth";amount=3}'
+        lore: 'Slay 3 Dripstone Behemoths.'
+        triggers:
+        - 'experience{amount=2842}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

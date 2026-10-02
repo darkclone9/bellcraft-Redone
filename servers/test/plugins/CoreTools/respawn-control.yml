@@ -1,0 +1,81 @@
+# This feature allows you to decide where
+# the player will spawn when they die.
+#
+# IMPORTANT NOTE
+# This feature requires the WGRegionEvents plugin to be installed on your server.
+# Java 1.16+ https://www.spigotmc.org/resources/worldguard-region-events-updated.61490/
+# Java 8+ https://github.com/Tanerx/WGRegionEvents/releases
+respawn_control:
+  enabled: false
+
+  # Where will the player spawn when dies?
+  # (1) Last visited ? (Last visited point may lock or unlock)
+  # Spawn pick order: last_visited > world_spawn_points > world default spawn point
+  # (2) Closest unlocked point?  (Same world only)
+  # Spawn pick order: unlocked_point > world_spawn_points > world default spawn point
+  # (3) Closest spawn point, regardless of whether it's unlocked or not? (Same world only)
+  # Spawn pick order: closest_point > world_spawn_points > world default spawn point
+  # Mixed modes
+  # (12) Try to mode 1 (Last visited only) if fail run mode 2.
+  # (13) Try to mode 1 (Last visited only) if fail run mode 3.
+  spawn_mode: 3
+
+  # With this condition, you can define which requirements the player must meet for the action to proceed.
+  #
+  # You can set up as many conditions as you want.
+  #
+  # You have two options for the condition list:
+  # require all conditions to return true,
+  # or allow the condition to pass if at least one returns true.
+  Conditions_all_need_true: true
+  Conditions:
+    - WorldName{w="MyCustomWorld,world"} true
+    # - Region{r="region1,region2,region3"} true
+
+  # If spawn_mode failed to find any spawn point
+  # default spawn points of the player current world will be used.
+  # If there is no `world_spawn_points`,
+  # player will spawn the default spawn point of the current map.
+  # You may edit this config or use ingame commands
+  # /respawn config <remove/set> world_spawn_points
+  world_spawn_points:
+    - world_nether{x=164;y=77;z=-132;pitch=0;yaw=0}
+    - world_the_end{x=164;y=77;z=-132;pitch=0;yaw=0}
+    - test{x=-7;y=63;z=-37;pitch=0;yaw=0}
+    - world{x:162.66266446625218;y:71.0;z:-165.48564363686066;pitch:18.300392;yaw:109.00045}
+
+  # List of the spawn points. You can edit this file
+  # or use in game command
+  # too add your location to list
+  # /respawn config <remove/set> spawn_points <id>
+  spawn_points:
+    - town0{world=world;x=173;y=72;z=-110;pitch=0;yaw=0}
+    - town1{world=world;x=175;y=72;z=-114;pitch=0;yaw=0}
+    - town2{world=world;x=169;y=74;z=-121;pitch=0;yaw=0}
+    - nether1{world=test;x=8;y=66;z=-13;pitch=0;yaw=0}
+
+  # Automatically unlock the player when they
+  # enter in to the Worldguard regions.
+  # Region ID and spawn_points ID have to be same.
+  # You can also set it as last visited.
+  #
+  # unlock = unlock the point ?
+  #
+  # last_visited = Set point to last_visited ?
+  #
+  # mode = When message will be show to player ?
+  #        unlock : Only show 1 time when player enter the region no unlocked before.
+  #        last_visited : Will show everytime player last_visited region is changed.
+  #        disabled: No messages
+  #
+  # m = Default message
+  #
+  # p = Message position (chat, actionbar, title)
+  #
+  # s = Subtitle message (Only usefull if message position is set to title)
+  #
+  # {region} = Region name
+  auto_unlock:
+    - test{unlock=true;last_visited=true;mode=last_visited;p=chat;s="..."}
+    - town0{unlock=true;last_visited=true;mode=last_visited;m="<red>You just unlock
+      the {region} region. Congratulations!";p=chat;s="..."}

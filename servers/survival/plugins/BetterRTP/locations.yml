@@ -1,0 +1,101 @@
+# BetterRTP Locations configuration
+# Formatted for Bellcraft Wilderness Zones
+
+Enabled: true # enable the locations feature
+RequirePermission: false # Require players to have `betterrtp.location.<location_name>`
+UseLocationIfAvailable: false # Will NOT randomly pick a location upon plain `/rtp`
+UseLocationsInSameWorld: true # Only choose locations in same world rtp'ing in
+
+Locations:
+- zone1:
+    World: world
+    CenterX: 0
+    CenterZ: 0
+    MaxRadius: 1000
+    MinRadius: 600
+    Shape: circle
+    MinY: 0
+    MaxY: 320
+    Biomes:
+    - plains
+    - sunflower_plains
+    - meadow
+    - forest
+    - flower_forest
+    - birch_forest
+    - cherry_grove
+    - river
+    - beach
+- zone2:
+    World: world
+    CenterX: 0
+    CenterZ: 0
+    MaxRadius: 2200
+    MinRadius: 1000
+    Shape: circle
+    MinY: 0
+    MaxY: 320
+    Biomes:
+    - taiga
+    - old_growth_birch_forest
+    - old_growth_pine_taiga
+    - old_growth_spruce_taiga
+    - sparse_jungle
+    - swamp
+    - stony_shore
+    - mushroom_fields
+- zone3:
+    World: world
+    CenterX: 0
+    CenterZ: 0
+    MaxRadius: 3600
+    MinRadius: 2200
+    Shape: circle
+    MinY: 0
+    MaxY: 320
+    Biomes:
+    - desert
+    - savanna
+    - savanna_plateau
+    - windswept_savanna
+    - badlands
+    - wooded_badlands
+    - eroded_badlands
+- zone4:
+    World: world
+    CenterX: 0
+    CenterZ: 0
+    MaxRadius: 5000
+    MinRadius: 3600
+    Shape: circle
+    MinY: 0
+    MaxY: 320
+    Biomes:
+    - snowy_plains
+    - snowy_taiga
+    - snowy_beach
+    - frozen_river
+    - ice_spikes
+    - grove
+    - snowy_slopes
+- zone5:
+    World: world
+    CenterX: 0
+    CenterZ: 0
+    MaxRadius: 9000
+    MinRadius: 5000
+    Shape: circle
+    MinY: 0
+    MaxY: 320
+    Biomes:
+    - windswept_hills
+    - windswept_gravelly_hills
+    - windswept_forest
+    - jagged_peaks
+    - frozen_peaks
+    - stony_peaks
+    - jungle
+    - bamboo_jungle
+    - mangrove_swamp
+    - dark_forest
+    - pale_garden

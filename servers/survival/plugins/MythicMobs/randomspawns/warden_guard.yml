@@ -1,0 +1,13 @@
+warden_guard_deep_dark:
+  Type: warden_guard
+  Action: ADD
+  Chance: 0.07
+  Priority: 1
+  Cooldown: 80
+  Worlds:
+    - world
+  Biomes:
+    - deep_dark
+  Conditions:
+    - 'heightbelow{h=10} true'
+    - 'lightlevel{l=<8} true'

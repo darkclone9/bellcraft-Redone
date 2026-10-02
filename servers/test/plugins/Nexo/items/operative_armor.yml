@@ -1,0 +1,53 @@
+# ==============================================================================
+# NEXO CUSTOM ITEM DEFINITIONS: OPERATIVE LIGHT ARMOR SET
+# ==============================================================================
+
+operative_chestplate:
+  itemname: "<gradient:#2af598:#009efd><bold>OPERATIVE CHESTPLATE</bold></gradient>"
+  material: CHAINMAIL_CHESTPLATE
+
+  Pack:
+    texture: nexo:item/operative_chestplate
+
+  Components:
+    equippable:
+      slot: CHEST
+      asset_id: nexo:operative_armor
+    max_damage: 520
+    unbreakable: false
+    attribute_modifiers:
+      - attribute: ARMOR
+        amount: 6
+        slot: CHEST
+        operation: ADD_NUMBER
+      - attribute: ARMOR_TOUGHNESS
+        amount: 2
+        slot: CHEST
+        operation: ADD_NUMBER
+      - attribute: MOVEMENT_SPEED
+        amount: 0.03
+        slot: CHEST
+        operation: ADD_NUMBER
+      - attribute: KNOCKBACK_RESISTANCE
+        amount: 0.1
+        slot: CHEST
+        operation: ADD_NUMBER
+    lore:
+      - ""
+      - "<dark_gray>▪ <gray>Type: <gradient:#2af598:#009efd>Tactical Light Armor</gradient>"
+      - "<dark_gray>▪ <gray>Class: <green>Operative Infiltration Rig</green>"
+      - "<dark_gray>▪ <gray>Tier: <gold>Tier IV - Special Operations</gold>"
+      - ""
+      - "<gradient:#2af598:#009efd><bold>TACTICAL SPECIFICATIONS</bold></gradient>"
+      - " <dark_aqua>◆ <white>Kevlar & Carbon Weave:"
+      - "   <gray>High-tensile ballistic plating providing agility & protection."
+      - " <dark_aqua>◆ <white>Infiltration Harness:"
+      - "   <gray>Reinforced tactical pouches and composite shoulder pauldrons."
+      - ""
+      - "<dark_gray>▪ <white>Suit Buffs (Equipped):"
+      - "  <blue>+6.0 Armor Rating"
+      - "  <blue>+2.0 Armor Toughness"
+      - "  <blue>+3% Movement Speed"
+      - "  <blue>+10% Knockback Resistance"
+      - ""
+      - "<dark_gray><italic>Standard-issue combat chestpiece for covert Belhaven reconnaissance units.</italic>"

@@ -1,0 +1,24 @@
+name: 'Break the Siege'
+lore:
+- 'The outer settlements are being flattened'
+- 'one ravager charge at a time.'
+- ''
+- '&6Objective:'
+- '&7► Kill 12 ravagers'
+- ''
+- '&eRewards:'
+- '&7► 2842 EXP'
+level-req:
+    main: 51
+parent:
+- 'broodmother-hunt'
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'killmob{type=RAVAGER;amount=12}'
+        lore: 'Kill 12 ravagers.'
+        triggers:
+        - 'experience{amount=2842}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

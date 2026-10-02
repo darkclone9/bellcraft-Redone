@@ -1,0 +1,13 @@
+{
+  "sculk_crystal": {
+    "itemname": "<gradient:#19d9ef:#9ff8ff>Sculk Crystal</gradient>",
+    "material": "AMETHYST_SHARD",
+    "lore": [
+      "<dark_gray>Prised from a Warden Guard.",
+      "<dark_aqua>The deep dark still hums inside it."
+    ],
+    "Components": {
+      "item_model": "astra:sculk_crystal"
+    }
+  }
+}

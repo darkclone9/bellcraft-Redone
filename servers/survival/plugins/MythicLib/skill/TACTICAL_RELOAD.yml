@@ -1,0 +1,17 @@
+TACTICAL_RELOAD:
+  name: '&7Tactical Reload'
+  icon: IRON_HOE
+  source: default:SWIFTNESS
+  parameters:
+    cooldown:
+      base: 12
+      per-level: -0.2
+      min: 6
+    mana:
+      base: 6
+      per-level: 0.12
+  triggers:
+    cast:
+    - particle{p=CRIT;amount=15;speed=0.1;hS=0.5;vS=0.5}
+    - sound{s=BLOCK_IRON_TRAPDOOR_CLOSE;v=1;p=1.4}
+    - potion{type=SPEED;duration=3;amplifier=0}

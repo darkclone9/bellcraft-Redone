@@ -1,0 +1,51 @@
+bramble_stalker_drops:
+  Drops:
+    - 'oak_sapling 1-2 0.4'
+    - 'string 1-3 0.6'
+    - 'exp 8-16 1'
+pinebark_revenant_drops:
+  Drops:
+    - 'bone 2-4 0.7'
+    - 'stick 2-5 0.5'
+    - 'exp 18-30 1'
+duneshade_marauder_drops:
+  Drops:
+    - 'sand 2-5 0.5'
+    - 'gold_nugget 2-6 0.45'
+    - 'exp 32-50 1'
+abyssal_drowned_drops:
+  Drops:
+    - 'prismarine_shard 2-4 0.55'
+    - 'nautilus_shell 1 0.08'
+    - 'exp 40-60 1'
+rimebound_colossus_drops:
+  Drops:
+    - 'packed_ice 1-3 0.5'
+    - 'blue_ice 1 0.12'
+    - 'exp 55-80 1'
+stormcaller_roc_drops:
+  Drops:
+    - 'phantom_membrane 2-4 0.6'
+    - 'feather 3-6 0.5'
+    - 'exp 75-105 1'
+thornmaw_broodmother_drops:
+  Drops:
+    - 'string 4-8 0.8'
+    - 'spider_eye 2-5 0.6'
+    - 'exp 100-140 1'
+dripstone_behemoth_drops:
+  Drops:
+    - 'pointed_dripstone 2-5 0.6'
+    - 'glow_berries 2-6 0.4'
+    - 'exp 130-180 1'
+emberforged_tyrant_drops:
+  Drops:
+    - 'netherite_scrap 1 0.06'
+    - 'gold_ingot 2-5 0.5'
+    - 'blaze_rod 1-3 0.4'
+    - 'exp 170-230 1'
+void_harbinger_drops:
+  Drops:
+    - 'ender_pearl 2-4 0.7'
+    - 'chorus_fruit 2-6 0.5'
+    - 'exp 220-300 1'

@@ -1,0 +1,66 @@
+core_perms:
+  enabled: false
+
+  # If a player does not belong to any group,
+  # or all the groups they belong to have a priority
+  # lower than the default value,
+  # the prefix and suffix values below will be used.
+  default_priority: 1
+  default_prefix: ''
+  default_suffix: ''
+
+  # The permissions in this list are never permanently added to the playerdata.
+  # Each time the player joins the server, this list is granted to the player
+  # alongside their permissions. You can modify this list as you wish;
+  # the old permissions will not remain on the player.
+  default_permissions:
+    - group.default{"active":true,"conditions":[""]}
+
+  # You can enable or disable the debug messages that
+  # appear in the console or in-game chat after each command usage from here.
+  messages:
+    console: true
+    chat: true
+
+  # Your condition list. You can create as many as you want.
+  conditions:
+    check_default_world: WorldName{w="world,world2"} true
+    name: DisplayName{n="Taner"} false
+
+  # Your groups. You don’t need to add 'group.' when creating groups here
+  # 'group.' is only required in the permission list.
+  # Groups within groups are supported.
+  # It is recommended to use in-game commands to create groups.
+  groups:
+    default:
+      permissions:
+        - player{"active":true,"conditions":[""]}
+      prefix: '[USER]'
+      suffix: '[USER]'
+      priority: 1
+
+    rank_vip:
+      permissions:
+        - group.rank_vip_plus{"active":true,"conditions":["name"],"expiry":"2029-12-30T10:46:28.4381607"}
+        - vip{"active":true,"conditions":["name"],"expiry":"2026-10-21T22:34:13.0161621"}
+      prefix: '[VIP]'
+      suffix: '[VIP]'
+      priority: 10
+    rank_vip_plus:
+      permissions:
+        - vip_plus{"active":true,"conditions":["name"],"expiry":"2029-10-21T22:34:13.0161621"}
+      prefix: '[VIP-PLUS]'
+      suffix: '[VIP-PLUS]'
+      priority: 20
+    rank_mvp:
+      permissions:
+        - mvp{"active":true,"conditions":["name"],"expiry":"2029-10-21T22:34:13.0161621"}
+      prefix: '[MVP]'
+      suffix: '[MVP]'
+      priority: 30
+    rank_mvp_plus:
+      permissions:
+        - mvp_plus{"active":true,"conditions":["name"],"expiry":"2029-10-21T22:34:13.0161621"}
+      prefix: '[MVP-PLUS]'
+      suffix: '[MVP-PLUS]'
+      priority: 40

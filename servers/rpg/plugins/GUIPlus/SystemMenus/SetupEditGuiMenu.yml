@@ -1,0 +1,285 @@
+title: "Edit %gui% Settings"
+rows: 5
+empty-fill:
+  enabled: true
+  slots:
+    - all
+  item:
+    name: '&r'
+    lore: [ ]
+    type: GRAY_STAINED_GLASS_PANE
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+
+edit-title:
+  enabled: true
+  slot: 10
+  item:
+    name: "&b&l✎ Edit Title"
+    lore:
+      - ""
+      - "&7Edit the title of the"
+      - "&7Gui."
+      - ""
+      - "&6&lCurrent: &f%gui_title%"
+    type: "ANVIL"
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+
+edit-rows:
+  enabled: true
+  slot: 20
+  item:
+    name: "&b&l▦ Edit Rows"
+    lore:
+      - ""
+      - "&7Edit the number of rows"
+      - "&7in the Gui."
+      - ""
+      - "&6&lCurrent: &f%gui_rows%"
+    type: "BOOK"
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+rows-not-supported:
+  enabled: true
+  slot: 20
+  item:
+    name: "&c&l❌ Rows not supported"
+    type: "REDSTONE"
+    lore:
+      - ""
+      - "&7The number of rows in the"
+      - "&7Gui cannot be changed."
+      - ""
+      - "&cNot supported."
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+
+scenes:
+  enabled: true
+  slot: 12
+  item:
+    name: "&b&l🎬 Edit Scenes"
+    type: "OAK_SIGN"
+    lore:
+      - ""
+      - "&7Edit the scenes of the Gui."
+      - "&7Scenes allow for animated"
+      - "&7or static GUI displays."
+      - ""
+      - "&eClick to edit scenes."
+    amount: 1
+    item-flags:
+      - "all"
+    enchantments: [ ]
+    custom-model-data: 0
+
+set-command-alias:
+  enabled: true
+  slot: 22
+  item:
+    name: "&b&l🖮 Set Command Alias"
+    lore:
+      - ""
+      - "&7Set a command alias for"
+      - "&7the Gui."
+      - ""
+      - "&6Current: &f%gui_alias%"
+      - ""
+      - "&eClick to set."
+    type: "PLAYER_HEAD"
+    texture-base64: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWZjNmFhOWVlYTY0ZTI1NzllOGE3ZmI4MDY0MDBiYTQyN2FlOWM0ZmMxMDA2ZTBhYzkwNDY5ODhlOTcyNjVhNSJ9fX0="
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+
+change-gui-type:
+  enabled: true
+  slot: 14
+  item:
+    name: "&b&l🛠 Change Menu Type"
+    lore:
+      - ""
+      - "&7Change menu type, but be"
+      - "&7aware that items might be"
+      - "&7&cremoved &7if their slots"
+      - "&7are invalid for the new type!"
+      - ""
+      - "&6&lCurrent: &f%gui_type%"
+      - ""
+      - "&eClick to change."
+    type: "CHEST"
+    amount: 1
+    item-flags:
+      - "all"
+    enchantments: [ ]
+    custom-model-data: 0
+
+delete-gui:
+  enabled: true
+  slot: 16
+  item:
+    name: "&c&l❌ Delete GUI"
+    lore:
+      - ""
+      - "&7Delete the Gui."
+      - ""
+      - "&eClick to delete."
+    type: "PLAYER_HEAD"
+    texture-base64: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGZmOTY4YzkwNTIyMzQ5MWE0ZTM5MGM3ZDVmMTBjMTg0M2E2YmEwNDgyMGQ2YjE3ODRmNTJlNDEwZDExYWI1YiJ9fX0="
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+
+set-permission:
+  enabled: true
+  slot: 25
+  item:
+    name: "&b&l🔒 Set Permission"
+    lore:
+      - ""
+      - "&7Set the permission required"
+      - "&7to access this Gui."
+      - ""
+      - "&6Current: &f%permission%"
+      - ""
+      - "&eClick to set."
+    type: "COMMAND_BLOCK"
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+toggle-disable-animation:
+  enabled: true
+  slot: 34
+  item:
+    name: "&b&l⭐ Toggle Disable Scene Animation"
+    lore:
+      - ""
+      - "&7Toggle whether the scenes will"
+      - "&7be treated as animating or"
+      - "&7individual pages."
+      - ""
+      - "&6Current: &f%disable-scene-animation%"
+      - ""
+      - "&eClick to set."
+    type: "LIME_DYE"
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+save-gui:
+  enabled: true
+  slot: 36
+  item:
+    name: "&aSave Gui"
+    lore:
+      - "&7Save this gui to it's respective file."
+    type: "PLAYER_HEAD"
+    texture-base64: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzEwMzQxYzJiZmMwZDBlYTk5MWRmZGE4ZjU3MWUxYzhlNjhmMjVkNTcxNGRjOTU0YzJlZDc4NDZlYTk2ODI5MyJ9fX0="
+    amount: 1
+    unbreakable: false
+    item-flags: ["all"]
+    enchantments: []
+    custom-model-data: 0
+
+set-target:
+  enabled: true
+  slot: 30
+  item:
+    name: "&b&l🔎 Set Target"
+    lore:
+      - ""
+      - "&7Set the target argument status for the command alias."
+      - ""
+      - "&6&lCurrent: &f%target%"
+      - ""
+      - "&eClick to set."
+    type: "PLAYER_HEAD"
+    texture-base64: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjMyMDZkYjhhN2FkMzcxZDUyZmI4NDQzN2RlYTE0NGJmMzQ4N2VhMmZkZDc4OTE4MGE2MmE4MTY4YWU3MmVjOSJ9fX0="
+    amount: 1
+    unbreakable: false
+    item-flags: [ "all" ]
+    enchantments: [ ]
+    custom-model-data: 0
+
+half-copy-gui:
+  enabled: true
+  slot: 28
+  item:
+    name: "&b&l📋 Half Copy Gui"
+    lore:
+      - ""
+      - "&7Create a copy of this gui."
+      - "&7With only the design."
+      - ""
+      - "&eClick to copy."
+    type: "PLAYER_HEAD"
+    texture-base64: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDA3MTU0OTFiZjJiODVjMjc2ZmZiNzAxN2JhY2I0NDNjNzg5YjBlNWQ0NjVmYzMzYjVmOTkzYmQzYjQyMGZiZCJ9fX0="
+    amount: 1
+    unbreakable: false
+    item-flags: [ "all" ]
+    enchantments: [ ]
+    custom-model-data: 0
+
+full-copy-gui:
+  enabled: true
+  slot: 32
+  item:
+    name: "&b&l📋 &cFull &b&lCopy Gui"
+    lore:
+      - ""
+      - "&7Create a copy of this gui."
+      - "&7With everything from the current gui."
+      - ""
+      - "&eClick to copy."
+    type: "PLAYER_HEAD"
+    texture-base64: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmVjNThjMWVmZGJkMzMwNzYzMjAyMjYzOGQ4ZGI1YmY2MzYzNWNiYzYyMGIyNmU1ZDRkMmYzZmUzMjI4NGNmZCJ9fX0="
+    amount: 1
+    unbreakable: false
+    item-flags: [ "all" ]
+    enchantments: [ ]
+    custom-model-data: 0
+
+
+exit:
+  enabled: true
+  slot: 44
+  item:
+    name: "&c⬅ Back"
+    lore:
+      - "&7Return to the Gui Manager."
+    type: "PLAYER_HEAD"
+    texture-base64: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUxY2VkMmU2NDczNjZmOGYzYWQyZGZlNDE1Y2NhODU2NTFiZmFmOTczOWE5NWNkNTdiNmYyMWNiYTA1MyJ9fX0="
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0

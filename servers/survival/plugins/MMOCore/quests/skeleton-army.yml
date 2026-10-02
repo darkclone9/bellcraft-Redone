@@ -1,0 +1,41 @@
+# Display options
+name: 'Barrow Vanguard'
+level-req:
+    main: 19
+lore:
+- 'Ancient catacombs beneath the hills have stirred.'
+- 'Skeletal warriors rise in grim unison alongside the restless dead.'
+- 'Break their advance before they unite into an overwhelming legion.'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Destroy 20 Skeletons in the barrows'
+- '&7► Phase 2: Banish 10 Zombie thralls'
+- ''
+- '&eRewards:'
+- '&7► 750 EXP'
+- '&7► 28 Gold Coins'
+- '&7► Cutlass'
+
+parent:
+- 'night-watch'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=SKELETON;amount=20}'
+        lore: 'Destroy 20 Skeletons in the barrows.'
+        triggers:
+        - message{format="&cCommander> &fThe archer ranks break! Clear the remaining zombie vanguard!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=ZOMBIE;amount=10}'
+        lore: 'Banish 10 Zombie thralls.'
+        triggers:
+        - message{format="&aCommander> &fThe vanguard is shattered! The hills are quiet once more."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 28"}
+        - 'mmoitem{type=SWORD;id=CUTLASS}'
+        - 'experience{amount=750}'

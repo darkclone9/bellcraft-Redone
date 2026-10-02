@@ -1,0 +1,24 @@
+DEBILITATING_SHOT:
+  name: '&8🎯 Debilitating Shot'
+  icon: SPECTRAL_ARROW
+  source: default:WEAKEN
+  lore:
+  - '&7Fires a high-velocity tactical round'
+  - '&7that damages and heavily weakens the target.'
+  parameters:
+    damage:
+      base: 8
+      per-level: 1.5
+    cooldown:
+      base: 10
+      per-level: -0.05
+      min: 5
+    mana:
+      base: 6
+      per-level: 0.12
+  triggers:
+    cast:
+    - particle{p=CRIT;amount=15;speed=0.2;hS=0.3;vS=0.3}
+    - sound{s=ENTITY_ARROW_HIT;v=1;p=0.7}
+    - damage{amount={damage}}
+    - potion{type=WEAKNESS;duration=4;amplifier=0}

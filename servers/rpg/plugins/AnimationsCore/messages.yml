@@ -1,0 +1,74 @@
+commands:
+  animcore:
+    usage: "Usage: /{label} <reload|set|ban|test|play|emote|setspawn|spawn>"
+    unknown: "Unknown command. Usage: /{label} <reload|set|ban|test|play|emote|setspawn|spawn>"
+  reload:
+    no-permission: "You do not have permission to use this command."
+    success: "All configurations reloaded successfully."
+    config-reloaded: "Main config.yml reloaded."
+  setspawn:
+    no-permission: "You do not have permission to use this command."
+    player-only: "Only players can use this command."
+    success: "AnimationsCore spawn point set to your current location."
+  spawn:
+    no-permission: "You do not have permission to use this command."
+    no-spawn: "No spawn point set. Use /animcore setspawn first."
+    player-not-found: "Player not found: {player}"
+    usage: "Usage: /{label} spawn <player>"
+    success: "Teleported {player} to AnimationsCore spawn."
+  set-preference:
+    no-permission: "You do not have permission to use this command."
+    usage: "Usage: /animcore set <player> <type> [<value>]"
+    player-not-found: "Player not found or not online."
+    custom-not-supported: "Custom animations are manually triggered and cannot be stored as preferences."
+    missing-permission: "Player does not have the required permission for any of the animation files."
+    updated: "Successfully updated player preferences."
+    update-failed: "Failed to update player preferences."
+    cleared: "Successfully cleared player preferences."
+    clear-failed: "No stored preference to clear or failed to save."
+animations:
+  play:
+    no-permission: "You do not have permission to use this command."
+    usage: "Usage: /animcore play <type> <animation> <player>"
+    player-not-found: "Player not found: {player}"
+    api-unavailable: "AnimationsCore API is not available."
+    afk-failed: "Unable to trigger AFK animation '{animation}' for player {player}."
+    afk-triggered: "Triggered AFK animation '{animation}' for player {player}"
+    invalid-animation: "Invalid animation: {animation}"
+    player-no-permission: "Player {player} doesn't have permission to use this animation."
+    play-failed: "Failed to play animation '{animation}' for player {player}."
+    playing: "Playing animation {animation} ({mythicmob}) for player {player}"
+  test:
+    no-permission: "You do not have permission to use this command."
+    usage: "Usage: /animcore test <type> <animation> <player>"
+    player-not-found: "Player not found: {player}"
+    afk-disabled: "AFK animations are disabled in the configuration."
+    afk-triggered: "Triggered AFK animation '{animation}' for player {player}"
+    invalid-type: "Invalid type: {type}"
+    invalid-animation: "Invalid animation: {animation}"
+    spawn-failed: "Failed to spawn MythicMob with ID: {mythicmob}"
+    spawned: "Spawned test animation {animation} ({mythicmob}) for player {player} at their current location."
+  ban:
+    player-only: "Only players can use this command."
+    no-permission: "You do not have permission to use this command."
+    player-not-found: "Player not found or not online."
+    timeout: "Ban operation timed out and was canceled."
+    prompt: "Enter a command to ban the player without the slash (/), or type 'cancel' to cancel:"
+    animation-not-found: "Animation not found in any bans.yml file."
+    canceled: "Ban operation canceled."
+    spawn-failed: "Failed to start the ban animation. Check the configured MythicMob."
+    success: "Player {player} has been banned with command: {command}"
+  emote:
+    usage: "Usage: /emote [emote-name]"
+    invalid-name: "Invalid emote name."
+    no-permission: "You don't have permission to use this emote."
+    start-failed: "Failed to start emote animation."
+    sneak-to-stop: "Sneak to stop"
+player:
+  freeze:
+    unfrozen: "You're unfrozen"
+  visibility:
+    hidden: "Peekaboo"
+    revealed: "Goodbye"
+
+#affadadec20c3292c3ae6322224d86af

@@ -1,0 +1,40 @@
+
+# Display options
+name: 'Cave Diver'
+lore:
+- 'The deep caves hold both riches and'
+- 'danger. Gather materials from below'
+- 'and survive the monsters within!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Mine 10 iron ore deep underground'
+- '&7► Phase 2: Kill 5 cave spiders lurking in the tunnels'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 18 Gold Coins'
+
+level-req:
+    main: 6
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=IRON_ORE;amount=10}'
+        lore: 'Mine 10 iron ore deep underground.'
+        triggers:
+        - message{format="&aMiner> &fGood iron! But watch out for the creatures down here."}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=CAVE_SPIDER;amount=5}'
+        lore: 'Kill 5 cave spiders lurking in the tunnels.'
+        triggers:
+        - message{format="&aMiner> &fYou made it out alive! And with iron too. Impressive!"}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 18"}
+        - 'experience{amount=170}'

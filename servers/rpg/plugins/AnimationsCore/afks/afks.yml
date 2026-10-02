@@ -1,0 +1,13 @@
+animations:
+  waiting:
+    display-name: Waiting
+    mm-id: join-warp_pipe
+    permission: animcore.afk.warp_pipe
+    GUI:
+      icon: STONE
+      ModelID: 0
+      Lore:
+      - '&7Automatically added'
+      - '&7please customize in GUI.yml'
+
+# affadadec20c3292c3ae6322224d86af

@@ -1,0 +1,314 @@
+guide:
+  Enabled: true
+  Label: "{#FFAA00}The Bellcraft Guide"
+  Description:
+    Width: 320
+    Lines:
+    - "{#FFFFFF}Welcome, {#FFAA00}%cmi_user_display_name%{#FFFFFF}."
+    - ""
+    - "{#AAAAAA}Everything you need to know about this network - the servers, the ranks, and how to get started."
+    - ""
+    - "{#555555}Bedrock player? Use {#55FF55}/ranks{#555555}, {#55FF55}/servers{#555555} and {#55FF55}/newhere{#555555} instead."
+  Buttons:
+    Columns: 2
+    List:
+    - Label: "{#55FF55}New here? Start here"
+      Width: 155
+      OpenDialog: guidestart
+      Tooltip:
+      - "{#AAAAAA}Your first ten minutes"
+    - Label: "{#FFAA00}Ranks and promotion"
+      Width: 155
+      OpenDialog: guideranks
+      Tooltip:
+      - "{#AAAAAA}All 21 ranks and how to climb"
+    - Label: "{#55FFFF}The servers"
+      Width: 155
+      OpenDialog: guideservers
+      Tooltip:
+      - "{#AAAAAA}What each world is for - and travel there"
+    - Label: "{#FF55FF}Everyday commands"
+      Width: 155
+      OpenDialog: guidecommands
+      Tooltip:
+      - "{#AAAAAA}Homes, teleports, chat and jobs"
+    - Label: "{#FFAA00}Radio & Music"
+      Width: 155
+      OpenDialog: guideradio
+      Tooltip:
+      - "{#AAAAAA}Stations, boomboxes and commands"
+    - Label: "{#FF5555}The rules"
+      Width: 155
+      Commands:
+      - "cmi ctext rules [playerName]"
+  Close:
+    Label: "{#AAAAAA}Close"
+    Width: 320
+
+guidestart:
+  Enabled: true
+  Label: "{#55FF55}Your first ten minutes"
+  Description:
+    Width: 340
+    Lines:
+    - "{#FFAA00}1. Get out to the wild"
+    - "{#AAAAAA}Spawn is a protected hub - you cannot build here. Run {#55FF55}/rtp{#AAAAAA} to be dropped somewhere random and safe out in the world."
+    - ""
+    - "{#FFAA00}2. Claim before you build"
+    - "{#AAAAAA}You can build anywhere in the wild, but it is not protected. Found a town with {#55FF55}/town new <name>{#AAAAAA} to lock your area down, or ask to join someone."
+    - ""
+    - "{#FFAA00}3. Set a home"
+    - "{#AAAAAA}{#55FF55}/sethome{#AAAAAA} marks where you are, {#55FF55}/home{#AAAAAA} brings you back. You get 3 to start with - more with rank."
+    - ""
+    - "{#FFAA00}4. Earn money"
+    - "{#AAAAAA}{#55FF55}/jobs browse{#AAAAAA} lists what you can be paid for. You can hold 2 jobs at once."
+  Buttons:
+    Columns: 2
+    List:
+    - Label: "{#55FF55}Go to Survival"
+      Width: 165
+      Commands:
+      - "closeinv!"
+      - "server survival"
+    - Label: "{#55FFFF}Everyday commands"
+      Width: 165
+      OpenDialog: guidecommands
+  Close:
+    Label: "{#AAAAAA}Back"
+    OpenDialog: guide
+    Width: 340
+
+guideranks:
+  Enabled: true
+  Label: "{#FFAA00}Ranks and promotion"
+  Description:
+    Width: 340
+    Lines:
+    - "{#AAAAAA}There are 21 ranks in three independent tracks. Each rank has a {#FFFFFF}weight{#AAAAAA} - when you hold more than one, the heaviest is the prefix everybody sees."
+    - ""
+    - "{#AAAAAA}Because the tracks are independent, you can be a {#00AA00}Moderator{#AAAAAA} and a {#FFAA00}VIP{#AAAAAA} at the same time and still show as Moderator."
+  Buttons:
+    Columns: 2
+    List:
+    - Label: "{#00AA00}Staff ladder"
+      Width: 165
+      OpenDialog: guiderankstaff
+      Tooltip:
+      - "{#AAAAAA}Helper through Owner"
+    - Label: "{#AA00AA}Builders"
+      Width: 165
+      OpenDialog: guiderankbuild
+    - Label: "{#FFAA00}Donor tiers"
+      Width: 165
+      OpenDialog: guiderankdonor
+    - Label: "{#55FFFF}Recognition tags"
+      Width: 165
+      OpenDialog: guideranktags
+  Close:
+    Label: "{#AAAAAA}Back"
+    OpenDialog: guide
+    Width: 340
+
+guiderankstaff:
+  Enabled: true
+  Label: "{#00AA00}The staff ladder"
+  Description:
+    Width: 350
+    Lines:
+    - "{#AA0000}Owner{#555555} - weight 1000"
+    - "{#AAAAAA}Full control of everything."
+    - ""
+    - "{#FF5555}President{#555555} - 950"
+    - "{#AAAAAA}Everything below, plus the ability to create and restructure ranks."
+    - ""
+    - "{#FFAA00}Vice President{#555555} - 900"
+    - "{#AAAAAA}Can move players between ranks, but cannot change what the ranks are."
+    - ""
+    - "{#55FFFF}Developer{#555555} - 850"
+    - "{#AAAAAA}Sits beside Admin. Profiling, debugging and reloads."
+    - ""
+    - "{#5555FF}Admin{#555555} - 800"
+    - "{#AAAAAA}Full plugin control. Can inspect ranks but not change them."
+    - ""
+    - "{#AA00AA}Officer{#555555} - 700"
+    - "{#AAAAAA}Gamemode, item spawning, warps, IP bans and town administration."
+    - ""
+    - "{#00AA00}Moderator{#555555} - 600"
+    - "{#AAAAAA}Bans, jails and chat control. Fly and speed."
+    - ""
+    - "{#55FF55}Helper{#555555} - 500"
+    - "{#AAAAAA}Entry staff. Kick, mute, warn and investigate - no bans."
+  Close:
+    Label: "{#AAAAAA}Back"
+    OpenDialog: guideranks
+    Width: 350
+
+guiderankbuild:
+  Enabled: true
+  Label: "{#AA00AA}The build track"
+  Description:
+    Width: 340
+    Lines:
+    - "{#AA00AA}Head Builder{#555555} - weight 450"
+    - "{#AAAAAA}Full WorldEdit with region bypass, world creation and warp management."
+    - ""
+    - "{#AA00AA}Builder{#555555} - weight 400"
+    - "{#AAAAAA}WorldEdit, creative toggle, fly and speed. Build tools without moderation powers."
+    - ""
+    - "{#555555}Builders are a separate track from staff - you can be a Builder without being a Moderator, and the other way round."
+  Close:
+    Label: "{#AAAAAA}Back"
+    OpenDialog: guideranks
+    Width: 340
+
+guiderankdonor:
+  Enabled: true
+  Label: "{#FFAA00}Donor tiers"
+  Description:
+    Width: 340
+    Lines:
+    - "{#FFFF55}Donator{#555555} - weight 300"
+    - "{#AAAAAA}Fly, crafting anywhere, disposal, 12 homes and 5 jobs."
+    - ""
+    - "{#FFAA00}VIP+{#555555} - weight 250"
+    - "{#AAAAAA}Portable anvil and grindstone, self heal and repair, 8 homes and 4 jobs."
+    - ""
+    - "{#FFAA00}VIP{#555555} - weight 200"
+    - "{#AAAAAA}Nicknames, hats, workbench, ender chest, 5 homes and 3 jobs."
+    - ""
+    - "{#555555}Each tier includes everything from the tier below it."
+  Close:
+    Label: "{#AAAAAA}Back"
+    OpenDialog: guideranks
+    Width: 340
+
+guideranktags:
+  Enabled: true
+  Label: "{#55FFFF}Recognition tags"
+  Description:
+    Width: 340
+    Lines:
+    - "{#AAAAAA}These are awarded, not earned by climbing. They sit below every staff and donor rank so they never hide a working prefix."
+    - ""
+    - "{#00AAAA}Founder{#555555} - here at the very start"
+    - "{#FF55FF}Veteran{#555555} - long standing player, +1 home"
+    - "{#FFFF55}Event Host{#555555} - can run events and broadcast"
+    - "{#FFFFFF}You{#FF5555}Tuber{#555555} - content creator"
+    - "{#AA00AA}Streamer{#555555} - creator, can vanish for shots"
+    - "{#55FFFF}Champion{#555555} - tournament prize"
+    - "{#FFAA00}Legend{#555555} - the highest honorary tag"
+  Close:
+    Label: "{#AAAAAA}Back"
+    OpenDialog: guideranks
+    Width: 340
+
+guideservers:
+  Enabled: true
+  Label: "{#55FFFF}The servers"
+  Description:
+    Width: 340
+    Lines:
+    - "{#55FFFF}Lobby{#AAAAAA} - the hub you land in. Nothing to do here but pick where to go."
+    - ""
+    - "{#55FF55}Survival{#AAAAAA} - the main world. Build a town, take a job, claim land. No RPG systems here."
+    - ""
+    - "{#FFAA00}RPG{#AAAAAA} - classes, skills, custom items and quests. A separate world with its own progression."
+    - ""
+    - "{#555555}Your chat follows you between servers, so you can keep talking to everyone wherever you are."
+  Buttons:
+    Columns: 3
+    List:
+    - Label: "{#55FFFF}Lobby"
+      Width: 108
+      Commands:
+      - "closeinv!"
+      - "server lobby"
+    - Label: "{#55FF55}Survival"
+      Width: 108
+      Commands:
+      - "closeinv!"
+      - "server survival"
+    - Label: "{#FFAA00}RPG"
+      Width: 108
+      Commands:
+      - "closeinv!"
+      - "server rpg"
+  Close:
+    Label: "{#AAAAAA}Back"
+    OpenDialog: guide
+    Width: 340
+
+guidecommands:
+  Enabled: true
+  Label: "{#FF55FF}Everyday commands"
+  Description:
+    Width: 350
+    Lines:
+    - "{#FFAA00}Getting around"
+    - "{#55FF55}/rtp{#AAAAAA} - random teleport into the wild"
+    - "{#55FF55}/spawn{#AAAAAA} - back to the hub"
+    - "{#55FF55}/sethome  /home  /homes{#AAAAAA} - your own waypoints"
+    - "{#55FF55}/tpa <player>{#AAAAAA} - ask to teleport to someone"
+    - "{#55FF55}/back{#AAAAAA} - return where you last were"
+    - ""
+    - "{#FFAA00}Talking"
+    - "{#55FF55}/msg <player> <text>{#AAAAAA} - private message, works across servers"
+    - "{#55FF55}/r <text>{#AAAAAA} - reply to the last message"
+    - "{#55FF55}/mail send <player> <text>{#AAAAAA} - leave a note for someone offline"
+    - ""
+    - "{#FFAA00}Making a living"
+    - "{#55FF55}/jobs browse{#AAAAAA} - see what pays"
+    - "{#55FF55}/town new <name>{#AAAAAA} - found a town and protect your land"
+    - "{#55FF55}/town invite <player>{#AAAAAA} - bring someone in"
+    - ""
+    - "{#FFAA00}Looking good"
+    - "{#55FF55}/wardrobe{#AAAAAA} - open the cosmetics wardrobe"
+    - ""
+    - "{#FFAA00}Music & Navigation"
+    - "{#55FF55}/radio{#AAAAAA} - synchronized music network & stations"
+    - "{#55FF55}/menu{#AAAAAA} - main server navigation & warps"
+  Close:
+    Label: "{#AAAAAA}Back"
+    OpenDialog: guide
+    Width: 350
+
+guideradio:
+  Enabled: true
+  Label: "{#FFAA00}The Radio & Music Network"
+  Description:
+    Width: 350
+    Lines:
+    - "{#FFAA00}Listening Anywhere"
+    - "{#55FF55}/radio{#AAAAAA} - open the interactive Radio menu"
+    - "{#55FF55}/radio stop{#AAAAAA} - stop your music stream"
+    - "{#55FF55}/radio item{#AAAAAA} - get a handheld Radio player"
+    - ""
+    - "{#FFAA00}Shared 3D Boomboxes (Spatial Audio)"
+    - "{#55FF55}/bcradio jukebox <station>{#AAAAAA} - place a 3D Boombox"
+    - "{#AAAAAA}All nearby players hear the synchronized music!"
+    - ""
+    - "{#FFAA00}Bedrock & Java Crossplay"
+    - "{#AAAAAA}Streams natively on both Java and Bedrock clients."
+    - "{#55FF55}/radio update{#AAAAAA} - opt-in download when new songs drop"
+    - "{#AAAAAA}(Zero mid-game reload flickers!)"
+    - ""
+    - "{#FFAA00}Web Radio & Spotify Jam"
+    - "{#AAAAAA}Listen in browser: {#55FFFF}join.bellcraft.online"
+  Buttons:
+    Columns: 2
+    List:
+    - Label: "{#55FF55}Open /radio"
+      Width: 170
+      Commands:
+      - "closeinv!"
+      - "radio"
+    - Label: "{#55FFFF}Web Radio"
+      Width: 170
+      Commands:
+      - "closeinv!"
+      - "cmi msg [playerName] &6[Bellcraft] &7Web Radio & Spotify Jam: &bhttps://join.bellcraft.online"
+  Close:
+    Label: "{#AAAAAA}Back"
+    OpenDialog: guide
+    Width: 350
+

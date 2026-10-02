@@ -1,0 +1,62 @@
+# Bellcraft Coins ? Vault/CMI money <-> physical coin items (1:1)
+
+options:
+    prefix: &6[&lBank&6] &r
+    max-withdraw: 64
+
+command /coins <text>:
+    aliases: coin, bellcoin
+    description: Exchange digital money and physical coins
+    trigger:
+        set {_parts::*} to arg-1 split at " "
+        set {_sub} to {_parts::1}
+        if {_sub} is not set:
+            send "{@prefix}&e/coins withdraw <amount> &7? money into coin items" to player
+            send "{@prefix}&e/coins deposit &7? coin items into money" to player
+            send "{@prefix}&7Balance: &a%player's balance%" to player
+            stop
+
+        if {_sub} is "withdraw":
+            set {_raw} to {_parts::2}
+            if {_raw} is not set:
+                send "{@prefix}&cUsage: &f/coins withdraw <amount>" to player
+                stop
+            set {_amt} to {_raw} parsed as number
+            if {_amt} is not set:
+                send "{@prefix}&cEnter a whole number." to player
+                stop
+            set {_amt} to floor({_amt})
+            if {_amt} < 1:
+                send "{@prefix}&cAmount must be at least 1." to player
+                stop
+            if {_amt} > {@max-withdraw}:
+                send "{@prefix}&cMax &f{@max-withdraw} &ccoins per withdraw." to player
+                stop
+            if player's balance < {_amt}:
+                send "{@prefix}&cNot enough money. Balance: &a%player's balance%" to player
+                stop
+            set {_coin} to {_amt} of gold nugget
+            set name of {_coin} to "&6&lBellcraft Coin"
+            set lore of {_coin} to "&7Physical coin" and "&7Worth &a1 &7currency" and "&8Trade with other players"
+            remove {_amt} from player's balance
+            give {_coin} to player
+            send "{@prefix}&aWithdrew &f%{_amt}% &acoin(s). Balance: &f%player's balance%" to player
+            stop
+
+        if {_sub} is "deposit":
+            set {_total} to 0
+            loop 36 times:
+                set {_slot} to loop-number - 1
+                set {_it} to slot {_slot} of player's inventory
+                if {_it} is set:
+                    if name of {_it} is "&6&lBellcraft Coin":
+                        add amount of {_it} to {_total}
+                        set slot {_slot} of player's inventory to air
+            if {_total} < 1:
+                send "{@prefix}&cNo Bellcraft Coins in your inventory." to player
+                stop
+            add {_total} to player's balance
+            send "{@prefix}&aDeposited &f%{_total}% &acoin(s). Balance: &f%player's balance%" to player
+            stop
+
+        send "{@prefix}&cUse &f/coins withdraw <amount> &cor &f/coins deposit&c." to player

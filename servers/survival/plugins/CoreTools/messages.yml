@@ -1,0 +1,39 @@
+###################################################
+#             Delivery Player Messages            #
+###################################################
+delivery:
+  successful-inventory:
+    sound: [ minecraft:entity.player.levelup,master,1,2 ]
+    script: ''
+    message:
+      - '<bold><green>Delivery ✔<reset> <gold>''{item_name}''<reset> item has been successfully delivered to your inventory.'
+  successful-playervault:
+    sound: [ minecraft:entity.player.levelup,master,1,2 ]
+    script: ''
+    message:
+      - '<bold><green>Delivery ✔<reset> <gold>''{item_name}''<reset> item has been successfully delivered to your <gold>''{player_vault}''<reset> PlayerVault.'
+  successful-location:
+    sound: [ minecraft:entity.player.levelup,master,1,2 ]
+    script: ''
+    message:
+      - '<bold><green>Delivery ✔<reset> <gold>''{item_name}''<reset> item has been successfully delivered to your location.'
+  fail-inventory:
+    sound: [ minecraft:entity.villager.no,master,1,2 ]
+    script: ''
+    message:
+      - '<bold><red>Delivery ✖<reset> <gold>''{item_name}''<reset> item could not be delivered because your inventory is full.'
+  fail-playervault:
+    sound: [ minecraft:entity.villager.no,master,1,2 ]
+    script: ''
+    message:
+      - '<bold><red>Delivery ✖<reset> <gold>''{item_name}''<reset> item could not be delivered because your <gold>''{player_vault}''<reset> PlayerVault is full.'
+  fail-inventory-playervault:
+    sound: [ minecraft:entity.villager.no,master,1,2 ]
+    script: ''
+    message:
+      - '<bold><red>Delivery ✖<reset> <gold>''{item_name}''<reset> item could not be delivered because your inventory and <gold>''{player_vault}''<reset> PlayerVault is full.'
+  fail-missing-playervault:
+    sound: [ minecraft:entity.villager.no,master,1,2 ]
+    script: ''
+    message:
+      - '<bold><red>Delivery ✖<reset> <gold>''{item_name}''<reset> item could not be delivered because a PlayerVault <gold>''{player_vault}''<reset> could not be found.'

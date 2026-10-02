@@ -1,0 +1,41 @@
+PlayerJoinEvent:
+  Event: PlayerJoinEvent
+  Script: PlayerJoinEvent
+  run_script_if_event_cancelled: false
+
+  extra-script:
+    PlayerJoinEvent:
+      Conditions:
+        - Permission{p=VIP} trueElse PlayerJoinVIP
+      Mechanics:
+        - Set{v="<yellow>{caster_name} joined the game"} @Self
+
+    PlayerJoinVIP:
+      Mechanics:
+        - Set{v="<yellow><bold>{caster_name} joined the game"} @Self
+
+PlayerQuitEvent:
+  Event: PlayerQuitEvent
+  Script: PlayerQuitEvent
+  run_script_if_event_cancelled: false
+
+  extra-script:
+    PlayerQuitEvent:
+      Conditions:
+        - Permission{p=VIP} trueElse PlayerQuitVIP
+      Mechanics:
+        - Set{v="<yellow>{caster_name} left the game"} @Self
+
+    PlayerQuitVIP:
+      Mechanics:
+        - Set{v="<yellow><bold>{caster_name} left the game"} @Self
+
+PlayerDeathEvent:
+  Event: PlayerDeathEvent
+  Script: PlayerDeathEvent
+  run_script_if_event_cancelled: false
+
+  extra-script:
+    PlayerDeathEvent:
+      Mechanics:
+        - Set{v="{caster_name} was slain by {trigger_name}";m=deathmessage}

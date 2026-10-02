@@ -1,0 +1,31 @@
+# Display options
+name: 'Into the Web'
+level-req:
+    main: 1
+lore:
+- 'Thick white strands hang low between the pine needles.'
+- 'Pack caravans refuse to travel the eastern pass while'
+- 'skittering silhouettes haunt the branches.'
+- ''
+- '&6Objective:'
+- '&7► Clear 10 Spiders along the forest trail'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 8 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=SPIDER;amount=10}'
+        lore: 'Clear 10 Spiders along the forest trail.'
+        triggers:
+        - message{format="&aCaravan Master> &fThe trail is clear! Our wagons can roll again without fear."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 8"}
+        - 'experience{amount=170}'

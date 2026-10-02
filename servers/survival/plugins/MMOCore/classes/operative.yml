@@ -1,0 +1,156 @@
+display:
+  name: 'Operative'
+  lore:
+    - '&eClass Role: Striker / Scout'
+    - '&7Strikes fast and is gone before they turn.'
+    - ''
+    - '&7Specialisations:'
+    - '&2- Venom &8: poison everything, let it bleed out'
+    - '&8- Shadow &8: one hit from nowhere, then vanish'
+  item: IRON_SWORD
+  slot: 12
+
+mana:
+  char: '|'
+  icon: '&b|'
+  name: 'Focus'
+  color:
+    full: AQUA
+    half: DARK_AQUA
+    empty: DARK_GRAY
+
+stats:
+  MAX_HEALTH:
+    base: 20.0
+    per-level: 2.0
+  MAX_MANA:
+    base: 35.0
+    per-level: 5.0
+  PHYSICAL_DAMAGE:
+    base: 4.0
+    per-level: 2.0
+  PROJECTILE_DAMAGE:
+    base: 3.0
+    per-level: 1.5
+  ATTACK_SPEED:
+    base: 2.0
+    per-level: 0.5
+  DODGE_RATING:
+    base: 10.0
+    per-level: 1.5
+  MOVEMENT_SPEED:
+    base: 0.135
+    per-level: 0.005
+  ADDITIONAL_EXPERIENCE:
+    base: 5.0
+    per-level: 0.5
+
+attributes:
+  dexterity:
+    base: 14
+    per-level: 3.0
+  intelligence:
+    base: 6
+    per-level: 1.0
+
+options:
+  default: false
+  display: true
+  needs-permission: false
+  off-combat-health-regen: true
+  off-combat-mana-regen: true
+
+exp-curve: 'levels'
+exp-table: class_exp_table
+
+skill-slots:
+  1:
+    name: "&bBackstab"
+    unlocked-by-default: true
+    lore:
+      - '&7High damage from behind'
+  2:
+    name: "&bShadow Veil"
+    unlocked-by-default: true
+    lore:
+      - '&7Stealth/escape utility'
+
+main-exp-sources:
+  - 'killmob{type=ZOMBIE;amount=4-7}'
+  - 'killmob{type=SKELETON;amount=5-9}'
+  - 'killmob{type=CREEPER;amount=6-10}'
+  - 'killmob{type=PILLAGER;amount=8-13}'
+  - 'killmob{type=WITCH;amount=8-13}'
+
+skills:
+  BACKSTAB:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  SHADOW_VEIL:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  # New skills
+  OPERATIVE_SHADOW_STRIKE:
+    level: 5
+    max-level: 30
+    unlocked-by-default: false
+
+  OPERATIVE_POISON_BLADE:
+    level: 10
+    max-level: 30
+    unlocked-by-default: false
+
+  OPERATIVE_VANISH:
+    level: 15
+    max-level: 30
+    unlocked-by-default: false
+
+  # Standalone MythicLib skill unlocks (via skill tree)
+  TRICK_ATTACK:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  EVASION_PROTOCOL:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  # ---- Specialisation skills (generated) ----
+  VENOM_TOXIC_BLADES:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  VENOM_RUPTURE:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  SHADOW_OPPORTUNIST:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  SHADOW_AMBUSH:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+
+skill-trees:
+  - 'operative'
+  - 'profession-mining'
+  - 'profession-woodcutting'
+  - 'profession-farming'
+  - 'profession-fishing'
+  - 'profession-alchemy'
+  - 'profession-smithing'
+  - 'profession-enchanting'
+  - 'profession-smelting'
+
+triggers:
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-ap %player_name%"}'
+    - 'command{format="bellcraft-grant-sp %player_name%"}'
+    - 'command{format="bellcraft-grant-stp %player% operative"}'

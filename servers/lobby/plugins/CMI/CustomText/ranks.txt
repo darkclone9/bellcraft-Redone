@@ -1,0 +1,53 @@
+<AutoAlias>
+<AutoPage>
+&8&m
+&6&lBellcraft Ranks &8- &7the staff ladder
+&8&m
+&7Each rank has a &fweight&7. Hold more than one and the
+&7heaviest is the prefix everyone sees.
+
+&4&lOwner &8(1000) &7- full control of everything
+&c&lPresident &8(950) &7- can create and restructure ranks
+&6&lVice President &8(900) &7- can move players between ranks
+&b&lDeveloper &8(850) &7- profiling, debugging, reloads
+&9&lAdmin &8(800) &7- full plugin control, read-only on ranks
+&5&lOfficer &8(700) &7- gamemode, items, warps, town admin
+&2&lModerator &8(600) &7- bans, jails, chat control, fly
+&a Helper &8(500) &7- kick, mute, warn. No bans.
+&8 Player &8(0) &7- everybody starts here
+
+&7Use &fNext &7below for builders, donors and tags.
+<NextPage>
+&8&m
+&6&lBellcraft Ranks &8- &7builders and donors
+&8&m
+&5&lThe build track &8(separate from staff)
+&5&lHead Builder &8(450) &7- WorldEdit with region bypass,
+&7   world creation, warp management
+&5Builder &8(400) &7- WorldEdit, creative toggle, fly, speed
+
+&6&lDonor tiers &8(each includes the one below)
+&e&lDonator &8(300) &7- fly, craft anywhere, 12 homes, 5 jobs
+&6&lVIP+ &8(250) &7- anvil, grindstone, heal, 8 homes, 4 jobs
+&6VIP &8(200) &7- nickname, hat, workbench, 5 homes, 3 jobs
+
+&7You can hold a build rank and a donor rank at the same
+&7time as a staff rank. The tracks are independent.
+<NextPage>
+&8&m
+&6&lBellcraft Ranks &8- &7recognition tags
+&8&m
+&7These are awarded, not climbed. They sit below every
+&7staff and donor rank so they never hide a real prefix.
+
+&3&lFounder &7- here at the very start
+&dVeteran &7- long standing player, one bonus home
+&e&lEvent Host &7- can run events and broadcast
+&fYou&cTuber &7- content creator
+&5Streamer &7- creator, can vanish to set up shots
+&b&lChampion &7- tournament prize
+&6&lLegend &7- the highest honorary tag
+
+&7Ask an &5&lOfficer &7or above if you have earned one.
+
+<T>&8[&6Guide&8]</T><H>&7Back to the main guide</H><C>/guide</C><Next><T>  &8[&bServers&8]</T><H>&7What each server is for</H><C>/servers</C>

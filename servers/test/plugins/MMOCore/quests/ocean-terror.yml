@@ -1,0 +1,43 @@
+
+# Display options
+name: 'Ocean Terror'
+lore:
+- 'The seas are infested with drowned and'
+- 'guardians alike. The shipping lanes are'
+- 'under siege. Restore order to the ocean!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Kill 20 drowned'
+- '&7► Phase 2: Kill 5 guardians'
+- ''
+- '&eRewards:'
+- '&7► 5161 EXP'
+- '&7► 52 Gold Coins'
+- '&7► Long Sword'
+
+level-req:
+    main: 41
+
+parent:
+- 'guardian-depths'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=DROWNED;amount=20}'
+        lore: 'Kill 20 drowned.'
+        triggers:
+        - message{format="&aAdmiral> &fThe shallow waters are cleared! Now face the guardians below."}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=GUARDIAN;amount=5}'
+        lore: 'Kill 5 guardians.'
+        triggers:
+        - message{format="&aAdmiral> &fThe seas are safe for trade once more! A fine blade for a fine warrior."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 52"}
+        - 'mmoitem{type=SWORD;id=LONG_SWORD}'
+        - 'experience{amount=5161}'

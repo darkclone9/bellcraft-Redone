@@ -1,0 +1,62 @@
+wg_emerge:
+  Skills:
+    - 'sound{s=entity.warden.emerge;v=1.4;p=0.9} @self'
+    - 'effect:particles{particle=sculk_soul;amount=60;hSpread=1.2;vSpread=1.6;speed=0.06} @self'
+    - 'effect:particles{particle=sculk_charge_pop;amount=30;hSpread=1.4;vSpread=0.8;speed=0.12} @self'
+wg_hurt:
+  Cooldown: 0.4
+  Skills:
+    - 'state{m=warden_guard;s=damage;li=false} @self'
+    - 'sound{s=entity.warden.hurt;v=1;p=0.9} @self'
+    - 'effect:particles{particle=sculk_charge_pop;amount=12;hSpread=0.6;vSpread=0.9;speed=0.08} @self'
+wg_slam:
+  Cooldown: 5
+  Skills:
+    - 'state{m=warden_guard;s=attack_slam;li=false} @self'
+    - 'sound{s=entity.warden.attack_impact;v=1.3;p=0.8} @self'
+    - 'delay 9'
+    - 'effect:particles{particle=sculk_charge_pop;amount=50;hSpread=2.2;vSpread=0.25;speed=0.25} @self'
+    - 'effect:particles{particle=block_crack;material=SCULK;amount=40;hSpread=2.2;vSpread=0.2;speed=0.2} @self'
+    - 'damage{amount=9} @PlayersInRadius{r=4.5}'
+    - 'velocity{mode=add;y=0.5} @PlayersInRadius{r=4.5}'
+wg_sweep:
+  Cooldown: 7
+  Skills:
+    - 'state{m=warden_guard;s=attack_sweep;li=false} @self'
+    - 'delay 5'
+    - 'sound{s=entity.warden.attack_impact;v=1;p=1.25} @self'
+    - 'effect:particles{particle=sculk_soul;amount=35;hSpread=2.6;vSpread=0.7;speed=0.18} @self'
+    - 'damage{amount=7} @PlayersInRadius{r=5.5}'
+wg_sonic:
+  Cooldown: 11
+  Skills:
+    - 'state{m=warden_guard;s=sonic_scream;li=false} @self'
+    - 'sound{s=entity.warden.sonic_charge;v=1.5;p=1} @self'
+    - 'delay 26'
+    - 'sound{s=entity.warden.sonic_boom;v=1.6;p=1} @self'
+    - 'effect:particleline{particle=sonic_boom;amount=1;distanceBetween=0.9;fromOrigin=true} @target'
+    - 'damage{amount=12;ignoreArmor=true} @target'
+    - 'velocity{mode=add;y=0.35} @target'
+wg_roar:
+  Cooldown: 20
+  Skills:
+    - 'state{m=warden_guard;s=roar_summon;li=false} @self'
+    - 'sound{s=entity.warden.roar;v=1.6;p=0.85} @self'
+    - 'delay 18'
+    - 'effect:particlering{particle=sculk_soul;radius=8;points=56;amount=2} @self'
+    - 'potion{type=DARKNESS;duration=180;level=0} @PlayersInRadius{r=16}'
+    - 'potion{type=SLOWNESS;duration=120;level=1} @PlayersInRadius{r=9}'
+    - 'damage{amount=6} @PlayersInRadius{r=9}'
+wg_enrage:
+  Cooldown: 60
+  Skills:
+    - 'state{m=warden_guard;s=roar_summon;li=false} @self'
+    - 'sound{s=entity.warden.angry;v=1.5;p=0.8} @self'
+    - 'potion{type=STRENGTH;duration=400;level=1} @self'
+    - 'potion{type=SPEED;duration=400;level=1} @self'
+    - 'effect:particles{particle=sculk_soul;amount=70;hSpread=1.5;vSpread=2;speed=0.15} @self'
+wg_fall:
+  Skills:
+    - 'sound{s=entity.warden.death;v=1.5;p=0.9} @self'
+    - 'effect:particles{particle=sculk_soul;amount=80;hSpread=1.5;vSpread=1.8;speed=0.12} @self'
+    - 'effect:particles{particle=sculk_charge_pop;amount=40;hSpread=1.6;vSpread=1;speed=0.2} @self'

@@ -1,0 +1,23 @@
+name: 'Into the Silence'
+lore:
+- 'The deep dark does not echo.'
+- 'It listens.'
+- ''
+- '&6Objective:'
+- '&7► Mine 120 sculk'
+- ''
+- '&eRewards:'
+- '&7► 6160 EXP'
+level-req:
+    main: 70
+parent: []
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'mineblock{type=SCULK;amount=120}'
+        lore: 'Mine 120 sculk.'
+        triggers:
+        - 'experience{amount=6160}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

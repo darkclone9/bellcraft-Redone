@@ -1,0 +1,158 @@
+display:
+  name: 'Ranger'
+  lore:
+    - '&eClass Role: DPS Ranged / Hunter'
+    - '&7Dual spec: &aHunter &7/ &6Tracker'
+    - '&7A master of the wilds who strikes'
+    - '&7from the shadows with deadly'
+    - '&7precision, or tracks prey, marks'
+    - '&7targets, and senses hidden structures.'
+  item: BOW
+  slot: 21
+
+mana:
+  char: "◌"
+  icon: "&a◌"
+  name: 'Focus'
+  color:
+    full: GREEN
+    half: DARK_GREEN
+    empty: DARK_GRAY
+
+stats:
+  MAX_HEALTH:
+    base: 22.0
+    per-level: 2.5
+  MAX_MANA:
+    base: 35.0
+    per-level: 5.5
+  PROJECTILE_DAMAGE:
+    base: 5.0
+    per-level: 2.0
+  WEAPON_DAMAGE:
+    base: 3.0
+    per-level: 1.0
+  ATTACK_SPEED:
+    base: 2.0
+    per-level: 0.5
+  MOVEMENT_SPEED:
+    base: 0.13
+    per-level: 0.005
+  DODGE_RATING:
+    base: 5.0
+    per-level: 1.0
+  ARMOR:
+    base: 3.0
+    per-level: 0.5
+
+attributes:
+  strength:
+    base: 5
+    per-level: 0.5
+  dexterity:
+    base: 12
+    per-level: 2.5
+  intelligence:
+    base: 7
+    per-level: 1.5
+  wisdom:
+    base: 5
+    per-level: 1.0
+
+options:
+  default: false
+  display: true
+  needs-permission: false
+  off-combat-health-regen: true
+  off-combat-mana-regen: true
+
+exp-curve: 'levels'
+exp-table: class_exp_table
+
+skill-slots:
+  1:
+    name: '&aPower Mark'
+    unlocked-by-default: true
+    lore:
+      - '&7Mark a target to increase damage'
+  2:
+    name: '&aEvade'
+    unlocked-by-default: true
+    lore:
+      - '&7Quickly dodge danger'
+
+main-exp-sources:
+  - 'killmob{type=ZOMBIE;amount=1-3}'
+  - 'killmob{type=SKELETON;amount=2-3}'
+  - 'killmob{type=SPIDER;amount=2-4}'
+  - 'killmob{type=CREEPER;amount=3-4}'
+  - 'killmob{type=BLAZE;amount=3-5}'
+  - 'killmob{type=PHANTOM;amount=4-6}'
+
+skill-trees:
+  - 'ranger-hunter'
+  - 'ranger-tracker'
+  - 'profession-mining'
+  - 'profession-woodcutting'
+  - 'profession-farming'
+  - 'profession-fishing'
+  - 'profession-alchemy'
+  - 'profession-smithing'
+  - 'profession-enchanting'
+  - 'profession-smelting'
+
+# Use MythicLib builtin skills (known-good handlers)
+skills:
+  POWER_MARK:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  EVADE:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  # New skills
+  RANGER_EXPLOSIVE_ARROW:
+    level: 5
+    max-level: 30
+    unlocked-by-default: false
+
+  RANGER_CAMOUFLAGE:
+    level: 10
+    max-level: 30
+    unlocked-by-default: false
+
+  RANGER_BINDING_SHOT:
+    level: 15
+    max-level: 30
+    unlocked-by-default: false
+
+  # Tracker dual-spec (unlocked from ranger-tracker tree)
+  RANGER_TRACK_PREY:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  RANGER_HUNT_MARK:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  RANGER_STRUCTURE_SENSE:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  RANGER_TRAILFINDER:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+triggers:
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-ap %player_name%"}'
+    - 'command{format="bellcraft-grant-sp %player_name%"}'
+    - 'command{format="bellcraft-grant-stp %player% ranger-hunter"}'
+    - 'command{format="bellcraft-grant-stp %player% ranger-tracker"}'

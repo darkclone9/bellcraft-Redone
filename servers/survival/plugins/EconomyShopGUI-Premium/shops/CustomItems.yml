@@ -1,0 +1,7 @@
+pages:
+  page1:
+    items:
+      '1':
+        material: nexo:forest_elytra
+        buy: 10000.0
+        sell: 8000.0

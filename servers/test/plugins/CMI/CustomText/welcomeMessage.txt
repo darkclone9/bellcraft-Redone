@@ -1,0 +1,8 @@
+&8&m
+&6&lWelcome to Bellcraft&7, %cmi_user_display_name%&7.
+&8&m
+&7New here? Start with the guide - it covers the servers,
+&7the ranks and everything you need for your first hour.
+
+<T>&8[&6&lOpen the Guide&8]</T><H>&7Opens the full in-game guide</H><C>/guide</C><Next><T>  &8[&aNew here?&8]</T><H>&7Your first ten minutes</H><C>/newhere</C><Next><T>  &8[&bServers&8]</T><H>&7What each server is for</H><C>/servers</C><Next><T>  &8[&eRanks&8]</T><H>&7All 21 ranks</H><C>/ranks</C>
+&8&m

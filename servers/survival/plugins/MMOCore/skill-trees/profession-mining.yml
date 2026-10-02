@@ -1,0 +1,192 @@
+id: profession-mining
+name: "&7Miner's Mastery"
+type: CUSTOM
+lore:
+  - '&7Available to all players'
+  - '&7Enhance your mining efficiency,'
+  - '&7survival underground, and ore yields.'
+max-point-spent: 12
+icon:
+  material: IRON_PICKAXE
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+  a1:
+    root: true
+    name: Ore Sight I
+    coordinates:
+      x: 0
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MINING_EFFICIENCY";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eMining efficiency +1'
+  a2:
+    name: Ore Sight II
+    coordinates:
+      x: -1
+      y: 2
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MINING_EFFICIENCY";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eMining efficiency +2'
+      1:
+        - '&eMining efficiency +1'
+  a3:
+    name: Ore Sight III
+    coordinates:
+      x: -2
+      y: 2
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MINING_EFFICIENCY";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eMining efficiency +3'
+      1:
+        - '&eMining efficiency +3'
+  b1:
+    root: true
+    name: Stone Stride I
+    coordinates:
+      x: -2
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="BLOCK_BREAK_SPEED";amount=0.1;type="FLAT"}'
+    lores:
+      0:
+        - '&eBlock break speed +0.1'
+  b2:
+    name: Stone Stride II
+    coordinates:
+      x: -2
+      y: -1
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="BLOCK_BREAK_SPEED";amount=0.15;type="FLAT"}'
+    lores:
+      0:
+        - '&eBlock break speed +0.15'
+      1:
+        - '&eBlock break speed +0.1'
+  b3:
+    name: Stone Stride III
+    coordinates:
+      x: -2
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="BLOCK_BREAK_SPEED";amount=0.2;type="FLAT"}'
+    lores:
+      0:
+        - '&eBlock break speed +0.2'
+      1:
+        - '&eBlock break speed +0.25'
+  c1:
+    root: true
+    name: Miner's Constitution I
+    coordinates:
+      x: 0
+      y: -2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMax health +%5'
+  c2:
+    name: Miner's Constitution II
+    coordinates:
+      x: 1
+      y: -2
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMax health +%8'
+      1:
+        - '&eMax health +%5'
+  c3:
+    name: Miner's Constitution III
+    coordinates:
+      x: 2
+      y: -2
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMax health +%12'
+      1:
+        - '&eMax health +%13'
+  d1:
+    root: true
+    name: Vein Seeker I
+    coordinates:
+      x: 2
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +2'
+  d2:
+    name: Vein Seeker II
+    coordinates:
+      x: 2
+      y: 1
+    parents:
+      strong: {d1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +3'
+      1:
+        - '&eAdditional experience +2'
+  d3:
+    name: Vein Seeker III
+    coordinates:
+      x: 2
+      y: 2
+    parents:
+      strong: {d2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +5'
+      1:
+        - '&eAdditional experience +5'

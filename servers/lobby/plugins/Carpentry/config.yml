@@ -1,0 +1,10 @@
+debug: false
+stairs: true
+slabs: true
+doors: true
+trapdoors: true
+grates: true
+lightning_rods: true
+chains: true
+bars: true
+lanterns: true

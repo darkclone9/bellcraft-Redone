@@ -1,0 +1,33 @@
+
+# Display options
+name: 'Enderman Stalker'
+lore:
+- 'The endermen phase in and out of our'
+- 'world, stealing blocks and frightening'
+- 'the townsfolk. Hunt them down!'
+- ''
+- '&6Objective:'
+- '&7► Kill 15 endermen'
+- ''
+- '&eRewards:'
+- '&7► 2842 EXP'
+- '&7► 35 Gold Coins'
+
+level-req:
+    main: 45
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=ENDERMAN;amount=15}'
+        lore: 'Kill 15 endermen.'
+        triggers:
+        - message{format="&aElder> &fThe veil between worlds grows thin, yet you prevail. Impressive."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 35"}
+        - 'experience{amount=2842}'

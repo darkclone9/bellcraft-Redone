@@ -1,0 +1,40 @@
+# Bellcraft: /lobby
+# Sends a survival player back to the lobby server. There is a short warm-up that damage
+# cancels, so it cannot be used to walk out of a fight; PvP and mob fights both count.
+
+options:
+    prefix: &8[&6Bellcraft&8] &r
+    warmup: 3
+    target-server: lobby
+
+command /lobby:
+    aliases: /hub
+    description: Return to the lobby.
+    executable by: players
+    cooldown: 5 seconds
+    cooldown message: &8[&6Bellcraft&8] &7Give it a moment before trying again.
+    trigger:
+        if {lobby.pending::%uuid of player%} is set:
+            send "{@prefix}&7You are already on your way to the lobby."
+            stop
+        set {lobby.pending::%uuid of player%} to true
+        send "{@prefix}&7Returning to the lobby in &f{@warmup}&7 seconds - stand clear of trouble."
+        play sound "block.note_block.hat" with volume 0.6 with pitch 1.4 to player
+        wait {@warmup} seconds
+        # The damage handler deletes this, which is how a cancelled trip is detected.
+        if {lobby.pending::%uuid of player%} is not set:
+            stop
+        delete {lobby.pending::%uuid of player%}
+        if player is not online:
+            stop
+        send "{@prefix}&6Off to the lobby..."
+        connect player to "{@target-server}"
+
+on damage of player:
+    {lobby.pending::%uuid of victim%} is set
+    delete {lobby.pending::%uuid of victim%}
+    send "{@prefix}&cTrip to the lobby cancelled - you took damage." to victim
+    play sound "block.note_block.bass" with volume 0.7 with pitch 0.7 to victim
+
+on quit:
+    delete {lobby.pending::%uuid of player%}

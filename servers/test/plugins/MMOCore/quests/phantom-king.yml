@@ -1,0 +1,43 @@
+
+# Display options
+name: 'Phantom King'
+lore:
+- 'Phantoms and endermen unite under a'
+- 'dark power. Slay their combined forces'
+- 'to shatter the alliance!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Kill 30 phantoms'
+- '&7► Phase 2: Kill 15 endermen'
+- ''
+- '&eRewards:'
+- '&7► 12090 EXP'
+- '&7► 120 Gold Coins'
+- '&7► Amethyst Sword'
+
+level-req:
+    main: 80
+
+parent:
+- 'phantom-slayer'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=PHANTOM;amount=30}'
+        lore: 'Kill 30 phantoms.'
+        triggers:
+        - message{format="&aElder> &fThe sky terrors scatter! Now turn your blade on the endermen."}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=ENDERMAN;amount=15}'
+        lore: 'Kill 15 endermen.'
+        triggers:
+        - message{format="&aElder> &fThe dark alliance is broken! This ancient blade is yours."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 120"}
+        - 'mmoitem{type=SWORD;id=AMETHYST_SWORD}'
+        - 'experience{amount=12090}'

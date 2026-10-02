@@ -1,0 +1,13 @@
+# The CronScheduler allows you to run commands or
+# scripts at specific times using cron expressions.
+# For detailed information and more examples, please refer to the wiki page.
+# https://gitlab.com/Tanerx/CoreTools/-/wikis/features/cron_scheduler
+
+
+health_check:
+  active: false
+  type: 'command'
+  expression: '*/10 * * * *'
+  debug: true
+  run: ['tps']
+

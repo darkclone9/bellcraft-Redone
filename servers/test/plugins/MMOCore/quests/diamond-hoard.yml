@@ -1,0 +1,41 @@
+# Display options
+name: 'Depths of the Core'
+level-req:
+    main: 22
+lore:
+- 'Deep below the mantle, where the rock compresses into'
+- 'slate and brimstone, glittering crystal veins crystallize.'
+- 'Monsters prowl the dark veins; purge the hall and claim'
+- 'the earth’s treasures.'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Slay 10 Cavern Zombies guarding the deepslate'
+- '&7► Phase 2: Mine 12 Diamond Ore from the depths'
+- ''
+- '&eRewards:'
+- '&7► 2200 EXP'
+- '&7► 50 Gold Coins'
+- '&7► Rare Weapon Essence'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=ZOMBIE;amount=10}'
+        lore: 'Slay 10 Zombies in the deep caverns.'
+        triggers:
+        - message{format="&bDelver> &fThe cavern is secure! Now extract those radiant diamonds!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'mineblock{type=DIAMOND_ORE;amount=12}'
+        lore: 'Mine 12 Diamond Ore.'
+        triggers:
+        - message{format="&bDelver> &fA magnificent haul from the mantle! You are truly a master delver."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 50"}
+        - 'mmoitem{type=MATERIAL;id=RARE_WEAPON_ESSENCE}'
+        - 'experience{amount=2200}'

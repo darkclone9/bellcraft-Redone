@@ -1,0 +1,18 @@
+# Per-glyph and per-font Bedrock glyph render overrides.
+#
+# Bedrock renders a glyph at its baked pixel size: a bigger bake is larger AND sharper,
+# a smaller bake is smaller AND blockier - the two can't be separated. These set the bake:
+#   scale:       multiply the glyph's Java height (2.0 = twice as tall, and sharper)
+#   height:      pin an explicit baked height in px (overrides scale)
+#   supersample: bake from the full-resolution source texture instead of the Java height
+#                (sharpest, but renders larger - good for big or UI glyphs)
+#
+# A glyphs: entry (glyph id) overrides a fonts: entry (font key) for the same glyph.
+fonts:
+#  emojis:discord_emojis:
+#    scale: 1.0
+glyphs:
+#  pink_heart:
+#    height: 16
+#  some_big_logo:
+#    supersample: true

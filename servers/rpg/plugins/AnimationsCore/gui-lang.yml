@@ -1,0 +1,33 @@
+# gui-lang.yml – Language strings for the Animation Selection GUI
+
+gui:
+  title: "&6Select Your Animation"
+  type-label: "&7Type: &f"
+  filter-label: "&aFilter: &f"
+  type-labels:
+    join: "Join"
+    leave: "Leave"
+    death: "Death"
+    respawn: "Respawn"
+    afk: "AFK"
+    teleport-in: "Teleport In"
+    teleport-out: "Teleport Out"
+    custom: "Custom"
+    emote: "Emote"
+    ban: "Ban"
+    kill: "Kill"
+  filter-labels:
+    all: "All"
+    joins: "Joins"
+    leaves: "Leaves"
+    deaths: "Deaths"
+    respawns: "Respawns"
+    afks: "AFKs"
+    teleport-ins: "Teleport Ins"
+    teleport-outs: "Teleport Outs"
+    customs: "Customs"
+    emotes: "Emotes"
+    bans: "Bans"
+    kills: "Kills"
+
+#affadadec20c3292c3ae6322224d86af

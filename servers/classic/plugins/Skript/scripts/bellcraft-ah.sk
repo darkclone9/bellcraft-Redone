@@ -1,0 +1,8 @@
+# Open Auction House from /menu (CrazyAuctions /ca)
+command /openah:
+    description: Open the Auction House
+    trigger:
+        close player's inventory
+        wait 2 ticks
+        make player execute command "ca"
+        send "&6Auction House &7opened. List items with &f/ca sell <price>&7." to player

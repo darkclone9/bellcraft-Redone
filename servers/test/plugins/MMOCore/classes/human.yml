@@ -1,0 +1,56 @@
+
+# Display options, it's not displayed anywhere so pointless.
+# Just need the name for reference and PAPI placeholders.
+display:
+    name: 'Human'
+
+    # Icon used when displaying the class in the UI. By default,
+    # the default class is not displayed, making this option useless
+    item: LEATHER_CHESTPLATE
+
+# This is the default class granted to players when joining the server.
+# They may level it up, but they cannot choose this class again
+# after switching class, since it is not displayed in /class
+options:
+    default: true # Default class when joining the server for the first time
+    display: false # Does not display in the class UI
+    needs-permission: false # False by default
+    
+    # Only regens when out of combat
+    off-combat-health-regen: false
+    off-combat-mana-regen: false
+
+# Can either be the file name of a text file inside the 'exp-curves' folder, where
+# each line corresponds to the experience required to reach the next level.
+# Example: 'levels'
+#
+# Or a formula using the {level} placeholder (current player level) and PAPI placeholders.
+# The formula should return the total experience required to reach the next level
+# given the current player's level.
+# Example: '{level} * 200'
+exp-curve: '{level} * 200'
+
+exp-table: class_exp_table
+
+skill-slots:
+    1:
+        name: "&aSkill Slot I"
+        unlocked-by-default: true
+        lore: []
+    2:
+        name: "&aSkill Slot II"
+        unlocked-by-default: true
+        lore: []
+    3:
+        name: "&aSkill Slot III"
+        unlocked-by-default: true
+        lore: []
+    4:
+        name: "&aSkill Slot IV"
+        unlocked-by-default: true
+        lore: []
+
+# Experience sources for main class experience.
+main-exp-sources:
+- 'killmob{type=ZOMBIE;amount=1-3}'
+- 'killmob{type=ENDERMAN;amount=6-9}'

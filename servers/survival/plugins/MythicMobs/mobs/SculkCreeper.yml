@@ -1,0 +1,36 @@
+SculkCreeper:
+  Type: HUSK
+  Display: '<gradient:#0B2A2E:#00E8E8>Sculk Creeper</gradient>'
+  Health: 18
+  Damage: 0
+  Options:
+    MovementSpeed: 0.22
+    FollowRange: 20
+    MaxCombatDistance: 28
+    AlwaysShowName: false
+    Silent: false
+    Despawn: true
+    PreventOtherDrops: false
+    PreventSunburn: true
+    PreventRandomEquipment: true
+  AIGoalSelectors:
+  - clear
+  - 0 movetowardstarget
+  - 1 lookatplayers
+  - 2 randomstroll
+  AITargetSelectors:
+  - clear
+  - 0 attacker
+  - 1 players
+  Skills:
+  - model{mid=sculk_creeper} @self ~onSpawn
+  - state{s=idle;li=1;lo=1} @self ~onSpawn
+  - state{s=walk;li=1;lo=1} @self ~onEnterCombat
+  - state{s=idle;li=1;lo=1} @self ~onDropCombat
+  - skill{s=SculkCreeperDetonate} @self ~onTimer:15
+  - skill{s=SculkCreeperSpread} @self ~onDeath
+  - effect:particles{p=sculk_charge_pop;amount=5;hS=0.35;vS=0.4;speed=0.01} @self ~onDamaged 0.35
+  Drops:
+  - GUNPOWDER 0-2 1.0
+  - ECHO_SHARD 1 0.06
+  - EXPERIENCE_BOTTLE 1-2 0.3

@@ -1,0 +1,37 @@
+# Menu Creator
+left_click:
+  Conditions: []
+  Mechanics:
+    - command{c="say Hello! I'm your left click script!!!"} @Self
+right_click:
+  Conditions: []
+  Mechanics:
+    - command{c="say Hello! I'm your right click script!!!"} @Self
+shift_left_click:
+  Conditions: []
+  Mechanics:
+    - command{c="say Hello! I'm your shift-left click script!!!"} @Self
+shift_right_click:
+  Conditions: []
+  Mechanics:
+    - command{c="say Hello! I'm your shift-right click script!!!"} @Self
+swap_click:
+  Conditions: []
+  Mechanics:
+    - command{c="say Hello! I'm your swap hand script!!!"} @Self
+drop_key:
+  Conditions: []
+  Mechanics:
+    - command{c="say Hello! I'm your drop_key hand script!!!"} @Self
+click:
+  Conditions: []
+  Mechanics:
+    - command{c="say Hello! I'm your any click script!!!"} @Self
+beep:
+  Conditions: []
+  Mechanics:
+    - playsound{sound="minecraft:entity.player.levelup";volume=1;pitch=2} @Self
+menu_opening:
+  Conditions: []
+  Mechanics:
+    - playsound{sound="minecraft:entity.player.levelup";repeat=2;repeatInterval=10} @Self

@@ -1,0 +1,20 @@
+STELLAR_HEAL:
+  name: '&b✨ Stellar Heal'
+  icon: NETHER_STAR
+  source: default:GRAND_HEAL
+  parameters:
+    heal:
+      base: 6
+      per-level: 1.5
+    cooldown:
+      base: 10
+      per-level: -0.05
+      min: 5
+    mana:
+      base: 6
+      per-level: 0.12
+  triggers:
+    cast:
+    - particle{p=HEART;amount=10;speed=0;hS=0.6;vS=0.6}
+    - sound{s=BLOCK_BEACON_POWER_SELECT;v=1;p=1.2}
+    - heal{amount={heal}}

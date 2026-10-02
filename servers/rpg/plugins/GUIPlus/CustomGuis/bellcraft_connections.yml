@@ -1,0 +1,138 @@
+id: bellcraft_connections
+rows: 3
+type: chest
+title: '&8Bellcraft &7| &bRealm Portal'
+commandAlias: hub
+commandAliasTarget: DISABLED
+disable-scene-animation: false
+scenes:
+  '0':
+    delay: 0
+    items:
+      '1':
+        slot: 22
+        item: BARRIER
+        amount: 1
+        click-events:
+          7b275d03-465a-4758-8487-12b7b410d4d0:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:barrier
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:0b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Close",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1170375796"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:0b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Close",underlined:0b}],text:""}},count:1,id:"minecraft:barrier"}'
+        item-name: '&cClose'
+        item-flags: [
+          ]
+        unbreakable: false
+      '2':
+        slot: 11
+        item: BEACON
+        amount: 1
+        click-events:
+          4c209403-a14b-4c18-be9e-312d264403b0:
+            type: server-click-event
+            server: lobby
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:beacon
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"aqua",italic:0b,obfuscated:0b,strikethrough:0b,text:"Lobby
+              Hub",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1268049255"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"aqua",italic:0b,obfuscated:0b,strikethrough:0b,text:"Lobby
+          Hub",underlined:0b}],text:""}},count:1,id:"minecraft:beacon"}'
+        item-name: '&b&lLobby Hub'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7The central spawn hub.'
+            - ''
+            - '&e> Click to travel'
+        item-flags: [
+          ]
+        unbreakable: false
+      '3':
+        slot: 13
+        item: GRASS_BLOCK
+        amount: 1
+        click-events:
+          76a78092-cefa-4b0e-befc-1db650635132:
+            type: server-click-event
+            server: survival
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:grass_block
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Survival
+              World",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1246952209"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Survival
+          World",underlined:0b}],text:""}},count:1,id:"minecraft:grass_block"}'
+        item-name: '&a&lSurvival World'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Towns, jobs, economy,'
+            - '&7and open-world building.'
+            - ''
+            - '&e> Click to travel'
+        item-flags: [
+          ]
+        unbreakable: false
+      '4':
+        slot: 15
+        item: NETHER_STAR
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:nether_star
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"RPG
+              Realm",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"858977978"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"RPG
+          Realm",underlined:0b}],text:""}},count:1,id:"minecraft:nether_star"}'
+        item-name: '&6&lRPG Realm'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7MMOCore classes, quests,'
+            - '&7dungeons, and custom bosses.'
+            - ''
+            - '&8> &7You are here'
+        item-flags: [
+          ]
+        unbreakable: false

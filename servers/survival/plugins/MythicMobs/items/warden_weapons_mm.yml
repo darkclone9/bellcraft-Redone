@@ -1,0 +1,25 @@
+# Mythic skill binders for Warden weapons
+# Note: Primary give path is /nexo give. These Mythic items are optional
+# alternate give (/mm i get ...) and document the skill hooks.
+# For Nexo-held items, use a companion Skript/Mythic trigger or Nexo mechanics
+# if your build supports skill casting on custom items.
+
+warden_wand_mm:
+  Id: NETHERITE_SWORD
+  Display: '<gradient:#5CFFF7:#00E8E8>Warden Wand</gradient>'
+  Skills:
+  - skill{s=WardenWandOnHit} @trigger ~onAttack 0.35
+
+warden_echo_staff_mm:
+  Id: NETHERITE_SWORD
+  Display: '<gradient:#E8E0D0:#5CFFF7>Warden Echo Staff</gradient>'
+  Skills:
+  - skill{s=WardenEchoSonic} @self ~onUse
+  - skill{s=WardenWandOnHit} @trigger ~onAttack 0.2
+
+warden_bow_mm:
+  Id: BOW
+  Display: '<gradient:#2A2A32:#5CFFF7>Warden Bow</gradient>'
+  Skills:
+  - skill{s=WardenBowTrail} @origin ~onShoot
+  - skill{s=WardenBowArrowHit} @trigger ~onBowHit

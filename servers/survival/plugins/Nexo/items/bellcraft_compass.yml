@@ -1,0 +1,16 @@
+bellcraft_compass:
+  itemname: <gold><bold>Bellcraft Menu</bold></gold>
+  material: COMPASS
+  Components:
+    lore:
+    - ''
+    - <gray>Right-click to pick a server.
+    - <gray>Type <white>/menu</white> for everything else.
+    - ''
+    - <dark_gray>Bellcraft
+  Mechanics:
+    commands:
+      player:
+      - hub
+      cooldown: 1s
+      one_usage: false

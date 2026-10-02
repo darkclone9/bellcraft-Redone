@@ -1,0 +1,22 @@
+Sounds:
+  beep:
+    file: beep.ogg
+    volume: 1.0
+    pitch: 1.0
+  ding:
+    file: ding.ogg
+    volume: 1.0
+    pitch: 1.0
+  selection:
+    file: selection.ogg
+    volume: 1.0
+    pitch: 1.0
+  typing:
+    file: typing.ogg
+    volume: 0.4
+    pitch: 1.0
+  kingdom-typing:
+    file: kingdom_typing.ogg
+    volume: 0.4
+    pitch: 1.0
+# d21891d819abf57b5a57f22e6b637384

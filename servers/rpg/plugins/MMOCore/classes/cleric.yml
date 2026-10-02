@@ -1,0 +1,147 @@
+display:
+  name: 'Cleric'
+  lore:
+    - '&eClass Role: Support / Divine Healer'
+    - '&7A devoted healer who channels'
+    - '&7divine prayers to mend the wounded'
+    - '&7and shield the faithful.'
+  item: GOLDEN_APPLE
+  slot: 23
+
+mana:
+  char: "♥"
+  icon: "&b♥"
+  name: 'Devotion'
+  color:
+    full: AQUA
+    half: DARK_AQUA
+    empty: DARK_GRAY
+
+stats:
+  MAX_HEALTH:
+    base: 22.0
+    per-level: 2.5
+  MAX_MANA:
+    base: 48.0
+    per-level: 6.5
+  HEALING_RATING:
+    base: 12.0
+    per-level: 3.0
+  MAGIC_DAMAGE:
+    base: 1.5
+    per-level: 0.8
+  MOVEMENT_SPEED:
+    base: 0.12
+    per-level: 0.0
+  HEALTH_REGENERATION:
+    base: 3.0
+    per-level: 0.8
+  MANA_REGENERATION:
+    base: 2.5
+    per-level: 0.8
+  ARMOR:
+    base: 4.0
+    per-level: 0.8
+
+attributes:
+  strength:
+    base: 4
+    per-level: 0.5
+  dexterity:
+    base: 4
+    per-level: 0.5
+  intelligence:
+    base: 8
+    per-level: 1.5
+  wisdom:
+    base: 14
+    per-level: 3.0
+
+options:
+  default: false
+  display: true
+  needs-permission: false
+  off-combat-health-regen: true
+  off-combat-mana-regen: true
+
+exp-curve: 'levels'
+exp-table: class_exp_table
+
+skill-slots:
+  1:
+    name: '&bHoly Mend'
+    unlocked-by-default: true
+    lore:
+      - '&7Restorative prayer'
+  2:
+    name: '&bSanctified Ward'
+    unlocked-by-default: true
+    lore:
+      - '&7Protective blessing'
+
+main-exp-sources:
+  - 'killmob{type=ZOMBIE;amount=1-2}'
+  - 'killmob{type=SKELETON;amount=1-2}'
+  - 'killmob{type=CREEPER;amount=2-3}'
+  - 'killmob{type=BLAZE;amount=3-5}'
+
+skill-trees:
+  - 'cleric-divinity'
+  - 'profession-mining'
+  - 'profession-woodcutting'
+  - 'profession-farming'
+  - 'profession-fishing'
+  - 'profession-alchemy'
+  - 'profession-smithing'
+  - 'profession-enchanting'
+  - 'profession-smelting'
+
+# Use MythicLib builtin skills (known-good handlers)
+skills:
+  GRAND_HEAL:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+    point-modifier: 1
+
+  HUMAN_SHIELD:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+    point-modifier: 1
+
+  CLERIC_HOLY_RESURGENCE:
+    level: 0
+    max-level: 30
+    unlocked-by-default: false
+    point-modifier: 1
+    unlock-conditions:
+      # Requires the player to be Class Level 5
+      - 'level{m=5}'
+      # Requires Grand Heal to be at least Level 3
+      - 'skill{s=GRAND_HEAL;m=3}'
+
+  CLERIC_BLESSED_GROUND:
+    level: 0
+    max-level: 30
+    unlocked-by-default: false
+    point-modifier: 2
+    unlock-conditions:
+      - 'level{m=10}'
+      - 'skill{s=CLERIC_HOLY_RESURGENCE;m=5}'
+
+  CLERIC_MARTYRS_RESOLVE:
+    level: 0
+    max-level: 30
+    unlocked-by-default: false
+    point-modifier: 3
+    unlock-conditions:
+      - 'level{m=15}'
+      - 'skill{s=CLERIC_BLESSED_GROUND;m=5}'
+      - 'skill{s=HUMAN_SHIELD;m=10}'
+
+triggers:
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-ap %player_name%"}'
+    - 'command{format="bellcraft-grant-sp %player_name%"}'
+    - 'command{format="bellcraft-grant-stp %player% cleric-divinity"}'

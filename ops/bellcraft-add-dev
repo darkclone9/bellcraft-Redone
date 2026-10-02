@@ -1,0 +1,28 @@
+#!/bin/bash
+# bellcraft-add-dev <username> <public-key-file | "ssh-ed25519 AAAA...">  - give a trusted developer SSH access.
+# bellcraft-add-dev --remove <username>
+#
+# A dev account is NOT root. Members of group bellcraft-dev can:
+#   sudo -u minecraft -i                      edit anything under /opt/bellcraft as the server user
+#   sudo systemctl start|stop|restart|status bellcraft-<server>
+#   sudo journalctl -u bellcraft-<server>
+#   sudo bellcraft-rcon <server> <command>    console commands
+#   sudo bellcraft-dev status|up|down|cmd     the dev-backend helper
+#   sudo bellcraft-export / bellcraft-deploy  the same tools the GitHub pipeline uses
+set -euo pipefail
+[ "$(id -u)" = 0 ] || { echo "run with sudo"; exit 1; }
+if [ "${1:-}" = "--remove" ]; then
+  u=$2; pkill -KILL -u "$u" 2>/dev/null || true; userdel -r "$u" && echo "removed $u"; exit 0
+fi
+u=${1:?username}; key=${2:?public key file or string}
+[[ "$u" =~ ^[a-z][a-z0-9_-]{1,30}$ ]] || { echo "bad username"; exit 1; }
+[ -f "$key" ] && key=$(cat "$key")
+[[ "$key" =~ ^(ssh-ed25519|ssh-rsa|ecdsa-sha2-nistp256|sk-ssh-ed25519@openssh.com)\  ]] || { echo "that does not look like an SSH public key"; exit 1; }
+getent group bellcraft-dev >/dev/null || groupadd bellcraft-dev
+id "$u" >/dev/null 2>&1 || useradd -m -s /bin/bash -G bellcraft-dev "$u"
+usermod -aG bellcraft-dev "$u"
+install -d -o "$u" -g "$u" -m 700 /home/$u/.ssh
+echo "$key" > /home/$u/.ssh/authorized_keys
+chown "$u:$u" /home/$u/.ssh/authorized_keys; chmod 600 /home/$u/.ssh/authorized_keys
+passwd -l "$u" >/dev/null   # key login only
+echo "added $u - they can now: ssh $u@$(hostname -I | awk '{print $1}')   (see /opt/bellcraft/README.md)"

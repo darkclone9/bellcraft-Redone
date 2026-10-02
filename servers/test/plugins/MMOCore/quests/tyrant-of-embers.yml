@@ -1,0 +1,24 @@
+name: 'Tyrant of Embers'
+lore:
+- 'The forges of Cinderreach made something'
+- 'that outlived the smiths.'
+- ''
+- '&6Objective:'
+- '&7► Slay 3 Emberforged Tyrants'
+- ''
+- '&eRewards:'
+- '&7► 4661 EXP'
+level-req:
+    main: 65
+parent:
+- 'ghast-silencer'
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'killmythicmob{name="emberforged_tyrant";amount=3}'
+        lore: 'Slay 3 Emberforged Tyrants.'
+        triggers:
+        - 'experience{amount=4661}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

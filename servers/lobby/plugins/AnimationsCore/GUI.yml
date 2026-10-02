@@ -1,0 +1,30 @@
+# GUI.yml – Animation Selection GUI configuration
+
+# The title displayed at the top of the chest GUI (supports &-codes)
+Title: "&6Select Your Animation"
+
+# Total slots (must be a multiple of 9, e.g. 54 for a 6×9 chest)
+Size: 54
+
+# Animations hidden from view by default (format: <type>*<key>)
+# Players can still see them if they have the permission, or use the toggle button.
+# Typically each animation is the normal name with an s (joins, leaves, deaths)
+HiddenAnimations:
+#  - afks*your_animation_name
+#  - joins*your_animation_name
+
+# Special control slots in the bottom row (slots 45–53)
+Iconpositions:
+  # Cycle through animation types (join/leave/death/etc)
+  ToggleAnimationType: 45
+
+  # Show/hide animations players lack permission for
+  HideLockedToggle: 46
+
+  # Go to previous page of animations
+  PreviousPage: 48
+
+  # Go to next page of animations
+  NextPage: 50
+
+#affadadec20c3292c3ae6322224d86af

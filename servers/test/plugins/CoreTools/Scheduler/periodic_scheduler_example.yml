@@ -1,0 +1,27 @@
+# The Periodic Scheduler allows you to run commands at fixed times and intervals.
+# It supports both player-based schedules (runs when a player is online)
+# and server-based schedules (runs globally for the server).
+#
+# With this system, you can automate player rewards, server maintenance, status reports, and even weekly events with full flexibility.
+
+# For detailed information and more examples, please refer to the wiki page.
+# https://gitlab.com/Tanerx/CoreTools/-/wikis/features/periodic_scheduler
+
+
+reset_every_day_player:
+  active: false
+  debug: true
+  target: player
+  time: "14:33"
+  period_hours: 24
+  period: 1
+  run: ['tps', 'say Periodic Scheduler for {caster_name}']
+
+reset_every_hour_server:
+  active: false
+  debug: true
+  target: server
+  time: "16:12"
+  period_hours: 1
+  period: 1
+  run: ['tps', 'say Server Periodic Scheduler']

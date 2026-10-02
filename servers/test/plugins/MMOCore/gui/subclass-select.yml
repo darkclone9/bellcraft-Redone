@@ -1,0 +1,34 @@
+# GUI display name
+name: Choose your path...
+
+# Number of slots in your inventory. Must be
+# between 9 and 54 and must be a multiple of 9.
+slots: 27
+
+items:
+  back:
+    function: back
+    slots: [ 26 ]
+
+    #custom_model_data_float: 0.45        # 1.20.4+ Float custom model data. Either this, or string option above works completely fine
+    #custom_model_data: 0                 # 1.14-1.20.3 Custom model data. Prefer using custom_model_data_string on 1.20.4+
+    #tooltip: 'myplugin:tooltip_asset_id' # You can edit the slot icon tooltip that way
+    #custom_model_data_string: 'test'     # 1.20.4+ string custom model data
+    #item_model: 'minecraft:dirt'         # 1.21.2+ item model
+    #skull_texture: '......'              # SKull texture value or URL
+    #hide_tooltip: false                  # True or false, for vanilla tooltip
+    #unbreakable: false                   # Is it unbreakable or not?
+    #fake_attribute: false                # Should MythicLib add a fake attribute modifier? Useful for 1.20 or lower to hide vanilla attributes from the item
+    #item_flags: [HIDE_ENCHANTS, ....]    # Add item flags to your items. https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/inventory/ItemFlag.html
+
+    item: RED_STAINED_GLASS_PANE
+    name: '&aBack to Class Selection'
+    lore: [ ]
+  arcane-mage:
+    slots: [ 13 ]
+    function: sub-class-arcane-mage
+    name: '&a&lThe Arcane Mage'
+    lore:
+      - '{lore}'
+      - ''
+      - '{attribute-lore}'

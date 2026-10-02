@@ -1,0 +1,39 @@
+
+# Display options
+name: 'Campfire Supplies'
+level-req:
+    main: 1
+lore:
+- 'Winter is coming and the camp needs'
+- 'fuel. Gather coal and firewood to keep'
+- 'everyone warm through the night!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Mine 10 coal ore'
+- '&7► Phase 2: Mine 10 oak logs'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 7 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=COAL_ORE;amount=10}'
+        lore: 'Mine 10 coal ore.'
+        triggers:
+        - message{format="&aMiner> &fGood haul! Now we need some logs for the fire."}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'mineblock{type=OAK_LOG;amount=10}'
+        lore: 'Mine 10 oak logs.'
+        triggers:
+        - message{format="&aMiner> &fThe campfire will burn bright tonight. Well done!"}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 7"}
+        - 'experience{amount=170}'

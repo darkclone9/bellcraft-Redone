@@ -1,0 +1,26 @@
+# Parsed placeholders allow you to convert string-based
+# stats into numbers to be used in your formulas.
+# Check wiki for more information.
+parsed_placeholders:
+  tier:
+    - "trash,1"
+    - "common,2"
+    - "uncommon,3"
+    - "rare,4"
+    - "very_rare,5"
+    - "legendary,6"
+    - "mythical,7"
+    - "epic,8"
+    - "magical,9"
+    - "unique,10"
+  item_type:
+    - "accessory,1"
+    - "ring,2"
+    - "consumable,3"
+    - "tool,4"
+    - "wand,5"
+    - "crossbow,6"
+    - "bow,7"
+    - "armor,8"
+    - "staff,9"
+    - "sword,1000"

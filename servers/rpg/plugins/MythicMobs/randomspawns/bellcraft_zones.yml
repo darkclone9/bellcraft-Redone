@@ -1,0 +1,158 @@
+bramble_stalker_spawn:
+  Type: bramble_stalker
+  Action: ADD
+  Chance: 0.05
+  Priority: 1
+  Cooldown: 70
+  Level: 3
+  Worlds:
+    - world
+  Conditions:
+    - 'distancefromspawn{d=<1000}'
+pinebark_revenant_spawn:
+  Type: pinebark_revenant
+  Action: ADD
+  Chance: 0.045
+  Priority: 1
+  Cooldown: 80
+  Level: 12
+  Worlds:
+    - world
+  Conditions:
+    - 'distancefromspawn{d=>1000}'
+    - 'distancefromspawn{d=<2200}'
+duneshade_marauder_spawn:
+  Type: duneshade_marauder
+  Action: ADD
+  Chance: 0.045
+  Priority: 1
+  Cooldown: 85
+  Level: 22
+  Worlds:
+    - world
+  Biomes:
+    - desert
+    - savanna
+    - savanna_plateau
+    - windswept_savanna
+    - badlands
+    - wooded_badlands
+    - eroded_badlands
+  Conditions:
+    - 'distancefromspawn{d=>2200}'
+    - 'distancefromspawn{d=<3600}'
+abyssal_drowned_spawn:
+  Type: abyssal_drowned
+  Action: ADD
+  Chance: 0.04
+  Priority: 1
+  Cooldown: 90
+  Level: 27
+  Worlds:
+    - world
+  Biomes:
+    - ocean
+    - deep_ocean
+    - cold_ocean
+    - deep_cold_ocean
+    - lukewarm_ocean
+    - deep_lukewarm_ocean
+    - frozen_ocean
+    - deep_frozen_ocean
+    - warm_ocean
+  Conditions:
+    - 'distancefromspawn{d=>2200}'
+    - 'distancefromspawn{d=<3600}'
+rimebound_colossus_spawn:
+  Type: rimebound_colossus
+  Action: ADD
+  Chance: 0.04
+  Priority: 1
+  Cooldown: 90
+  Level: 34
+  Worlds:
+    - world
+  Biomes:
+    - snowy_plains
+    - snowy_taiga
+    - snowy_beach
+    - frozen_river
+    - ice_spikes
+    - grove
+    - snowy_slopes
+    - frozen_peaks
+  Conditions:
+    - 'distancefromspawn{d=>3600}'
+    - 'distancefromspawn{d=<5000}'
+stormcaller_roc_spawn:
+  Type: stormcaller_roc
+  Action: ADD
+  Chance: 0.035
+  Priority: 1
+  Cooldown: 100
+  Level: 42
+  Worlds:
+    - world
+  Biomes:
+    - windswept_hills
+    - windswept_gravelly_hills
+    - windswept_forest
+    - jagged_peaks
+    - frozen_peaks
+    - stony_peaks
+    - meadow
+    - cherry_grove
+  Conditions:
+    - 'distancefromspawn{d=>3600}'
+    - 'distancefromspawn{d=<5000}'
+thornmaw_broodmother_spawn:
+  Type: thornmaw_broodmother
+  Action: ADD
+  Chance: 0.035
+  Priority: 1
+  Cooldown: 100
+  Level: 47
+  Worlds:
+    - world
+  Biomes:
+    - jungle
+    - bamboo_jungle
+    - mangrove_swamp
+    - dark_forest
+    - pale_garden
+    - swamp
+  Conditions:
+    - 'distancefromspawn{d=>5000}'
+dripstone_behemoth_spawn:
+  Type: dripstone_behemoth
+  Action: ADD
+  Chance: 0.035
+  Priority: 1
+  Cooldown: 100
+  Level: 55
+  Worlds:
+    - world
+  Biomes:
+    - dripstone_caves
+    - lush_caves
+    - sulfur_caves
+  Conditions:
+    - 'distancefromspawn{d=>5000}'
+emberforged_tyrant_spawn:
+  Type: emberforged_tyrant
+  Action: ADD
+  Chance: 0.03
+  Priority: 1
+  Cooldown: 110
+  Level: 62
+  Worlds:
+    - world_nether
+void_harbinger_spawn:
+  Type: void_harbinger
+  Action: ADD
+  Chance: 0.03
+  Priority: 1
+  Cooldown: 110
+  Level: 82
+  Worlds:
+    - world_the_end

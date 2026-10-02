@@ -1,0 +1,47 @@
+# MythicLib bridge notes for Necromancer (PR #51)
+# NOT loaded as-is over the live NECROMANCER_SKILLS.yml builtins until ready.
+# When swapping: change each skill's `source:` to mythicmobs:<CastId> and
+# remove the default: handler + triggers.cast particle stubs.
+#
+# Class unlock IDs stay exactly:
+#   NECROMANCER_RAISE_DEAD, NECROMANCER_SOUL_DRAIN, NECROMANCER_RAISE_ELITE,
+#   NECROMANCER_LIFE_SIPHON, NECROMANCER_DEATH_GRASP, NECROMANCER_RAISE_MINION,
+#   NECROMANCER_UNHOLY_COMMAND, NECROMANCER_CORPSE_EXPLOSION
+
+# --- Example source swaps (paste into MythicLib/skill/NECROMANCER_SKILLS.yml) ---
+# NECROMANCER_RAISE_DEAD:
+#   source: mythicmobs:NecromancerRaiseDead_Cast
+# NECROMANCER_SOUL_DRAIN:
+#   source: mythicmobs:NecromancerSoulDrain_Cast
+# NECROMANCER_RAISE_ELITE:
+#   source: mythicmobs:NecromancerRaiseElite_Cast
+# NECROMANCER_LIFE_SIPHON:
+#   source: mythicmobs:NecromancerLifeSiphon_Cast
+# NECROMANCER_DEATH_GRASP:
+#   source: mythicmobs:NecromancerDeathGrasp_Cast
+# NECROMANCER_RAISE_MINION:
+#   source: mythicmobs:NecromancerRaiseMinion_Cast
+# NECROMANCER_UNHOLY_COMMAND:
+#   source: mythicmobs:NecromancerUnholyCommand_Cast
+# NECROMANCER_CORPSE_EXPLOSION:
+#   source: mythicmobs:NecromancerCorpseExplosion_Cast
+
+# --- Player corpse drops (required for player kills; pets already ~onKill) ---
+# Trigger name varies by MythicLib version: KILL_ENTITY / KILL / ON_KILL.
+# Confirm against your MythicLib trigger list before enabling.
+NECROMANCER_CORPSE_MARK:
+  name: "&8Grave Mark"
+  icon: BONE
+  source: mythicmobs:NecromancerDropCorpse_Cast
+  # trigger: KILL_ENTITY
+  parameters:
+    cooldown:
+      player:
+        base: 0
+        per-level: 0
+      name: Cooldown
+    mana:
+      player:
+        base: 0
+        per-level: 0
+      name: Mana

@@ -1,0 +1,40 @@
+
+# Display options
+name: 'Forest Spirit'
+lore:
+- 'The ancient forest is being corrupted'
+- 'by dark creatures. Collect sacred wood'
+- 'and drive out the invaders!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Collect 20 birch logs from the forest'
+- '&7► Phase 2: Kill 8 spiders corrupting the forest'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 16 Gold Coins'
+
+level-req:
+    main: 4
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=BIRCH_LOG;amount=20}'
+        lore: 'Collect 20 birch logs from the forest.'
+        triggers:
+        - message{format="&aForest Guardian> &fGood, now drive out the spiders nesting here!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=SPIDER;amount=8}'
+        lore: 'Kill 8 spiders corrupting the forest.'
+        triggers:
+        - message{format="&aForest Guardian> &fThe forest breathes easy once more. Thank you!"}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 16"}
+        - 'experience{amount=170}'

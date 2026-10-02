@@ -1,0 +1,17 @@
+web-player-url: https://join.bellcraft.online/#radio
+radio-api-base: https://join.bellcraft.online
+ingest-url: http://89.116.191.196:43187
+resource-pack-url: https://bellcraft.online/packs/bellcraft-radio-resourcepack.zip
+catalog-file: discs.json
+poll-interval-ticks: 100
+hud-interval-ticks: 20
+action-bar: true
+boss-bar: true
+personal-radio-volume: 1.0
+mid-track-grace-seconds: 15.0
+auto-play-local-discs: true
+radio-jukebox-range: 64
+default-station: house
+messages:
+  web-fallback: "No licensed in-game disc for this track. Open the web player:"
+  add-guidance: Do not paste YouTube links here. Staff upload licensed audio on the ingest console then /bcradio reload.

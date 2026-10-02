@@ -1,0 +1,10 @@
+# Bellcraft Party HUD Icon glyph
+# Placeholder: %nexo_party_icon% (or :party_icon:)
+
+party_icon:
+  texture: bellcraft:hud/party_icon
+  ascent: 12
+  height: 14
+  placeholders:
+  - ':party_icon:'
+  char: ꐞ

@@ -1,0 +1,207 @@
+MyFirstVault:
+  permission: ''
+  no_permission: You don't have enough permissions to open this vault.
+
+  # GUI display name
+  name: '[{page_no}] {caster_name} <red>Profile Vault'
+  # How many rows will Inventory have.
+  # Must be between 1 and 6
+  size: 6
+
+  # This script runs before parsing the buttons or title
+  # placeholders when the menu is opened. If you're
+  # using a dynamic variable, you can set it according to the player.
+  # Or you can even add music to the opening!
+  # Only runs when the PlayerVault is first opened.
+  start_script:
+    - menu_opening
+
+  # Only runs when the PlayerVault is completely closed.
+  close_script:
+    - beep
+
+  # Hard limit of max page
+  max_page: 10
+  # Positive or negative statements to be
+  # displayed in the extra page purchase lore.
+  success: <green>✔
+  fail: <red>❌
+
+  # Number of pages automatically purchased for new players when
+  # they first log in. Do not set it below one. This setting is
+  # in case you want to make more than one page for free.
+  purchased_page: 3
+
+  messages:
+    page_purchase_successful: '<bold><green>Vault ✔<reset> You have successfully purchased an extra page.' # ({purchased_page}+1) for next page number
+    page_purchase_fail: '<bold><red>Vault ✔<reset> You do not meet the requirements to purchase an extra page.'
+
+  sounds:
+    page_purchase_successful: [ minecraft:block.amethyst_cluster.hit,master,1,2 ]
+    page_purchase_fail: [ minecraft:entity.villager.no,master,1,2 ]
+
+  # You can set requirements for players to purchase extra pages.
+  # Page 1 is open to all players who can use the command. (command.yml)
+  # Requirements can be set starting from page 2.
+  # Delete or set [] to disable requirement.
+
+  # pageno: {requirement_permission,vault money need, placeholder to compare}
+  #
+  #
+  # Scripting Condition
+  # "script_check" Checks whether all conditions in your script return true or false and updates the success or fail icon in the lore.
+  # Do not use conditions that remove items from the player, as this will run every time the inventory page is refreshed.
+  # Use {script_check} in the confirm button lore for script_check condition.
+  #
+  # "script_lore" Replace the {script_lore} that appears in the lore.
+  #
+  # "script" Runs when the player tries to purchase the next page. If all other conditions are true, this script is executed last.
+  # You can use this script if you want to take items from the player.
+  #
+  # Example: '4': '{currency=vault;money=1;permission=player;script_check="test1";script_lore="Required Item: Dirt";script="test2"}'
+  # Example: for purchase item lore: "- '{script_check} <gray>Script:<white> {script_lore}'"
+
+
+  page_prices:
+    '4': '{currency=vault;money=1;permission=player}'
+    '5': '{currency=vault;permission=vip;money=100;placeholder="%player_name%==Taner;Playername"}'
+    '6': '{currency=vault;permission=vip2;money=200;placeholder="%player_name%==Taner;Playername"}'
+    # '7': '{permission=player2;money=1;placeholder="%player_name%==Taner;Playername"}'
+    # '8': '{permission=player2;money=1;placeholder="%player_name%==Taner;Playername"}'
+    # '9': '{permission=player2;money=1;placeholder="%player_name%==Taner;Playername"}'
+    # '10': '{permission=player2;money=1;placeholder="%player_name%==Taner;Playername"}'
+
+  # With this script, you can prevent certain items from being placed in the inventory.
+  Scripts:
+    - block_item_place
+
+  # One-way vaults allow players to take items from the vault but not put any items into it.
+  # This is useful when you want to create a special vault that is only meant for delivering items to players.
+  one_way_vault: false
+
+  buttons:
+    purchase:
+      slots: [ 8 ]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODQ5MTA2MmNhOTFjZmVmM2MxNWQxZWMxMTdjMDk5MTgzZDQxOTQzYjExNmEyM2UxYjRjNWFjZjAyYjdkZGQwYiJ9fX0=
+      name: '<bold><white>Buy page {next_purchasable_page}'
+      flags: [ HIDE_ATTRIBUTES ]
+      lore:
+        - ''
+        - '<bold><white>Requirements:'
+        - ''
+        - '{status_permission} <gray>Permission:<white> {req_permission}'
+        - '{status_money} <gray>Money:<white> {req_money}'
+        - '{status_placeholder} <gray>MMOCore:<white> {req_placeholder}'
+    purchase_final: # This will used when purchased page is same as max page
+      slots: [ 8 ]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDY1N2ViNDQwNWQzMDg4YTRlODA3ODgyZDQ5YmJiNzM2ZmQ4NmMzYWY4ZWFkYmYyYmU5ODAzYWIyNzUyZDUxOSJ9fX0=
+      name: <bold><white>Congratulations
+      flags: [ HIDE_ATTRIBUTES ]
+      lore:
+        - ''
+        - '<white>You have reached '
+        - <white>the maximum number
+        - <white>of pages available
+        - <white>for purchase. <green>✔
+
+    next:
+      slots: [ 44 ]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+      name: <bold>&fNext
+      flags: [ HIDE_ATTRIBUTES ]
+      lore: [ ]
+      left_click:
+        Scripts:
+          - beep
+
+    # This button setting is used when on the last page
+    next_final:
+      slots: [ 44 ]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+      name: <bold>&fNext
+      flags: [ HIDE_ATTRIBUTES ]
+
+    previous:
+      slots: [ 53 ]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==
+      name: <bold>§fPrevious
+      flags: [ HIDE_ATTRIBUTES ]
+      lore: [ ]
+
+    # This button setting is used on the first page.
+    previous_first:
+      slots: [ 53 ]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==
+      name: <bold>§fPrevious
+      flags: [ HIDE_ATTRIBUTES ]
+      lore: [ ]
+
+    player:
+      slots: [ 26 ]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWZmODAyM2U3NWU0OWJkODllZDQyZTc2MmU1Nzc4ZDAzYWY5ZmQ2ZTk3NzQxOTEyMWQ5Y2EyMDE5NjU0OTNhYSJ9fX0=
+      name: <gold><bold>Vault Type
+      flags: [ HIDE_ATTRIBUTES ]
+      lore:
+        - ''
+        - <gold>Profile Vault<gray>
+        - <gray>This is the default vault that opens.
+        - <gray>Each of your profiles has a separate vault.
+        - ''
+        - <gold>Account Vault<gray>
+        - <gray>This is the vault you can always access,
+        - <gray>regardless of the profile you select
+        - ''
+        - '<blue>Click to switch:'
+        - <gold>Profile Vault
+        - <dark_gray>Account Vault
+        - ''
+      click:
+        Scripts:
+          - OpenVaultAccount
+
+    empty_slots:
+      slots: [ 17,35 ]
+      source: vanilla
+      material: light_gray_stained_glass_pane:0
+      name: ' '
+      flags: [ HIDE_ATTRIBUTES ]
+      lore: [ ]
+
+      left_click:
+        Scripts:
+          - left_click
+          - beep
+      right_click:
+        Scripts:
+          - right_click
+          - beep
+      shift_left_click:
+        Scripts:
+          - shift_left_click
+          - beep
+      shift_right_click:
+        Scripts:
+          - shift_right_click
+          - beep
+      swap_hand:
+        Scripts:
+          - swap_click
+          - beep
+      drop_key:
+        Scripts:
+          - drop_key
+          - beep

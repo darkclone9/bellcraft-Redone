@@ -1,0 +1,187 @@
+bs_lash:
+  Cooldown: 8
+  Skills:
+    - 'sound{s=entity.wither.shoot;v=0.7;p=1.6} @self'
+    - 'effect:particles{particle=composter;amount=25;hSpread=1;vSpread=0.8;speed=0.1} @self'
+    - 'pull{spread=0;velocity=1.1} @target'
+    - 'damage{amount=4} @target'
+bs_snare:
+  Cooldown: 6
+  Skills:
+    - 'potion{type=SLOWNESS;duration=60;level=1} @target'
+    - 'effect:particles{particle=composter;amount=12;hSpread=0.4;vSpread=0.4;speed=0.05} @target'
+bs_burst:
+  Skills:
+    - 'effect:particles{particle=composter;amount=40;hSpread=1.2;vSpread=1;speed=0.2} @self'
+    - 'sound{s=block.grass.break;v=1;p=0.8} @self'
+pr_volley:
+  Cooldown: 10
+  Skills:
+    - 'sound{s=entity.skeleton.shoot;v=1.2;p=0.8} @self'
+    - 'effect:particles{particle=crit;amount=30;hSpread=1.5;vSpread=0.6;speed=0.3} @self'
+    - 'damage{amount=6} @PlayersInRadius{r=14}'
+pr_pack:
+  Cooldown: 30
+  Skills:
+    - 'sound{s=entity.wolf.howl;v=1.3;p=0.9} @self'
+    - 'summon{type=WOLF;amount=2;radius=3;noise=1} @self'
+pr_bark:
+  Cooldown: 40
+  Skills:
+    - 'potion{type=RESISTANCE;duration=160;level=1} @self'
+    - 'effect:particles{particle=block_crack;material=OAK_LOG;amount=30;hSpread=1;vSpread=1;speed=0.1} @self'
+dm_sandblast:
+  Cooldown: 11
+  Skills:
+    - 'sound{s=entity.husk.ambient;v=1.2;p=0.7} @self'
+    - 'effect:particlering{particle=block_crack;material=SAND;radius=5;points=36;amount=2} @self'
+    - 'potion{type=BLINDNESS;duration=80;level=0} @PlayersInRadius{r=6}'
+    - 'damage{amount=8} @PlayersInRadius{r=6}'
+dm_burrow:
+  Cooldown: 18
+  Skills:
+    - 'sound{s=block.sand.break;v=1.4;p=0.6} @self'
+    - 'effect:particles{particle=block_crack;material=SAND;amount=40;hSpread=1;vSpread=0.5;speed=0.2} @self'
+    - 'delay 10'
+    - 'teleport{spreadh=1;spreadv=0} @target'
+    - 'damage{amount=10} @PlayersInRadius{r=3.5}'
+dm_haze:
+  Cooldown: 45
+  Skills:
+    - 'potion{type=SPEED;duration=200;level=1} @self'
+    - 'potion{type=STRENGTH;duration=200;level=0} @self'
+ad_whirlpool:
+  Cooldown: 12
+  Skills:
+    - 'sound{s=entity.elder_guardian.curse;v=1.1;p=1.2} @self'
+    - 'effect:particlering{particle=bubble;radius=6;points=40;amount=3} @self'
+    - 'pull{spread=0;velocity=1.3} @PlayersInRadius{r=8}'
+    - 'damage{amount=9} @PlayersInRadius{r=8}'
+ad_grasp:
+  Cooldown: 7
+  Skills:
+    - 'potion{type=MINING_FATIGUE;duration=120;level=1} @target'
+    - 'potion{type=SLOWNESS;duration=80;level=1} @target'
+ad_surge:
+  Cooldown: 40
+  Skills:
+    - 'potion{type=DOLPHINS_GRACE;duration=240;level=0} @self'
+    - 'potion{type=RESISTANCE;duration=160;level=1} @self'
+    - 'effect:particles{particle=bubble_pop;amount=40;hSpread=1.2;vSpread=1.2;speed=0.2} @self'
+rc_nova:
+  Cooldown: 13
+  Skills:
+    - 'sound{s=block.glass.break;v=1.4;p=0.7} @self'
+    - 'effect:particlering{particle=snowflake;radius=7;points=48;amount=3} @self'
+    - 'potion{type=SLOWNESS;duration=140;level=2} @PlayersInRadius{r=7}'
+    - 'damage{amount=11} @PlayersInRadius{r=7}'
+rc_spike:
+  Cooldown: 6
+  Skills:
+    - 'effect:particles{particle=snowflake;amount=20;hSpread=0.6;vSpread=0.8;speed=0.1} @target'
+    - 'damage{amount=5} @target'
+    - 'potion{type=SLOWNESS;duration=60;level=0} @target'
+rc_shell:
+  Cooldown: 45
+  Skills:
+    - 'sound{s=block.glass.place;v=1.3;p=0.6} @self'
+    - 'potion{type=RESISTANCE;duration=200;level=2} @self'
+    - 'effect:particles{particle=snowflake;amount=60;hSpread=1.4;vSpread=1.6;speed=0.15} @self'
+sr_bolt:
+  Cooldown: 14
+  Skills:
+    - 'sound{s=entity.lightning_bolt.thunder;v=1.2;p=1.3} @self'
+    - 'delay 12'
+    - 'lightning @target'
+    - 'damage{amount=12} @target'
+sr_gale:
+  Cooldown: 18
+  Skills:
+    - 'sound{s=entity.phantom.flap;v=1.5;p=0.7} @self'
+    - 'effect:particlering{particle=cloud;radius=6;points=40;amount=2} @self'
+    - 'velocity{mode=add;y=0.9} @PlayersInRadius{r=7}'
+    - 'damage{amount=7} @PlayersInRadius{r=7}'
+sr_dive:
+  Cooldown: 9
+  Skills:
+    - 'effect:particles{particle=cloud;amount=25;hSpread=0.8;vSpread=0.5;speed=0.2} @self'
+    - 'damage{amount=8} @target'
+tb_snare:
+  Cooldown: 12
+  Skills:
+    - 'sound{s=entity.spider.ambient;v=1.3;p=0.7} @self'
+    - 'effect:particlering{particle=item_slime;radius=6;points=36;amount=2} @self'
+    - 'potion{type=SLOWNESS;duration=120;level=2} @PlayersInRadius{r=7}'
+    - 'damage{amount=10} @PlayersInRadius{r=7}'
+tb_venom:
+  Cooldown: 6
+  Skills:
+    - 'potion{type=POISON;duration=120;level=1} @target'
+    - 'effect:particles{particle=item_slime;amount=15;hSpread=0.5;vSpread=0.5;speed=0.1} @target'
+tb_brood:
+  Cooldown: 32
+  Skills:
+    - 'sound{s=entity.spider.hurt;v=1.4;p=1.3} @self'
+    - 'effect:particles{particle=item_slime;amount=50;hSpread=1.5;vSpread=1;speed=0.2} @self'
+    - 'summon{type=CAVE_SPIDER;amount=3;radius=3;noise=1} @self'
+db_quake:
+  Cooldown: 14
+  Skills:
+    - 'sound{s=entity.ravager.stunned;v=1.5;p=0.7} @self'
+    - 'effect:particlering{particle=block_crack;material=DRIPSTONE_BLOCK;radius=6;points=40;amount=3} @self'
+    - 'velocity{mode=add;y=0.7} @PlayersInRadius{r=7}'
+    - 'damage{amount=14} @PlayersInRadius{r=7}'
+db_spire:
+  Cooldown: 16
+  Skills:
+    - 'sound{s=block.pointed_dripstone.land;v=1.4;p=0.8} @target'
+    - 'effect:particles{particle=block_crack;material=POINTED_DRIPSTONE;amount=35;hSpread=1;vSpread=2;speed=0.2} @target'
+    - 'delay 14'
+    - 'damage{amount=13} @PlayersInRadius{r=3}'
+db_hide:
+  Cooldown: 50
+  Skills:
+    - 'potion{type=RESISTANCE;duration=220;level=2} @self'
+    - 'effect:particles{particle=block_crack;material=DEEPSLATE;amount=45;hSpread=1.2;vSpread=1.2;speed=0.1} @self'
+et_nova:
+  Cooldown: 14
+  Skills:
+    - 'sound{s=entity.blaze.shoot;v=1.5;p=0.7} @self'
+    - 'effect:particlering{particle=flame;radius=6;points=44;amount=3} @self'
+    - 'ignite{ticks=80} @PlayersInRadius{r=7}'
+    - 'damage{amount=16} @PlayersInRadius{r=7}'
+et_volley:
+  Cooldown: 16
+  Skills:
+    - 'sound{s=item.firecharge.use;v=1.4;p=0.9} @self'
+    - 'effect:particles{particle=lava;amount=40;hSpread=1.5;vSpread=1;speed=0.3} @self'
+    - 'delay 12'
+    - 'damage{amount=15} @target'
+    - 'ignite{ticks=60} @target'
+et_rage:
+  Cooldown: 55
+  Skills:
+    - 'sound{s=entity.piglin_brute.angry;v=1.6;p=0.7} @self'
+    - 'potion{type=STRENGTH;duration=300;level=1} @self'
+    - 'potion{type=SPEED;duration=300;level=1} @self'
+    - 'effect:particles{particle=flame;amount=70;hSpread=1.4;vSpread=1.8;speed=0.2} @self'
+vh_pull:
+  Cooldown: 13
+  Skills:
+    - 'sound{s=entity.enderman.scream;v=1.5;p=0.7} @self'
+    - 'effect:particlering{particle=portal;radius=7;points=48;amount=4} @self'
+    - 'pull{spread=0;velocity=1.5} @PlayersInRadius{r=10}'
+    - 'damage{amount=18} @PlayersInRadius{r=10}'
+vh_blink:
+  Cooldown: 14
+  Skills:
+    - 'sound{s=entity.enderman.teleport;v=1.4;p=0.8} @self'
+    - 'effect:particles{particle=portal;amount=50;hSpread=1;vSpread=1.5;speed=0.4} @self'
+    - 'teleport{spreadh=1;spreadv=0} @target'
+    - 'delay 6'
+    - 'damage{amount=17} @PlayersInRadius{r=3.5}'
+vh_curse:
+  Cooldown: 9
+  Skills:
+    - 'potion{type=LEVITATION;duration=50;level=0} @target'
+    - 'effect:particles{particle=portal;amount=20;hSpread=0.5;vSpread=0.8;speed=0.2} @target'

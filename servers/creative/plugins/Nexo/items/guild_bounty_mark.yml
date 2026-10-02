@@ -1,0 +1,14 @@
+guild_bounty_mark:
+  itemname: <gold><bold>Guild Bounty Mark</bold></gold>
+  material: SUNFLOWER
+  Components:
+    item_model: minecraft:sunflower
+    lore:
+    - ""
+    - <gray>Official minted seal of the <gold>Frontier Mercenary Guild</gold>.
+    - <gray>Awarded for fulfilling wilderness conscription contracts.
+    - ""
+    - <yellow>Redeemable with Conscription Officers for supplies & gear.
+    - ""
+    - <dark_gray>Bellcraft · Frontier Guild
+    enchantment_glint_override: true

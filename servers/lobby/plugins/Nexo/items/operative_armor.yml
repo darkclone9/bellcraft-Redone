@@ -1,0 +1,51 @@
+# ==============================================================================
+# NEXO CUSTOM ITEM DEFINITIONS: OPERATIVE COMBAT SUITE (1.21.x / Paper 26.2)
+# ==============================================================================
+
+operative_chestplate:
+  itemname: <gradient:#5EC8E8:#3A8AAA><bold>Operative Chestplate</bold></gradient>
+  material: NETHERITE_CHESTPLATE
+  
+  Pack:
+    custom_model_data: 2003
+    parent_model: nexo:item/operative_chestplate
+    texture: nexo:item/operative_chestplate
+  
+  Components:
+    equippable:
+      slot: CHEST
+      asset_id: nexo:operative_chestplate
+    item_model: nexo:item/operative_chestplate
+    max_damage: 850
+    unbreakable: false
+    attribute_modifiers:
+    - attribute: ARMOR
+      amount: 8
+      slot: CHEST
+      operation: ADD_NUMBER
+    - attribute: ARMOR_TOUGHNESS
+      amount: 3
+      slot: CHEST
+      operation: ADD_NUMBER
+    - attribute: KNOCKBACK_RESISTANCE
+      amount: 0.1
+      slot: CHEST
+      operation: ADD_NUMBER
+    lore:
+    - ''
+    - '<dark_gray>▪ <gray>Type: <gradient:#5EC8E8:#3A8AAA>Tactical Combat Plating</gradient>'
+    - '<dark_gray>▪ <gray>Tier: <aqua>Tier IV - Operative</aqua>'
+    - '<dark_gray>▪ <gray>Rig: <green>3D ModelEngine Synchronized</green>'
+    - ''
+    - '<dark_gray>▪ <white>Suit Buffs (Equipped):'
+    - '  <blue>+8 Armor Rating'
+    - '  <blue>+3 Armor Toughness'
+    - '  <blue>+10% Knockback Resistance'
+    - ''
+    - <dark_gray><italic>Ceramic-weave tactical plating with modular pouches, engineered
+      for covert field operations.</italic>
+  
+'null':
+  Components:
+    equippable:
+      slot: CHEST

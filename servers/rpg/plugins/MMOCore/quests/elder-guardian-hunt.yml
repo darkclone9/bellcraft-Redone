@@ -1,0 +1,36 @@
+
+# Display options
+name: 'Elder Guardian Hunt'
+lore:
+- 'The elder guardians rule the ocean'
+- 'monuments with iron fists. Slay these'
+- 'ancient beasts to liberate the seas!'
+- ''
+- '&6Objective:'
+- '&7► Kill 3 elder guardians'
+- ''
+- '&eRewards:'
+- '&7► 2842 EXP'
+- '&7► 75 Gold Coins'
+- '&7► Apple of Discord'
+
+level-req:
+    main: 50
+
+parent:
+- 'ocean-terror'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=ELDER_GUARDIAN;amount=3}'
+        lore: 'Kill 3 elder guardians.'
+        triggers:
+        - message{format="&aAdmiral> &fThe monuments are free! The ocean bows to your might."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 75"}
+        - 'mmoitem{type=CONSUMABLE;id=APPLE_OF_DISCORD}'
+        - 'experience{amount=2842}'

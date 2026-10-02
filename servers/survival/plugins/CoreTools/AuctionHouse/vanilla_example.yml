@@ -1,0 +1,1467 @@
+vanilla_example:
+  # Permission need to open this shop
+  permission: ''
+  # Multi-server support is provided via Redis/Valkey.
+  # To enable it, set the value below to "redis" and configure the Redis settings in config.yml.
+  # ---
+  # !!! WARNING: IF YOU'RE ENABLING MULTI-SERVER SUPPORT !!!
+  # Make sure that all of your AuctionHouses
+  # with the same ID in all servers are set to redis.
+  # ---
+  multi_server: single
+  # Enable or Cancels the use of bottom inventory.
+  bottom_inventory: true
+  fill_material: 'AIR' # Fill material for bottom inventory
+  # GUI display name
+  name: '[{category}] <white>AuctionHouse'
+  # How many rows will Inventory have.
+  # Must be between 1 and 6
+  size: 6
+  default_category: all
+  default_regions: [ city1,city2,city3 ] # Do not use underscores `_` in region names.
+  #The default bid increment that will be used for all bids set to -1 in the category settings.
+  default_minimum_bid_increment: 50
+  # You can configure which sell mode will be selected by default when an item is listed for sale.
+  # If you want to disable fixed-price or bid selling, you can remove them from the GUI settings and set the default sell mode here.
+  # If you want to offer your players multiple options and force them to make a selection, leave it as ''.
+  default_sales_mode: '' #fixed bid
+  # If you don't want to offer your players multi-currency support,
+  # you can set the default currency here and remove the buttons from the GUI.
+  # Leave '' if you want to offer your players multiple options and force them to make a selection.
+  default_currency: ''
+  # If you want to require the player to manually select the duration in days, leave this setting at 0.
+  default_days: 0
+  # The maximum number of active items players can list.
+  # If the player does not have any of the listed permissions, the default is used.
+  player_max_item:
+    default: 10
+    player: 20
+    vip: 30
+    vip_plus: 40
+
+  # This disables partial purchases for items with multiple quantities, forcing players to purchase the entire stack.
+  disable_partial_purchase: false
+
+  # This script runs before parsing the buttons or title
+  # placeholders when the menu is opened. If you're
+  # using a dynamic variable, you can set it according to the player.
+  # Or you can even add music to the opening!
+  # Only runs when the AuctionHouse is first opened.
+  start_script:
+    - menu_opening
+
+  # Only runs when the AuctionHouse is completely closed.
+  close_script:
+    - beep
+
+  player_input:
+    signgui:
+      material: 'OAK_WALL_SIGN' # Available sign types: OAK_SIGN, BIRCH_SIGN, SPRUCE_SIGN, JUNGLE_SIGN, ACACIA_SIGN, DARK_OAK_SIGN, CRIMSON_SIGN, WARPED_SIGN, CHERRY_SIGN, MANGROVE_SIGN, BAMBOO_SIGN, PALE_OAK_SIGN, OAK_WALL_SIGN, BIRCH_WALL_SIGN, SPRUCE_WALL_SIGN, JUNGLE_WALL_SIGN, ACACIA_WALL_SIGN, DARK_OAK_WALL_SIGN, CRIMSON_WALL_SIGN, WARPED_WALL_SIGN, CHERRY_WALL_SIGN, MANGROVE_WALL_SIGN, BAMBOO_WALL_SIGN, PALE_OAK_WALL_SIG`
+      dye_color: 'BLACK' # https://hub.spigotmc.org/javadocs/spigot/org/bukkit/DyeColor.html
+      line1: ''
+      line2: 'Enter the amount'
+      line3: 'you want and then'
+      line4: 'press Done'
+      # Which input line will be accepted as user input? Set the line you want to accept from the user as ''
+      input_line: 1
+      # How many times should a player be allowed to enter the required data incorrectly,
+      # or press Esc, before the sign UI stops reopening and returns to the sell GUI?
+      max_try: 3
+      # This regex only allow numbers and only one dot. If you want to allow only numbers without dot use "\\d+"
+      regex: "\\d+(\\.\\d+)?"
+    anvilgui:
+      title: 'Enter the amount'
+      text: '0'
+      # Which item slots should be used as the confirm buttons? 0 = Left item, 1 = Right item, 3 = Result item
+      slots: [ 0,1,2 ]
+      left_item:
+        source: vanilla
+        name: 'Left Item %'
+        material: dirt
+        flags: [ HIDE_ATTRIBUTES ]
+      right_item:
+        source: vanilla
+        name: 'Right Item'
+        material: stone
+        flags: [ HIDE_ATTRIBUTES ]
+      result_item:
+        source: vanilla
+        name: 'Confirm'
+        material: wooden_sword
+        flags: [ HIDE_ATTRIBUTES ]
+      # How many times should a player be allowed to enter the required data incorrectly,
+      # or press Esc, before the sign UI stops reopening and returns to the sell GUI?
+      max_try: 3
+      # This regex only allow numbers and only one dot. If you want to allow only numbers without dot use "\\d+"
+      regex: "\\d+(\\.\\d+)?"
+
+  messages:
+    item-listed: '<bold><green>AuctionHouse ✔<reset> You have successfully listed; {amount}x <gold>''{item_name}''<reset> for {unit_price}{currency_symbol} per unit.'
+    item-listed-bid: '<bold><green>AuctionHouse ✔<reset> You have successfully listed; {amount}x <gold>''{item_name}''<reset> for {unit_price}{currency_symbol}.'
+    item-listed-not-enough-money: '<bold><red>AuctionHouse ✖<reset> You don''t have the required {total}{currency_symbol} to list this item.'
+    item-listed-max-limit: '<bold><red>AuctionHouse ✖<reset> You cannot list another item because you have reached the maximum number of items you can list.'
+    item-purchased-online-seller: '<bold><green>AuctionHouse ✔<reset> Your item has been sold: {amount}x <gold>''{item_name}''<reset> for {total}{currency_symbol} After tax: {total_after_tax}{currency_symbol}.'
+    item-purchased-online-buyer: '<bold><green>AuctionHouse ✔<reset> You have successfully purchased; {amount}x <gold>''{item_name}''<reset> for {total}{currency_symbol}.'
+    item-won-offline-buyer: '<bold><green>AuctionHouse ✔<reset><gold> Congratulations, you won the auction!<reset> Please claim your item from AuctionHouse.'
+    item-won-buyer-online: '<bold><green>AuctionHouse ✔<reset><gold> Congratulations, you won the auction!<reset> Please claim your <gold>''{item_name}''<reset> from AuctionHouse.'
+    expired-bid-item-success-online-seller: '<bold><green>AuctionHouse ✔<reset> Your auction for {amount}x <gold>''{item_name}''<reset> has ended and the item was successfully sold for {total}{currency_symbol} After tax: {total_after_tax}{currency_symbol}.'
+    expired-bid-item-fail-online-seller: '<bold><red>AuctionHouse ⏳<reset> Your auction for {amount}x <gold>''{item_name}''<reset> has ended without receiving any bids.'
+    expired-fixed-item-online-seller: '<bold><red>AuctionHouse ⏳<reset> The listing period for your fixed-price item {amount}x <gold>''{item_name}''<reset> has ended. Please claim them before they are permanently deleted.'
+    expired-fixed-item-offline-seller: '<bold><red>AuctionHouse ⏳<reset> There are expired items still available. Please claim them before they are permanently deleted.'
+    already-sold: '<bold><red>AuctionHouse ✖<reset> This item has been purchased by someone else.'
+    expired: '<bold><red>AuctionHouse ✖<reset> This item has been removed from sale because its listing period has expired.'
+    cancelled: '<bold><red>AuctionHouse ✖<reset> This item has been removed from sale by the seller.'
+    not-enough-amount: '<bold><red>AuctionHouse ✖<reset> There is no longer a sufficient amount of the item you''re trying to purchase.'
+    not-enough-money: '<bold><red>AuctionHouse ✖<reset> You don''t have the required {total}{currency_symbol} to purchase this item.'
+    money-player-join: '<bold><green>AuctionHouse ✔<reset> Some of your items were sold while you were offline for {total}{currency_symbol}.'
+    collect-money-from-tax-system: '<bold><green>AuctionHouse ✔<reset> You have successfully collected the {total}{currency_symbol} accumulated in the AuctionHouse.'
+    bid-cancel-new-bid: '<bold><green>AuctionHouse ✔<reset> Your bid was canceled because another player placed a bid before you.'
+    bid-place: '<bold><green>AuctionHouse ✔<reset> You have successfully bid; {amount}x ''{item_name}''<reset> for {unit_price}{currency_symbol} per unit.'
+    player-cancel-item: '<bold><green>AuctionHouse ✔<reset> You have successfully cancel listing; {amount}x <gold>''{item_name}''.'
+    player-take-expired-item: '' #<bold><green>AuctionHouse ✔<reset> You have successfully take the {amount}x ''{item_name}''.
+    player-take-won-item: '' #<bold><green>AuctionHouse ✔<reset> You have successfully take the {amount}x ''{item_name}''.
+    delivery-successful-inventory: '<bold><green>AuctionHouse ✔<reset> The {amount}x <gold>''{item_name}''<reset> has been successfully sent to your inventory.'
+    delivery-successful-playervault: '<bold><green>AuctionHouse ✔<reset> The {amount}x <gold>''{item_name}''<reset> has been successfully sent to your PlayerVault.'
+    delivery-fail-inventory: '<bold><red>AuctionHouse ✖<reset> You don''t have any free space in your inventory.'
+    delivery-fail-playervault: '<bold><red>AuctionHouse ✖<reset> You don''t have any free space in your PlayerVault.'
+    delivery-fail-inventory-playervault: '<bold><red>AuctionHouse ✖<reset> You don''t have free space in your inventory or PlayerVault.'
+
+  broadcast:
+    item-listed: '<bold><green>AuctionHouse ✔<reset> {caster_name} have successfully listed; {amount}x <gold>''{item_name}''.'
+    item-listed-bid: '<bold><green>AuctionHouse ✔<reset> {caster_name} listed {amount}x <gold>''{item_name}''<reset> item with a starting bid of {unit_price}{currency_symbol}.'
+    item-purchased-online-buyer: '<bold><green>AuctionHouse ✔<reset> {caster_name} just purchased; {amount}x <gold>''{item_name}''<reset> for {total}{currency_symbol}.'
+    bid-place: '<bold><green>AuctionHouse ✔<reset> {caster_name} just bid; {amount}x <gold>''{item_name}''<reset> for {unit_price}{currency_symbol} per unit.'
+
+  sound:
+    item-listed: [ minecraft:entity.player.levelup,master,1,2 ]
+    item-listed-bid: [ minecraft:entity.player.levelup,master,1,2 ]
+    item-listed-not-enough-money: [ minecraft:entity.villager.no,master,1,2 ]
+    item-purchased-online-seller: [ minecraft:entity.player.levelup,master,1,2 ]
+    item-purchased-online-buyer: [ minecraft:entity.player.levelup,master,1,2 ]
+    item-won-offline-buyer: [ minecraft:entity.player.levelup,master,1,2 ]
+    item-won-buyer-online: [ minecraft:entity.player.levelup,master,1,2 ]
+    expired-bid-item-success-online-seller: [ minecraft:entity.player.levelup,master,1,2 ]
+    expired-bid-item-fail-online-seller: [ minecraft:entity.villager.no,master,1,2 ]
+    expired-fixed-item-online-seller: [ minecraft:entity.villager.no,master,1,2 ]
+    expired-fixed-item-offline-seller: [ minecraft:entity.villager.no,master,1,2 ]
+    already-sold: [ minecraft:entity.villager.no,master,1,2 ]
+    expired: [ minecraft:entity.villager.no,master,1,2 ]
+    cancelled: [ minecraft:entity.villager.no,master,1,2 ]
+    not-enough-amount: [ minecraft:entity.villager.no,master,1,2 ]
+    not-enough-money: [ minecraft:entity.villager.no,master,1,2 ]
+    delivery-successful-inventory: [ minecraft:entity.player.levelup,master,1,2 ]
+    delivery-successful-playervault: [ minecraft:entity.player.levelup,master,1,2 ]
+    delivery-fail-inventory: [ minecraft:entity.villager.no,master,1,2 ]
+    delivery-fail-playervault: [ minecraft:entity.villager.no,master,1,2 ]
+    delivery-fail-inventory-playervault: [ minecraft:entity.villager.no,master,1,2 ]
+    money-player-join: [ minecraft:entity.villager.no,master,1,2 ]
+    collect-money-from-tax-system: [ minecraft:entity.player.levelup,master,1,2 ]
+    bid-cancel-new-bid: [ minecraft:entity.villager.no,master,1,2 ]
+    bid-place: [ minecraft:entity.player.levelup,master,1,2 ]
+    player-cancel-item: [ minecraft:entity.player.levelup,master,1,2 ]
+    player-take-expired-item: [ minecraft:entity.player.levelup,master,1,2 ]
+    player-take-won-item: [ minecraft:entity.player.levelup,master,1,2 ]
+
+  discord:
+    # Go to the settings of the channel where you want the messages to be displayed,
+    # and under the Integrations tab, create a webhook URL and enter it in this section.
+    # If you want to completely disable Discord messages, set the webhookurl to ''
+    webhookurl: ''
+
+    # Since color codes and Unicode characters are often used in item names and lores,
+    # they need to be cleaned before being sent to Discord. With the default regex setting,
+    # everything except a-z, A-Z, 0-9, space, and the ■ character is removed. You can customize
+    # this setting as you wish, and you can test your regex live on regex101.com.
+    regex: "[^a-zA-Z0-9/■\\s]"
+    #    regex: "[^a-zA-Z0-9/■\\s\u3040-\u30FF\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF]" # English and Japanese characters also attached
+
+    # You might not want certain lines within the lore because they look very bad on your Discord server.
+    # If any line contains the exact string you put inside the "Contain" list anywhere within it,
+    # that line will be removed before being sent to the Discord server.
+    contain:
+      - 'Right Click'
+      - '§a◆ Empty'
+      - '§f §8§l|§7'
+      - '§7Amplifier'
+
+    # Events for which messages will be sent. If you want to disable any of them,
+    # simply set it to an empty string ''. Empty messages will not be sent.
+    item-listed: |
+      {
+        "username": "CoreTools AuctionHouse",
+        "content": "📌",
+        "embeds": [
+          {
+            "title": "⏬ New item added to [{ah_id}]",
+            "avatar_url": "",
+            "description": "**{seller_name}** added new item from **{seller_region}** region",
+            "color": 65280,
+            "fields": [
+              {
+                "name": "Item:",
+                "value": "{item_name}\n{item_lore}",
+                "inline": true
+              },
+              {
+                "name": "Item info",
+                "value": "**Source:** {plugin_source}\n**Id**: {plugin_id}\n**Tier**: {plugin_tier}\n**Type**: {plugin_type}\n**Material**: {item_material}",
+                "inline": true
+              },
+              {
+                "name": "AH Info",
+                "value": "Currency: {currency}\nUnit Price: {unit_price}\nUnit Tax: {unit_tax}\nAmount: {amount}x\nTotal: {currency_symbol}{total}\nAfter Tax: {currency_symbol}{total_after_tax}",
+                "inline": true
+              }
+            ],
+            "footer": {
+              "text": "Coretools Discord WebHook"
+            },
+            "timestamp": "%timestamp%"
+          }
+        ]
+      } 
+
+    item-purchased: |
+      {
+        "username": "CoreTools AuctionHouse",
+        "content": "📌",
+        "embeds": [
+          {
+            "title": "⏫ {item_name} {amount}x purchased from [{ah_id}]",
+            "avatar_url": "",
+            "description": "**{buyer_name}** purchased item from **{buyer_name}** in **{buyer_region}** region",
+            "color": 65280,
+            "fields": [
+              {
+                "name": "Item:",
+                "value": "{item_name}\n{item_lore}",
+                "inline": true
+              },
+              {
+                "name": "Item info",
+                "value": "**Source:** {plugin_source}\n**Id**: {plugin_id}\n**Tier**: {plugin_tier}\n**Type**: {plugin_type}\n**Material**: {item_material}\n**Seller**: {seller_name}",
+                "inline": true
+              },
+              {
+                "name": "AH Info",
+                "value": "Currency: {currency}\nUnit Price: {unit_price}\nUnit Tax: {unit_tax}\nAmount: {amount}x\nTotal: {currency_symbol}{total}\nAfter Tax: {currency_symbol}{total_after_tax} {seller_name} {item_name} is expired.",
+                "inline": true
+              }
+            ],
+            "footer": {
+              "text": "Coretools Discord WebHook"
+            },
+            "timestamp": "%timestamp%"
+          }
+        ]
+      } 
+
+    item-expired: '{"content":"{seller_name}''s {item_name} item from {ah_id}-[{item_id}] is expired."}'
+    item-expired-taken: '{"content":"**{seller_name}** take the expired **{item_name}** item from {ah_id}-[{item_id}]."}'
+    bid-place: ''
+    player-cancel-item: '{"content":"**{seller_name}** cancel the **{item_name}** item from {ah_id}-[{item_id}]."}'
+    player-take-expired-item: ''
+    player-take-won-item: ''
+
+  # The settings for how the placeholders "{sorting_default}", "{sorting_money_descending}",
+  # and "{sorting_money_ascending}" will be parsed. The section before the comma is for when
+  # they are inactive, while the section after the comma is for when they are active.
+  sorting:
+    default_ascending: [ <white>▷ Default △,<green><bold>▶ Default ▲ ]
+    default_descending: [ <white>▷ Default ▽,<green><bold>▶ Default ▼ ]
+    expire_ascending: [ <white>▷ Expire Date △,<green><bold>▶ Expire Date ▲ ]
+    expire_descending: [ <white>▷ Expire Date ▽,<green><bold>▶ Expire Date ▼ ]
+    price_ascending: [ <white>▷ Price △,<green><bold>▶ Price ▲ ]
+    price_descending: [ <white>▷ Price ▽,<green><bold>▶ Price ▼ ]
+
+  # Which method should be used to deliver the items to players?
+  #
+  # Mode 1: Attempts to add the item to the player's inventory.
+  # Mode 2: Attempts to add the item to the player's PlayerVault.
+  # Mode 3: Attempts to add the item to the player's inventory.
+  #         If unsuccessful, it tries to add it to the PlayerVault.
+  # Mode 4: Attempts to add the item to the player's inventory.
+  #         If it fails, it tries to add it to the player's PlayerVault.
+  #         If that also fails, the item will be dropped at the player's location.
+  # Mode 5: Item will be dropped at the player's location.
+  #
+  delivery:
+    # `deliver_offline_items_on_join` attempts to deliver items that expired or were won via bidding while the player was offline,
+    # using the configured delivery mode when the player rejoins the server.
+    # All money from items sold while the player is offline is automatically delivered to the player without requiring any configuration.
+    deliver_offline_items_on_join: false
+    purchase_mode: 3
+    playervault: [ myfirstvault,account ]
+
+  # You can configure what happens after certain internal events below.
+  #
+  # 'close' The GUI will be closed
+  # 'nothing' No action will be taken after the event
+  # 'category' Returns to the last category.
+  event_actions:
+    purchase_successful: category
+    purchase_failed: close
+    sell_successful: category
+
+  # The display lore is a fixed lore that will be added to
+  # the bottom of the lores of items displayed in the inventory
+  display_lore:
+    - ''
+    - '<bold><yellow>Purchase Type: Fixed Price'
+    - '<white><bold>Seller:</bold> {seller}'
+    - '<white><bold>Item Id:</bold> {item_id}'
+    - '<white><bold>Price:</bold> {price}{currency_symbol}'
+    - '<white><bold>Time Left:</bold> {days} days {hours} hours {minutes} minutes'
+    - ''
+    - '<red><bold>➤ Click to buy instantly!'
+
+  display_lore_bid:
+    - ''
+    - '<bold><yellow>Purchase Type: Auction'
+    - '<white><bold>Seller:</bold> {seller}'
+    - '<white><bold>Item Id:</bold> {item_id}'
+    - '<white><bold>Last Bidder:</bold> {bidder}'
+    - '<white><bold>Current Bid: {price}{currency_symbol}'
+    - '<white><bold>Time Left:</bold> {days} days {hours} hours {minutes} minutes'
+    - ''
+    - '<red><bold>➤ Click to place a bid!'
+
+  category_switcher:
+    sword: [ <white>▷ Sword,<green><bold>▶ Sword ]
+    staff: [ <white>▷ Staff,<green><bold>▶ Staff ]
+    bow: [ <white>▷ Bow,<green><bold>▶ Bow ]
+    armor: [ <white>▷ Armor,<green><bold>▶ Armor ]
+    consumable: [ <white>▷ Consumable,<green><bold>▶ Consumable ]
+    gem_stone: [ <white>▷ Gem Stone,<green><bold>▶ Gem Stone ]
+    material: [ <white>▷ Material,<green><bold>▶ Material ]
+    all: [ <white>▷ All,<green><bold>▶ All ]
+
+  buttons:
+    fill:
+      location: top
+      slots: [ 0,1,2,3,4,5,6,7,8,9,10,16,17,18,26,27,35,36,37,43,44,45,46,47,51,52,53 ]
+      source: vanilla
+      name: ' '
+      material: black_stained_glass_pane
+      flags: [ HIDE_ATTRIBUTES ]
+      click:
+        Scripts:
+          - click
+          - beep
+
+    tax_system:
+      location: bottom
+      slots: [ 9 ]
+      dynamic_button: auctionhouse_button1
+      Conditions:
+        - Permission{p=OP} true
+
+    category_switcher:
+      location: bottom
+      slots: [ 12 ]
+      source: vanilla
+      material: book
+      name: '<yellow><bold>Change category'
+      flags: [ HIDE_ATTRIBUTES ]
+      lore:
+        - ''
+        - '{category_switcher}'
+        - ''
+        - '<yellow><bold>Click to change'
+
+    sell:
+      location: bottom
+      slots: [ 13 ]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzA0MGZlODM2YTZjMmZiZDJjN2E5YzhlYzZiZTUxNzRmZGRmMWFjMjBmNTVlMzY2MTU2ZmE1ZjcxMmUxMCJ9fX0=
+      name: '<yellow><bold>Sell Item'
+      flags: [ HIDE_ATTRIBUTES ]
+      click:
+        Scripts:
+          - click
+          - beep
+
+    player_items_all:
+      location: bottom
+      slots: [ 14 ]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDliMjk4M2MwMWI4ZGE3ZGMxYzBmMTJkMDJjNGFiMjBjZDhlNjg3NWU4ZGY2OWVhZTJhODY3YmFlZTYyMzZkNCJ9fX0=
+      name: '<yellow><bold>Your Items'
+      lore: [ ]
+      flags: [ HIDE_ATTRIBUTES ]
+
+    sorting:
+      location: top
+      slots: [ 49 ]
+      source: vanilla
+      material: book
+      name: '<gold><bold>Sort'
+      flags: [ HIDE_ATTRIBUTES ]
+      lore:
+        - ''
+        - '{sorting}'
+        - ''
+        - '<white>Click to change'
+
+    next:
+      location: top
+      slots: [ 50 ]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+      name: <bold>Next
+      lore: [ ]
+      flags: [ HIDE_ATTRIBUTES ]
+      click:
+        Scripts:
+          - click
+          - beep
+
+    previous:
+      location: top
+      slots: [ 48 ]
+      source: vanilla
+      material: player_head
+      texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==
+      name: <bold>Previous
+      lore: [ ]
+      flags: [ HIDE_ATTRIBUTES ]
+      click:
+        Scripts:
+          - click
+          - beep
+
+    category_sword:
+      location: bottom
+      slots: [ 20 ]
+      source: vanilla
+      material: iron_sword
+      name: '<red><bold>Sword'
+      flags: [ HIDE_ATTRIBUTES ]
+
+    category_bow:
+      location: bottom
+      slots: [ 21 ]
+      source: vanilla
+      material: bow
+      name: '<red><bold>Bow'
+      flags: [ HIDE_ATTRIBUTES ]
+
+    category_armor:
+      location: bottom
+      slots: [ 22 ]
+      source: vanilla
+      material: iron_helmet
+      name: '<red><bold>Armor'
+      flags: [ HIDE_ATTRIBUTES ]
+
+    category_food:
+      location: bottom
+      slots: [ 23 ]
+      source: vanilla
+      material: apple
+      name: '<red><bold>Food'
+      flags: [ HIDE_ATTRIBUTES ]
+
+    category_potion:
+      location: bottom
+      slots: [ 24 ]
+      source: vanilla
+      material: potion
+      name: '<red><bold>Potion'
+      flags: [ HIDE_ATTRIBUTES ]
+
+    category_blocks:
+      location: bottom
+      slots: [ 25 ]
+      source: vanilla
+      material: dirt
+      name: '<red><bold>Blocks'
+      flags: [ HIDE_ATTRIBUTES ]
+
+    category_all:
+      location: bottom
+      slots: [ 31 ]
+      source: vanilla
+      material: loom
+      name: '<white><bold>ALL'
+      flags: [ HIDE_ATTRIBUTES ]
+
+  # Player Items is the section that allows players to view all the items listed in AuctionHouse,
+  # see and cancel their active items, view and purchase expired items,
+  # and see the items they have previously listed in the AuctionHouse.
+  player_items:
+    name: '{caster_name} Items {page_no}'
+    size: 6
+    bottom_inventory: true
+    bottom_inventory_use_default: true
+
+    # In the section where active items are listed,
+    # this is the text that will be added to the bottom of the item's lore.
+    active_display_lore:
+      - ''
+      - '<red><bold>Click to cancel the listing.'
+
+    # In the section where expired items are listed,
+    # this is the text that will be added to the bottom of the item's lore.
+    expired_display_lore:
+      - ''
+      - '<red><bold>The listing time for'
+      - '<red><bold>this item has expired.'
+      - '<red><bold>Click to take the item.'
+
+    buttons:
+      fill:
+        location: top
+        slots: [ 0,1,2,3,4,5,6,7,8,9,17,18,26,27,35,36,37,38,42,43,44,45,53 ]
+        source: vanilla
+        material: black_stained_glass_pane
+        name: ' '
+        flags: [ HIDE_ATTRIBUTES ]
+
+      home:
+        location: top
+        slots: [ 40 ]
+        source: vanilla
+        material: spyglass
+        name: <bold><white>Home
+        lore: [ ]
+        flags: [ HIDE_ATTRIBUTES ]
+
+      player_items_next:
+        location: top
+        slots: [ 41 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+        name: <bold><white>Next
+        lore: [ ]
+        flags: [ HIDE_ATTRIBUTES ]
+
+      player_items_previous:
+        location: top
+        slots: [ 39 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==
+        name: <bold><white>Previous
+        lore: [ ]
+        flags: [ HIDE_ATTRIBUTES ]
+
+      player_items_all:
+        location: top
+        slots: [ 46 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMThjMGNhOGZhZTcwMTMxNDMzMGZkZmRkZWQzNDQ1ZTQ1NDJhMzU5N2I3MGQzOGY0N2Q3NTExMWViMDQxMDRiOCJ9fX0=
+        name: 'All Items'
+        flags: [ HIDE_ATTRIBUTES ]
+
+
+      player_items_active:
+        location: top
+        slots: [ 47 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAxZDgyOWEwM2Q0NDYwMjJmZDhjNDkyMDVhZDBiYzM3ODk0NjYyMTY4Yjk3YTQ5NTM5MTM5MTIwMDg5Yjk1OSJ9fX0=
+        name: 'Active Items'
+        flags: [ HIDE_ATTRIBUTES ]
+
+      player_items_purchased:
+        location: top
+        slots: [ 48 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAxZDgyOWEwM2Q0NDYwMjJmZDhjNDkyMDVhZDBiYzM3ODk0NjYyMTY4Yjk3YTQ5NTM5MTM5MTIwMDg5Yjk1OSJ9fX0=
+        name: 'Purchased Items'
+        flags: [ HIDE_ATTRIBUTES ]
+
+      player_items_expired_not_taken:
+        location: top
+        slots: [ 49 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzAxZDgyOWEwM2Q0NDYwMjJmZDhjNDkyMDVhZDBiYzM3ODk0NjYyMTY4Yjk3YTQ5NTM5MTM5MTIwMDg5Yjk1OSJ9fX0=
+        name: 'Expired Items'
+        flags: [ HIDE_ATTRIBUTES ]
+
+      player_items_old:
+        location: top
+        slots: [ 50 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTcxYTIyODVjOTFjNmM3Mjc0NzYwNDgxOWVlNTIyM2E5MGFhNTFlNmU3OWU0ZjlhZjY2MjhlYzhmMGRkN2RmYyJ9fX0=
+        name: 'Unlisted Items'
+        flags: [ HIDE_ATTRIBUTES ]
+
+      player_items_bids_won:
+        location: top
+        slots: [ 51 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTcxYTIyODVjOTFjNmM3Mjc0NzYwNDgxOWVlNTIyM2E5MGFhNTFlNmU3OWU0ZjlhZjY2MjhlYzhmMGRkN2RmYyJ9fX0=
+        name: 'Won Bids'
+        flags: [ HIDE_ATTRIBUTES ]
+
+      player_items_bids_won_old:
+        location: top
+        slots: [ 52 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTcxYTIyODVjOTFjNmM3Mjc0NzYwNDgxOWVlNTIyM2E5MGFhNTFlNmU3OWU0ZjlhZjY2MjhlYzhmMGRkN2RmYyJ9fX0=
+        name: 'Old Won Bids'
+        flags: [ HIDE_ATTRIBUTES ]
+
+
+
+  purchase:
+    name: 'Auctionhouse Purchase Item'
+    size: 4
+    bottom_inventory: true
+    bottom_inventory_use_default: true
+
+    buttons:
+      #First button in this ui will used as filler icon for bid items.
+      fill:
+        location: top
+        slots: [ 0,1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17,18,19,23,25,26,27,28,29,30,32,33,34,35 ]
+        source: vanilla
+        material: black_stained_glass_pane
+        name: ' '
+        flags: [ HIDE_ATTRIBUTES ]
+
+      home:
+        location: top
+        slots: [ 31 ]
+        source: vanilla
+        material: spyglass
+        name: <bold><white>Home
+        flags: [ HIDE_ATTRIBUTES ]
+
+      purchase_item:
+        location: top
+        slots: [ 21,12 ]
+        source: vanilla
+        material: air
+
+      purchase_remove:
+        location: top
+        slots: [ 20 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==
+        name: '-'
+        flags: [ HIDE_ATTRIBUTES ]
+
+      purchase_add:
+        location: top
+        slots: [ 22 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+        name: '+'
+        flags: [ HIDE_ATTRIBUTES ]
+
+      # For the set, add, and remove values, you only need to change the final number in the key. . purchase_amount_set_<no> / purchase_amount_add_<no> / purchase_amount_remove_<no>
+      purchase_amount_set_10:
+        location: top
+        slots: [ 29 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODY1NDI2YTMzZGY1OGI0NjVmMDYwMWRkOGI5YmVjMzY5MGIyMTkzZDFmOTUwM2MyY2FhYjc4ZjZjMjQzOCJ9fX0=
+        name: 'Set 10'
+        flags: [ HIDE_ATTRIBUTES ]
+
+      purchase_amount_add_10:
+        location: top
+        slots: [ 30 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTBlMGE0ZDQ4Y2Q4MjlhNmQ1ODY4OTA5ZDY0M2ZhNGFmZmQzOWU4YWU2Y2FhZjZlYzc5NjA5Y2Y3NjQ5YjFjIn19fQ==
+        name: 'Add 10'
+        flags: [ HIDE_ATTRIBUTES ]
+
+      purchase_amount_remove_10:
+        location: top
+        slots: [ 31 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzU0Y2U4MTU3ZTcxZGNkNWI2YjE2NzRhYzViZDU1NDkwNzAyMDI3YzY3NWU1Y2RjZWFjNTVkMmZiYmQ1YSJ9fX0=
+        name: 'Remove 10'
+        flags: [ HIDE_ATTRIBUTES ]
+
+      purchase_confirm:
+        location: top
+        slots: [ 24 ]
+        source: vanilla
+        material: red_wool
+        # texture: player
+        # item_model: minecraft:dirt
+        # custom_model_data_string: 5
+        # custom_model_data_float: 77
+        empty_slot_material: dirt # When using multiple slot button; this material will be used all except first slot
+        name: '<bold><green>Confirm'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore:
+          - '<yellow><bold>You''re about to buy this item!'
+          - '<white><bold>Total Unit:</bold> {amount}'
+          - '<white><bold>Unit Price:</bold> {unit_price}{currency_symbol}'
+          - '<white><bold>Total:</bold> {total}{currency_symbol}'
+          - ''
+          - '<white><bold>➤ Click to confirm your purchase.'
+          - '<white><bold>➤ This action is final – no refunds.'
+
+        name2: '<bold><green>Confirm'
+        material2: lime_wool # material2 will used when this button clicked
+        # item_model2: minecraft:dirt
+        # custom_model_data_string2: 5
+        # custom_model_data_float2: 77
+        # texture2: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+        lore2:
+          - '<yellow><bold>You''re about to buy this item!'
+          - '<white><bold>Total Unit:</bold> {amount}'
+          - '<white><bold>Unit Price:</bold> {unit_price}{currency_symbol}'
+          - '<white><bold>Total:</bold> {total}{currency_symbol}'
+          - ''
+          - '<white><bold>➤ Click to confirm your purchase.'
+          - '<white><bold>➤ This action is final – no refunds.'
+
+      purchase_confirm_bid:
+        location: top
+        slots: [ 24 ]
+        source: vanilla
+        material: red_wool
+        # texture: player
+        # item_model: minecraft:dirt
+        # custom_model_data_string: 5
+        # custom_model_data_float: 77
+        empty_slot_material: dirt # When using multiple slot button; this material will be used all except first slot
+        name: '<bold><green>Confirm'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore:
+          - '<yellow><bold>You''re about to place a bid!'
+          - ''
+          - '<white><bold>Current Highest Bid:</bold> {current}{currency_symbol}'
+          - ''
+          - '<white><bold>Total Unit:</bold> {amount}'
+          - '<white><bold>Min. Bid Increment:</bold> {minimum_bid_increment}{currency_symbol}'
+          - ''
+          - '<white><bold>Final Bid:</bold> {total}{currency_symbol}'
+          - ''
+          - '<white><bold>➤ Click to confirm your bid.'
+          - '<white><bold>➤ Bids cannot be cancelled.'
+
+        name2: '<bold><green>Confirm'
+        material2: lime_wool # material2 will used when this button clicked
+        # item_model2: minecraft:dirt
+        # custom_model_data_string2: 5
+        # custom_model_data_float2: 77
+        # texture2: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+        lore2:
+          - '<yellow><bold>You''re about to place a bid!'
+          - ''
+          - '<white><bold>Current Highest Bid:</bold> {current}{currency_symbol}'
+          - ''
+          - '<white><bold>Total Unit:</bold> {amount}'
+          - '<white><bold>Min. Bid Increment:</bold> {minimum_bid_increment}{currency_symbol}'
+          - ''
+          - '<white><bold>Final Bid:</bold> {total}{currency_symbol}'
+          - ''
+          - '<white><bold>➤ Click to confirm your bid.'
+          - '<white><bold>➤ Bids cannot be cancelled.'
+
+  sell:
+    name: 'Auctionhouse Sell Items'
+    size: 6
+
+    buttons:
+      fill:
+        location: top
+        slots: [ 0,1,2,3,4,5,6,7,8,9,13,16,17,18,22,25,26,27,31,35,36,40,42,44,45,46,47,48,50,51,52,53 ]
+        source: vanilla
+        material: black_stained_glass_pane
+        name: ' '
+        flags: [ HIDE_ATTRIBUTES ]
+
+      home:
+        location: top
+        slots: [ 49 ]
+        source: vanilla
+        material: spyglass
+        name: <bold><white>Home
+        flags: [ HIDE_ATTRIBUTES ]
+
+      sell_player_input_sign:
+        location: top
+        slots: [ 14 ]
+        source: vanilla
+        name: 'Sign Input'
+        material: oak_sign
+        flags: [ HIDE_ATTRIBUTES ]
+
+      sell_player_item:
+        location: top
+        slots: [ 15 ]
+        source: vanilla
+        material: air
+
+      sell_player_input_anvil:
+        location: top
+        slots: [ 16 ]
+        source: vanilla
+        name: 'Anvil Input'
+        material: anvil
+        flags: [ HIDE_ATTRIBUTES ]
+
+      sell_confirm:
+        location: top
+        slots: [ 51 ]
+        source: vanilla
+        name: '<bold><green>Confirm'
+        material: red_wool
+        # item_model: minecraft:dirt
+        # custom_model_data_string: 5
+        # custom_model_data_float: 77
+        # texture: player
+        empty_slot_material: dirt # When using multiple slot button; this material will be used all except first slot
+        flags: [ HIDE_ATTRIBUTES ]
+        lore:
+          - '<white>Listing Fee:<bold><red> {listing_fee}{currency_symbol}'
+          - '<white>Tax per unit:<bold><red> {tax_per_unit}{currency_symbol} - %{tax_percent}'
+          - '<white>Before tax per unit:<bold><green> {unit_price}{currency_symbol}'
+          - '<white>After tax per unit:<bold><dark_aqua> {earning_per_unit}{currency_symbol}'
+          - '<white>Total:<bold><gold> ({earning_per_unit} * {amount}){currency_symbol}'
+
+        # Last Confirm
+        name2: '<bold><green>Confirm'
+        material2: lime_wool # material2 will used when this button clicked
+        # item_model2: minecraft:dirt
+        # custom_model_data_string2: 5
+        # custom_model_data_float2: 77
+        # texture2: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+        lore2:
+          - '<white>Listing Fee:<bold><red> {listing_fee}{currency_symbol}'
+          - '<white>Tax per unit:<bold><red> {tax_per_unit}{currency_symbol} - %{tax_percent}'
+          - '<white>Before tax per unit:<bold><green> {unit_price}{currency_symbol}'
+          - '<white>After tax per unit:<bold><dark_aqua> {earning_per_unit}{currency_symbol}'
+          - '<white>Total:<bold><gold> ({earning_per_unit} * {amount}){currency_symbol}'
+
+      sell_confirm_bid:
+        location: top
+        source: vanilla
+        material: red_wool
+        name: '<bold><green>Confirm'
+        # item_model: minecraft:dirt
+        # custom_model_data_string: 5
+        # custom_model_data_float: 77
+        # texture: player
+        empty_slot_material: dirt # When using multiple slot button; this material will be used all except first slot
+        flags: [ HIDE_ATTRIBUTES ]
+        lore:
+          - '<white>Listing Fee:<bold><red> {currency_symbol}{listing_fee}'
+          - '<white>Bid start:<bold><red> ({unit_price} * {amount}){currency_symbol} for {amount}x item'
+          - '<white>Tax:<bold><red> %{tax_percent} total'
+          - '<white>Final:<bold><gold> %(100 - {tax_percent}) of the final bid'
+
+        # Last Confirm
+        name2: '<bold><green>Confirm'
+        material2: lime_wool
+        # item_model2: minecraft:stone
+        # custom_model_data_string2: 10
+        # custom_model_data_float2: 77
+        # texture2: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+        lore2:
+          - '<white>Listing Fee:<bold><red> {currency_symbol}{listing_fee}'
+          - '<white>Bid start:<bold><red> ({unit_price} * {amount}){currency_symbol} for {amount}x item'
+          - '<white>Tax:<bold><red> %{tax_percent} total'
+          - '<white>Final:<bold><gold> %(100 - {tax_percent}) of the final bid'
+
+      sell_mode_fixed:
+        location: top
+        slots: [ 41 ]
+        source: vanilla
+        material: red_wool
+        name: '<yellow><bold>Fixed price'
+        # item_model: minecraft:dirt
+        # custom_model_data_string: 5
+        # custom_model_data_float: 77
+        # texture: player
+        flags: [ HIDE_ATTRIBUTES ]
+        empty_slot_material: dirt # When using multiple slot button; this material will be used all except first slot
+        lore:
+          - ''
+          - '<white>➤ Set a price players must pay.'
+          - '<white>➤ The first buyer gets the item.'
+          - '<white>➤ No bidding – instant sale.'
+          - '<red>Click to choose this method.'
+
+        # This settings will use if the button is active (clicked)
+        name2: '<yellow><bold>Fixed price'
+        material2: lime_wool
+        # item_model2: minecraft:stone
+        # custom_model_data_string2: 10
+        # custom_model_data_float2: 77
+        # texture2: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+        lore2:
+          - ''
+          - '<white>➤ Set a price players must pay.'
+          - '<white>➤ The first buyer gets the item.'
+          - '<white>➤ No bidding – instant sale.'
+          - '<red>Click to choose this method.'
+
+      sell_mode_bid:
+        location: top
+        slots: [ 43 ]
+        source: vanilla
+        material: red_wool
+        empty_slot_material: dirt # When using multiple slot button; this material will be used all except first slot
+        name: '<yellow><bold>Bidding'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore:
+          - ''
+          - '<white>➤ Set a starting bid and duration.'
+          - '<white>➤ Players can place bids over time.'
+          - '<white>➤ Highest bidder wins when time ends.'
+          - '<red>Click to choose this method.'
+
+        # This settings will use if the button is active (clicked)
+        name2: '<yellow><bold>Bidding'
+        material2: lime_wool
+        # item_model2: minecraft:stone
+        # custom_model_data_string2: 10
+        # custom_model_data_float2: 77
+        # texture2: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+        lore2:
+          - ''
+          - '<white>➤ Set a starting bid and duration.'
+          - '<white>➤ Players can place bids over time.'
+          - '<white>➤ Highest bidder wins when time ends.'
+          - '<red>Click to choose this method.'
+
+      sell_money_vault:
+        location: top
+        slots: [ 23 ]
+        source: vanilla
+        material: red_wool
+        empty_slot_material: dirt # When using multiple slot button; this material will be used all except first slot
+        name: 'Vault'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+        # This settings will use if the button is active (clicked)
+        name2: 'Vault'
+        material2: lime_wool
+        # item_model2: minecraft:stone
+        # custom_model_data_string2: 10
+        # custom_model_data_float2: 77
+        # texture2: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+        lore2: [ ]
+
+      sell_money_playerpoints:
+        location: top
+        slots: [ 24 ]
+        source: vanilla
+        material: red_wool
+        empty_slot_material: dirt # When using multiple slot button; this material will be used all except first slot
+        name: 'PlayerPoints'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+        # This settings will use if the button is active (clicked)
+        name2: 'PlayerPoints'
+        material2: lime_wool
+        # item_model2: minecraft:stone
+        # custom_model_data_string2: 10
+        # custom_model_data_float2: 77
+        # texture2: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+        lore2: [ ]
+
+      sell_money_coins:
+        location: top
+        slots: [ 25 ]
+        source: vanilla
+        material: red_wool
+        empty_slot_material: dirt # When using multiple slot button; this material will be used all except first slot
+        name: 'Coins'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+        # This settings will use if the button is active (clicked)
+        name2: 'Coins'
+        material2: lime_wool
+        # item_model2: minecraft:stone
+        # custom_model_data_string2: 10
+        # custom_model_data_float2: 77
+        # texture2: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+        lore2: [ ]
+
+      sell_day_1:
+        location: top
+        slots: [ 32 ]
+        source: vanilla
+        material: red_wool
+        empty_slot_material: dirt # When using multiple slot button; this material will be used all except first slot
+        name: '1 Day'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+        # This settings will use if the button is active (clicked)
+        name2: '1 Day'
+        material2: lime_wool
+        # item_model2: minecraft:stone
+        # custom_model_data_string2: 10
+        # custom_model_data_float2: 77
+        # texture2: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+        lore2: [ ]
+      sell_day_7:
+        location: top
+        slots: [ 33 ]
+        source: vanilla
+        material: red_wool
+        empty_slot_material: dirt # When using multiple slot button; this material will be used all except first slot
+        name: '7 Days'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+        # This settings will use if the button is active (clicked)
+        name2: '7 Days'
+        material2: lime_wool
+        # item_model2: minecraft:stone
+        # custom_model_data_string2: 10
+        # custom_model_data_float2: 77
+        # texture2: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+        lore2: [ ]
+      sell_day_14:
+        location: top
+        slots: [ 34 ]
+        source: vanilla
+        material: red_wool
+        empty_slot_material: dirt # When using multiple slot button; this material will be used all except first slot
+        name: '14 Days'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+        # This settings will use if the button is active (clicked)
+        name2: '14 Days'
+        material2: lime_wool
+        # item_model2: minecraft:stone
+        # custom_model_data_string2: 10
+        # custom_model_data_float2: 77
+        # texture2: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+
+      sell_7:
+        location: top
+        slots: [ 10 ]
+        source: vanilla
+        material: paper
+        custom_model_data_string: '07'
+        name: '7'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+      sell_8:
+        location: top
+        slots: [ 11 ]
+        source: vanilla
+        material: paper
+        custom_model_data_string: '08'
+        name: '8'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+      sell_9:
+        location: top
+        slots: [ 12 ]
+        source: vanilla
+        material: paper
+        custom_model_data_string: '09'
+        name: '9'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+      sell_4:
+        location: top
+        slots: [ 19 ]
+        source: vanilla
+        material: paper
+        custom_model_data_string: '04'
+        name: '4'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+      sell_5:
+        location: top
+        slots: [ 20 ]
+        source: vanilla
+        material: paper
+        custom_model_data_string: '05'
+        name: '5'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+      sell_6:
+        location: top
+        slots: [ 21 ]
+        source: vanilla
+        material: paper
+        custom_model_data_string: '06'
+        name: '6'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+      sell_1:
+        location: top
+        slots: [ 28 ]
+        source: vanilla
+        material: paper
+        custom_model_data_string: '01'
+        name: '1'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+      sell_2:
+        location: top
+        slots: [ 29 ]
+        source: vanilla
+        material: paper
+        custom_model_data_string: '02'
+        name: '2'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+      sell_3:
+        location: top
+        slots: [ 30 ]
+        source: vanilla
+        material: paper
+        custom_model_data_string: '03'
+        name: '3'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+      sell_0:
+        location: top
+        slots: [ 37 ]
+        source: vanilla
+        material: paper
+        custom_model_data_string: '00'
+        name: '0'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+      sell_dot:
+        location: top
+        slots: [ 38 ]
+        source: vanilla
+        material: paper
+        custom_model_data_string: 'dot'
+        name: '.'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+      sell_backspace:
+        location: top
+        slots: [ 39 ]
+        source: vanilla
+        material: paper
+        custom_model_data_string: 'backspace'
+        name: 'Backspace'
+        flags: [ HIDE_ATTRIBUTES ]
+        lore: [ ]
+
+  # you can have a different tax system for each category in
+  # each region and also give players control over it.
+  tax_system:
+    name: 'Tax System'
+    size: 6
+    bottom_inventory: true
+    bottom_inventory_use_default: true
+
+    # This setting determines who will collect the sales tax when an
+    # item is listed in one region and purchased in another region.
+    #
+    # 1) The region where the item is listed for sale
+    # 2) The region where the item is purchased
+    # 3) Split equally between the two regions
+    #
+    tax_mode: 1
+
+    # If no custom tax rate is set, the default
+    # rates will apply to all categories.
+    default:
+      listing_fee: '1 * {day}'
+      sell_tax: '10 + {day}'
+
+    buttons:
+      fill:
+        location: top
+        slots: [ 0,1,2,3,4,5,6,7,8,9,17,18,26,27,35,44,46,47,51,52,53 ]
+        source: vanilla
+        material: black_stained_glass_pane
+        name: ' '
+        flags: [ HIDE_ATTRIBUTES ]
+        click:
+          Scripts:
+            - click
+            - beep
+
+      collect_tax:
+        location: top
+        slots: [ 45 ]
+        source: vanilla
+        material: green_dye
+        name: 'Collect Tax'
+        lore:
+          - "<white>Vault: {auction_current_vault_vanilla_example}"
+          - "<white>PlayerPoints: {auction_current_playerpoints_vanilla_example}"
+          - "<white>Coins: {auction_current_coins_vanilla_example}"
+        flags: [ HIDE_ATTRIBUTES ]
+        click:
+          Scripts:
+            - beep
+
+      reset_tax:
+        location: top
+        slots: [ 36 ]
+        source: vanilla
+        material: green_dye
+        name: 'Reset Tax'
+        lore:
+          - "<white>Resets all custom tax settings"
+          - "<white>and restores default values."
+        flags: [ HIDE_ATTRIBUTES ]
+        click:
+          Scripts:
+            - beep
+
+      tax_system:
+        location: top
+        slots: [ 49 ]
+        dynamic_button: auctionhouse_button1
+
+      next:
+        location: top
+        slots: [ 50 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+        name: <bold>Next
+        lore: [ ]
+        flags: [ HIDE_ATTRIBUTES ]
+        click:
+          Scripts:
+            - beep
+
+      previous:
+        location: top
+        slots: [ 48 ]
+        source: vanilla
+        material: player_head
+        texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==
+        name: <bold>Previous
+        lore: [ ]
+        flags: [ HIDE_ATTRIBUTES ]
+        click:
+          Scripts:
+            - beep
+
+    categories:
+      sword:
+        name: '{name="Sword";material=iron_sword;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+        listing_fee:
+          - '{formula="10";name="<gold>Listing fee: 10";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="20";name="<gold>Listing fee: 20";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="30";name="<gold>Listing fee: 30";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="1 * {day}";name="<gold>Listing fee formula: 1 * {day}";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="5 * {day}";name="<gold>Listing fee formula: 5 * {day}";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="10 * {day}";name="<gold>Listing fee formula: 10 * {day}";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+        sell_tax:
+          - '{formula="10";name="<red>Sell Tax: 10";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="20";name="<red>Sell Tax: 20";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="30";name="<red>Sell Tax: 30";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="10 + {day}";name="<red>Sell Tax formula: 10 + {day}";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="20 + {day}";name="<red>Sell Tax formula: 20 + {day}";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="30 + {day}";name="<red>Sell Tax formula: 30 + {day}";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+
+      armor:
+        name: '{name="Armor";material=iron_helmet;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+        listing_fee:
+          - '{formula="10";name="<gold>Listing fee: 10";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="20";name="<gold>Listing fee: 20";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="30";name="<gold>Listing fee: 30";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="1 * {day}";name="<gold>Listing fee formula: 1 * {day}";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="5 * {day}";name="<gold>Listing fee formula: 5 * {day}";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="10 * {day}";name="<gold>Listing fee formula: 10 * {day}";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+        sell_tax:
+          - '{formula="10";name="<red>Sell Tax: 10";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="20";name="<red>Sell Tax: 20";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="30";name="<red>Sell Tax: 30";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="10 + {day}";name="<red>Sell Tax formula: 10 + {day}";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="20 + {day}";name="<red>Sell Tax formula: 20 + {day}";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="30 + {day}";name="<red>Sell Tax formula: 30 + {day}";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+
+      food:
+        name: '{name="Food";material=apple;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+        listing_fee:
+          - '{formula="10";name="<gold>Listing fee: 10";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="20";name="<gold>Listing fee: 20";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="30";name="<gold>Listing fee: 30";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="1 * {day}";name="<gold>Listing fee formula: 1 * {day}";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="5 * {day}";name="<gold>Listing fee formula: 5 * {day}";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="10 * {day}";name="<gold>Listing fee formula: 10 * {day}";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+        sell_tax:
+          - '{formula="10";name="<red>Sell Tax: 10";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="20";name="<red>Sell Tax: 20";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="30";name="<red>Sell Tax: 30";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="10 + {day}";name="<red>Sell Tax formula: 10 + {day}";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="20 + {day}";name="<red>Sell Tax formula: 20 + {day}";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="30 + {day}";name="<red>Sell Tax formula: 30 + {day}";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+
+      blocks:
+        name: '{name="Blocks";material=apple;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+        listing_fee:
+          - '{formula="10";name="<gold>Listing fee: 10";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="20";name="<gold>Listing fee: 20";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="30";name="<gold>Listing fee: 30";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="1 * {day}";name="<gold>Listing fee formula: 1 * {day}";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="5 * {day}";name="<gold>Listing fee formula: 5 * {day}";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="10 * {day}";name="<gold>Listing fee formula: 10 * {day}";lore="<white>The formula or,<white>fixed fee required to,<white>list items in,<white>this category.";material=white_dye;flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+        sell_tax:
+          - '{formula="10";name="<red>Sell Tax: 10";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="20";name="<red>Sell Tax: 20";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="30";name="<red>Sell Tax: 30";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="10 + {day}";name="<red>Sell Tax formula: 10 + {day}";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="20 + {day}";name="<red>Sell Tax formula: 20 + {day}";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+          - '{formula="30 + {day}";name="<red>Sell Tax formula: 30 + {day}";material=red_dye;lore="<white>The tax rate,<white>that will be taken,<white>from each item,<white>sold in this category.";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES"}'
+
+
+
+  # Category filtering is one of the most critical components.
+  # You configure all the items that can be listed for sale in this section.
+  # Based on the settings you make here, all your items will automatically be sorted into categories.
+  categories:
+    all:
+      name: 'All Items'
+
+    sword:
+      name: 'Sword [{page_no}]'
+      minimum_bid_increment: 100
+      advanced_minimum_bid_increment:
+        vault: 10
+        coins: 20
+        playerpoints: 30
+      restriction_advanced:
+        allow:
+          source:
+            - vanilla
+          id: []
+          type: []
+          tier: []
+          material: []
+          vanilla_material: [wooden_sword,stone_sword,iron_sword,golden_sword,diamond_sword] # This setting is only used to check the item's material if the source is vanilla.
+        block:
+          id: []
+          type: []
+          tier: []
+          material: []
+          vanilla_material: [] # This setting is only used to check the item's material if the source is vanilla.
+
+    bow:
+      name: 'Armor [{page_no}]'
+      minimum_bid_increment: 100
+      advanced_minimum_bid_increment:
+        vault: 10
+        coins: 20
+        playerpoints: 30
+      restriction_advanced:
+        allow:
+          source:
+            - vanilla
+          id: []
+          type: []
+          tier: []
+          material: []
+          vanilla_material: [bow,crossbow]
+        block:
+          id: []
+          type: []
+          tier: []
+          material: []
+          vanilla_material: []
+
+    armor:
+      name: 'Armor [{page_no}]'
+      minimum_bid_increment: 100
+      advanced_minimum_bid_increment:
+        vault: 10
+        coins: 20
+        playerpoints: 30
+      restriction_advanced:
+        allow:
+          source:
+            - vanilla
+          id: []
+          type: []
+          tier: []
+          material: []
+          vanilla_material: [diamond_helmet,diamond_chestplate,diamond_leggings,diamond_boots]
+        block:
+          id: []
+          type: []
+          tier: []
+          material: []
+          vanilla_material: []
+
+    potion:
+      name: 'Armor [{page_no}]'
+      minimum_bid_increment: 100
+      advanced_minimum_bid_increment:
+        vault: 10
+        coins: 20
+        playerpoints: 30
+      restriction_advanced:
+        allow:
+          source:
+            - vanilla
+          id: []
+          type: []
+          tier: []
+          material: []
+          vanilla_material: [potion,lingering_potion,splash_potion]
+        block:
+          id: []
+          type: []
+          tier: []
+          material: []
+          vanilla_material: []
+
+    food:
+      name: 'Food [{page_no}]'
+      minimum_bid_increment: 100
+      advanced_minimum_bid_increment:
+        vault: 10
+        coins: 20
+        playerpoints: 30
+      restriction_advanced:
+        allow:
+          source:
+            - vanilla
+          id: []
+          type: []
+          tier: []
+          material: []
+          vanilla_material: [apple,golden_apple,melon_slice,sweet_berries,glow_berries]
+        block:
+          id: []
+          type: []
+          tier: []
+          material: []
+          vanilla_material: []
+
+    blocks:
+      name: 'Blocks [{page_no}]'
+      minimum_bid_increment: 100
+      advanced_minimum_bid_increment:
+        vault: 10
+        coins: 20
+        playerpoints: 30
+      restriction_advanced:
+        allow:
+          source:
+            - vanilla
+          id: []
+          type: []
+          tier: []
+          material: []
+          vanilla_material: [short_grass,all_blocks] # This setting is only used to check the item's material if the source is vanilla.
+        block:
+          id: []
+          type: []
+          tier: []
+          material: []
+          vanilla_material: [apple,dirt] # This setting is only used to check the item's material if the source is vanilla.

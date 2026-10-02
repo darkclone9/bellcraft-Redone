@@ -1,0 +1,394 @@
+#
+#
+#  ▄████▄   ▒█████   ██▀███  ▓█████▄▄▄█████▓ ▒█████   ▒█████   ██▓      ██████
+# ▒██▀ ▀█  ▒██▒  ██▒▓██ ▒ ██▒▓█   ▀▓  ██▒ ▓▒▒██▒  ██▒▒██▒  ██▒▓██▒    ▒██    ▒
+# ▒▓█    ▄ ▒██░  ██▒▓██ ░▄█ ▒▒███  ▒ ▓██░ ▒░▒██░  ██▒▒██░  ██▒▒██░    ░ ▓██▄
+# ▒▓▓▄ ▄██▒▒██   ██░▒██▀▀█▄  ▒▓█  ▄░ ▓██▓ ░ ▒██   ██░▒██   ██░▒██░      ▒   ██▒
+# ▒ ▓███▀ ░░ ████▓▒░░██▓ ▒██▒░▒████▒ ▒██▒ ░ ░ ████▓▒░░ ████▓▒░░██████▒▒██████▒▒
+# ░ ░▒ ▒  ░░ ▒░▒░▒░ ░ ▒▓ ░▒▓░░░ ▒░ ░ ▒ ░░   ░ ▒░▒░▒░ ░ ▒░▒░▒░ ░ ▒░▓  ░▒ ▒▓▒ ▒ ░
+#   ░  ▒     ░ ▒ ▒░   ░▒ ░ ▒░ ░ ░  ░   ░      ░ ▒ ▒░   ░ ▒ ▒░ ░ ░ ▒  ░░ ░▒  ░ ░
+# ░        ░ ░ ░ ▒    ░░   ░    ░    ░      ░ ░ ░ ▒  ░ ░ ░ ▒    ░ ░   ░  ░  ░
+# ░ ░          ░ ░     ░        ░  ░            ░ ░      ░ ░      ░  ░      ░
+# ░
+
+# Identifier is for grouping your servers
+# player and server-side custom data.
+# Data is not shared between different Identifiers.
+server-identifier: default
+
+# Update notification on login
+# Can be disabled when no internet connection is available
+update-notify: true
+
+# This option is used  synchronize player data between
+# proxy-connected servers. When a player changes server,
+# the plugin tries to fetch new data X times every 1s, up
+# to a maximum of 5 times by default.
+#
+# Use a higher value if your SQL connection is weak to avoid
+# player data loss.
+max-sync-tries: 5
+
+# Auto-Save feature automatically saves playerdata
+auto-save:
+  enabled: true
+  interval: 1881 # In seconds (1800 = 30 minutes)
+  log: false
+
+# This will verbose debug messages to the console
+# when toggled on.
+debug: true
+
+# Do not touch the serializers settings unless you
+# have read the wiki page and fully understood what they do.
+serializers:
+  serialize: bukkit
+  deserialize: bukkit
+
+# MySQL Support
+mysql:
+  enabled: false
+  host: localhost
+  port: 3306
+  database: minecraft
+  user: minecraft
+  pass: <<REDACTED>>
+  table: coretools
+  maxPoolSize: 10
+  maxLifeTime: 300000
+  connectionTimeOut: 10000
+  leakDetectionThreshold: 15000
+  properties:
+    cachePrepStmts: true
+    useServerPrepStmts: true
+    useLocalSessionState: true
+    rewriteBatchedStatements: true
+    cacheResultSetMetadata: true
+    cacheServerConfiguration: true
+    elideSetAutoCommits: true
+    maintainTimeStats: false
+    prepStmtCacheSize: 250
+    prepStmtCacheSqlLimit: 2048
+
+# Redis Support
+redis:
+  enabled: false
+  host: 127.0.0.1
+  port: 6379
+  username: 'default'
+  pass: ''
+  # Redis supports multiple databases (by default 16, numbered 0-15),
+  # where each database is isolated from the others - keys in database 0
+  # are separate from keys in database 1, etc.
+  database_key: 0
+  timeout: 60
+  ssl: false
+  # If the connection to the Redis server is lost for any reason,
+  # how many times should it retry before throwing an error?
+  # Default is 3 attempts with a 1.5-second delay between each.
+  retry: 3
+  retryinterval: 1500
+
+# Hide messages sent to the console or
+# the executing player when using commands.
+hide_messages:
+  delivery: true
+
+# The variable feature allows you to store as many
+# different values as you want on both the player
+# and server itself, and access them using PlaceholderAPI.
+# The values that can be stored are integer, double, and string.
+#
+# All Variables configs are located in the Variables folder
+#
+# Multi Server Sync
+# Server-side variables can be synchronized almost in real-time
+# across all servers with the same server-identifier using Redis.
+# Wiki page for more information https://gitlab.com/Tanerx/CoreTools/-/wikis/features/variables
+variables:
+  enabled: true
+  redis: false
+  formulas:
+    addition: '#old# + #new#'
+    extraction: '#old# - #new#'
+    multiplication: '#old# * #new#'
+    divide: '#old# / #new#'
+#    example1: '(%mmocore_level% * #new#) + #old#'
+#    example2: '(%mmocore_level% * #new#) + #old#'
+  timestamp_translate:
+    default-all: '{day}d {hours}h {min}m {sec}s'
+    default-hours-min: '{hours}h {min}m {sec}s'
+    default-just-min: '{min}m {sec}s'
+    default-just-sec: '{sec}s'
+    default-expired: 'Expired'
+    custom-1: 'custom  {day} {hours} {min}' # Do not use underscores in custom names
+
+# PlayerVaults allows server owners to create
+# unlimited vaults for players to store their items.
+#
+# All PlayerVaults configs are located in the PlayerVaults folder
+# Wiki page for more information https://gitlab.com/Tanerx/CoreTools/-/wikis/features/playervaults
+player_vaults:
+  enabled: true
+
+  # The setting below is only needed if you are using MMOProfiles.
+  # Ignore if you are not using MMOProfiles.
+  #
+  # Default Vaults always will use player(real) UUID,
+  # If MMOProfiles installed, Profile(fake) UUID will used
+  #
+  # While mmoprofiles_vaults will only use player real UUID.
+  # This vault type can be shared with all player profiles while using MMOProfiles.
+  mmoprofiles_vaults:
+    - account
+
+# Shops allows server owners to create
+# unlimited numbers of shops for players
+# to sell or purchase items.
+#
+# All Shop settings are located in the Shops folder
+# Wiki page for more information https://gitlab.com/Tanerx/CoreTools/-/wikis/features/shops
+shops:
+  enabled: true
+
+# Menu Creator allows server owners to create
+# unlimited numbers of custom gui
+#
+# All menu Creator settings are located in the menu folder
+# Wiki page for more information https://gitlab.com/Tanerx/CoreTools/-/wikis/features/menu_creator
+menu_creator:
+  enabled: true
+
+# All stations settings are located in the Station folder
+# Wiki page for more information https://gitlab.com/Tanerx/CoreTools/-/wikis/features/stations
+stations:
+  enabled: true
+
+# All AuctionHouse settings are located in the auctionhouse folder
+# Wiki page for more information https://gitlab.com/Tanerx/CoreTools/-/wikis/features/auctionhouse
+auctionhouse:
+  enabled: true
+  enable_logs: true
+
+  # These settings determine how long after an item’s listing period ends it will be deleted or
+  # moved to another table in the database. Once an item is delisted, if players haven't reclaimed
+  # it from the AuctionHouse, they will no longer be able to retrieve it after this process.
+  # Therefore, it is recommended to allow at least a 3-month grace period.
+  # For more detailed information, please refer to the wiki.
+  old_items:
+    # There are 4 total modes available for handling expired items:
+    # 1) `move` – Moves the item to another database table after the expiration time, regardless of whether the item was taken by the player or not.
+    # 2) `move-taken` – Moves the item only if it was taken by the player after the expiration time.
+    # 3) `delete` – Deletes the item permanently after the expiration time, regardless of whether it was taken or not.
+    # 4) `delete-taken` – Deletes the item permanently only if it was taken by the player after the expiration time.
+    mode: move
+    # How many days after the listing date will the item be considered old?
+    days: 365
+
+# All Wardrobe settings are located in the wardrobe.yml
+# Wiki page for more information https://gitlab.com/Tanerx/CoreTools/-/wikis/features/wardrobe
+wardrobe:
+  enabled: true
+
+# Shows a ender pearl hotbar effect on the
+# other items in hotbar at the cooldown rate of your item.
+#
+# Set conditions to [] will disable conditions check
+# Set Materials to [] make cooldown work for all materials
+#
+# Right click usefull for MMOItems crossbow types.
+#
+# In this feature, the condition works in the opposite way
+# compared to other condition systems. Normally,
+# all conditions need to be true, but here,
+# only one condition being true is sufficient.
+# Wiki page for more information https://gitlab.com/Tanerx/CoreTools/-/wikis/features/hotbar_effect
+hotbar_effect:
+  left_click:
+    enabled: true
+    Conditions: []
+    Materials:
+      - iron_sword
+      - stone_sword
+      - wooden_sword
+      - golden_sword
+      - diamond_sword
+      - netherite_sword
+
+  right_click:
+    enabled: false
+    Conditions:
+      - Checkitem{p=mmoitems;slot=main;category=crossbow} true
+    Materials: []
+
+
+# Recipe allows you to make room for your custom recipes
+# by deleting all or individual recipes on the server.
+#
+# wipe_all_recipes will work 1.14.+
+# individual remove only work 1.16.+
+# Wiki page for more information https://gitlab.com/Tanerx/CoreTools/-/wikis/features/misc_features
+recipe:
+  wipe_all_recipes: false
+  reload_mmoitems_after_wipe: false
+
+  remove_recipes:
+    enabled: false
+    minecraft:
+      - acacia_boat
+      - acacia_button
+      - acacia_chest_boat
+      - acacia_door
+#      - ^andesite_.*    # Starts with andesite_
+#      - .*_andesite$    # Ends with _andesite
+#      - .*andesite.*    # Contains andesite
+
+
+# Remove arrows after hit.
+# Wiki page for more information https://gitlab.com/Tanerx/CoreTools/-/wikis/features/misc_features
+arrow_remover:
+  on_player:
+    enabled: false
+    delay: 3
+  non_player:
+    enabled: false
+    delay: 3
+
+
+# Cancel the Golden apple Effect
+# When a consumable item is made with mmoitems,
+# item does not affect the game and can always be eaten.
+# Wiki page for more information https://gitlab.com/Tanerx/CoreTools/-/wikis/features/misc_features
+effects_cancel:
+  enabled: false
+  materials:
+    - golden_apple
+    - enchanted_golden_apple
+
+# This feature cancels when a
+# Zombie or Husk tries to
+# spawn while riding a chicken.
+# Wiki page for more information https://gitlab.com/Tanerx/CoreTools/-/wikis/features/misc_features
+disable_chicken_passengers:
+  enabled: false
+
+# This used to get the symbol of the currency used in internal placeholders.
+# Internal currencies are added automatically.
+currency_symbols:
+  vault: '$'
+  playerpoints: '$'
+  xconomy: '$'
+  coinsengine-coins: '$'
+
+# This is used to remove unwanted characters from some lores.
+# Currently, the only supported placeholder is {item_name_clean_<id>}.
+regex_list:
+  # The regex only preserves English letters (a–z, A–Z), digits (0–9), /, ■, whitespace characters,
+  # Minecraft color/style codes (§a–§f, §k–§o, §r), and full RGB codes (§x§R§R§G§G§B§B).
+  1: "(?!(§x(§[0-9a-fA-F]){6}|§[0-9a-fk-orA-FK-OR]|[a-zA-Z0-9/■\\s]))."
+
+  # The regex only preserves English letters (a–z, A–Z), digits (0–9), /, ■, whitespace characters,
+  # Japanese Hiragana (U+3040–U+309F), Katakana (U+30A0–U+30FF), CJK Unified Ideographs (U+4E00–U+9FFF),
+  # CJK Extension A (U+3400–U+4DBF), and CJK Compatibility Ideographs (U+F900–U+FAFF).
+  2: "[^a-zA-Z0-9/■\\s\u3040-\u30FF\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF]"
+
+  # The regex only preserves English letters (a–z, A–Z), digits (0–9), /, ■, and whitespace characters.
+  3: "[^a-zA-Z0-9/■\\s]"
+
+
+# Mythic Damage Bridge is a bridge that allows MMOItems
+# element and normal damages to work properly on MythicMobs mobs.
+mythic_damage_bridge:
+  enabled: false
+  default:
+    enabled: false
+    # If the formula you created is not working or the wrong one is being applied,
+    # you can enable debug to see a debug message each time the formula is executed.
+    debug: false
+    # Damage Types are almost always multiple, so the order below is very important.
+    # According to the order you set, the first matching stat from top to bottom will be used.
+    #
+    # MMO damage types must always include either weapon, skill or unarmed.
+    # This way, damage types are kept separate and the necessary calculations are made.
+    # You must also add your formulas to the correct categories accordingly.
+    #
+    # It is not limited to just 'weapon' and 'skill';
+    # if you have a custom main category, you can add it using the same syntax.
+    #
+    # You can create formulas however you like!
+    # The {defense} here is the stat value set on the mob.
+    # If you want to create more complex formulas, you can use {caster_...}
+    # for the player, {target_mm...} for the MM mob.
+    # https://gitlab.com/Tanerx/CoreTools/-/wikis/scripting/placeholders
+    weapon:
+      magic: '{damage} - {defense}'
+      projectile: '{damage} - {defense}'
+      physical: '{damage} - {defense}'
+    skill:
+      magic: '{damage} - {defense}'
+      projectile: '{damage} - {defense}'
+      physical: '{damage} - {defense}'
+    unarmed:
+      magic: '{damage} - {defense}'
+      projectile: '{damage} - {defense}'
+      physical: '{damage} - {defense}'
+
+  elements:
+    enabled: false
+    elemental_custom_formula: '{damage} - {defense}'
+
+# If a GUI remains open for a player, how far can they move away
+# from the opening location before the GUI automatically closes,
+# and at what interval (in seconds) should this check be performed?
+
+inventory_moving_check:
+  enabled: true
+  distance: 1
+  period:  2
+
+
+# You can manage the config files for the holograms that will spawn from here,
+# and the remaining settings for the holograms from the Hologram folder.
+holograms:
+  enabled: true
+
+  # Reparse time for Dynamic Holograms (Seconds)
+  # For best performance, it is recommended that you set the number as high as possible.
+  interval:
+    low: 5
+    medium: 10
+    high: 20
+
+  # The default and mythiclib settings are hardcoded and cannot be deleted,
+  # but you can add as many different settings as you want. In case of any error,
+  # the default setting will be used, while the MythicLib plugin will use the mythiclib setting.
+  configs:
+    default:
+      type: text_display
+      constraints: 3
+      opacity: 255
+      force_def_background_color: false
+      color: 64,0,0,0 # "a,r,g,b" set all 0 for no background
+      line_width: 200
+      has_shadow: false
+      see_through: false
+      alignment: center
+      scale: 1,1,1
+      radius: 50
+      condition: ''
+      remove: true
+
+    mythiclib:
+      type: text_display
+      constraints: 3
+      opacity: 255
+      force_def_background_color: false
+      color: 64,0,0,0 # "a,r,g,b" set all 0 for no background
+      line_width: 200
+      has_shadow: false
+      see_through: false
+      alignment: center
+      scale: 1,1,1
+      radius: 50
+      condition: ''
+      remove: true

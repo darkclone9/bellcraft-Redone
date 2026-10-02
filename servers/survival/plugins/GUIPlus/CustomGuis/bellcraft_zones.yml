@@ -1,0 +1,326 @@
+id: bellcraft_zones
+rows: 3
+type: chest
+title: '&8Bellcraft &7| &2Wilderness Zones'
+commandAlias: zones
+commandAliasTarget: DISABLED
+disable-scene-animation: false
+scenes:
+  '0':
+    delay: 0
+    items:
+      '1':
+        slot: 16
+        item: PACKED_ICE
+        amount: 1
+        conditionFailMessage: '&cYou must be Level 30 or higher to explore Frozen
+          Expanse!'
+        conditions:
+          74c17dda-630c-4e52-8101-5540c950142e:
+            condition: conditional-placeholder
+            conditional_condition: '%mmocore_level% >= 30'
+            inverted: false
+        click-events:
+          f388375f-db4c-4431-889d-8739045079c3:
+            type: command
+            commands:
+            - rtp location zone4
+            setOp: true
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:packed_ice
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"aqua",italic:0b,obfuscated:0b,strikethrough:0b,text:"Zone
+              4: Frozen Expanse",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"386213412"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"aqua",italic:0b,obfuscated:0b,strikethrough:0b,text:"Zone
+          4: Frozen Expanse",underlined:0b}],text:""}},count:1,id:"minecraft:packed_ice"}'
+        item-name: '&b&lZone 4: Frozen Expanse'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Level Range: &bLv. 30–40'
+            - '&7Biomes: &fSnowy Plains, Grove, Ice Spikes'
+            - '&7Native Threat: &bRimebound Colossus &7(Lv. 32)'
+            - ''
+            - '&7Requirement: &eLevel 30+'
+            - ''
+            - '&e> Click to Teleport'
+        item-flags: [
+          ]
+        unbreakable: false
+      '2':
+        slot: 20
+        item: DARK_OAK_LOG
+        amount: 1
+        conditionFailMessage: '&cYou must be Level 40 or higher to enter Wilds of
+          Ruin!'
+        conditions:
+          916d920b-9acb-472f-a8b5-7fb22ea8ba97:
+            condition: conditional-placeholder
+            conditional_condition: '%mmocore_level% >= 40'
+            inverted: false
+        click-events:
+          37ac3474-21a4-408c-8f3e-34c76eb1792e:
+            type: command
+            commands:
+            - rtp location zone5
+            setOp: true
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:dark_oak_log
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"dark_purple",italic:0b,obfuscated:0b,strikethrough:0b,text:"Zone
+              5: Wilds of Ruin",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"2113466470"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"dark_purple",italic:0b,obfuscated:0b,strikethrough:0b,text:"Zone
+          5: Wilds of Ruin",underlined:0b}],text:""}},count:1,id:"minecraft:dark_oak_log"}'
+        item-name: '&5&lZone 5: Wilds of Ruin'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Level Range: &5Lv. 40+'
+            - '&7Biomes: &fPeaks, Jungle, Dark Forest'
+            - '&7Native Threat: &5Stormcaller Roc &7(Lv. 42)'
+            - '&7                &5Thornmaw Brood &7(Lv. 47)'
+            - ''
+            - '&c⚠ HIGH DANGER ZONE'
+            - '&7Requirement: &eLevel 40+'
+            - ''
+            - '&e> Click to Teleport'
+        item-flags: [
+          ]
+        unbreakable: false
+      '3':
+        slot: 22
+        item: COMPASS
+        amount: 1
+        click-events:
+          f5cf2c06-8008-493c-b46d-ddf0394e615a:
+            type: command
+            commands:
+            - rtp
+            setOp: true
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:compass
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Auto-RTP
+              (Current Level)",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"765677113"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Auto-RTP
+          (Current Level)",underlined:0b}],text:""}},count:1,id:"minecraft:compass"}'
+        item-name: '&e&lAuto-RTP (Current Level)'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Automatically teleport into a'
+            - '&7wilderness zone suited for'
+            - '&7your current combat level.'
+            - ''
+            - '&e> Click to Auto-RTP'
+        item-flags: [
+          ]
+        unbreakable: false
+        extra-meta:
+          lodestone: false
+          lodestoneTracked: false
+      '4':
+        slot: 24
+        item: BARRIER
+        amount: 1
+        click-events:
+          5fce37d0-8eb5-4755-8028-c68e60f2d885:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:barrier
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Close
+              Menu",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"174821951"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Close
+          Menu",underlined:0b}],text:""}},count:1,id:"minecraft:barrier"}'
+        item-name: '&c&lClose Menu'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '5':
+        slot: 10
+        item: GRASS_BLOCK
+        amount: 1
+        click-events:
+          ce7c926f-9275-4a45-87cb-34f414594967:
+            type: command
+            commands:
+            - rtp location zone1
+            setOp: true
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:grass_block
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Zone
+              1: The Frontier",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1217433045"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Zone
+          1: The Frontier",underlined:0b}],text:""}},count:1,id:"minecraft:grass_block"}'
+        item-name: '&a&lZone 1: The Frontier'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Level Range: &aLv. 1–10'
+            - '&7Biomes: &fPlains, Forest, Meadow, Cherry'
+            - '&7Native Threat: &aBramble Stalker &7(Lv. 3)'
+            - ''
+            - '&a✔ UNLOCKED &8(Starter Wilderness)'
+            - ''
+            - '&e> Click to Teleport'
+        item-flags: [
+          ]
+        unbreakable: false
+      '6':
+        slot: 12
+        item: SPRUCE_LOG
+        amount: 1
+        conditionFailMessage: '&cYou must be Level 10 or higher to explore Pine &
+          Mire!'
+        conditions:
+          58a8e863-6a4f-472f-aea0-04bdae8b762e:
+            condition: conditional-placeholder
+            conditional_condition: '%mmocore_level% >= 10'
+            inverted: false
+        click-events:
+          11eb1be5-628e-44bf-8806-52e2305f297b:
+            type: command
+            commands:
+            - rtp location zone2
+            setOp: true
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:spruce_log
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"dark_green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Zone
+              2: Pine & Mire",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1713303624"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"dark_green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Zone
+          2: Pine & Mire",underlined:0b}],text:""}},count:1,id:"minecraft:spruce_log"}'
+        item-name: '&2&lZone 2: Pine & Mire'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Level Range: &2Lv. 10–20'
+            - '&7Biomes: &fTaiga, Old Growth, Swamp'
+            - '&7Native Threat: &2Pinebark Revenant &7(Lv. 12)'
+            - ''
+            - '&7Requirement: &eLevel 10+'
+            - ''
+            - '&e> Click to Teleport'
+        item-flags: [
+          ]
+        unbreakable: false
+      '7':
+        slot: 14
+        item: SAND
+        amount: 1
+        conditionFailMessage: '&cYou must be Level 20 or higher to explore Scorched
+          Wastes!'
+        conditions:
+          c1c67583-85c7-49fc-920e-61a3b2ca47db:
+            condition: conditional-placeholder
+            conditional_condition: '%mmocore_level% >= 20'
+            inverted: false
+        click-events:
+          9be3287a-5bcc-462a-91b0-2192d21d0e72:
+            type: command
+            commands:
+            - rtp location zone3
+            setOp: true
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:sand
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Zone
+              3: Scorched Wastes",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"551090660"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Zone
+          3: Scorched Wastes",underlined:0b}],text:""}},count:1,id:"minecraft:sand"}'
+        item-name: '&6&lZone 3: Scorched Wastes'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Level Range: &6Lv. 20–30'
+            - '&7Biomes: &fDesert, Savanna, Badlands'
+            - '&7Native Threat: &6Duneshade Marauder &7(Lv. 22)'
+            - ''
+            - '&7Requirement: &eLevel 20+'
+            - ''
+            - '&e> Click to Teleport'
+        item-flags: [
+          ]
+        unbreakable: false

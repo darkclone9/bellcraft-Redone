@@ -1,0 +1,307 @@
+# Cleric Class Skills (Forge-01)
+CLERIC_HEALING_PRAYER:
+  name: '&b✚ Healing Prayer'
+  icon: GOLDEN_APPLE
+  source: default:GRAND_HEAL
+  parameters:
+    cooldown:
+      player:
+        base: 4
+        per-level: -0.03
+        min: 2
+        max: 4
+      name: Cooldown
+    mana:
+      player:
+        base: 8
+        per-level: 0.12
+      name: Mana
+    heal:
+      player:
+        base: 12.0
+        per-level: 0.8
+      name: Heal
+  triggers:
+    cast:
+    - heal{amount={heal}}
+    - particle{p=INSTANT_EFFECT;amount=40;speed=0.3;hS=1;vS=1}
+    - sound{s=BLOCK_BEACON_POWER_SELECT;v=1;p=1.8}
+CLERIC_SANCTIFIED_WARD:
+  name: '&b🛡 Sanctified Ward'
+  icon: SHIELD
+  source: default:HUMAN_SHIELD
+  parameters:
+    cooldown:
+      player:
+        base: 16
+        per-level: -0.12
+        min: 8
+        max: 16
+      name: Cooldown
+    mana:
+      player:
+        base: 12
+        per-level: 0.18
+      name: Mana
+    duration:
+      player:
+        base: 8
+        per-level: 0.1
+      name: Duration
+  triggers:
+    cast:
+    - potion{type=ABSORPTION;duration={duration};amplifier=1}
+    - stat{stat=ARMOR;amount=25;operation=RELATIVE;duration={duration}}
+    - particle{p=INSTANT_EFFECT;amount=60;speed=0.4;hS=1.5;vS=1.5}
+    - sound{s=BLOCK_BEACON_ACTIVATE;v=1.2;p=1.5}
+CLERIC_PURIFYING_LIGHT:
+  name: '&b✦ Purifying Light'
+  icon: SEA_LANTERN
+  source: default:REGEN_ALLY
+  parameters:
+    cooldown:
+      player:
+        base: 20
+        per-level: -0.14
+        min: 12
+        max: 20
+      name: Cooldown
+    mana:
+      player:
+        base: 16
+        per-level: 0.22
+      name: Mana
+    heal:
+      player:
+        base: 8.0
+        per-level: 0.5
+      name: Heal
+  triggers:
+    cast:
+    - heal{amount={heal}}
+    - potion{type=REGENERATION;duration=5;amplifier=1}
+    - particle{p=TOTEM_OF_UNDYING;amount=100;speed=0.5;hS=3;vS=2}
+    - sound{s=BLOCK_BEACON_POWER_SELECT;v=1.5;p=1.5}
+CLERIC_DIVINE_INTERVENTION:
+  name: '&b&lDivine Intervention'
+  icon: TOTEM_OF_UNDYING
+  source: default:GRAND_HEAL
+  parameters:
+    cooldown:
+      player:
+        base: 90
+        per-level: -0.45
+        min: 60
+        max: 90
+      name: Cooldown
+    mana:
+      player:
+        base: 40
+        per-level: 0.5
+      name: Mana
+    heal:
+      player:
+        base: 20.0
+        per-level: 1.0
+      name: Heal
+    duration:
+      player:
+        base: 6
+        per-level: 0.1
+      name: Duration
+  triggers:
+    cast:
+    - heal{amount={heal}}
+    - heal{amount={heal}}
+    - potion{type=REGENERATION;duration={duration};amplifier=2}
+    - potion{type=ABSORPTION;duration={duration};amplifier=3}
+    - potion{type=RESISTANCE;duration={duration};amplifier=2}
+    - particle{p=TOTEM_OF_UNDYING;amount=300;speed=1.0;hS=4;vS=5}
+    - sound{s=ENTITY_PLAYER_LEVELUP;v=2;p=0.7}
+CLERIC_HOLY_RESURGENCE:
+  name: '&b✚ Holy Resurgence'
+  icon: GLISTERING_MELON_SLICE
+  source: default:HEAL
+  parameters:
+    cooldown:
+      player:
+        base: 10
+        per-level: -0.08
+        min: 5
+        max: 10
+      name: Cooldown
+    mana:
+      player:
+        base: 6
+        per-level: 0.12
+      name: Mana
+    heal:
+      player:
+        base: 6.0
+        per-level: 0.4
+      name: Heal
+  triggers:
+    cast:
+    - heal{amount={heal}}
+    - particle{p=TOTEM_OF_UNDYING;amount=15;speed=0.3;hS=0.8;vS=1.2}
+    - sound{s=BLOCK_AMETHYST_BLOCK_CHIME;v=0.8;p=1.8}
+CLERIC_BLESSED_GROUND:
+  name: '&b✦ Blessed Ground'
+  icon: GLOWSTONE
+  source: default:REGEN_ALLY
+  parameters:
+    cooldown:
+      player:
+        base: 22
+        per-level: -0.16
+        min: 14
+        max: 22
+      name: Cooldown
+    mana:
+      player:
+        base: 18
+        per-level: 0.24
+      name: Mana
+    heal:
+      player:
+        base: 8.0
+        per-level: 0.5
+      name: Heal
+    duration:
+      player:
+        base: 8
+        per-level: 0.15
+      name: Duration
+  triggers:
+    cast:
+    - heal{amount={heal}}
+    - potion{type=REGENERATION;duration={duration};amplifier=1}
+    - particle{p=TOTEM_OF_UNDYING;amount=80;speed=0.3;hS=4;vS=0.5}
+    - particle{p=END_ROD;amount=40;speed=0.1;hS=4;vS=1.5}
+    - sound{s=BLOCK_BEACON_AMBIENT;v=1.2;p=1.3}
+CLERIC_MARTYRS_RESOLVE:
+  name: '&b❤ Martyrs Resolve'
+  icon: ENCHANTED_GOLDEN_APPLE
+  source: default:HUMAN_SHIELD
+  parameters:
+    cooldown:
+      player:
+        base: 18
+        per-level: -0.14
+        min: 10
+        max: 18
+      name: Cooldown
+    mana:
+      player:
+        base: 14
+        per-level: 0.2
+      name: Mana
+    duration:
+      player:
+        base: 6
+        per-level: 0.12
+      name: Duration
+  triggers:
+    cast:
+    - stat{stat=DAMAGE_REDUCTION;amount=40;operation=RELATIVE;duration={duration}}
+    - potion{type=RESISTANCE;duration={duration};amplifier=1}
+    - particle{p=HEART;amount=30;speed=0.3;hS=3;vS=1.5}
+    - sound{s=BLOCK_BEACON_ACTIVATE;v=1.3;p=0.9}
+
+
+# ---- Specialisation skills (generated by spec_builder.py) ----
+RADIANCE_BENEDICTION:
+  name: '&eBenediction'
+  icon: GLOWSTONE_DUST
+  source: default:REGEN_ALLY
+  lore:
+  - '&7Passive. Pressure is answered with grace -'
+  - '&7regeneration and a ward whenever you are struck.'
+  - '&8Endurance is its own kind of mercy.'
+  parameters:
+    cooldown:
+      base: 7
+      per-level: -0.04
+      min: 4
+    duration:
+      base: 5
+      per-level: 0.06
+  triggers:
+    damaged:
+    - potion{type=REGENERATION;duration={duration};amplifier=1;target=caster}
+    - potion{type=ABSORPTION;duration={duration};amplifier=0;target=caster}
+    - particle{p=INSTANT_EFFECT;amount=18;speed=0.2;hS=0.5;vS=0.7}
+    - sound{s=BLOCK_BEACON_AMBIENT;v=0.6;p=1.7}
+RADIANCE_DAWNBREAK:
+  name: '&eDawnbreak'
+  icon: TOTEM_OF_UNDYING
+  source: default:GREATER_HEALINGS
+  lore:
+  - '&7The signature mend: a heavy heal and'
+  - '&7lingering regeneration on whoever you are facing.'
+  - '&8Heals your target, or yourself if you face none.'
+  parameters:
+    cooldown:
+      base: 16
+      per-level: -0.1
+      min: 9
+    mana:
+      base: 14
+      per-level: 0.22
+    heal:
+      base: 16
+      per-level: 1.0
+    duration:
+      base: 6
+      per-level: 0.07
+  triggers:
+    cast:
+    - heal{amount={heal}}
+    - potion{type=REGENERATION;duration={duration};amplifier=1}
+    - particle{p=TOTEM_OF_UNDYING;amount=60;speed=0.4;hS=1;vS=1.2}
+    - sound{s=BLOCK_BEACON_POWER_SELECT;v=1.2;p=1.6}
+PENITENT_ATONEMENT:
+  name: '&dAtonement'
+  icon: REDSTONE
+  source: default:VAMPIRISM
+  lore:
+  - '&7Passive. Every blow you land returns'
+  - '&7a measure of health to you.'
+  - '&8The Penitent does not stand behind the line.'
+  parameters:
+    cooldown:
+      base: 2
+      per-level: -0.02
+      min: 1
+    heal:
+      base: 3
+      per-level: 0.28
+  triggers:
+    attack:
+    - heal{amount={heal};target=caster}
+    - particle{p=HEART;amount=6;speed=0.05;hS=0.3;vS=0.3}
+    - sound{s=ENTITY_PLAYER_LEVELUP;v=0.35;p=2}
+PENITENT_AEGIS:
+  name: '&dAegis'
+  icon: SHIELD
+  source: default:HUMAN_SHIELD
+  lore:
+  - '&7Wrap yourself in a ward and press on:'
+  - '&7absorption, hardened plate, and no retreat.'
+  parameters:
+    cooldown:
+      base: 30
+      per-level: -0.18
+      min: 18
+    mana:
+      base: 12
+      per-level: 0.2
+    duration:
+      base: 8
+      per-level: 0.08
+  triggers:
+    cast:
+    - potion{type=ABSORPTION;duration={duration};amplifier=2;target=caster}
+    - stat{stat=ARMOR;amount=30;operation=RELATIVE;duration={duration};target=caster}
+    - particle{p=ENCHANT;amount=50;speed=0.3;hS=0.9;vS=1}
+    - sound{s=BLOCK_BEACON_ACTIVATE;v=1;p=1.5}

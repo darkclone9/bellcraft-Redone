@@ -1,0 +1,24 @@
+user-cosmetic:
+  offline: "Offline"
+  invalid-user: "Invalid User"
+unlocked-cosmetic:
+  true: "true"
+  false: "false"
+equipped-cosmetic:
+  true: "true"
+  false: "false"
+in-wardrobe:
+  true: "true"
+  false: "false"
+using-cosmetic:
+  true: "true"
+  false: "false"
+hidden:
+  true: "true"
+  false: "false"
+current-cosmetic:
+  no-cosmetic: "No Cosmetic"
+  none: "none"
+amount-cosmetic:
+  1: "1"
+  10: "10"

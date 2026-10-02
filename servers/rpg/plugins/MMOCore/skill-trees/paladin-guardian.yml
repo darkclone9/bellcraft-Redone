@@ -1,0 +1,381 @@
+id: paladin-guardian
+name: "&6Guardian's Path"
+type: CUSTOM
+lore:
+  - '&6The righteous path of the holy knight'
+max-point-spent: 21
+icon:
+  material: GOLDEN_CHESTPLATE
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+  a1:
+    root: true
+    name: Iron Bastion I
+    coordinates:
+      x: -1
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ARMOR";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eArmor +%2'
+  a2:
+    name: Iron Bastion II
+    coordinates:
+      x: -2
+      y: 1
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ARMOR";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eArmor +%3'
+      1:
+        - '&eArmor +%2'
+  a3:
+    name: Iron Bastion III
+    coordinates:
+      x: -3
+      y: 0
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ARMOR";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eArmor +%5'
+      1:
+        - '&eArmor +%5'
+  b1:
+    root: true
+    name: Holy Smite I
+    coordinates:
+      x: -2
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="PHYSICAL_DAMAGE";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&ePhysical damage +%2'
+  b2:
+    name: Holy Smite II
+    coordinates:
+      x: -1
+      y: -2
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="PHYSICAL_DAMAGE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&ePhysical damage +%3'
+      1:
+        - '&ePhysical damage +%2'
+  b3:
+    name: Holy Smite III
+    coordinates:
+      x: 0
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="PHYSICAL_DAMAGE";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&ePhysical damage +%4'
+      1:
+        - '&ePhysical damage +%5'
+  c1:
+    root: true
+    name: Divine Recovery I
+    coordinates:
+      x: 0
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALTH_REGENERATION";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealth regeneration +%1'
+  c2:
+    name: Divine Recovery II
+    coordinates:
+      x: -1
+      y: 0
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALTH_REGENERATION";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealth regeneration +%2'
+      1:
+        - '&eHealth regeneration +%1'
+  c3:
+    name: Divine Recovery III
+    coordinates:
+      x: 0
+      y: 1
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALTH_REGENERATION";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealth regeneration +%3'
+      1:
+        - '&eHealth regeneration +%3'
+  d1:
+    root: true
+    name: Radiant Strength I
+    coordinates:
+      x: 1
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALING_RATING";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealing rating +%2'
+  d2:
+    name: Radiant Strength II
+    coordinates:
+      x: 2
+      y: 1
+    parents:
+      strong: {d1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALING_RATING";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealing rating +%3'
+      1:
+        - '&eHealing rating +%2'
+  d3:
+    name: Radiant Strength III
+    coordinates:
+      x: 2
+      y: 2
+    parents:
+      strong: {d2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALING_RATING";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealing rating +%4'
+      1:
+        - '&eHealing rating +%5'
+  e1:
+    root: true
+    name: Immovable I
+    coordinates:
+      x: 3
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="KNOCKBACK_RESISTANCE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eKnockback resistance +%3'
+  e2:
+    name: Immovable II
+    coordinates:
+      x: 4
+      y: 2
+    parents:
+      strong: {e1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="KNOCKBACK_RESISTANCE";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eKnockback resistance +%4'
+      1:
+        - '&eKnockback resistance +%3'
+  e3:
+    name: Immovable III
+    coordinates:
+      x: 4
+      y: 1
+    parents:
+      strong: {e2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="KNOCKBACK_RESISTANCE";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eKnockback resistance +%5'
+      1:
+        - '&eKnockback resistance +%7'
+  f1:
+    root: true
+    name: Parry Mastery I
+    coordinates:
+      x: 4
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="PARRY_RATING";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eParry rating +%2'
+  f2:
+    name: Parry Mastery II
+    coordinates:
+      x: 4
+      y: -1
+    parents:
+      strong: {f1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="PARRY_RATING";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eParry rating +%3'
+      1:
+        - '&eParry rating +%2'
+  f3:
+    name: Parry Mastery III
+    coordinates:
+      x: 4
+      y: -2
+    parents:
+      strong: {f2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="PARRY_RATING";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eParry rating +%4'
+      1:
+        - '&eParry rating +%5'
+  g1:
+    root: true
+    name: Blessed Endurance I
+    coordinates:
+      x: 3
+      y: -2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMax health +%5'
+  g2:
+    name: Blessed Endurance II
+    coordinates:
+      x: 2
+      y: -2
+    parents:
+      strong: {g1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=7;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMax health +%7'
+      1:
+        - '&eMax health +%5'
+  g3:
+    name: Blessed Endurance III
+    coordinates:
+      x: 2
+      y: -1
+    parents:
+      strong: {g2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=10;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMax health +%10'
+      1:
+        - '&eMax health +%12'
+
+  # --- SKILL UNLOCK NODES ---
+
+  skill_avenging_wrath:
+    root: true
+    name: '&6Unlock: Avenging Wrath'
+    coordinates:
+      x: -4
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=PALADIN_AVENGING_WRATH}'
+    lores:
+      0:
+        - '&fCall upon divine fury to'
+        - '&fsmite enemies with holy vengeance.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &6Avenging Wrath&7 ability!'
+
+  skill_holy_ground:
+    root: true
+    name: '&6Unlock: Holy Ground'
+    coordinates:
+      x: 0
+      y: 3
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=PALADIN_HOLY_GROUND}'
+    lores:
+      0:
+        - '&fConsecrate the ground around you,'
+        - '&fburning evil and healing allies.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &6Holy Ground&7 ability!'
+
+  skill_sacrificial_shield:
+    root: true
+    name: '&6Unlock: Sacrificial Shield'
+    coordinates:
+      x: 4
+      y: 4
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=PALADIN_SACRIFICIAL_SHIELD}'
+    lores:
+      0:
+        - '&fInterpose yourself to absorb'
+        - '&fdamage meant for your allies.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &6Sacrificial Shield&7 ability!'

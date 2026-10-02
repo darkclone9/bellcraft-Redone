@@ -1,0 +1,36 @@
+
+# Display options
+name: 'Warden Awakening'
+lore:
+- 'Deep in the ancient cities, the warden'
+- 'stirs. Only the most fearless dare face'
+- 'this blind monstrosity!'
+- ''
+- '&6Objective:'
+- '&7► Kill 1 warden'
+- ''
+- '&eRewards:'
+- '&7► 6160 EXP'
+- '&7► 80 Gold Coins'
+- '&7► Legendary Weapon Essence'
+
+level-req:
+    main: 70
+
+parent:
+- 'brute-force'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=WARDEN;amount=1}'
+        lore: 'Kill 1 warden.'
+        triggers:
+        - message{format="&aAncient Sage> &fThe warden falls! You have conquered the darkness itself."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 80"}
+        - 'mmoitem{type=MATERIAL;id=LEGENDARY_WEAPON_ESSENCE}'
+        - 'experience{amount=6160}'

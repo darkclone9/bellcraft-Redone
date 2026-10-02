@@ -1,0 +1,187 @@
+id: ranger-tracker
+name: "&6Tracker's Path"
+type: CUSTOM
+lore:
+  - '&6Track prey, marks, and hidden structures'
+  - '&7Ranger dual spec — 9-point Tracker path'
+  - '&7Passives unlock each skill as a capstone'
+max-point-spent: 9
+icon:
+  material: COMPASS
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+
+  # --- PREY PATH (passives → Track Prey) ---
+
+  t1:
+    root: true
+    name: Keen Senses I
+    coordinates:
+      x: -2
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MOVEMENT_SPEED";amount=4;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMovement speed +%4'
+        - '&7Move faster while on the hunt.'
+  t2:
+    name: Keen Senses II
+    coordinates:
+      x: -2
+      y: 0
+    parents:
+      strong: {t1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MOVEMENT_SPEED";amount=6;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMovement speed +%6'
+        - '&7Move speed while tracking (path passive).'
+      1:
+        - '&eMovement speed +%4'
+  skill_track_prey:
+    name: '&6Unlock: Track Prey'
+    coordinates:
+      x: -2
+      y: -1
+    parents:
+      strong: {t2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=RANGER_TRACK_PREY}'
+    lores:
+      0:
+        - '&fHighlight and compass-ping the'
+        - '&fnearest hostile player or named NPC.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &6Track Prey&7 ability!'
+      1:
+        - '&eMovement speed +%6'
+
+  # --- MARK PATH (passives → Hunt Mark) ---
+
+  m1:
+    root: true
+    name: Soft Foot I
+    coordinates:
+      x: 0
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="DODGE_RATING";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eDodge rating +%4'
+        - '&7Reduced detection while tracking.'
+  m2:
+    name: Soft Foot II
+    coordinates:
+      x: 0
+      y: 0
+    parents:
+      strong: {m1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="DODGE_RATING";amount=6;type="FLAT"}'
+    lores:
+      0:
+        - '&eDodge rating +%6'
+        - '&7Harder to pin down on the trail.'
+      1:
+        - '&eDodge rating +%4'
+  skill_hunt_mark:
+    name: '&cUnlock: Hunt Mark'
+    coordinates:
+      x: 0
+      y: -1
+    parents:
+      strong: {m2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=RANGER_HUNT_MARK}'
+    lores:
+      0:
+        - '&fMark a target. Briefly reveal them'
+        - '&fthrough walls and leave a particle trail.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &cHunt Mark&7 ability!'
+      1:
+        - '&eDodge rating +%6'
+
+  # --- WORLDSENSE PATH (passive → Structure Sense → Trailfinder capstone) ---
+
+  w1:
+    root: true
+    name: Bloodhound
+    coordinates:
+      x: 2
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="PROJECTILE_DAMAGE";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eProjectile damage +%5'
+        - '&7Bonus damage vs Hunt Marked targets'
+        - '&7is applied by the Hunt Mark skill.'
+  skill_structure_sense:
+    name: '&eUnlock: Structure Sense'
+    coordinates:
+      x: 2
+      y: 0
+    parents:
+      strong: {w1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=RANGER_STRUCTURE_SENSE}'
+    lores:
+      0:
+        - '&fPing the nearest trackable structure'
+        - '&f(%bellcraft_struct_nearest% / %bellcraft_struct_nearest_id%'
+        - '&f/ %bellcraft_struct_nearest_dist%m).'
+        - '&7Tracked: %bellcraft_struct_count%'
+        - '&8Seeded: stub_ruin, stub_watchtower'
+        - '&8/bcstruct list|info|save|place|register'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &eStructure Sense&7 ability!'
+      1:
+        - '&eProjectile damage +%5'
+  skill_trailfinder:
+    name: '&6Unlock: Trailfinder'
+    coordinates:
+      x: 2
+      y: -1
+    parents:
+      strong: {skill_structure_sense: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=RANGER_TRAILFINDER}'
+    lores:
+      0:
+        - '&fCapstone: long-range structure ping'
+        - '&f(%bellcraft_struct_nearest% / %bellcraft_struct_nearest_id%'
+        - '&f/ %bellcraft_struct_nearest_dist%m)'
+        - '&for NPC ping. Nearby allies share it.'
+        - '&7Tracked: %bellcraft_struct_count%'
+        - '&8Seeded: stub_ruin, stub_watchtower'
+        - '&8/bcstruct list|info|save|place|register'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &6Trailfinder&7 ability!'
+      1:
+        - '&eStructure Sense unlocked'

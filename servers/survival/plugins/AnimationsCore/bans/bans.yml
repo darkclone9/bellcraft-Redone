@@ -1,0 +1,13 @@
+animations:
+  option1:
+    display-name: Option 1
+    duration: 60
+    mm-id: '12345'
+    GUI:
+      icon: STONE
+      ModelID: 0
+      Lore:
+      - '&7Automatically added'
+      - '&7please customize in GUI.yml'
+
+# affadadec20c3292c3ae6322224d86af

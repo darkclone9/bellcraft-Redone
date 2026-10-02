@@ -1,0 +1,1212 @@
+id: bank
+rows: 5
+type: chest
+title: '&eBank'
+commandAlias: bank
+commandAliasTarget: DISABLED
+disable-scene-animation: false
+scenes:
+  '0':
+    delay: 0
+    items:
+      '1':
+        slot: 0
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"416109562"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '2':
+        slot: 1
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"894781884"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '3':
+        slot: 2
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1625306972"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '4':
+        slot: 3
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"793449401"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '5':
+        slot: 4
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1318860682"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '6':
+        slot: 5
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"812513009"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '7':
+        slot: 6
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"958065546"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '8':
+        slot: 7
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1760920523"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '9':
+        slot: 8
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"859865956"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '10':
+        slot: 9
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"832794117"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '11':
+        slot: 10
+        item: PLAYER_HEAD
+        amount: 1
+        skullBase64: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWZkMTA4MzgzZGZhNWIwMmU4NjYzNTYwOTU0MTUyMGU0ZTE1ODk1MmQ2OGMxYzhmOGYyMDBlYzdlODg2NDJkIn19fQ==
+        conditionFailMessage: ┬ºcYou either don't have enough money or typed a non-number
+          value!
+        click-events:
+          16ad374f-21ca-4f37-8c0b-237bba382ed8:
+            type: chat-fetcher
+            message: ┬ºePlease type the amount to deposit in chat! ┬º8(Make sure you
+              have enough money)
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+            conditionFailMessage: ┬ºcYou either don't have enough money or typed a
+              non-number value!
+            conditions:
+              7d26cbdb-c14b-40f4-b663-9d3be832df7a:
+                condition: is-integer
+                value: '%input%'
+                inverted: false
+              728884d8-e12d-47c9-958e-eabcb1ed0ed1:
+                condition: has-money
+                required-balance: '%input%'
+                inverted: false
+            click-events:
+              29fc71c0-7409-4dec-b263-a5e2755427e4:
+                type: money-remove
+                amount: '%input%'
+                clickType: NONE
+                executionDelay: 0.0
+                waitForCompletion: true
+              b2e0e558-a64c-45fc-aa5a-b77365d6e148:
+                type: save-player-info
+                save-format: deposited:%input%+%GUIPlus_player_info_deposited%
+                clickType: NONE
+                executionDelay: 0.0
+                waitForCompletion: true
+              f067a93b-0978-4018-8b99-c02dba8aaf2d:
+                type: message
+                message: ┬º6%player% you have successfully deposited %input% to the
+                  bank!
+                clickType: NONE
+                executionDelay: 0.0
+                waitForCompletion: true
+              48b093ea-af76-4472-8a3a-91990b5291f8:
+                type: command
+                commands:
+                - gui open bank %player%
+                setOp: false
+                clickType: NONE
+                executionDelay: 0.0
+                waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:player_head
+          count: 1
+          components:
+            minecraft:profile: '{id:[I;2008721106,587348753,-1849554636,238581405],name:"XSeries",properties:[{name:"XSeries",value:"13.6.0"},{name:"textures",value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWZkMTA4MzgzZGZhNWIwMmU4NjYzNTYwOTU0MTUyMGU0ZTE1ODk1MmQ2OGMxYzhmOGYyMDBlYzdlODg2NDJkIn19fQ=="}]}'
+            minecraft:custom_name: '{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Deposit
+              Money",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"27289571"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Deposit
+          Money",underlined:0b}],text:""},"minecraft:profile":{id:[I;2008721106,587348753,-1849554636,238581405],name:"XSeries",properties:[{name:"XSeries",value:"13.6.0"},{name:"textures",value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWZkMTA4MzgzZGZhNWIwMmU4NjYzNTYwOTU0MTUyMGU0ZTE1ODk1MmQ2OGMxYzhmOGYyMDBlYzdlODg2NDJkIn19fQ=="}]}},count:1,id:"minecraft:player_head"}'
+        item-name: '&e&lDeposit Money'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - ┬º7Want to secure your money?
+            - ┬º7You have come to the right place!
+            - ''
+            - ┬ºbClick to deposit
+        item-flags: [
+          ]
+        unbreakable: false
+      '12':
+        slot: 11
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1671194497"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '13':
+        slot: 12
+        item: GOLD_INGOT
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:gold_ingot
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Your
+              Balance",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"784295857"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Your
+          Balance",underlined:0b}],text:""}},count:1,id:"minecraft:gold_ingot"}'
+        item-name: '&6&lYour Balance'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Wallet: &6%vault_eco_balance%'
+            - '&7Personal vault: &e%GUIPlus_player_info_deposited%'
+            - ''
+            - '&7Town: &e%townyadvanced_town%'
+            - '&7Town bank: &6%townyadvanced_town_balance%'
+            - '&7Plots claimed: &f%townyadvanced_town_townblocks_used%'
+            - '&7Residents: &f%townyadvanced_town_residents_amount%'
+            - ''
+            - '&8Mayor: &f%townyadvanced_town_mayor%'
+        item-flags: [
+          ]
+        unbreakable: false
+      '14':
+        slot: 13
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"186981435"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '15':
+        slot: 14
+        item: PLAYER_HEAD
+        amount: 1
+        skullBase64: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzQ5ZGJmYWI4NmFmMzk5Y2FiOGM4NTMyMDM5NmRhY2Y4NTY5ZTkyZjg5NTc0YjYzNjI2Nzg3YTM0NGMxN2U0ZiJ9fX0=
+        click-events:
+          73e1e088-fd4d-4315-b8b5-b7f23fc8ba3b:
+            type: chat-fetcher
+            message: ┬ºbPlease type the amount to withdraw!
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+            conditionFailMessage: ┬ºcYou don't have enough bank balance!
+            conditions:
+              4e7b8f05-002e-4a3e-8840-a834e993afd6:
+                condition: is-integer
+                value: '%input%'
+                inverted: false
+            click-events:
+              05dfaa6a-568a-4db8-a746-3d8e7f77b85b:
+                type: money-give
+                amount: '%input%'
+                clickType: NONE
+                executionDelay: 0.0
+                waitForCompletion: true
+              bdc14cb4-e318-46fe-b371-3b3c9df0d61a:
+                type: save-player-info
+                save-format: deposited:%GUIPlus_player_info_deposited%-%input%
+                clickType: NONE
+                executionDelay: 0.0
+                waitForCompletion: true
+              bd44dd29-41e1-4350-bc1a-269a06d1f603:
+                type: command
+                commands:
+                - gui open bank %player%
+                setOp: false
+                clickType: NONE
+                executionDelay: 0.0
+                waitForCompletion: true
+              08700a73-49bb-4dd6-a4da-17faf8a2d8fb:
+                type: message
+                message: ┬ºeYou have withdrawn ┬º7%input%┬ºe from your bank!
+                clickType: NONE
+                executionDelay: 0.0
+                waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:player_head
+          count: 1
+          components:
+            minecraft:profile: '{id:[I;-774410795,-956484265,-1201904130,250321601],name:"XSeries",properties:[{name:"XSeries",value:"13.6.0"},{name:"textures",value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzQ5ZGJmYWI4NmFmMzk5Y2FiOGM4NTMyMDM5NmRhY2Y4NTY5ZTkyZjg5NTc0YjYzNjI2Nzg3YTM0NGMxN2U0ZiJ9fX0="}]}'
+            minecraft:custom_name: '{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Withdraw
+              Money",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1519982812"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Withdraw
+          Money",underlined:0b}],text:""},"minecraft:profile":{id:[I;-774410795,-956484265,-1201904130,250321601],name:"XSeries",properties:[{name:"XSeries",value:"13.6.0"},{name:"textures",value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzQ5ZGJmYWI4NmFmMzk5Y2FiOGM4NTMyMDM5NmRhY2Y4NTY5ZTkyZjg5NTc0YjYzNjI2Nzg3YTM0NGMxN2U0ZiJ9fX0="}]}},count:1,id:"minecraft:player_head"}'
+        item-name: '&e&lWithdraw Money'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - ┬º7Want to withdraw some of that balance?
+            - ┬º7Do not worry! You are at the right place!
+            - ''
+            - ┬ºbClick to withdraw
+        item-flags: [
+          ]
+        unbreakable: false
+      '16':
+        slot: 15
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1832854043"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '17':
+        slot: 16
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"317670799"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '18':
+        slot: 17
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"88856735"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '19':
+        slot: 18
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"671196297"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '20':
+        slot: 19
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1676396358"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '21':
+        slot: 20
+        item: GOLD_BLOCK
+        amount: 1
+        conditionFailMessage: ┬ºcYou either don't have enough money or typed a non-number
+          value!
+        click-events:
+          5646cc24-1def-4189-aa77-400829b86b48:
+            type: chat-fetcher
+            message: ┬ºeType the amount to deposit into your town bank. ┬º8(You must
+              be in a town.)
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+            conditionFailMessage: ┬ºcYou either don't have enough money or typed a
+              non-number value!
+            conditions:
+              77ccc6ea-e135-45f0-aba5-27de0ff65a6f:
+                condition: is-integer
+                value: '%input%'
+                inverted: false
+              84d05f12-80cb-4263-b772-591b70bb1835:
+                condition: has-money
+                required-balance: '%input%'
+                inverted: false
+            click-events:
+              4d8bd2c1-9967-4162-932b-87b175dbfdee:
+                type: command
+                commands:
+                - t deposit %input%
+                setOp: false
+                clickType: NONE
+                executionDelay: 0.0
+                waitForCompletion: true
+              bb43c89b-c219-497e-a680-886cb5d174c2:
+                type: command
+                commands:
+                - gui open bank %player%
+                setOp: false
+                clickType: NONE
+                executionDelay: 0.2
+                waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:gold_block
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Deposit
+              to Town Bank",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"42036500"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Deposit
+          to Town Bank",underlined:0b}],text:""}},count:1,id:"minecraft:gold_block"}'
+        item-name: '&6&lDeposit to Town Bank'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Move money from your wallet into'
+            - '&7your Towny town bank (upkeep + projects).'
+            - ''
+            - '&7Town: &e%townyadvanced_town%'
+            - '&7Town bank: &6%townyadvanced_town_balance%'
+            - ''
+            - '&eΓû║ Click, then type an amount.'
+        item-flags: [
+          ]
+        unbreakable: false
+      '22':
+        slot: 21
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"797387943"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '23':
+        slot: 22
+        item: WRITABLE_BOOK
+        amount: 1
+        click-events:
+          b1efac54-58f0-4e57-8887-0f14b2cef809:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          c18842a5-50c8-4bb0-b66f-cb8c54779167:
+            type: command
+            commands:
+            - townproject
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.15
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:writable_book
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Town
+              Projects",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"181540808"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Town
+          Projects",underlined:0b}],text:""}},count:1,id:"minecraft:writable_book"}'
+        item-name: '&a&lTown Projects'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Fund named projects in your town.'
+            - '&7Deposits go to the town bank and'
+            - '&7count toward the project goal.'
+            - ''
+            - '&7Town: &e%townyadvanced_town%'
+            - ''
+            - '&eΓû║ Click to view projects.'
+        item-flags: [
+          ]
+        unbreakable: false
+        extra-meta:
+          pages: [
+            ]
+      '24':
+        slot: 23
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1967784334"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '25':
+        slot: 24
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1165956568"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '26':
+        slot: 25
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"2127612907"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '27':
+        slot: 26
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1909258087"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '28':
+        slot: 27
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1265439681"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '29':
+        slot: 28
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"240214123"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '30':
+        slot: 29
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"264264138"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '31':
+        slot: 30
+        item: COMPASS
+        amount: 1
+        click-events:
+          ab33f0d5-657a-4872-8fcd-3bb4bad7e28a:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+          0d7b32dd-ffe2-4f97-b88b-82e5b727dea7:
+            type: command
+            commands:
+            - gui open menu %player%
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.15
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:compass
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Back
+              to Menu",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1835583175"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Back
+          to Menu",underlined:0b}],text:""}},count:1,id:"minecraft:compass"}'
+        item-name: '&e&lBack to Menu'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - '&7Return to /menu'
+        item-flags: [
+          ]
+        unbreakable: false
+        extra-meta:
+          lodestone: false
+          lodestoneTracked: false
+      '32':
+        slot: 31
+        item: ARROW
+        amount: 1
+        click-events:
+          f89c2608-a713-4983-8702-9e290af5e5f6:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:arrow
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:0b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Exit
+              Bank",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"348928450"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:0b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Exit
+          Bank",underlined:0b}],text:""}},count:1,id:"minecraft:arrow"}'
+        item-name: '&cExit Bank'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ┬º7Click to exit the bank
+        item-flags: [
+          ]
+        unbreakable: false
+      '33':
+        slot: 32
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1661072052"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '34':
+        slot: 33
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"2020378114"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '35':
+        slot: 34
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"635838380"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '36':
+        slot: 35
+        item: LIGHT_BLUE_STAINED_GLASS_PANE
+        amount: 1
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:light_blue_stained_glass_pane
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[" "],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1169310683"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:["
+          "],text:""}},count:1,id:"minecraft:light_blue_stained_glass_pane"}'
+        item-name: ' '
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '37':
+        slot: 37
+        item: GOLD_NUGGET
+        amount: 1
+        click-events:
+          958fd436-81df-4499-9579-291453f55cc7:
+            type: chat-fetcher
+            message: '&eType how many coins to withdraw. &8(1 coin = 1 money)'
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+            conditionFailMessage: '&cEnter a whole number you can afford (max 64).'
+            conditions:
+              f189675a-96de-496c-a81c-836a17f8dd8b:
+                condition: is-integer
+                value: '%input%'
+                inverted: false
+            click-events:
+              de0418f4-cbf5-4d25-a534-373cfd78c657:
+                type: command
+                commands:
+                - coins withdraw %input%
+                setOp: false
+                clickType: NONE
+                executionDelay: 0.0
+                waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:gold_nugget
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Withdraw
+              Coins",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1424005396"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Withdraw
+          Coins",underlined:0b}],text:""}},count:1,id:"minecraft:gold_nugget"}'
+        item-name: '&6&lWithdraw Coins'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Turn digital money into'
+            - '&6Bellcraft Coin &7items.'
+            - '&7Trade coins with players.'
+            - ''
+            - '&e> Click, then type amount in chat'
+        item-flags: [
+          ]
+        unbreakable: false
+      '38':
+        slot: 39
+        item: GOLD_INGOT
+        amount: 1
+        click-events:
+          5e9e8afd-1957-4211-bd2d-a8893f076028:
+            type: command
+            commands:
+            - coins deposit
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:gold_ingot
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Deposit
+              Coins",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1537265"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"gold",italic:0b,obfuscated:0b,strikethrough:0b,text:"Deposit
+          Coins",underlined:0b}],text:""}},count:1,id:"minecraft:gold_ingot"}'
+        item-name: '&6&lDeposit Coins'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Turn &6Bellcraft Coin &7items'
+            - '&7in your inventory into money.'
+            - ''
+            - '&e> Click to deposit all coins'
+        item-flags: [
+          ]
+        unbreakable: false

@@ -1,0 +1,10 @@
+# Doomhammer Mark 2 — inventory icon.
+# custom_model_data is set so MMOItems can bind to it: MMOItems can set
+# CUSTOM_MODEL_DATA but has no way to set the 1.21.4+ item_model component,
+# which is what Nexo uses by default.
+doomhammer_mark_2:
+  itemname: "<gradient:#ff6a00:#ffd200><bold>DOOMHAMMER MARK 2</bold></gradient>"
+  material: IRON_AXE
+  Pack:
+    texture: nexo:item/doomhammer_mark_2
+    custom_model_data: 7001

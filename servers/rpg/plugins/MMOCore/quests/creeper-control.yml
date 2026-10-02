@@ -1,0 +1,39 @@
+# Display options
+name: 'Explosive Trouble'
+level-req:
+    main: 1
+lore:
+- 'The blast craters near the eastern rampart keep'
+- 'widening with each dawn. If the foundation gives'
+- 'way, the breach will invite far worse than wanderers.'
+- 'Slay the saboteurs, then quarry stone to seal the breach.'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Eliminate 6 Creepers threatening the wall'
+- '&7► Phase 2: Quarry 16 Stone to reinforce the breach'
+- ''
+- '&eRewards:'
+- '&7► 250 EXP'
+- '&7► 14 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=CREEPER;amount=6}'
+        lore: 'Eliminate 6 Creepers threatening the breached wall.'
+        triggers:
+        - message{format="&6Master Mason> &fThe powder-bearers are down! Now quickly, quarry 16 stone so we can seal the gap!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'mineblock{type=STONE;amount=16}'
+        lore: 'Quarry 16 Stone to reinforce the wall.'
+        triggers:
+        - message{format="&6Master Mason> &fSolid masonry. The perimeter will hold against whatever comes next."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 14"}
+        - 'experience{amount=250}'

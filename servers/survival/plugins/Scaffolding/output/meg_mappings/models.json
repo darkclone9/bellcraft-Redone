@@ -1,0 +1,194 @@
+{
+ "format": 1,
+ "models": {
+  "cyber_golem": {
+   "identifier": "scf:meg_cyber_golem",
+   "bones": [
+    "body",
+    "head",
+    "left_arm",
+    "left_leg",
+    "right_arm",
+    "right_leg",
+    "root"
+   ],
+   "bone_uuids": {
+    "body": "c9292c87-2e3d-4dd5-84c1-b915419d9ab4",
+    "head": "e576d592-ca55-445d-a8e5-5407be14635c",
+    "left_arm": "11ecc3bb-67d7-4178-b780-1047556afddc",
+    "left_leg": "4651df8f-2bc8-4d15-a040-be45ff0e10bf",
+    "right_arm": "02c6b27a-db85-4a23-b53e-84588d59dfc1",
+    "right_leg": "b2f465e0-fcff-4010-9a3c-7f1ae94e67a1",
+    "root": "6911efc3-956f-4ff8-ad90-26091e89dc1f"
+   },
+   "animations": [],
+   "bone_properties": 1,
+   "animation_properties": 0
+  },
+  "operative_chestplate": {
+   "identifier": "scf:meg_operative_chestplate",
+   "bones": [
+    "body",
+    "left_arm",
+    "right_arm",
+    "root"
+   ],
+   "bone_uuids": {
+    "body": "6c9a24ee-09c5-47f4-8d32-2f18a205e853",
+    "left_arm": "017cdcef-5469-4bea-b41f-69f9fa65cf64",
+    "right_arm": "e19e2c40-07f7-43a5-8048-102fa2dcf5f5",
+    "root": "534eb919-d3d7-4963-acd8-4d528666a966"
+   },
+   "animations": [],
+   "bone_properties": 1,
+   "animation_properties": 0
+  },
+  "sculk_creeper": {
+   "identifier": "scf:meg_sculk_creeper",
+   "bones": [
+    "body",
+    "h_head",
+    "heart",
+    "leg_bl",
+    "leg_br",
+    "leg_fl",
+    "leg_fr",
+    "root"
+   ],
+   "bone_uuids": {
+    "body": "fc83bf9b-455e-5f1a-8dba-39ce18c6c516",
+    "h_head": "bf4c45ea-76e6-56e2-b250-f084474cf4f7",
+    "heart": "3d81deef-b28f-53a4-8225-234379e35fdc",
+    "leg_bl": "53051320-7699-532d-a7c1-31f97a9cd342",
+    "leg_br": "c777e953-c058-51ff-9b7a-a1b9352f80d4",
+    "leg_fl": "f5f8d856-b388-5b08-a30e-184586a2171e",
+    "leg_fr": "2983e533-540e-5099-bd8e-ed038c105f62",
+    "root": "a07cc769-c5f6-5565-822f-0b9c3adf9713"
+   },
+   "animations": [
+    {
+     "name": "idle",
+     "key": "idle"
+    },
+    {
+     "name": "swell",
+     "key": "swell"
+    },
+    {
+     "name": "walk",
+     "key": "walk"
+    }
+   ],
+   "bone_properties": 1,
+   "animation_properties": 1
+  },
+  "sculkling": {
+   "identifier": "scf:meg_sculkling",
+   "bones": [
+    "antler_left",
+    "antler_right",
+    "body",
+    "hi_head",
+    "leg_bl",
+    "leg_br",
+    "leg_fl",
+    "leg_fr",
+    "root"
+   ],
+   "bone_uuids": {
+    "antler_left": "f407676b-e003-57c6-a3d8-cb1f0db3f327",
+    "antler_right": "7ee7ba90-8bc0-5c62-8541-f50d7b3866a7",
+    "body": "90e0afaf-849b-5f72-a8e6-7201238c4133",
+    "hi_head": "fe8e7eb8-cbbd-526c-ae27-7634efdea1b5",
+    "leg_bl": "32127b0a-a933-5fb4-9643-a792e68e1245",
+    "leg_br": "47d99c3c-df74-5e53-a4f8-d952257d0bff",
+    "leg_fl": "d4fe81c3-121e-5f9c-90e7-b7549f6d8c7f",
+    "leg_fr": "2971ee5c-8dba-5162-adf2-2b2fb90a67a4",
+    "root": "31808f8f-f834-50d1-83e4-882157fd45b8"
+   },
+   "animations": [
+    {
+     "name": "idle",
+     "key": "idle"
+    },
+    {
+     "name": "sniff",
+     "key": "sniff"
+    },
+    {
+     "name": "walk",
+     "key": "walk"
+    }
+   ],
+   "bone_properties": 1,
+   "animation_properties": 1
+  },
+  "warden_guard": {
+   "identifier": "scf:meg_warden_guard",
+   "bones": [
+    "body",
+    "crest",
+    "head",
+    "left_arm",
+    "left_forearm",
+    "left_leg",
+    "right_arm",
+    "right_forearm",
+    "right_leg",
+    "root"
+   ],
+   "bone_uuids": {
+    "body": "e23afc70-98a1-41a0-ae33-fa4fb9674852",
+    "crest": "38acb85b-f965-45da-b882-27f41573f661",
+    "head": "f0a427dd-d10a-46bb-9ea6-b83265561971",
+    "left_arm": "8f346e8c-50b4-48cc-9be2-76f852e89433",
+    "left_forearm": "dc4d98be-e631-4389-b4d9-d92f35296750",
+    "left_leg": "f2aa955e-a04f-4fa4-8d10-1d5764693f99",
+    "right_arm": "a4642576-b62a-4a95-8886-5555bb787eab",
+    "right_forearm": "0d2ecad5-4520-448a-bb03-dc65e199d41d",
+    "right_leg": "eb7e5775-4080-4921-b9e9-89503289b3f7",
+    "root": "5ea096be-df82-4241-8077-433d30111b46"
+   },
+   "animations": [
+    {
+     "name": "attack_slam",
+     "key": "attack_slam"
+    },
+    {
+     "name": "attack_sweep",
+     "key": "attack_sweep"
+    },
+    {
+     "name": "damage",
+     "key": "damage"
+    },
+    {
+     "name": "death",
+     "key": "death"
+    },
+    {
+     "name": "idle",
+     "key": "idle"
+    },
+    {
+     "name": "roar_summon",
+     "key": "roar_summon"
+    },
+    {
+     "name": "sonic_scream",
+     "key": "sonic_scream"
+    },
+    {
+     "name": "spawn",
+     "key": "spawn"
+    },
+    {
+     "name": "walk",
+     "key": "walk"
+    }
+   ],
+   "bone_properties": 1,
+   "animation_properties": 1
+  }
+ }
+}

@@ -1,0 +1,21 @@
+GRAVITON_FIELD:
+  name: '&3🌀 Graviton Field'
+  icon: MAGMA_CREAM
+  source: default:SLOW
+  parameters:
+    damage:
+      base: 6
+      per-level: 0.35
+    cooldown:
+      base: 10
+      per-level: -0.05
+      min: 5
+    mana:
+      base: 6
+      per-level: 0.12
+  triggers:
+    cast:
+    - particle{p=WITCH;amount=35;speed=0;hS=2;vS=0.4}
+    - sound{s=ENTITY_ENDERMAN_TELEPORT;v=1;p=0.5}
+    - potion{type=SLOWNESS;duration=3;amplifier=1}
+    - damage{amount={damage}}

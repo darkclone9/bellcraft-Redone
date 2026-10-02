@@ -1,0 +1,24 @@
+ASTRAL_LINK:
+  name: '&b✦ Astral Link'
+  icon: END_ROD
+  source: default:REGEN_ALLY
+  parameters:
+    radius:
+      base: 8
+      per-level: 0.2
+      max: 12
+    heal:
+      base: 6
+      per-level: 0.35
+    cooldown:
+      base: 10
+      per-level: -0.05
+      min: 5
+    mana:
+      base: 6
+      per-level: 0.12
+  triggers:
+    cast:
+    - particle{p=END_ROD;amount=25;speed=0.02;hS=1;vS=1}
+    - sound{s=BLOCK_BEACON_AMBIENT;v=0.8;p=1.5}
+    - heal{amount={heal}}

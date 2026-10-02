@@ -1,0 +1,192 @@
+id: profession-smithing
+name: "&7Smith's Craft"
+type: CUSTOM
+lore:
+  - '&7Available to all players'
+  - '&7Forge deadlier weapons and sturdier armor,'
+  - '&7and build your own constitution.'
+max-point-spent: 12
+icon:
+  material: ANVIL
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+  a1:
+    root: true
+    name: Smith's Mastery I
+    coordinates:
+      x: 0
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +2'
+  a2:
+    name: Smith's Mastery II
+    coordinates:
+      x: -1
+      y: 2
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +3'
+      1:
+        - '&eAdditional experience +2'
+  a3:
+    name: Smith's Mastery III
+    coordinates:
+      x: -2
+      y: 2
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eAdditional experience +5'
+      1:
+        - '&eAdditional experience +5'
+  b1:
+    root: true
+    name: Blade Craft I
+    coordinates:
+      x: -2
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="WEAPON_DAMAGE";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eWeapon hit damage +1'
+  b2:
+    name: Blade Craft II
+    coordinates:
+      x: -2
+      y: -1
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="WEAPON_DAMAGE";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eWeapon hit damage +2'
+      1:
+        - '&eWeapon hit damage +1'
+  b3:
+    name: Blade Craft III
+    coordinates:
+      x: -2
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="WEAPON_DAMAGE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eWeapon hit damage +3'
+      1:
+        - '&eWeapon hit damage +3'
+  c1:
+    root: true
+    name: Ironclad I
+    coordinates:
+      x: 0
+      y: -2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ARMOR";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eArmor +1'
+  c2:
+    name: Ironclad II
+    coordinates:
+      x: 1
+      y: -2
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ARMOR";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eArmor +2'
+      1:
+        - '&eArmor +1'
+  c3:
+    name: Ironclad III
+    coordinates:
+      x: 2
+      y: -2
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ARMOR";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eArmor +3'
+      1:
+        - '&eArmor +3'
+  d1:
+    root: true
+    name: Smith's Fortitude I
+    coordinates:
+      x: 2
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMax health +%5'
+  d2:
+    name: Smith's Fortitude II
+    coordinates:
+      x: 2
+      y: 1
+    parents:
+      strong: {d1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMax health +%8'
+      1:
+        - '&eMax health +%5'
+  d3:
+    name: Smith's Fortitude III
+    coordinates:
+      x: 2
+      y: 2
+    parents:
+      strong: {d2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMax health +%12'
+      1:
+        - '&eMax health +%13'

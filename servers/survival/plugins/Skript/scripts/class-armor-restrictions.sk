@@ -1,0 +1,295 @@
+# ============================================================
+#  Class Armor Restrictions  –  Bellcraft Classes
+#  Requires: Skript 2.7+, PlaceholderAPI with MMOCore expansion
+#            and skript-placeholders addon!
+#
+#  Vanilla tier rules:
+#    Iron-limited  – Cleric, Mystic, Sorcerer
+#                    (diamond & netherite blocked)
+#    One-netherite – Ranger, Envoy, Operative
+#                    (at most 1 netherite piece total)
+#    Unrestricted  – Soldier, Paladin
+#                    (full netherite allowed)
+#
+#  Obsidian heavy set (Nexo IDs, live item stats stay in Nexo):
+#    obsidian_helmet, obsidian_chestplate,
+#    obsidian_leggings, obsidian_boots
+#    Soldier / Paladin only. All other classes are denied,
+#    including one-netherite classes who could otherwise
+#    wear a single netherite piece.
+#
+#  Enforcement:
+#    Armor reaches a player by many paths: dragging onto the slot,
+#    shift-click, number keys over an armor slot, right-clicking with
+#    the piece in hand (air OR block), hot-swapping a worn piece, and
+#    dispensers. Blocking each path separately is what let the
+#    right-click equip through. The authority is now `on armor change`,
+#    which fires whatever the path was, and strips anything the class
+#    may not wear. The click/right-click handlers below only stop the
+#    common paths early so the piece never flickers on.
+#    A slower sweep still runs for class changes and pieces worn before
+#    this script loaded.
+#
+#  Detection (no skript-nexo required — that addon would
+#  fail this script at parse time if missing):
+#    1. Nexo ID – if the item's string form contains a live
+#       ID (PDC / NBT dumps, item_model, debug text).
+#    2. Display name – uncolored name mapped to those IDs
+#       ("Obsidian Helmet" → obsidian_helmet, etc.).
+#    Material is NOT used to identify the set. Worn bodies
+#    currently use netherite layers (custom 3D is inventory /
+#    GUI / held only), so vanilla netherite tier rules still
+#    apply to unnamed netherite. Do not wrap these pieces in
+#    MMOItems — stats already live on the Nexo items.
+#
+#  Reload: /skript reload class-armor-restrictions
+# ============================================================
+
+options:
+    prefix: &8[&b&lBellcraft&8] &7
+    sweep_interval: 40
+
+# ── Obsidian / Nexo ID detection ──
+
+function nexoIdOf(i: item) :: text:
+    if {_i} is not set:
+        return ""
+
+    set {_blob} to "%{_i}%"
+    set {_blob} to uncolored {_blob}
+    set {_blob} to {_blob} in lower case
+
+    if {_blob} contains "obsidian_helmet":
+        return "obsidian_helmet"
+    if {_blob} contains "obsidian helmet":
+        return "obsidian_helmet"
+    if {_blob} contains "obsidian_chestplate":
+        return "obsidian_chestplate"
+    if {_blob} contains "obsidian chestplate":
+        return "obsidian_chestplate"
+    if {_blob} contains "obsidian_leggings":
+        return "obsidian_leggings"
+    if {_blob} contains "obsidian leggings":
+        return "obsidian_leggings"
+    if {_blob} contains "obsidian_boots":
+        return "obsidian_boots"
+    if {_blob} contains "obsidian boots":
+        return "obsidian_boots"
+
+    set {_name} to name of {_i}
+    if {_name} is set:
+        set {_name} to uncolored {_name}
+        set {_name} to {_name} in lower case
+        if {_name} contains "obsidian helmet":
+            return "obsidian_helmet"
+        if {_name} contains "obsidian chestplate":
+            return "obsidian_chestplate"
+        if {_name} contains "obsidian leggings":
+            return "obsidian_leggings"
+        if {_name} contains "obsidian boots":
+            return "obsidian_boots"
+
+    return ""
+
+function isObsidianArmor(i: item) :: boolean:
+    set {_id} to nexoIdOf({_i})
+    if {_id} is "obsidian_helmet", "obsidian_chestplate", "obsidian_leggings" or "obsidian_boots":
+        return true
+    return false
+
+# ── Vanilla armor helpers ──
+
+function isArmorItem(i: item) :: boolean:
+    if {_i} is not set:
+        return false
+    if isObsidianArmor({_i}) is true:
+        return true
+    set {_t} to "%type of {_i}%"
+    if {_t} contains "helmet", "chestplate", "leggings" or "boots":
+        return true
+    return false
+
+function isNetheriteArmor(i: item) :: boolean:
+    if {_i} is not set:
+        return false
+    if type of {_i} is netherite helmet, netherite chestplate, netherite leggings or netherite boots:
+        return true
+    return false
+
+function isAboveIronArmor(i: item) :: boolean:
+    if {_i} is not set:
+        return false
+    if type of {_i} is diamond helmet, diamond chestplate, diamond leggings, diamond boots, netherite helmet, netherite chestplate, netherite leggings or netherite boots:
+        return true
+    return false
+
+# Netherite worn in every slot except the one being equipped, so hot-swapping
+# a Ranger's one netherite helmet for another is still allowed.
+function netheriteWornExcept(p: player, slot: text) :: number:
+    set {_n} to 0
+    if {_slot} is not "helmet":
+        if isNetheriteArmor(helmet of {_p}) is true:
+            add 1 to {_n}
+    if {_slot} is not "chestplate":
+        if isNetheriteArmor(chestplate of {_p}) is true:
+            add 1 to {_n}
+    if {_slot} is not "leggings":
+        if isNetheriteArmor(leggings of {_p}) is true:
+            add 1 to {_n}
+    if {_slot} is not "boots":
+        if isNetheriteArmor(boots of {_p}) is true:
+            add 1 to {_n}
+    return {_n}
+
+function armorSlotOf(i: item) :: text:
+    set {_id} to nexoIdOf({_i})
+    if {_id} is not "":
+        replace all "obsidian_" with "" in {_id}
+        return {_id}
+    set {_t} to "%type of {_i}%"
+    if {_t} contains "helmet":
+        return "helmet"
+    if {_t} contains "chestplate":
+        return "chestplate"
+    if {_t} contains "leggings":
+        return "leggings"
+    return "boots"
+
+# Rule check with the class already resolved. {_slot} is the slot the piece
+# goes into (or sits in).
+function classArmorAllowed(class: text, p: player, i: item, slot: text) :: boolean:
+    # Heavy-only Nexo set — checked before netherite piece caps
+    # so Ranger/Envoy/Operative cannot wear even a single piece.
+    if isObsidianArmor({_i}) is true:
+        if {_class} is "Soldier" or "Paladin":
+            return true
+        return false
+
+    if {_class} is "Cleric", "Mystic" or "Sorcerer":
+        if isAboveIronArmor({_i}) is true:
+            return false
+
+    if {_class} is "Ranger", "Envoy" or "Operative":
+        if isNetheriteArmor({_i}) is true:
+            if netheriteWornExcept({_p}, {_slot}) >= 1:
+                return false
+
+    return true
+
+function armorAllowed(p: player, i: item) :: boolean:
+    # THIS LINE REQUIRES THE 'skript-placeholders' PLUGIN!
+    set {_class} to placeholder "mmocore_class" from {_p}
+    return classArmorAllowed({_class}, {_p}, {_i}, armorSlotOf({_i}))
+
+function sendArmorDenyMessage(p: player, i: item):
+    if isObsidianArmor({_i}) is true:
+        send "{@prefix}&cYour class cannot equip Obsidian armor!" to {_p}
+    else:
+        send "{@prefix}&cYour class cannot equip that armor tier!" to {_p}
+
+function giveOrDrop(p: player, i: item):
+    if {_i} is not set:
+        stop
+    if {_i} is air:
+        stop
+    if {_p} can hold {_i}:
+        give {_i} to {_p}
+    else:
+        drop {_i} at {_p}
+
+# Take off every piece the player's class may not wear.
+function stripForbiddenArmor(p: player):
+    set {_class} to placeholder "mmocore_class" from {_p}
+    # Do not strip while class data is missing (join / PAPI blip),
+    # or Soldiers/Paladins would lose a legally worn set.
+    if {_class} is not set:
+        stop
+    if {_class} is "":
+        stop
+    if {_class} is "Soldier" or "Paladin":
+        stop
+
+    delete {_denied}
+
+    set {_item} to helmet of {_p}
+    if isArmorItem({_item}) is true:
+        if classArmorAllowed({_class}, {_p}, {_item}, "helmet") is false:
+            set helmet of {_p} to air
+            giveOrDrop({_p}, {_item})
+            set {_denied} to {_item}
+
+    set {_item} to chestplate of {_p}
+    if isArmorItem({_item}) is true:
+        if classArmorAllowed({_class}, {_p}, {_item}, "chestplate") is false:
+            set chestplate of {_p} to air
+            giveOrDrop({_p}, {_item})
+            set {_denied} to {_item}
+
+    set {_item} to leggings of {_p}
+    if isArmorItem({_item}) is true:
+        if classArmorAllowed({_class}, {_p}, {_item}, "leggings") is false:
+            set leggings of {_p} to air
+            giveOrDrop({_p}, {_item})
+            set {_denied} to {_item}
+
+    set {_item} to boots of {_p}
+    if isArmorItem({_item}) is true:
+        if classArmorAllowed({_class}, {_p}, {_item}, "boots") is false:
+            set boots of {_p} to air
+            giveOrDrop({_p}, {_item})
+            set {_denied} to {_item}
+
+    if {_denied} is set:
+        sendArmorDenyMessage({_p}, {_denied})
+
+# ── Early blocks for the common paths ──
+
+on inventory click:
+    if "%click type%" contains "shift":
+        set {_item} to event-item
+        if {_item} is set:
+            if isArmorItem({_item}) is true:
+                if armorAllowed(player, {_item}) is false:
+                    cancel event
+                    sendArmorDenyMessage(player, {_item})
+                    stop
+
+    set {_slot} to index of event-slot
+    # FIXED SLOT MATH: Replaced with a clean list of allowed slots
+    if {_slot} is 5, 6, 7, 8, 36, 37, 38 or 39:
+        set {_cursor} to cursor slot of player
+        if {_cursor} is set:
+            if isArmorItem({_cursor}) is true:
+                if armorAllowed(player, {_cursor}) is false:
+                    cancel event
+                    sendArmorDenyMessage(player, {_cursor})
+                    stop
+
+# Right-clicking air with armor in hand equips it (and hot-swaps a worn
+# piece). Right-clicking a block is left alone so chests and doors still open;
+# `on armor change` below reverts any equip that gets through that way.
+# (The old `on right click air:` was not valid Skript and never loaded - that is how
+# right-click equipping got through.)
+on right click:
+    event-block is not set
+    set {_item} to tool of player
+    if isArmorItem({_item}) is true:
+        if armorAllowed(player, {_item}) is false:
+            cancel event
+            sendArmorDenyMessage(player, {_item})
+
+# ── The authority: every equip, whatever the path ──
+
+on armor change:
+    set {_new} to new armor item
+    if isArmorItem({_new}) is false:
+        stop
+    # Let the equip settle before reading the slots back.
+    wait 1 tick
+    if player is online:
+        stripForbiddenArmor(player)
+
+# Safety net: class changes, and pieces worn before this script loaded.
+every {@sweep_interval} ticks:
+    loop all players:
+        stripForbiddenArmor(loop-player)

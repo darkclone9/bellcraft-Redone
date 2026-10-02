@@ -1,0 +1,41 @@
+# Bedrock custom GUI overlays. Optional: Nexo GUI-title backgrounds are reproduced automatically;
+# add an entry only to override or enable a specific glyph (key = glyph id).
+#
+# Top-level: autoBackgrounds (default true) | minHeight (candidate cutoff px, default 32) |
+# background (default for every entry below, default full).
+# Per-entry fields: glyph (required) | shift | match_literal | size "W,H" (px; "N%" for panel-relative) | offset "x,y" (fractional
+# px allowed) | anchor | layer | screen (container/inventory/crafting/furnace/hud). Size/offset
+# auto-derive if omitted.
+#
+# background (container screens): which halves of Bedrock's own window backdrop stay behind the art.
+#   full (default, the whole window) | container (storage half only) | inventory (player-inventory
+#   rows only, the half that already looks like Java's) | none. Set it per entry, or once at the
+#   top of this file to change the default for every entry.
+#
+# After editing: run `/scaffold reload -f` and reconnect your Bedrock client.
+
+# Settings
+autoBackgrounds: true   # false = show only the entries below, no auto-detection
+minHeight: 32        # min glyph height (px) listed as a candidate when this file regenerates
+background: full        # window backdrop kept behind every entry: full | container | inventory | none
+
+# Auto-detected GUI backgrounds (already active). Uncomment one only to override it.
+
+#menu_items_search:
+#  glyph: menu_items_search
+#  shift: -37
+#  screen: container
+
+
+# Candidate backgrounds (not active). Uncomment one and set 'match_literal' to enable it.
+
+#menu_items:
+#  glyph: menu_items
+#  match_literal: "<glyph:menu_items>"
+#  screen: container
+
+#brewing_stand_recipe_builder:
+#  glyph: brewing_stand_recipe_builder
+#  match_literal: "<glyph:brewing_stand_recipe_builder>"
+#  screen: container
+

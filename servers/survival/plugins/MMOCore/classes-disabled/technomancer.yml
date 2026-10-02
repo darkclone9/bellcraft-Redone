@@ -1,0 +1,132 @@
+display:
+  name: 'Technomancer'
+  lore:
+    - '&eClass Role: Arcane DPS / Utility Caster'
+    - '&7The Technomancer bridges the impossible gap'
+    - '&7between science and sorcery - bending both'
+    - '&7to devastating effect.'
+  item: BLAZE_ROD
+  slot: 14
+
+mana:
+  char: '|'
+  icon: '&b|'
+  name: 'Nanites'
+  color:
+    full: YELLOW
+    half: GOLD
+    empty: DARK_GRAY
+
+stats:
+  MAX_HEALTH:
+    base: 18.0
+    per-level: 2.0
+  MAX_MANA:
+    base: 55.0
+    per-level: 8.0
+  MAGIC_DAMAGE:
+    base: 5.0
+    per-level: 2.5
+  SKILL_DAMAGE:
+    base: 3.0
+    per-level: 1.5
+  COOLDOWN_REDUCTION:
+    base: 5.0
+    per-level: 0.5
+  MANA_REGENERATION:
+    base: 0.3
+    per-level: 0.05
+  MOVEMENT_SPEED:
+    base: 0.11
+    per-level: 0.005
+
+attributes:
+  intelligence:
+    base: 16
+    per-level: 3.5
+  dexterity:
+    base: 5
+    per-level: 0.8
+
+options:
+  default: false
+  display: true
+  needs-permission: false
+  off-combat-health-regen: false
+  off-combat-mana-regen: true
+
+exp-curve: 'levels'
+exp-table: class_exp_table
+
+skill-slots:
+  1:
+    name: "&eLightning Beam"
+    unlocked-by-default: true
+    lore:
+      - '&7High-pressure arcane beam'
+  2:
+    name: "&eVoid Zapper"
+    unlocked-by-default: true
+    lore:
+      - '&7Tech utility zap effect'
+
+main-exp-sources:
+  - 'killmob{type=ZOMBIE;amount=4-6}'
+  - 'killmob{type=SKELETON;amount=5-8}'
+  - 'killmob{type=BLAZE;amount=12-20}'
+  - 'killmob{type=WITCH;amount=12-20}'
+  - 'killmob{type=WITHER_SKELETON;amount=14-22}'
+
+skills:
+  LIGHTNING_BEAM:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  VOID_ZAPPER:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  TECHNOMANCER_DEPLOY_TURRET:
+    level: 5
+    max-level: 30
+    unlocked-by-default: false
+
+  TECHNOMANCER_EMP_BLAST:
+    level: 10
+    max-level: 30
+    unlocked-by-default: false
+
+  TECHNOMANCER_HOLOGRAPHIC_DECOY:
+    level: 15
+    max-level: 30
+    unlocked-by-default: false
+
+  # Standalone MythicLib skill unlocks (via skill tree)
+  OVERCHARGE:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  NANITE_SWARM:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+skill-trees:
+  - 'technomancer'
+  - 'profession-mining'
+  - 'profession-woodcutting'
+  - 'profession-farming'
+  - 'profession-fishing'
+  - 'profession-alchemy'
+  - 'profession-smithing'
+  - 'profession-enchanting'
+  - 'profession-smelting'
+
+triggers:
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-ap %player_name%"}'
+    - 'command{format="bellcraft-grant-sp %player%"}'
+    - 'command{format="bellcraft-grant-stp %player% technomancer"}'

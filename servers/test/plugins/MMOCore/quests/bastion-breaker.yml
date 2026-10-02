@@ -1,0 +1,24 @@
+name: 'Bastion Breaker'
+lore:
+- 'The brutes keep the bastions.'
+- 'Convince them otherwise.'
+- ''
+- '&6Objective:'
+- '&7► Kill 20 piglin brutes'
+- ''
+- '&eRewards:'
+- '&7► 4661 EXP'
+level-req:
+    main: 68
+parent:
+- 'tyrant-of-embers'
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'killmob{type=PIGLIN_BRUTE;amount=20}'
+        lore: 'Kill 20 piglin brutes.'
+        triggers:
+        - 'experience{amount=4661}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

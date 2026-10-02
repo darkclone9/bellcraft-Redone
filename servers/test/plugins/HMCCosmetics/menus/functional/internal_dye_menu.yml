@@ -1,0 +1,194 @@
+# This file does not work like a regular menu file.
+# This is specifically for the internal dye menu to allow users to configure it.
+
+# The primary color item that will be dyed. If the item is not provided (commented out or deleted), it'll default to the actual cosmetic being dyed.
+# Default configs:
+# Nexo: "material: nexo:paintbrush"
+# ItemsAdder: "material: itemsadder:hmccosmetics:paintbrush"
+primary-color-item:
+  material: LEATHER_HORSE_ARMOR
+secondary-color-item:
+  material: LEATHER_HORSE_ARMOR
+
+# $ = Primary Colors
+# % = Secondary Colors
+format:
+  - "###$$$###"
+  - "###$$$###"
+  - "###$$$###"
+  - "#########"
+  - "#%%%%%%%#"
+  - "#%%%%%%%#"
+
+colors:
+  red:
+    name: "<#FF0000>Red"
+    color: "#FF0000"
+    subcolors:
+      - name: "<#DC143C>Crimson"
+        color: "#DC143C"
+      - name: "<#FF2400>Scarlet"
+        color: "#FF2400"
+      - name: "<#E0115F>Ruby"
+        color: "#E0115F"
+      - name: "<#DE3163>Cherry"
+        color: "#DE3163"
+      - name: "<#FF007F>Rose"
+        color: "#FF007F"
+      - name: "<#800020>Burgundy"
+        color: "#800020"
+      - name: "<#800000>Maroon"
+        color: "#800000"
+
+  blue:
+    name: "<#0000FF>Blue"
+    color: "#0000FF"
+    subcolors:
+      - name: "<#000080>Navy"
+        color: "#000080"
+      - name: "<#007FFF>Azure"
+        color: "#007FFF"
+      - name: "<#0047AB>Cobalt"
+        color: "#0047AB"
+      - name: "<#0F52BA>Sapphire"
+        color: "#0F52BA"
+      - name: "<#007BA7>Cerulean"
+        color: "#007BA7"
+      - name: "<#4B0082>Indigo"
+        color: "#4B0082"
+      - name: "<#003153>Prussian"
+        color: "#003153"
+
+  green:
+    name: "<#00FF00>Green"
+    color: "#00FF00"
+    subcolors:
+      - name: "<#50C878>Emerald"
+        color: "#50C878"
+      - name: "<#00A86B>Jade"
+        color: "#00A86B"
+      - name: "<#228B22>Forest"
+        color: "#228B22"
+      - name: "<#BFFF00>Lime"
+        color: "#BFFF00"
+      - name: "<#808000>Olive"
+        color: "#808000"
+      - name: "<#BCB88A>Sage"
+        color: "#BCB88A"
+      - name: "<#98FF98>Mint"
+        color: "#98FF98"
+
+  yellow:
+    name: "<#FFFF00>Yellow"
+    color: "#FFFF00"
+    subcolors:
+      - name: "<#FFD700>Gold"
+        color: "#FFD700"
+      - name: "<#FFBF00>Amber"
+        color: "#FFBF00"
+      - name: "<#FFFF99>Canary"
+        color: "#FFFF99"
+      - name: "<#FFF700>Lemon"
+        color: "#FFF700"
+      - name: "<#FFDB58>Mustard"
+        color: "#FFDB58"
+      - name: "<#F4C430>Saffron"
+        color: "#F4C430"
+      - name: "<#FFF18C>Butter"
+        color: "#FFF18C"
+
+  orange:
+    name: "<#FFA500>Orange"
+    color: "#FFA500"
+    subcolors:
+      - name: "<#F28500>Tangerine"
+        color: "#F28500"
+      - name: "<#FF7F50>Coral"
+        color: "#FF7F50"
+      - name: "<#FFDAB9>Peach"
+        color: "#FFDAB9"
+      - name: "<#FBCEB1>Apricot"
+        color: "#FBCEB1"
+      - name: "<#B7410E>Rust"
+        color: "#B7410E"
+      - name: "<#B87333>Copper"
+        color: "#B87333"
+      - name: "<#CD7F32>Bronze"
+        color: "#CD7F32"
+
+  purple:
+    name: "<#800080>Purple"
+    color: "#800080"
+    subcolors:
+      - name: "<#8A2BE2>Violet"
+        color: "#8A2BE2"
+      - name: "<#E6E6FA>Lavender"
+        color: "#E6E6FA"
+      - name: "<#DDA0DD>Plum"
+        color: "#DDA0DD"
+      - name: "<#9966CC>Amethyst"
+        color: "#9966CC"
+      - name: "<#E0B0FF>Mauve"
+        color: "#E0B0FF"
+      - name: "<#DA70D6>Orchid"
+        color: "#DA70D6"
+      - name: "<#C8A2C8>Lilac"
+        color: "#C8A2C8"
+
+  white:
+    name: "<#FFFFFF>White"
+    color: "#FFFFFF"
+    subcolors:
+      - name: "<#FFFFF0>Ivory"
+        color: "#FFFFF0"
+      - name: "<#F0EAD6>Pearl"
+        color: "#F0EAD6"
+      - name: "<#FFFDD0>Cream"
+        color: "#FFFDD0"
+      - name: "<#FFFAFA>Snow"
+        color: "#FFFAFA"
+      - name: "<#F3E5AB>Vanilla"
+        color: "#F3E5AB"
+      - name: "<#F0EAD6>Alabaster"
+        color: "#F0EAD6"
+      - name: "<#E3DAC9>Bone"
+        color: "#E3DAC9"
+
+  black:
+    name: "<#000000>Black"
+    color: "#000000"
+    subcolors:
+      - name: "<#36454F>Charcoal"
+        color: "#36454F"
+      - name: "<#555D50>Ebony"
+        color: "#555D50"
+      - name: "<#353839>Onyx"
+        color: "#353839"
+      - name: "<#343434>Jet"
+        color: "#343434"
+      - name: "<#3C3C44>Obsidian"
+        color: "#3C3C44"
+      - name: "<#708090>Slate"
+        color: "#708090"
+      - name: "<#424242>Graphite"
+        color: "#424242"
+
+  gray:
+    name: "<#808080>Gray"
+    color: "#808080"
+    subcolors:
+      - name: "<#C0C0C0>Silver"
+        color: "#C0C0C0"
+      - name: "<#B2BEB5>Ash"
+        color: "#B2BEB5"
+      - name: "<#738276>Smoke"
+        color: "#738276"
+      - name: "<#B0C4DE>Steel"
+        color: "#B0C4DE"
+      - name: "<#96A8A1>Pewter"
+        color: "#96A8A1"
+      - name: "<#B7B7B7>Dove"
+        color: "#B7B7B7"
+      - name: "<#483C32>Taupe"
+        color: "#483C32"
+

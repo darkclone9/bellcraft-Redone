@@ -1,0 +1,23 @@
+name: 'Threshold of the End'
+lore:
+- 'The pale country begins where'
+- 'the sky stops being a sky.'
+- ''
+- '&6Objective:'
+- '&7► Kill 40 endermen in the End'
+- ''
+- '&eRewards:'
+- '&7► 12090 EXP'
+level-req:
+    main: 80
+parent: []
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'killmob{type=ENDERMAN;amount=40}'
+        lore: 'Kill 40 endermen in the End.'
+        triggers:
+        - 'experience{amount=12090}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

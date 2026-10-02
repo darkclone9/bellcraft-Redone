@@ -1,0 +1,9 @@
+sculk_crystal:
+  Id: AMETHYST_SHARD
+  Display: '<gradient:#19d9ef:#9ff8ff>Sculk Crystal</gradient>'
+  Lore:
+    - '<dark_gray>Prised from a Warden Guard.'
+    - '<dark_aqua>The deep dark still hums inside it.'
+  Options:
+    ItemModel: 'astra:sculk_crystal'
+    HideFlags: true

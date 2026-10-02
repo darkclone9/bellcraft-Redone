@@ -1,0 +1,420 @@
+id: info-panel-p2
+rows: 6
+type: chest
+title: '&b&lBellcraft &8» &7Classes & Combat'
+commandAliasTarget: DISABLED
+disable-scene-animation: false
+scenes:
+  # ============================================================
+  # Classes & Combat (Page 2/5)
+  # ============================================================
+  '0':
+    delay: 0
+    items:
+      # ==================================================
+      # Row 1: Top border (slots 0-8)
+      # ==================================================
+      '1':
+        slot: 0
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '2':
+        slot: 1
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '3':
+        slot: 2
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '4':
+        slot: 3
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '5':
+        slot: 4
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '6':
+        slot: 5
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '7':
+        slot: 6
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '8':
+        slot: 7
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '9':
+        slot: 8
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      # ==================================================
+      # Row 2 (slots 9-17)
+      # ==================================================
+      '10':
+        slot: 9
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '11':
+        slot: 11
+        item: IRON_CHESTPLATE
+        amount: 1
+        item-name: '&c&lSoldier'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fTank / Frontline Fighter'
+            - '&7High HP, heavy armor, and'
+            - '&7damage mitigation abilities.'
+            - '&7Resource: &cResolve'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '12':
+        slot: 12
+        item: IRON_SWORD
+        amount: 1
+        item-name: '&b&lOperative'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fStriker / Scout'
+            - '&7Fast attacks, stealth, and'
+            - '&7precision-based combat.'
+            - '&7Resource: &bFocus'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '13':
+        slot: 13
+        item: GOLDEN_CHESTPLATE
+        amount: 1
+        item-name: '&6&lPaladin'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fTank / Holy Knight'
+            - '&7Divine protection, auras,'
+            - '&7and healing abilities.'
+            - '&7Resource: &6Radiance'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '14':
+        slot: 14
+        item: AMETHYST_SHARD
+        amount: 1
+        item-name: '&d&lMystic'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fSupport / Cosmic Caster'
+            - '&7Healing, shields, and'
+            - '&7cosmic manipulation.'
+            - '&7Resource: &dCosmic Energy'
+        item-flags: []
+        unbreakable: false
+      '15':
+        slot: 15
+        item: BLAZE_ROD
+        amount: 1
+        item-name: '&e&lTechnomancer'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fArcane DPS'
+            - '&7High magic damage and'
+            - '&7technological augmentation.'
+            - '&7Resource: &eNanites'
+        item-flags: []
+        unbreakable: false
+      '16':
+        slot: 17
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      # ==================================================
+      # Row 3 (slots 18-26)
+      # ==================================================
+      '17':
+        slot: 18
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '18':
+        slot: 20
+        item: BOW
+        amount: 1
+        item-name: '&a&lRanger'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fDPS Ranged / Hunter'
+            - '&7Specs: &aHunter &7/ &6Tracker'
+            - '&7Projectile damage, traps, prey'
+            - '&7tracking, and structure sense.'
+            - '&7Resource: &aFocus'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '19':
+        slot: 21
+        item: BLAZE_ROD
+        amount: 1
+        item-name: '&c&lSorcerer'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fCaster DPS'
+            - '&7Elemental magic and high'
+            - '&7burst damage spells.'
+            - '&7Resource: &cArcana'
+        item-flags: []
+        unbreakable: false
+      '20':
+        slot: 22
+        item: GOLDEN_APPLE
+        amount: 1
+        item-name: '&b&lCleric'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fSupport / Divine Healer'
+            - '&7Healing, purification, and'
+            - '&7protective blessings.'
+            - '&7Resource: &bDevotion'
+        item-flags: []
+        unbreakable: false
+      '21':
+        slot: 23
+        item: BOOK
+        amount: 1
+        item-name: '&6&lEnvoy'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fTactician / Commander'
+            - '&7Team buffs, debuffs, and'
+            - '&7strategic battlefield control.'
+            - '&7Resource: &6Influence'
+        item-flags: []
+        unbreakable: false
+      '22':
+        slot: 26
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      # ==================================================
+      # Row 4 (slots 27-35)
+      # ==================================================
+      '23':
+        slot: 27
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '24':
+        slot: 31
+        item: DIAMOND_SWORD
+        amount: 1
+        item-name: '&7&lCombat Tips'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Use &e/upgrade &7to level skills.'
+            - '&7Use &e/skilltrees &7for passive bonuses.'
+            - '&7Each class has unique abilities.'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '25':
+        slot: 35
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      # ==================================================
+      # Row 5 (slots 36-44)
+      # ==================================================
+      '26':
+        slot: 36
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '27':
+        slot: 44
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      # ==================================================
+      # Row 6: Bottom border + Navigation (slots 45-53)
+      # ==================================================
+      # Navigation: Previous Page
+      '28':
+        slot: 45
+        item: ARROW
+        amount: 1
+        click-events:
+          d0d0d0d1-0001-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          d0d0d0d1-0001-4000-8000-000000000002:
+            type: command
+            commands:
+            - gui open info-panel %player%
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&e&l← Previous Page'
+        item-flags: []
+        unbreakable: false
+      '29':
+        slot: 46
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '30':
+        slot: 47
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '31':
+        slot: 48
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      # Navigation: Close
+      '32':
+        slot: 49
+        item: BARRIER
+        amount: 1
+        click-events:
+          d0d0d0d1-0002-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&c&lClose'
+        item-flags: []
+        unbreakable: false
+      '33':
+        slot: 50
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '34':
+        slot: 51
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '35':
+        slot: 52
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      # Navigation: Next Page
+      '36':
+        slot: 53
+        item: ARROW
+        amount: 1
+        click-events:
+          d0d0d0d1-0003-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          d0d0d0d1-0003-4000-8000-000000000002:
+            type: command
+            commands:
+            - gui open info-panel-p3 %player%
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&e&lNext Page →'
+        item-flags: []
+        unbreakable: false

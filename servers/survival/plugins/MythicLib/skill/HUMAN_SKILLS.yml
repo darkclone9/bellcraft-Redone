@@ -1,0 +1,85 @@
+# Human Class Skills (Forge-01)
+HUMAN_RESOURCEFUL_STRIKE:
+  name: '&7Resourceful Strike'
+  icon: IRON_SWORD
+  source: default:COMBO_ATTACK
+  parameters:
+    cooldown:
+      player:
+        base: 4
+        per-level: -0.04
+        min: 2
+        max: 4
+      name: Cooldown
+    mana:
+      player:
+        base: 3
+        per-level: 0.08
+      name: Mana
+    damage:
+      player:
+        base: 2.4
+        per-level: 0.16
+      name: Damage
+  triggers:
+    cast:
+    - damage{amount={damage};type=PHYSICAL}
+    - particle{p=CRIT;amount=20;speed=0.4;hS=0.5;vS=0.5}
+    - sound{s=ENTITY_PLAYER_ATTACK_STRONG;v=1.2;p=1.0}
+HUMAN_ADAPT:
+  name: '&7Adapt'
+  icon: COMPASS
+  source: default:SWIFTNESS
+  parameters:
+    cooldown:
+      player:
+        base: 16
+        per-level: -0.14
+        min: 8
+        max: 16
+      name: Cooldown
+    mana:
+      player:
+        base: 8
+        per-level: 0.16
+      name: Mana
+    duration:
+      player:
+        base: 8
+        per-level: 0.14
+      name: Duration
+  triggers:
+    cast:
+    - stat{stat=ATTACK_DAMAGE;amount=12;operation=RELATIVE;duration={duration}}
+    - stat{stat=ARMOR;amount=12;operation=RELATIVE;duration={duration}}
+    - stat{stat=MOVEMENT_SPEED;amount=12;operation=RELATIVE;duration={duration}}
+    - particle{p=HAPPY_VILLAGER;amount=60;speed=0.5;hS=1.5;vS=2}
+    - sound{s=ENTITY_PLAYER_LEVELUP;v=1.2;p=1.3}
+HUMAN_SECOND_WIND:
+  name: '&7Second Wind'
+  icon: GOLDEN_APPLE
+  source: default:HEAL
+  parameters:
+    cooldown:
+      player:
+        base: 12
+        per-level: -0.1
+        min: 6
+        max: 12
+      name: Cooldown
+    mana:
+      player:
+        base: 6
+        per-level: 0.14
+      name: Mana
+    heal:
+      player:
+        base: 6
+        per-level: 0.36
+      name: Heal
+  triggers:
+    cast:
+    - heal{amount={heal}}
+    - potion{type=REGENERATION;duration=5;amplifier=1}
+    - particle{p=HEART;amount=30;speed=0.4;hS=1;vS=1.5}
+    - sound{s=ENTITY_PLAYER_BREATH;v=1.5;p=0.9}

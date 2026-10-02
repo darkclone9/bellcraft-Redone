@@ -1,0 +1,106 @@
+# This feature allows you to switch between
+# vanilla or supported plugin items when certain events trigger.
+# Supported plugins: MMOItems, MythicMobs,
+# ItemsAdder, Nexo, ExecutableItems
+
+item_replacer:
+  enabled: false
+
+  # With this condition, you can define which requirements the player must meet for the action to proceed.
+  #
+  # You can set up as many conditions as you want.
+  #
+  # You have two options for the condition list:
+  # require all conditions to return true,
+  # or allow the condition to pass if at least one returns true.
+  #
+  # Conditions only work for "clicked, timer, pickup, inventory, and join triggers"
+  Conditions_all_need_true: true
+  Conditions:
+    - WorldName{w="MyCustomWorld,world"} true
+    # - Region{r="region1,region2,region3"} true
+
+  triggers:
+    # When a player picks an item up from the ground full inventory of player will scan
+    pickup: true
+    # Only scan the pickup item
+    pickup_item: false
+    # The clicked inventory slot.
+    clicked: true
+    # Join will trigger after a player logs into the server or, if MMOProfiles is installed, after they select a profile.
+    join: false
+    # When the player fills or empties a bucket, it replaces the item currently in their hand.
+    bucket: false
+    # Only works vanilla item to any target item.
+    craft: false
+    # Only works vanilla item to any target item.
+    smelt: false
+    # Only works vanilla item to any target item.
+    smith: false
+    # List of chest inventories to scan when the player right-clicks to open them. Set to [] to disable chest checks.
+    # List of the chest inventory you want to scan. Set [] to disable chest checks. "_raft",  "_boat", "_shulker_box"" represent all of their variants.
+    chest: [chest, ender_chest, trapped_chest, chest_minecart, barrel, dispenser, hopper, hopper_minecart, _raft, _boat, _shulker_box ]
+    # To protect server performance, each static(block) chests can only be scanned once while the server is running.
+    # The data of scanned chests is stored in RAM and cleared when the server restarts.
+    chest_check_one_time: true
+    # For Lootin plugin chests. https://www.spigotmc.org/resources/lootin-1-16-1-21-7-no-more-already-looted-chests.90453/
+    lootin: false
+    # For JustLootIt plugin chests. https://www.spigotmc.org/resources/justlootit-unique-loot-for-everyone.116493/
+    justlootit: false
+
+    ###                     WARNING                         ##
+    ##   Inventory and timer triggers are not recommended   ##
+    ##       as they can cause performance issues.          ##
+
+    # When the player drags in their cursor across the inventory
+    # or when a player clicks in an inventory.
+    inventory: false
+    # At what intervals should all players
+    # inventories be scanned? Set 0 to disable.
+    timer: 0 # In seconds (1800 = 30 minutes)
+
+  # Keeper apply some properties from the source item to the target item.
+  keeper:
+    enabled: false
+    keep:
+      enchantments: true
+      display_name: true
+    blacklists:
+      materials: [dirt,stone] # Materials you don't want to keep any enchantment
+      enchantments: [smite,aqua_affinity] # Enchantments you don't want to keep
+
+  # Items to replace to targets
+  #
+  # You can use the following method to replace vanilla enchantment books.
+  # If enchantments don’t matter and having any one of them is enough, you can set it to "any".
+  # - other{id=enchanted_book;enchantments="density";targets="vanilladirt"}
+  #
+  # You can use the following method to replace any potions matarials contain effects.
+  # If effect don’t matter and having any one of them is enough, you can set it to "any".
+  # - other{id=potion;targets="vanilladirt";effects=instant_health}
+  # List of the effects: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html
+  #
+  # If the item is not from a supported plugin you can use "other" as the plugin name.
+  # This way, if the item cannot be recognized, only the material will be used.
+  # Supported plugins: https://gitlab.com/Tanerx/CoreTools/-/wikis/multi_source_items
+  source_items:
+    - vanilla{id=grass_block;targets="vanilladirt"}
+    # - other{id=enchanted_book;enchantments="density";targets="vanilladirt"}
+    # - vanilla{id=oak_planks;targets="milongsword"}
+    # - vanilla{id=iron_ingot;targets="exwifi"}
+    # - mmoitems{category=sword;id=long_sword;targets="vanilladirt"}
+    # - ia{category=iaweapons;id=ak47;targets="vanilladirt"}
+    # - mythicmobs{id=SkeletonKingSword;targets="vanilladirt"}
+    # - oraxen{id=amethyst_hammer;targets="vanilladirt"}
+    # - ex{id=Free_Wifi_Enderchest;targets="vanilladirt,milongsword,mmkingsword,oxhammer,iabow"}
+    # - craftengine{id=topaz_bow;category=default;targets="milongsword"}
+
+  target_items:
+    - vanilladirt{plugin=vanilla;id=dirt;weigh=40}
+    # - milongsword{plugin=mi;category=sword;id=LONG_SWORD;amount=0;weigh=50}
+    # - mmkingsword{plugin=mm;id=SkeletonKingSword;weigh=50}
+    # - oxhammer{plugin=oraxen;id=amethyst_hammer;weigh=50}
+    # - iabow{plugin=itemsadder;id=black_bow;weigh=50}
+    # - exwifi{plugin=executableitems;id=Free_Wifi_Enderchest;weigh=50}
+    # - craftengine{plugin=craftengine;id="topaz_bow";category="default";weigh=40}
+    # - enchanted_book{plugin=vanilla;id=enchanted_book;enchantments="sharpness 1";flags="HIDE_ENCHANTS,HIDE_ATTRIBUTES";name=test;weigh=40}

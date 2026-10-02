@@ -1,0 +1,88 @@
+title: "Manage Nested Items"
+rows: 6
+slots: [ 10-16,19-25,28-34,37-43,46-52]
+empty-fill:
+  enabled: true
+  slots: [ all ]
+  item:
+    name: '&r'
+    lore: [ ]
+    type: BLUE_STAINED_GLASS_PANE
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+
+previous:
+  enabled: true
+  slot: 48
+  item:
+    name: '&cBack'
+    lore: []
+    type: PLAYER_HEAD
+    texture-base64: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjU2NDM5YzNmNjVlOWZlNDFmMmQ4YmU0N2JmNDkzZjE0M2FjYWRmZDVkYmVhODZmZWE2ZGJlMTllNDM1ZWEifX19
+    amount: 1
+    item-flags:
+      - all
+    unbreakable: false
+    enchantments: []
+
+next:
+  enabled: true
+  slot: 50
+  item:
+    name: '&cNext'
+    lore: []
+    type: PLAYER_HEAD
+    texture-base64: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWEyMGQ2ZWYxMjY4MTMwNjZhMjU3N2NjYzVkZjcxMDI2ODNmMWFmN2MzZTk0ZTQ1YWI5YWQ2N2VkYmI1MiJ9fX0=
+    amount: 1
+    item-flags:
+      - all
+    unbreakable: false
+    enchantments: []
+    custom-model-data: 0
+
+add-item:
+  enabled: true
+  slot: 45
+  item:
+    name: "&eDrag 'n' Drop"
+    lore:
+      - "&7Drag and drop item onto here to add it to nested items."
+    type: "BOOK"
+    amount: 1
+    item-flags: ["all"]
+    unbreakable: false
+    enchantments: []
+    custom-model-data: 0
+
+add-air-item:
+  enabled: true
+  slot: 49
+  item:
+    name: "&eAdd Air item"
+    lore:
+      - "&7Click to add an air item to nested items."
+    type: "STRUCTURE_VOID"
+    amount: 1
+    item-flags: [ "all" ]
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+
+exit:
+  enabled: true
+  slot: 53
+  item:
+    name: "&cBack"
+    lore:
+      - "&7Click to go back to the click events manager."
+    type: "PLAYER_HEAD"
+    texture-base64: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUxY2VkMmU2NDczNjZmOGYzYWQyZGZlNDE1Y2NhODU2NTFiZmFmOTczOWE5NWNkNTdiNmYyMWNiYTA1MyJ9fX0="
+    amount: 1
+    item-flags: [ ]
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0

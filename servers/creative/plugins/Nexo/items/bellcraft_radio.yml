@@ -1,0 +1,28 @@
+bellcraft_radio:
+  itemname: <gold><bold>Bellcraft Radio</bold></gold>
+  material: RECOVERY_COMPASS
+  Components:
+    lore:
+    - ''
+    - <yellow>Right-click <gray>to tune into Bellcraft Radio.
+    - <gray>Syncs live music across Java and Bedrock!
+    - ''
+    - <dark_gray>Bellcraft Network
+  Mechanics:
+    commands:
+      player:
+      - radio
+      cooldown: 1s
+      one_usage: false
+
+bellcraft_boombox:
+  itemname: <gold><bold>Bellcraft Boombox</bold></gold>
+  material: JUKEBOX
+  Components:
+    lore:
+    - ''
+    - <yellow>Place down <gray>in your base or town.
+    - <yellow>Type <gold>/bcradio jukebox [station]</gold> <gray>while looking
+    - <gray>at it to bind it to a live radio station!
+    - ''
+    - <dark_gray>Bellcraft Network

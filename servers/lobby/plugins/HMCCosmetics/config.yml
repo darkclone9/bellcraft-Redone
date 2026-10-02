@@ -1,0 +1,200 @@
+#
+# HMCCosmetics Configuration (Remapped)
+#
+config-version: 1
+
+default-menu: defaultmenu_hats
+debug-mode: false
+database-settings:
+  # SQLite (Default), MYSQL, NONE
+  type: sqlite
+  mysql:
+    database: "database"
+    password: <<REDACTED>>
+    port: 3306
+    host: "localhost"
+    user: "username"
+  delay:
+    # This is for if other plugins need to handle certain aspects of a player first.
+    enabled: false
+    # Delay in ticks from when a player joins
+    delay: 20
+cosmetic-settings:
+  # In ticks, determines how many times a player cosmetics should be updated. -1 to disable.
+  # Ticking periods is something that ensures new players near a player get the packets to actually apply to the user.
+  tick-period: 20
+
+  # The engine HMCCosmetics will use to find nearby players.
+  # Valid Options: BUKKIT, OCTREE
+  player-search-implmentation: BUKKIT
+
+  # If when a player dies, their cosmetics should be unapplied. If this is true, use hmccosmetics.unapplydeath.bypass to bypass
+  unapply-on-death: false
+  # Checks a player permission if they can have a cosmetic when they join the server.
+  force-permission-join: true
+  # If the plugin should attempt to force show a player's cosmetics when they join the server by removing all hidden flags.
+  force-show-join: false
+
+  # This determines what to process what areas to process placeholders when displaying the item to the user.
+  # This can be heavy on servers with a lot of players, so if experiencing lag issues relating to setting display/lores of items, disable this.
+  item-processing:
+    display-name: false
+    lore: false
+
+  # This prevents the offhand from being swapped with the mainhand. Only affects if a user has a cosmetic in their offhand
+  offhand-prevent-swapping: false
+
+  # This is a list of worlds that cosmetics are hidden in. When a player enters one of these worlds, their cosmetics will be hidden.
+  disabled-worlds:
+    - "disabledworld"
+
+  disabled-gamemode:
+    enabled: true
+    # Which gamemodes should cosmetics be disabled for. This is useful for servers that have a creative world. All options are here, https://hub.spigotmc.org/javadocs/spigot/org/bukkit/GameMode.html
+    gamemodes:
+      - "SPECTATOR"
+
+  # This make it so it always sends the riding packets for the backpack. This sends more packets but is more reliable for servers which modify player passengers.
+  backpack-force-riding-packet: true
+  # This prevents the backpack from being dark when the player is below a block at the expense of making the backpack bright
+  backpack-prevent-darkness: true
+  # Intercepts packets to attempt to reorder them to properly handle the backpack
+  backpack-intercept-passenger-packets: false
+
+  slot-options:
+    helmet:
+      # If the plugin should keep enchants on helmets. This is useful as some enchantments are client side only.
+      add-enchantments: false
+      # Should the player slot be empty for the cosmetic to be applied? A cosmetic will be "hidden" if a player has an item equipped in the slot
+      require-empty: false
+      passthrough-damage: false
+    chestplate:
+      add-enchantments: false
+      require-empty: false
+      add-elytra-componnt: true
+      passthrough-damage: false
+    leggings:
+      add-enchantments: false
+      require-empty: false
+      passthrough-damage: false
+    boots:
+      add-enchantments: false
+      require-empty: false
+      passthrough-damage: false
+    offhand:
+      add-enchantments: false
+      # There is a small visual blip for a tick when you put a new item in the offhand slot, hence why its enabled by default.
+      require-empty: true
+      passthrough-damage: false
+
+  # This attempts to destroy cosmetics that get loose in the wild, such as through a player entering creative mode.
+  # Most servers who don't use creative mode and have properly set up the plugin should have no need for this and can leave it disabled.
+  destroy-loose-cosmetics: false
+
+  # view distance in blocks that other players will see the backpack cosmetic
+  # setting this to lower than the server player view distance should fix the
+  # bug where players see random backpacks. Put -1 to ignore and send packets to everyone.
+  view-distance: 32
+  # If the plugin should set the pitch of balloons to always be 0, to prevent players looking up affecting the balloon.
+  # This only applies to models that have a "head" section to them. THIS DOES NOT IMPACT THE REST OF THE ENTITY.
+  balloon-head-unmoving: false
+  # Should, by default, the lead be spawned for the balloon
+  balloon-lead-default: true
+  # how the balloon should be positioned relative to the player
+  balloon-offset:
+    x: 0.5
+    y: 3
+    z: 0.5
+
+menu-settings:
+  click-cooldown:
+    enabled: true
+    # This is the cooldown in miliseconds for the menu. This is useful for servers that have a lot of players.
+    # (So if a user clicks the menu, it won't spam the server with requesting it to refresh itself)
+    time: 100
+  shading:
+    # Below is the shading mechanism behind cosmetic items. This is a bit complicated, but it allows for a lot of customization.
+    # The shading is done through the title and by shifting textures around. This is done by offsets.
+    # Only Nexo is support by default. Vanilla can't properly handle it without a lot of unicodes and ItemsAdder adds weird offsets and decolors it. (This is why it is disabled by default)
+    # Enable by using MODERN or TEXT
+    type: NONE
+    first-row-shift: "<shift:-153>" # Nexo: "<shift:-153>"
+    sequent-row-shift: " <shift:-153>" # Nexo: " <shift:-153>" (Space is important here!)
+    individual-column-shift: "<shift:-3>" # Nexo: "<shift:-3>"
+    background: "<glyph:hmcc_shade_row_<row>:colorable> " # Nexo: "<glyph:shade_row_<row>:colorable> 
+    clear-background: "<glyph:hmcc_clear_row_<row>:colorable> " # Nexo: "<glyph:clear_row_<row>:colorable> "
+    #These use MiniMessage for color! https://docs.advntr.dev/minimessage/format.html#color
+    equipped-cosmetic-color: "<yellow>"
+    equipable-cosmetic-color: "<green>"
+    locked-cosmetic-color: "<red>"
+  cosmetic-type:
+    # This allows you to specify if it should require a special click type for the interaction to work.
+    equip-click: "ANY" # ANY or ClickType, https://jd.papermc.io/paper/org/bukkit/event/inventory/ClickType.html
+    unequip-click: "ANY" # ANY or ClickType, https://jd.papermc.io/paper/org/bukkit/event/inventory/ClickType.html
+dye-menu:
+  enabled: true
+  # If you use ItemsAdder, set this to "<white>:img_offset_-8::img_hmcc_dye_menu:"
+  # If you use Oraxen, set this to "<white><s:-8><g:hmcc_dye_menu>"
+  # If you use Nexo, set this to "<white><shift:-8><glyph:hmcc_dye_menu>"
+  title: "<white>"
+  input-slot: 10
+  output-slot: 16
+hook-settings:
+  itemsadder:
+    # This causes the plugin to reload itself after any ItemsAdder change. This keeps the plugin fully up to date with IA, but
+    # could cause console spam as HMCCosmetics has to reload itself as well.
+    reload-on-change: false
+  nexo:
+    # This causes the plugin to reload itself after any Nexo change. This keeps the plugin fully up to date with Nexo, but
+    # could cause console spam as HMCCosmetics has to reload itself as well.
+    reload-on-change: true
+  worldguard:
+    # Checks worldguard regions for HMCC flags. If set to false, flags will not work properly.
+    # Requires restart to apply changes.
+    player-move-check: true
+  betterhud:
+    wardrobe-hide: true
+  hmccolor:
+    # If HMCColor is available, prefer hmccolor dye menu rather than the internal menu. Requires a restart.
+    prefer-hmccolor-menu: false
+  vulcan:
+    # Will ignore any violations in Vulcan if a player is within a wardrobe
+    exempt-checks-in-wardrobe: false
+wardrobe:
+  # how much yaw should change per tick, set to 0 for none
+  rotation-speed: 3
+  # Applies a pumpkin for an overlay of the player while in the wardrobe.
+  equip-pumpkin: false
+  # Rather than having a set exit location, this will send the player back to where they entered the wardrobe. Not recommended for WG regions
+  return-last-location: false
+  # If players in wardrobes should be able to equip any cosmetic, regardless of permission (Cosmetics they do not have access to will be removed when they leave the wardrobe)
+  unchecked-wardrobe-cosmetics: false
+  # If HMCC should prevent a player from being damaged while being in the wardrobe
+  prevent-damage: true
+  # If a player is damaged in a wardrobe, and if it's set to true, it'll kick them from the wardrobe (prevent-damage must be false)
+  damage-kicked: false
+
+  menu-options:
+    enter-open-menu: false # If the menu should open when a player enters a wardrobe
+
+  gamemode-options:
+    exit-gamemode-enabled: false # Setting this to false will set the gamemode the player came in as. True sets to exit-gamemode gamemode
+    exit-gamemode: "SURVIVAL" # Only activates if exit-gamemode-enabled is true, find gamemodes here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/GameMode.html
+
+  # Bossbar that shows when a player is in a wardrobe.
+  bossbar:
+    enabled: false
+    text: "Left-Click to open the menu!"
+    progress: 1.0 # Goes between 0.0 -> 1.0
+    overlay: PROGRESS
+    color: BLUE
+  transition:
+    enabled: true
+    # If you use ItemsAdder, set this to "<black>%img_hmcc_title%
+    # If you use Oraxen, set this to "<black><glyph:title>"
+    # If you use Nexo, set this to "<black><glyph:hmcc_title:colorable>" (alternatively, you can use PlaceholderAPI and put: "<black>%nexo_hmcc_title%" )
+    text: "<black>"
+    delay: 40
+    title-fade-in: 1000 # milliseconds
+    title-stay: 500 # milliseconds
+    title-fade-out: 1000 # milliseconds

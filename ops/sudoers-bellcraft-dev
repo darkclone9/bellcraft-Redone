@@ -1,0 +1,7 @@
+# Trusted Bellcraft developers (see /usr/local/sbin/bellcraft-add-dev). Not root.
+%bellcraft-dev ALL=(minecraft) NOPASSWD: ALL
+%bellcraft-dev ALL=(root) NOPASSWD: /usr/bin/systemctl start bellcraft-*, /usr/bin/systemctl stop bellcraft-*, /usr/bin/systemctl restart bellcraft-*, /usr/bin/systemctl --no-pager status bellcraft-*, /usr/bin/journalctl --no-pager -u bellcraft-*, /usr/local/sbin/bellcraft-rcon *, /opt/bellcraft/bin/bellcraft-dev *, /usr/local/sbin/bellcraft-export *, /usr/local/sbin/bellcraft-deploy *
+
+# The GitHub Actions deploy key (user ghdeploy) may run exactly one program.
+ghdeploy ALL=(root) NOPASSWD: /usr/local/sbin/bellcraft-deploy
+Defaults!/usr/local/sbin/bellcraft-deploy env_keep += "SSH_ORIGINAL_COMMAND"

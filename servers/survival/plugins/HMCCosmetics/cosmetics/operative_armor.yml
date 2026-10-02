@@ -1,0 +1,8 @@
+operative_chestplate:
+  slot: CHESTPLATE
+  permission: "hmccosmetics.operative_chestplate"
+  model: operative_chestplate
+  item:
+    material: CHAINMAIL_CHESTPLATE
+    name: "<gradient:#5EC8E8:#3A8AAA>Operative Light Chestplate</gradient>"
+    amount: 1

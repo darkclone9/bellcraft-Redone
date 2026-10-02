@@ -1,0 +1,106 @@
+# Bellcraft: /character
+#
+# One screen that answers "what am I, what do my stats do, and where do I spend points".
+# Values are read live through PlaceholderAPI (MMOCore ships the expansion); anything that
+# does not resolve shows as a dash rather than a raw placeholder name.
+
+options:
+    title: &8Character &7| &6Bellcraft
+
+function pv(p: player, key: string) :: string:
+    set {_v} to placeholder "%{_key}%" from {_p}
+    if {_v} is not set:
+        return "-"
+    if {_v} is "":
+        return "-"
+    return {_v}
+
+function openCharacter(p: player):
+    set {_inv} to chest inventory with 5 rows named "{@title}"
+    loop 45 times:
+        set slot (loop-number - 1) of {_inv} to gray stained glass pane named " "
+
+    set {_lvl} to pv({_p}, "mmocore_level")
+    set {_class} to pv({_p}, "mmocore_class")
+    set {_exp} to pv({_p}, "mmocore_experience")
+    set {_next} to pv({_p}, "mmocore_next_level_exp")
+    set {_ap} to pv({_p}, "mmocore_attribute_points")
+    set {_sp} to pv({_p}, "mmocore_skill_points")
+
+    set slot 4 of {_inv} to {_p}'s skull named "&6&l%name of {_p}%" with lore "&7Class: &f%{_class}%", "&7Level: &f%{_lvl}%", "&7Experience: &f%{_exp}%&7/&f%{_next}%", "", "&7Attribute points: &a%{_ap}%", and "&7Skill points: &a%{_sp}%"
+
+    set {_str} to pv({_p}, "mmocore_attribute_strength")
+    set {_dex} to pv({_p}, "mmocore_attribute_dexterity")
+    set {_int} to pv({_p}, "mmocore_attribute_intelligence")
+    set {_wis} to pv({_p}, "mmocore_attribute_wisdom")
+
+    set {_hint} to "&eClick to spend points."
+    if {_ap} is "0" or "-":
+        set {_hint} to "&7No attribute points available."
+    else:
+        set {_hint} to "&a▶ Click to add 1 point &7(&a%{_ap}% available&7)"
+
+    set slot 19 of {_inv} to iron sword named "&c&lStrength &7(&f%{_str}%&7)" with lore "&7Raw power in a melee swing.", "", "&7Each point gives you:", "&f+0.1 &7attack damage", "&f+0.25%% &7critical strike chance", "&f+0.15 &7maximum health", "&f+0.04 &7health regeneration", "", and "%{_hint}%"
+    set slot 21 of {_inv} to bow named "&a&lDexterity &7(&f%{_dex}%&7)" with lore "&7Speed, aim and footwork.", "", "&7Each point gives you:", "&f+0.8 &7physical damage", "&f+0.8 &7projectile damage", "&f+0.2%% &7attack speed", "&f+0.1%% &7movement speed", "", and "%{_hint}%"
+    set slot 23 of {_inv} to enchanted book named "&b&lIntelligence &7(&f%{_int}%&7)" with lore "&7Spellcasting and recovery.", "", "&7Each point gives you:", "&f+1 &7maximum mana", "&f+0.7 &7magic damage", "&f+0.15 &7cooldown reduction", "", and "%{_hint}%"
+    set slot 25 of {_inv} to golden apple named "&d&lWisdom &7(&f%{_wis}%&7)" with lore "&7Staying power in a long fight.", "", "&7Each point gives you:", "&f+0.04 &7health regeneration", "&f+0.8%% &7maximum mana", "&f+0.15 &7mana regeneration", "", and "%{_hint}%"
+
+    set slot 29 of {_inv} to experience bottle named "&6&lHow you level" with lore "&7Quests are the main path - they carry", "&7about four fifths of every level.", "&7Killing mobs adds a steady trickle,", "&7worth more the further you are from spawn.", "", and "&eClick to open your quest journal."
+    set slot 31 of {_inv} to nether star named "&e&lSkill trees" with lore "&7Spend skill points on your class tree.", "", "&7Skill points: &a%{_sp}%", "", and "&eClick to open."
+    set slot 33 of {_inv} to filled map named "&2&lZones and the atlas" with lore "&7The world is ringed into zones by", "&7distance from spawn, and each zone", "&7lists the level it is built for.", "", "&7Full map: &fjoin.bellcraft.online/map", "", and "&eClick for your atlas."
+    set slot 40 of {_inv} to book named "&f&lYour class" with lore "&7Class: &f%{_class}%", "", and "&eClick for class details."
+
+    open {_inv} to {_p}
+
+command /character:
+    aliases: /charsheet, /bcchar
+    description: Your level, stats and where to spend points.
+    executable by: players
+    trigger:
+        openCharacter(player)
+
+on inventory click:
+    if name of event-inventory is "{@title}":
+        cancel event
+        if event-inventory is clicked inventory:
+            set {_slot} to index of event-slot
+            if {_slot} is 19 or 21 or 23 or 25:
+                set {_ap_raw} to pv(player, "mmocore_attribute_points")
+                set {_ap_num} to {_ap_raw} parsed as an integer
+                if {_ap_num} is not set:
+                    set {_ap_num} to 0
+                if {_ap_num} > 0:
+                    set {_attr} to ""
+                    set {_name} to ""
+                    if {_slot} is 19:
+                        set {_attr} to "strength"
+                        set {_name} to "Strength"
+                    else if {_slot} is 21:
+                        set {_attr} to "dexterity"
+                        set {_name} to "Dexterity"
+                    else if {_slot} is 23:
+                        set {_attr} to "intelligence"
+                        set {_name} to "Intelligence"
+                    else if {_slot} is 25:
+                        set {_attr} to "wisdom"
+                        set {_name} to "Wisdom"
+                    execute console command "mmocore admin attribute give %player% %{_attr}% 1"
+                    execute console command "mmocore admin attribute-points give %player% -1"
+                    play sound "entity.player.levelup" with volume 0.8 and pitch 1.4 at player
+                    send "&a[+] Added 1 point to &e%{_name}%&a! (&6%({_ap_num} - 1)% &aattribute points left)" to player
+                    openCharacter(player)
+                else:
+                    play sound "block.note_block.bass" with volume 0.8 and pitch 0.8 at player
+                    send "&cYou do not have any attribute points to spend!" to player
+            else if {_slot} is 29:
+                close player's inventory
+                make player execute command "/quests"
+            else if {_slot} is 31:
+                close player's inventory
+                make player execute command "/skilltrees"
+            else if {_slot} is 33:
+                close player's inventory
+                make player execute command "/atlas"
+            else if {_slot} is 40:
+                close player's inventory
+                make player execute command "/class"

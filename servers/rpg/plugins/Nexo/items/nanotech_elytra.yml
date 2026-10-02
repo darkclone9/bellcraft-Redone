@@ -1,0 +1,81 @@
+# ==============================================================================
+# NEXO CUSTOM ITEM DEFINITIONS: NANOTECH FLIGHT SUITE (1.21.x / Paper 26.2)
+# ==============================================================================
+
+nanotech_elytra:
+  itemname: "<gradient:#00f2fe:#4facfe><bold>NANOTECH EXO-GLIDER</bold></gradient>"
+  material: ELYTRA
+
+  Pack:
+    texture: nexo:item/nanotech_elytra
+
+  Components:
+    equippable:
+      slot: CHEST
+      asset_id: nexo:nanotech_elytra
+    max_damage: 650
+    unbreakable: false
+    attribute_modifiers:
+      - attribute: ARMOR
+        amount: 2
+        slot: CHEST
+        operation: ADD_NUMBER
+      - attribute: ARMOR_TOUGHNESS
+        amount: 1
+        slot: CHEST
+        operation: ADD_NUMBER
+      - attribute: MOVEMENT_SPEED
+        amount: 0.05
+        slot: CHEST
+        operation: ADD_NUMBER
+    lore:
+      - ""
+      - "<dark_gray>▪ <gray>Type: <gradient:#00f2fe:#4facfe>Tactical Flight Exoskeleton</gradient>"
+      - "<dark_gray>▪ <gray>Tier: <aqua>Tier V - Quantum Overclocked</aqua>"
+      - "<dark_gray>▪ <gray>Status: <green>SYSTEMS ONLINE</green>"
+      - ""
+      - "<gradient:#00f2fe:#4facfe><bold>INTEGRATED NANO-MECHANICS</bold></gradient>"
+      - " <dark_aqua>◆ <white>Nano-Thruster Array:"
+      - "   <gray>Passively accelerates gliding velocity & lift"
+      - " <dark_aqua>◆ <white>Kinetic Damping Field:"
+      - "   <gray>Reduces wall-collision & landing impact by 65%"
+      - " <dark_aqua>◆ <white>Nanite Self-Repair Module:"
+      - "   <gray>Regenerates durability when equipped"
+      - ""
+      - "<dark_gray>▪ <white>Suit Buffs (Equipped):"
+      - "  <blue>+2 Armor Rating"
+      - "  <blue>+1 Armor Toughness"
+      - "  <blue>+5% Movement Speed"
+      - ""
+      - "<dark_gray><italic>Forged from deep-slate titanium, quantum conduits, and nanite matrices.</italic>"
+
+  Mechanics:
+    armor_effects:
+      effects:
+        - type: SPEED
+          amplifier: 0
+          ambient: true
+          particles: false
+        - type: RESISTANCE
+          amplifier: 0
+          ambient: true
+          particles: false
+
+nanotech_upgrade_matrix:
+  itemname: "<gradient:#00f2fe:#4facfe><bold>NANOTECH UPGRADE MATRIX</bold></gradient>"
+  material: NETHERITE_UPGRADE_SMITHING_TEMPLATE
+
+  Pack:
+    texture: nexo:item/nanotech_upgrade_matrix
+
+  Components:
+    lore:
+      - ""
+      - "<dark_gray>▪ <gray>Type: <gradient:#00f2fe:#4facfe>Smithing Upgrade Matrix</gradient>"
+      - "<dark_gray>▪ <gray>Class: <aqua>High-Frequency Micro-Circuit</aqua>"
+      - ""
+      - "<gradient:#00f2fe:#4facfe><bold>SMITHING UPGRADE SPECIFICATIONS</bold></gradient>"
+      - " <dark_aqua>◆ <white>Applies to: <gray>Standard Elytra"
+      - " <dark_aqua>◆ <white>Ingredients: <gray>Echo Shard <dark_gray>or <gray>Netherite Ingot"
+      - ""
+      - "<dark_gray><italic>Contains compiled fabrication schematics for deployable nanotech flight vanes.</italic>"

@@ -1,0 +1,139 @@
+Settings:
+  typing-speed: 1 # Ticks(Second/20)
+  range: 3
+  effect: Slowness # Slowness / Freeze
+  answer-numbers: true
+  prevent-exit: false
+  prevent-skip: false
+  # start-page: page opened by '/ld start <dialogue>' or '/ld send <target> <dialogue>' when no page
+  #   id is given. Optional; defaults to the first page below. Conditions are supported (goto-style,
+  #   first matching entry wins, falls back to the first page):
+  #   start-page: '1a'
+  #   -- or --
+  #   start-page:
+  #     - '@condition.%player_level%>=10 1b'
+  #     - '1a'
+  character-name: true
+  character-image: true
+  background-fog: true
+  npc-focus: true # Turn the player to face the NPC that started the dialogue (needs a Citizens / FancyNPCs / MythicMobs hook enabled).
+
+Sounds:
+  typing:
+    id: luxdialogues:luxdialogues.sounds.typing
+    source: MASTER
+    volume: 1.0
+    pitch: 1.0
+  selection:
+    id: luxdialogues:luxdialogues.sounds.selection
+    source: MASTER
+    volume: 1.0
+    pitch: 1.0
+
+Offsets:
+  name: 0
+  name-background: 20
+  dialogue-background: 0
+  dialogue-line: 10
+  answer-background: 140
+  answer-line: 13
+  arrow: -7
+  character: -16
+  information: 27
+
+Character:
+  name: Onur
+
+Images:
+  character-background: character-background
+  arrow: hand
+  dialogue-background: dialogue-background
+  answer-background: answer-background
+  name-start: name-start
+  name-mid: name-mid
+  name-end: name-end
+  fog: fog
+
+Colors:
+  name: '#4f4a3e'
+  name-background: '#f8ffe0'
+  dialogue: '#4f4a3e'
+  dialogue-background: '#f8ffe0'
+  answer: '#4f4a3e'
+  answer-background: '#f8ffe0'
+  character-background: '#ffffff'
+  arrow: '#cdff29'
+  selected: '#4f4a3e'
+  fog: '#000000'
+  information: '#f8ffe0'
+
+Pages:
+  '1a':
+    lines:
+      - 'LuxDialogues is #2d87c3available #4f4a3enow!'
+      - 'Have not you #cdff29bought #4f4a3eit yet?'
+      - 'What are you waiting for?'
+    typing-info-line: 'Right Click To Skip Typing'
+    steady-info-line: ''
+    goto: '1b' # If this is not empty, answers will be disabled.
+    timer: 0 # Ticks before timer-actions fire; 0 (or removing the key) disables the timer
+    timer-actions: {}
+    pre-actions:
+      - msg %player_name% dialoguepreAction1 @console
+    post-actions:
+      - msg %player_name% dialoguepostAction1 @console
+    exit-actions:
+      - msg %player_name% dialogueexitAction1 @console
+  '1b':
+    lines:
+      - 'New features are added almost'
+      - 'every day I think you'
+      - 'shouldn''t miss this'
+      - 'opportunity...'
+    typing-info-line: 'Right Click To Skip Typing'
+    steady-info-line: ''
+    goto: '' # If this is not empty, answers will be disabled.
+    timer: 0
+    timer-actions: {}
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+    answers:
+      '1':
+        text: I'm buying it now.
+        goto: ''
+        reply:
+          - '#82d850<3'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.ding
+          source: MASTER
+          volume: 1.0
+          pitch: 1.0
+        actions:
+          - msg %player_name% action1
+      '2':
+        text: Really?
+        goto: ''
+        condition: :luxdialogues.test:==true
+        reply:
+          - '#82d850Yes!!'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.beep
+          source: MASTER
+          volume: 1.0
+          pitch: 1.0
+        actions:
+          - say That's great!! (Player CMD) @delay.5
+      '3':
+        text: Eew, no!
+        goto: ''
+        reply:
+          - '#e52b2bI disagree with you, this plugin is amazing!'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.beep
+          source: MASTER
+          volume: 1.0
+          pitch: 1.0
+        actions:
+          - msg %player_name% action1 @console
+#d21891d819abf57b5a57f22e6b637384

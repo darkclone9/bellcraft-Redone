@@ -1,0 +1,381 @@
+id: ranger-hunter
+name: "&aHunter's Path"
+type: CUSTOM
+lore:
+  - '&aMaster the wilderness and the hunt'
+max-point-spent: 21
+icon:
+  material: BOW
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+  a1:
+    root: true
+    name: Arrow Head I
+    coordinates:
+      x: -1
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="PROJECTILE_DAMAGE";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eProjectile damage +%5'
+  a2:
+    name: Arrow Head II
+    coordinates:
+      x: -2
+      y: 1
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="PROJECTILE_DAMAGE";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eProjectile damage +%8'
+      1:
+        - '&eProjectile damage +%5'
+  a3:
+    name: Arrow Head III
+    coordinates:
+      x: -3
+      y: 0
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="PROJECTILE_DAMAGE";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eProjectile damage +%12'
+      1:
+        - '&eProjectile damage +%13'
+  b1:
+    root: true
+    name: Swift Stride I
+    coordinates:
+      x: -2
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MOVEMENT_SPEED";amount=3;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMovement speed +%3'
+  b2:
+    name: Swift Stride II
+    coordinates:
+      x: -1
+      y: -2
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MOVEMENT_SPEED";amount=4;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMovement speed +%4'
+      1:
+        - '&eMovement speed +%3'
+  b3:
+    name: Swift Stride III
+    coordinates:
+      x: 0
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MOVEMENT_SPEED";amount=6;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMovement speed +%6'
+      1:
+        - '&eMovement speed +%7'
+  c1:
+    root: true
+    name: Blade Work I
+    coordinates:
+      x: 0
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="WEAPON_DAMAGE";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eWeapon damage +%2'
+  c2:
+    name: Blade Work II
+    coordinates:
+      x: -1
+      y: 0
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="WEAPON_DAMAGE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eWeapon damage +%3'
+      1:
+        - '&eWeapon damage +%2'
+  c3:
+    name: Blade Work III
+    coordinates:
+      x: 0
+      y: 1
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="WEAPON_DAMAGE";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eWeapon damage +%4'
+      1:
+        - '&eWeapon damage +%5'
+  d1:
+    root: true
+    name: Rapid Fire I
+    coordinates:
+      x: 1
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ATTACK_SPEED";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eAttack speed +%5'
+  d2:
+    name: Rapid Fire II
+    coordinates:
+      x: 2
+      y: 1
+    parents:
+      strong: {d1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ATTACK_SPEED";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eAttack speed +%8'
+      1:
+        - '&eAttack speed +%5'
+  d3:
+    name: Rapid Fire III
+    coordinates:
+      x: 2
+      y: 2
+    parents:
+      strong: {d2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ATTACK_SPEED";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eAttack speed +%12'
+      1:
+        - '&eAttack speed +%13'
+  e1:
+    root: true
+    name: Evasion I
+    coordinates:
+      x: 3
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="DODGE_RATING";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eDodge rating +%3'
+  e2:
+    name: Evasion II
+    coordinates:
+      x: 4
+      y: 2
+    parents:
+      strong: {e1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="DODGE_RATING";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eDodge rating +%4'
+      1:
+        - '&eDodge rating +%3'
+  e3:
+    name: Evasion III
+    coordinates:
+      x: 4
+      y: 1
+    parents:
+      strong: {e2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="DODGE_RATING";amount=6;type="FLAT"}'
+    lores:
+      0:
+        - '&eDodge rating +%6'
+      1:
+        - '&eDodge rating +%7'
+  f1:
+    root: true
+    name: Focus Reserve I
+    coordinates:
+      x: 4
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax focus +%5'
+  f2:
+    name: Focus Reserve II
+    coordinates:
+      x: 4
+      y: -1
+    parents:
+      strong: {f1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=6;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax focus +%6'
+      1:
+        - '&eMax focus +%5'
+  f3:
+    name: Focus Reserve III
+    coordinates:
+      x: 4
+      y: -2
+    parents:
+      strong: {f2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=8;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax focus +%8'
+      1:
+        - '&eMax focus +%11'
+  g1:
+    root: true
+    name: Wilderness Grit I
+    coordinates:
+      x: 3
+      y: -2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +%3'
+  g2:
+    name: Wilderness Grit II
+    coordinates:
+      x: 2
+      y: -2
+    parents:
+      strong: {g1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +%4'
+      1:
+        - '&eMax health +%3'
+  g3:
+    name: Wilderness Grit III
+    coordinates:
+      x: 2
+      y: -1
+    parents:
+      strong: {g2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +%5'
+      1:
+        - '&eMax health +%7'
+
+  # --- SKILL UNLOCK NODES ---
+
+  skill_explosive_arrow:
+    root: true
+    name: '&aUnlock: Explosive Arrow'
+    coordinates:
+      x: -4
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=RANGER_EXPLOSIVE_ARROW}'
+    lores:
+      0:
+        - '&fFire a charged arrow that'
+        - '&fdetonates on impact.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &aExplosive Arrow&7 ability!'
+
+  skill_camouflage:
+    root: true
+    name: '&aUnlock: Camouflage'
+    coordinates:
+      x: 0
+      y: 3
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=RANGER_CAMOUFLAGE}'
+    lores:
+      0:
+        - '&fBlend into your surroundings,'
+        - '&fgaining invisibility and dodge.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &aCamouflage&7 ability!'
+
+  skill_binding_shot:
+    root: true
+    name: '&aUnlock: Binding Shot'
+    coordinates:
+      x: 4
+      y: 4
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=RANGER_BINDING_SHOT}'
+    lores:
+      0:
+        - '&fPin your target in place with'
+        - '&fa precision binding shot.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &aBinding Shot&7 ability!'

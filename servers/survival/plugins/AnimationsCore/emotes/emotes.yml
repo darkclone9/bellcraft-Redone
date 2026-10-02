@@ -1,0 +1,16 @@
+animations:
+  wave:
+    display-name: Wave
+    mm-id: wave-emote
+    duration: 60
+    traversal: true
+    loop: false
+    permission: animcore.emote.wave
+    GUI:
+      icon: STONE
+      ModelID: 0
+      Lore:
+      - '&7Automatically added'
+      - '&7please customize in GUI.yml'
+
+# affadadec20c3292c3ae6322224d86af

@@ -1,0 +1,175 @@
+display:
+  name: 'Envoy'
+  lore:
+    - '&eClass Role: Tactician / Battlefield Commander'
+    - '&7Reads the field, then bends it.'
+    - ''
+    - '&7Specialisations:'
+    - '&6- Warlord &8: momentum on every swing, lead the charge'
+    - '&b- Strategist &8: adapt under fire, keep the line standing'
+  item: BOOK
+  slot: 15
+
+mana:
+  char: '★'
+  icon: '&6★'
+  name: 'Influence'
+  color:
+    full: GOLD
+    half: YELLOW
+    empty: DARK_GRAY
+
+stats:
+  # Rebalanced 2026-09-10 on a shared budget: every class carries one primary damage
+  # stat and lands within ~8% of the others at base and ~7% per level. Every class also
+  # carries MANA_REGENERATION; without it a class with no Wisdom could cast three times
+  # and then wait three minutes.
+  # The only class with WEAPON_DAMAGE, paired with cooldown reduction and bonus
+  # experience for a commander role.
+  MAX_HEALTH:
+    base: 25
+    per-level: 2.9
+  MAX_MANA:
+    base: 35
+    per-level: 4.6
+  WEAPON_DAMAGE:
+    base: 3.5
+    per-level: 1.75
+  ARMOR:
+    base: 3
+    per-level: 0.5
+  COOLDOWN_REDUCTION:
+    base: 8
+    per-level: 0.08
+  MANA_REGENERATION:
+    base: 1.6
+    per-level: 0.16
+  MOVEMENT_SPEED:
+    base: 0.12
+    per-level: 0.0003
+  ADDITIONAL_EXPERIENCE:
+    base: 6
+    per-level: 0.8
+
+attributes:
+  # Fixed budget for every class: 20 points at base, 4.0 per level.
+  strength:
+    base: 5
+    per-level: 1
+  dexterity:
+    base: 5
+    per-level: 1
+  intelligence:
+    base: 6
+    per-level: 1.2
+  wisdom:
+    base: 4
+    per-level: 0.8
+
+options:
+  default: false
+  display: true
+  needs-permission: false
+  off-combat-health-regen: true
+  off-combat-mana-regen: true
+
+exp-curve: 'levels'
+exp-table: class_exp_table
+
+skill-slots:
+  1:
+    name: "&6Inspire"
+    unlocked-by-default: true
+    lore:
+      - '&7Boost allies and control the tempo'
+  2:
+    name: "&6Rally"
+    unlocked-by-default: true
+    lore:
+      - '&7Support heal and regroup'
+
+main-exp-sources:
+  - 'killmob{type=ZOMBIE;amount=4-5}'
+  - 'killmob{type=SKELETON;amount=4-6}'
+  - 'killmob{type=CREEPER;amount=5-9}'
+  - 'killmob{type=PILLAGER;amount=7-12}'
+  - 'killmob{type=BLAZE;amount=7-12}'
+
+# Use MythicLib builtin skills (known-good handlers)
+skills:
+  EMPOWERED_ATTACK:
+    level: 1
+    max-level: 33
+    unlocked-by-default: true
+
+  REGEN_ALLY:
+    level: 1
+    max-level: 33
+    unlocked-by-default: true
+
+  # Existing Envoy Skills
+  ENVOY_TACTICAL_RETREAT:
+    level: 5
+    max-level: 33
+    unlocked-by-default: false
+
+  ENVOY_BATTLE_STANCE:
+    level: 10
+    max-level: 33
+    unlocked-by-default: false
+
+  ENVOY_COMMANDING_SHOUT:
+    level: 15
+    max-level: 33
+    unlocked-by-default: false
+
+  # --- Skill Tree Unlocks ---
+  ASTRAL_LINK:
+    level: 1
+    max-level: 33
+    unlocked-by-default: false
+
+  STELLAR_HEAL:
+    level: 1
+    max-level: 33
+    unlocked-by-default: false
+
+  DEBILITATING_SHOT:
+    level: 1
+    max-level: 33
+    unlocked-by-default: false
+
+  # ---- Specialisation skills (generated) ----
+  WARLORD_MOMENTUM:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  WARLORD_WAR_CRY:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  STRATEGIST_ADAPT:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  STRATEGIST_FIELD_ORDERS:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+
+skill-trees:
+  - 'envoy'
+  - 'profession-mining'
+  - 'profession-woodcutting'
+  - 'profession-farming'
+  - 'profession-fishing'
+  - 'profession-alchemy'
+  - 'profession-smithing'
+  - 'profession-enchanting'
+  - 'profession-smelting'
+
+triggers:
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-ap %player_name%"}'
+    - 'command{format="bellcraft-grant-sp %player_name%"}'
+    - 'command{format="bellcraft-grant-stp %player% envoy"}'

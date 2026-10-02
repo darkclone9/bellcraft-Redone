@@ -1,0 +1,327 @@
+# ============================================================
+#  Per-town Elections  ΓÇô  Bellcraft
+#  Requires: Skript 2.7+, LuckPerms, Towny, PlaceholderAPI,
+#            skript-placeholders
+#
+#  Towns elect a Mayor, Banker, and Sheriff. Only residents
+#  of that town may vote. Admins or the current mayor can
+#  start an election.
+#
+#  /townelection start <position> <candidate1> [candidate2] ...
+#  /townelection cancel
+#  /townelection status
+#  /townelection holders
+#
+#  Positions (configurable): mayor, banker, sheriff
+#  Candidates may be online player names or the keyword "npc".
+# ============================================================
+
+options:
+    prefix: &6[&lElection&6] &r
+    vote-time: 60
+    admin-perm: "townelection.admin"
+    # Comma-separated legal position ids
+    positions: mayor|banker|sheriff
+
+# -------------------------------------------------------
+function electionTownOf(p: player) :: text:
+    set {_t} to placeholder "townyadvanced_town" from {_p}
+    if {_t} is not set:
+        return ""
+    if {_t} is "" or "None" or "none" or "N/A" or "n/a" or "null":
+        return ""
+    return {_t}
+
+function isLegalPosition(pos: text) :: boolean:
+    set {_p} to {_pos} in lowercase
+    if {_p} is "mayor" or "banker" or "sheriff":
+        return true
+    return false
+
+function lpGroupFor(pos: text) :: text:
+    if {_pos} is "mayor":
+        return "town_mayor"
+    if {_pos} is "banker":
+        return "town_banker"
+    if {_pos} is "sheriff":
+        return "town_sheriff"
+    set {_g} to "town_%{_pos}%"
+    return {_g}
+
+function electionBroadcastTown(town: text, msg: text):
+    loop all players:
+        set {_t} to electionTownOf(loop-player)
+        if {_t} is {_town}:
+            send "{@prefix}%{_msg}%" to loop-player
+        else if loop-player has permission {@admin-perm}:
+            send "{@prefix}&8[%{_town}%] %{_msg}%" to loop-player
+
+function cleanTownElection(town: text):
+    delete {townelection::%{_town}%::active}
+    delete {townelection::%{_town}%::position}
+    loop {townelection::%{_town}%::candidate-count} times:
+        delete {townelection::%{_town}%::candidates::%loop-number%}
+    delete {townelection::%{_town}%::candidate-count}
+    delete {townelection::%{_town}%::current-index}
+    delete {townelection::%{_town}%::votes::*}
+    delete {townelection::%{_town}%::voted::*}
+    add 1 to {townelection::%{_town}%::generation}
+
+function canManageElection(p: player, town: text) :: boolean:
+    if {_p} has permission {@admin-perm}:
+        return true
+    if {_p} has permission "mayorelection.admin":
+        return true
+    set {_mayor} to placeholder "townyadvanced_town_mayor" from {_p}
+    if {_mayor} is "%{_p}%":
+        return true
+    if {townelection::%{_town}%::holder::mayor} is "%{_p}%":
+        return true
+    return false
+
+function announceTownCandidate(town: text):
+    set {_idx} to {townelection::%{_town}%::current-index}
+    set {_name} to {townelection::%{_town}%::candidates::%{_idx}%}
+    set {_pos} to {townelection::%{_town}%::position}
+    electionBroadcastTown({_town}, "&8&m                                        ")
+    electionBroadcastTown({_town}, "&e&lTOWN ELECTION ΓÇö %{_pos}% ΓÇö VOTE NOW!")
+    if {_name} is "npc":
+        electionBroadcastTown({_town}, "&7Candidate: &b&lNPC &7(no player)")
+    else:
+        electionBroadcastTown({_town}, "&7Candidate: &f&l%{_name}%")
+    electionBroadcastTown({_town}, "&7Type in chat: &a&lyes &7/ &c&lno &7/ &e&lnpc")
+    electionBroadcastTown({_town}, "&7You have &f{@vote-time} &7seconds. One vote per resident.")
+    electionBroadcastTown({_town}, "&8&m                                        ")
+
+function grantTownOffice(town: text, pos: text, name: text):
+    set {_group} to lpGroupFor({_pos})
+    set {_old} to {townelection::%{_town}%::holder::%{_pos}%}
+    if {_old} is set:
+        if {_old} is not "npc":
+            make console execute command "lp user %{_old}% parent remove %{_group}%"
+            if {_pos} is "banker":
+                make console execute command "ta rank remove %{_old}% banker"
+            if {_pos} is "sheriff":
+                make console execute command "ta rank remove %{_old}% sheriff"
+    if {_name} is "npc":
+        set {townelection::%{_town}%::holder::%{_pos}%} to "npc"
+        if {_pos} is "mayor":
+            make console execute command "ta mayor %{_town}% npc"
+        electionBroadcastTown({_town}, "&7An NPC will serve as %{_pos}%. No player rank assigned.")
+        stop
+    set {townelection::%{_town}%::holder::%{_pos}%} to {_name}
+    make console execute command "lp user %{_name}% parent add %{_group}%"
+    if {_pos} is "mayor":
+        make console execute command "ta mayor %{_town}% %{_name}%"
+    else if {_pos} is "banker":
+        make console execute command "ta rank add %{_name}% banker"
+    else if {_pos} is "sheriff":
+        make console execute command "ta rank add %{_name}% sheriff"
+    electionBroadcastTown({_town}, "&7LuckPerms group &e%{_group}% &7granted to &f%{_name}%&7.")
+
+function tallyTownVotes(town: text, gen: number):
+    if {townelection::%{_town}%::active} is not true:
+        stop
+    if {townelection::%{_town}%::generation} is not {_gen}:
+        stop
+
+    set {_yes} to {townelection::%{_town}%::votes::yes} ? 0
+    set {_no} to {townelection::%{_town}%::votes::no} ? 0
+    set {_npc} to {townelection::%{_town}%::votes::npc} ? 0
+    set {_total} to {_yes} + {_no} + {_npc}
+    set {_idx} to {townelection::%{_town}%::current-index}
+    set {_name} to {townelection::%{_town}%::candidates::%{_idx}%}
+    set {_pos} to {townelection::%{_town}%::position}
+
+    electionBroadcastTown({_town}, "&8&m                                        ")
+    electionBroadcastTown({_town}, "&eVoting closed for: &f%{_name}% &7(%{_pos}%)")
+    electionBroadcastTown({_town}, "  &aYes: &f%{_yes}%   &cNo: &f%{_no}%   &eNPC: &f%{_npc}%   &7(total: %{_total}%)")
+
+    if {_yes} > {_no} + {_npc}:
+        electionBroadcastTown({_town}, "&a&l%{_name}% has been ELECTED as %{_pos}% of %{_town}%!")
+        grantTownOffice({_town}, {_pos}, {_name})
+        electionBroadcastTown({_town}, "&8&m                                        ")
+        cleanTownElection({_town})
+    else:
+        electionBroadcastTown({_town}, "&c%{_name}% was NOT elected. Moving to the next candidate...")
+        add 1 to {townelection::%{_town}%::current-index}
+        add 1 to {townelection::%{_town}%::generation}
+        if {townelection::%{_town}%::current-index} > {townelection::%{_town}%::candidate-count}:
+            electionBroadcastTown({_town}, "&c&lAll candidates voted on. No %{_pos}% was elected.")
+            cleanTownElection({_town})
+        else:
+            delete {townelection::%{_town}%::votes::*}
+            delete {townelection::%{_town}%::voted::*}
+            set {_next-gen} to {townelection::%{_town}%::generation}
+            wait 3 seconds
+            if {townelection::%{_town}%::active} is not true:
+                stop
+            if {townelection::%{_town}%::generation} is not {_next-gen}:
+                stop
+            set {townelection::%{_town}%::votes::yes} to 0
+            set {townelection::%{_town}%::votes::no} to 0
+            set {townelection::%{_town}%::votes::npc} to 0
+            announceTownCandidate({_town})
+            startTownVoteTimer({_town})
+
+function startTownVoteTimer(town: text):
+    set {_gen} to {townelection::%{_town}%::generation}
+    wait {@vote-time} seconds
+    if {townelection::%{_town}%::active} is true:
+        if {townelection::%{_town}%::generation} is {_gen}:
+            electionBroadcastTown({_town}, "&eTime is up! Tallying votes now...")
+            tallyTownVotes({_town}, {_gen})
+
+function townResidentCountOnline(town: text) :: number:
+    set {_n} to 0
+    loop all players:
+        if electionTownOf(loop-player) is {_town}:
+            add 1 to {_n}
+    return {_n}
+
+function townVotedCount(town: text) :: number:
+    set {_n} to 0
+    loop all players:
+        if electionTownOf(loop-player) is {_town}:
+            if {townelection::%{_town}%::voted::%loop-player's uuid%} is true:
+                add 1 to {_n}
+    return {_n}
+
+# -------------------------------------------------------
+
+command /townelection <text>:
+    executable by: players
+    trigger:
+        set {_parts::*} to arg 1 split at " "
+        set {_sub} to {_parts::1}
+        set {_town} to electionTownOf(player)
+
+        if {_sub} is "status":
+            if {_town} is "":
+                send "{@prefix}&cYou are not in a town." to player
+                stop
+            if {townelection::%{_town}%::active} is not true:
+                send "{@prefix}&7No active election in &e%{_town}%&7." to player
+                stop
+            send "{@prefix}&e%{_town}% &7is electing &f%{townelection::%{_town}%::position}%" to player
+            send "{@prefix}&7Current candidate: &f%{townelection::%{_town}%::candidates::%{townelection::%{_town}%::current-index}%}%" to player
+            stop
+
+        if {_sub} is "holders":
+            if {_town} is "":
+                send "{@prefix}&cYou are not in a town." to player
+                stop
+            set {_hm} to {townelection::%{_town}%::holder::mayor}
+            set {_hb} to {townelection::%{_town}%::holder::banker}
+            set {_hs} to {townelection::%{_town}%::holder::sheriff}
+            if {_hm} is not set:
+                set {_hm} to "(none recorded)"
+            if {_hb} is not set:
+                set {_hb} to "(none)"
+            if {_hs} is not set:
+                set {_hs} to "(none)"
+            set {_tm} to placeholder "townyadvanced_town_mayor" from player
+            send "{@prefix}&e%{_town}% &7elected officers:" to player
+            send "  &6Mayor:   &f%{_hm}%" to player
+            send "  &eBanker:  &f%{_hb}%" to player
+            send "  &cSheriff: &f%{_hs}%" to player
+            send "  &7Towny mayor: &f%{_tm}%" to player
+            stop
+
+        if {_sub} is "cancel":
+            if {_town} is "":
+                send "{@prefix}&cYou are not in a town." to player
+                stop
+            if canManageElection(player, {_town}) is false:
+                send "{@prefix}&cOnly the town mayor or an admin can cancel." to player
+                stop
+            if {townelection::%{_town}%::active} is true:
+                electionBroadcastTown({_town}, "&cThe election has been cancelled.")
+                cleanTownElection({_town})
+                send "{@prefix}&aElection cancelled." to player
+            else:
+                send "{@prefix}&cThere is no active election to cancel." to player
+            stop
+
+        if {_sub} is "start":
+            if {_town} is "":
+                send "{@prefix}&cYou must be in a town to start an election." to player
+                stop
+            if canManageElection(player, {_town}) is false:
+                send "{@prefix}&cOnly the town mayor or an admin can start an election." to player
+                stop
+            if {townelection::%{_town}%::active} is true:
+                send "{@prefix}&cAn election is already running. Use &f/townelection cancel &cfirst." to player
+                stop
+            set {_pos} to {_parts::2}
+            if {_pos} is not set:
+                send "{@prefix}&cUsage: &f/townelection start <mayor|banker|sheriff> <candidate1> [c2] ..." to player
+                stop
+            set {_pos} to {_pos} in lowercase
+            if isLegalPosition({_pos}) is false:
+                send "{@prefix}&cUnknown position &f%{_pos}%&c. Use: {@positions}" to player
+                stop
+            set {_count} to 0
+            set {_total-parts} to size of {_parts::*}
+            loop integers from 3 to {_total-parts}:
+                set {_cname} to {_parts::%loop-number%}
+                if {_cname} is set:
+                    add 1 to {_count}
+                    set {townelection::%{_town}%::candidates::%{_count}%} to {_cname}
+            if {_count} is 0:
+                send "{@prefix}&cAdd at least one candidate (player name or &fnpc&c)." to player
+                stop
+            set {townelection::%{_town}%::active} to true
+            set {townelection::%{_town}%::position} to {_pos}
+            set {townelection::%{_town}%::candidate-count} to {_count}
+            set {townelection::%{_town}%::current-index} to 1
+            if {townelection::%{_town}%::generation} is not set:
+                set {townelection::%{_town}%::generation} to 0
+            set {townelection::%{_town}%::votes::yes} to 0
+            set {townelection::%{_town}%::votes::no} to 0
+            set {townelection::%{_town}%::votes::npc} to 0
+            send "{@prefix}&aStarted a &f%{_pos}% &aelection in &e%{_town}% &awith &f%{_count}% &acandidate(s)." to player
+            set {_start-gen} to {townelection::%{_town}%::generation}
+            wait 1 tick
+            if {townelection::%{_town}%::active} is not true:
+                stop
+            if {townelection::%{_town}%::generation} is not {_start-gen}:
+                stop
+            announceTownCandidate({_town})
+            startTownVoteTimer({_town})
+            stop
+
+        send "{@prefix}&cUnknown subcommand. Try &f/townelection" to player
+
+# -------------------------------------------------------
+on chat:
+    set {_town} to electionTownOf(player)
+    if {_town} is "":
+        stop
+    if {townelection::%{_town}%::active} is not true:
+        stop
+    set {_uuid} to player's uuid
+    if {townelection::%{_town}%::voted::%{_uuid}%} is true:
+        stop
+    set {_msg} to message in lowercase
+    if {_msg} is "yes", "no" or "npc":
+        cancel event
+        set {townelection::%{_town}%::voted::%{_uuid}%} to true
+        if {_msg} is "yes":
+            add 1 to {townelection::%{_town}%::votes::yes}
+            send "{@prefix}&aYour vote: &f&lYES" to player
+        else if {_msg} is "no":
+            add 1 to {townelection::%{_town}%::votes::no}
+            send "{@prefix}&cYour vote: &f&lNO" to player
+        else:
+            add 1 to {townelection::%{_town}%::votes::npc}
+            send "{@prefix}&eYour vote: &f&lNPC" to player
+        set {_online} to townResidentCountOnline({_town})
+        set {_voted} to townVotedCount({_town})
+        set {_remaining} to {_online} - {_voted}
+        if {_remaining} <= 0:
+            electionBroadcastTown({_town}, "&aAll town residents have voted! Tallying...")
+            wait 1 tick
+            tallyTownVotes({_town}, {townelection::%{_town}%::generation})
+        else:
+            electionBroadcastTown({_town}, "&7Vote cast. &f%{_remaining}% &7resident(s) still need to vote.")

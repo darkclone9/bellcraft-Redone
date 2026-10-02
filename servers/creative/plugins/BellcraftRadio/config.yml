@@ -1,0 +1,20 @@
+# Bellcraft Radio — Paper 1.21+
+web-player-url: https://join.bellcraft.online
+radio-api-base: https://join.bellcraft.online
+# Optional ingest-api (catalog pull on /bcradio reload)
+ingest-url: ""
+catalog-file: discs.json
+poll-interval-ticks: 100
+hud-interval-ticks: 20
+action-bar: true
+boss-bar: true
+personal-radio-volume: 1.0
+# If the player tunes mid-track, do not start the OGG late (vanilla cannot seek).
+mid-track-grace-seconds: 15.0
+auto-play-local-discs: true
+radio-jukebox-range: 64
+default-station: house
+
+messages:
+  web-fallback: "No licensed in-game disc for this track. Open the web player:"
+  add-guidance: "Do not paste YouTube links here. Staff upload licensed audio on the ingest console, then /bcradio reload."

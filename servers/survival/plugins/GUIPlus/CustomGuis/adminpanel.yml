@@ -1,0 +1,166 @@
+id: adminpanel
+rows: 3
+type: chest
+title: '&8Bellcraft &7| &cAdmin Panel'
+commandAlias: adminpanel
+commandAliasTarget: DISABLED
+disable-scene-animation: false
+scenes:
+  '0':
+    delay: 0
+    items:
+      '1':
+        slot: 22
+        item: BARRIER
+        amount: 1
+        click-events:
+          bf61eea7-45da-4877-85b2-c8fc5c780260:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:barrier
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Close
+              Panel",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"613473573"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Close
+          Panel",underlined:0b}],text:""}},count:1,id:"minecraft:barrier"}'
+        item-name: '&c&lClose Panel'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore: [
+              ]
+        item-flags: [
+          ]
+        unbreakable: false
+      '2':
+        slot: 11
+        item: DAMAGED_ANVIL
+        amount: 1
+        conditions:
+          ae6e3d7e-031d-49d7-9d8d-04bd26d7affe:
+            condition: has-permission
+            permission: gui.ban.user
+            inverted: false
+        click-events:
+          04f6a399-551c-49d8-b3ed-3a9f9fe89388:
+            type: player-picker-by-player-command
+            command: ban %player% Banned by %executor%
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:damaged_anvil
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Ban
+              Player",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1338578664"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"red",italic:0b,obfuscated:0b,strikethrough:0b,text:"Ban
+          Player",underlined:0b}],text:""}},count:1,id:"minecraft:damaged_anvil"}'
+        item-name: '&c&lBan Player'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Permanently ban a rulebreaker.'
+            - ''
+            - '&e> Click to select player'
+        item-flags: [
+          ]
+        unbreakable: false
+      '3':
+        slot: 13
+        item: ELYTRA
+        amount: 1
+        conditions:
+          7b21baea-4bd6-44a5-be2f-69fcbea3324d:
+            condition: has-permission
+            permission: gui.kick.user
+            inverted: false
+        click-events:
+          2f01b2e8-068e-4fb6-83af-6e891ef4f2e0:
+            type: player-picker-by-player-command
+            command: kick %player% You have been kicked by %executor%
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:elytra
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Kick
+              Player",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"1603956112"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"yellow",italic:0b,obfuscated:0b,strikethrough:0b,text:"Kick
+          Player",underlined:0b}],text:""}},count:1,id:"minecraft:elytra"}'
+        item-name: '&e&lKick Player'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Kick an active player.'
+            - ''
+            - '&e> Click to select player'
+        item-flags: [
+          ]
+        unbreakable: false
+      '4':
+        slot: 15
+        item: LECTERN
+        amount: 1
+        conditions:
+          30d087c2-9317-4856-9947-9c8689476090:
+            condition: has-permission
+            permission: gui.pardon.user
+            inverted: false
+        click-events:
+          93f889de-6339-4bbd-bf3d-3491fb500f5f:
+            type: offline-player-picker-command
+            command: unban %player%
+            clickType: NONE
+            executionDelay: 0.0
+            waitForCompletion: true
+        serialized-item:
+          ==: org.bukkit.inventory.ItemStack
+          DataVersion: 4903
+          id: minecraft:lectern
+          count: 1
+          components:
+            minecraft:custom_name: '{extra:[{bold:1b,color:"green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Pardon
+              Player",underlined:0b}],text:""}'
+            minecraft:custom_data: '{DataVersion:4903,PublicBukkitValues:{"guiplus:generated_id":"771553439"}}'
+          schema_version: 1
+        item-nbt-data: '{DataVersion:4903,components:{"minecraft:custom_data":{DataVersion:4903,PublicBukkitValues:{}},"minecraft:custom_name":{extra:[{bold:1b,color:"green",italic:0b,obfuscated:0b,strikethrough:0b,text:"Pardon
+          Player",underlined:0b}],text:""}},count:1,id:"minecraft:lectern"}'
+        item-name: '&a&lPardon Player'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Unban a player.'
+            - ''
+            - '&e> Click to select player'
+        item-flags: [
+          ]
+        unbreakable: false

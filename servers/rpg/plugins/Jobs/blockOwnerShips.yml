@@ -1,0 +1,15 @@
+Furnace:
+  3acdfc9e-2ece-4481-b187-19a836d5a5e6: world:217:247:142;world:218:248:142;world:29:73:507;world:29:93:471
+  6caab944-5ba2-458d-a890-ec58c2a23bf8: world:95:83:477;world:95:82:476;world:95:81:476
+  6814dad3-b7d9-4213-a2a6-003957a2a69c: world:53:130:498;world:56:130:493;world:56:130:494;world:56:130:496;world:51:130:498;world:78:90:445;world:76:90:452;world:52:130:498;world:75:90:452;world:77:90:453;world:78:90:453
+  80da481d-7a21-4a30-8a4a-b6df39122adf: world:54:91:494;world:122:67:496;world:54:91:495;world:122:67:495;world:-538:66:3449;world:-469:87:2582;world:-547:65:3430
+BlastFurnace:
+  6caab944-5ba2-458d-a890-ec58c2a23bf8: world:92:81:479;world:92:82:479;world:92:83:479
+  6814dad3-b7d9-4213-a2a6-003957a2a69c: world:-809:111:2169;world:127:70:451;world:127:70:450;world:54:130:498
+  80da481d-7a21-4a30-8a4a-b6df39122adf: world:132:66:499;world:124:66:499;world:128:66:499;world:136:66:499
+Brewing:
+  6caab944-5ba2-458d-a890-ec58c2a23bf8: world:91:81:478
+  6814dad3-b7d9-4213-a2a6-003957a2a69c: world:39:95:518
+  80da481d-7a21-4a30-8a4a-b6df39122adf: world:-687:74:5366;world:54:91:493
+Smoker:
+  80da481d-7a21-4a30-8a4a-b6df39122adf: world:54:90:495;world:133:70:502;world:132:70:503

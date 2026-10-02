@@ -1,0 +1,53 @@
+
+# Display options
+name: 'The Exotic Fruit'
+level-req:
+    main: 1
+
+# Quest lore displayed in the quest menu.
+lore:
+- 'Gimme mangoes please.'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Mangoes only grow in Oak trees. Go break 8 oak logs!'
+- '&7► Phase 2: Bring me mangoes'
+- ''
+- '&eRewards:'
+- '&7► 10 Gold coins'
+- '&7► 170 EXP'
+
+# Quests the player must finish
+# in order to unlock this one.
+parent: []
+
+# Cooldown in hours. Don't put any
+# to make the quest a one-time quest.
+# Put it to 0 to make it instantly redoable.
+delay: 0
+
+bossbar:
+    # Enable bossbar during the quest
+    enabled: true
+    # If true, it will display the percent of progress of the
+    # current objective. If false, it will display the percent of
+    # total quest progress (for instance, 33% = 1/3 objectives completed).
+    objective: true
+
+# Objectives the player needs to
+# complete. Once they're all complete,
+# the quest will end.
+objectives:
+    1:
+        type: 'mineblock{type=OAK_LOG;amount=8}'
+        lore: 'Mangoes only grow in Oak trees. Go break 8 oak logs!'
+        triggers:
+        - message{format="&aThank you! Those mangoes are gonna drop from these leaves."}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'getitem{type=APPLE;npc=1;amount=2}'
+        lore: 'Bring me mangoes.'
+        triggers:
+        - message{format="&aThis looked like apple. But owell, thanks! Here are a a few coins'"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 10"}
+        - 'experience{amount=170}'

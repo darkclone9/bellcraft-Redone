@@ -1,0 +1,16 @@
+# This feature allows you to convert any text entirely to a Unicode font. Instead of dealing
+# with each Unicode character individually, you only need to configure it once, and then you
+# can easily convert the text you want to Unicode using placeholders.
+
+unicode_converter:
+  enabled: true
+
+  # You can find more example from  https://qaz.wtf/u/convert.cgi?text=ABCDEFGHIJKLMNOPQRSTUVWXYZ+abcdefghijklmnopqrstuvwxyz
+  provision:
+    circled: A,Ⓐ,B,Ⓑ,C,Ⓒ,D,Ⓓ,E,Ⓔ,F,Ⓕ,G,Ⓖ,H,Ⓗ,I,Ⓘ,J,Ⓙ,K,Ⓚ,L,Ⓛ,M,Ⓜ,N,Ⓝ,O,Ⓞ,P,Ⓟ,Q,Ⓠ,R,Ⓡ,S,Ⓢ,T,Ⓣ,U,Ⓤ,V,Ⓥ,W,Ⓦ,X,Ⓧ,Y,Ⓨ,Z,Ⓩ,a,ⓐ,b,ⓑ,c,ⓒ,d,ⓓ,e,ⓔ,f,ⓕ,g,ⓖ,h,ⓗ,i,ⓘ,j,ⓙ,k,ⓚ,l,ⓛ,m,ⓜ,n,ⓝ,o,ⓞ,p,ⓟ,q,ⓠ,r,ⓡ,s,ⓢ,t,ⓣ,u,ⓤ,v,ⓥ,w,ⓦ,x,ⓧ,y,ⓨ,z,ⓩ
+    small: A,ᴀ,B,ʙ,C,ᴄ,D,ᴅ,E,ᴇ,F,ꜰ,G,ɢ,H,ʜ,I,ɪ,J,ᴊ,K,ᴋ,L,ʟ,M,ᴍ,N,ɴ,O,ᴏ,P,ᴘ,Q,ǫ,R,ʀ,S,s,T,ᴛ,U,ᴜ,V,ᴠ,W,ᴡ,X,x,Y,ʏ,Z,ᴢ,,a,ᴀ,b,ʙ,c,ᴄ,d,ᴅ,e,ᴇ,f,ꜰ,g,ɢ,h,ʜ,i,ɪ,j,ᴊ,k,ᴋ,l,ʟ,m,ᴍ,n,ɴ,o,ᴏ,p,ᴘ,q,ǫ,r,ʀ,s,s,t,ᴛ,u,ᴜ,v,ᴠ,w,ᴡ,x,x,y,ʏ,z,ᴢ
+
+# Do not manually edit the cached entries. If you need to make changes,
+# delete them using the admin command and recreate them.
+
+unicode_font_cache: {}

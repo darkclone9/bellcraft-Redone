@@ -1,0 +1,51 @@
+# Bellcraft survival TAB — bossbar skill bar & dynamic party HUD scoreboard
+header-footer:
+  enabled: false
+tablist-name-formatting:
+  enabled: false
+scoreboard:
+  enabled: true
+  toggle-command: /partyhud
+  remember-toggle-choice: true
+  hidden-by-default: false
+  use-numbers: false
+  static-number: 0
+  delay-on-join-milliseconds: 0
+  respect-other-plugins: true
+  scoreboards:
+    party:
+      display-condition: "%parties_has_party%=true"
+      title: "%bellcraft_party_title%"
+      lines:
+        - "&8------------------"
+        - "%bellcraft_party_member_1%"
+        - "%bellcraft_party_member_2%"
+        - "%bellcraft_party_member_3%"
+        - "%bellcraft_party_member_4%"
+        - "%bellcraft_party_member_5%"
+        - "%bellcraft_party_member_6%"
+        - "%bellcraft_party_member_7%"
+        - "%bellcraft_party_member_8%"
+        - "&8------------------"
+belowname-objective:
+  enabled: false
+playerlist-objective:
+  enabled: false
+global-playerlist:
+  enabled: false
+layout:
+  enabled: false
+ping-spoof:
+  enabled: false
+bossbar:
+  enabled: true
+  toggle-command: /skillbar
+  remember-toggle-choice: true
+  hidden-by-default: false
+  bars:
+    skillbar:
+      display-condition: "%mmocore_class%!=Human;%mmocore_class%!=None;%mmocore_class%!=HUMAN"
+      style: PROGRESS
+      color: YELLOW
+      progress: "100"
+      text: "%bellcraft_sbar%"

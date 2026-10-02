@@ -1,0 +1,42 @@
+doomhammer_mark_2_chest_piece:
+  itemname: Doomhammer Mark 2 Chestplate
+  material: LEATHER_CHESTPLATE
+  Components:
+    equippable:
+      slot: CHEST
+      asset_id: mythicarmor:doomhammer_mark_2_chest_piece
+mythical_dragon_armor_chest_piece:
+  itemname: Mythical Dragon Armor Chestplate
+  material: LEATHER_CHESTPLATE
+  Components:
+    equippable:
+      slot: CHEST
+      asset_id: mythicarmor:mythical_dragon_armor_chest_piece
+mythical_dragon_armor_legs_piece:
+  itemname: Mythical Dragon Armor Leggings
+  material: LEATHER_LEGGINGS
+  Components:
+    equippable:
+      slot: LEGS
+      asset_id: mythicarmor:mythical_dragon_armor_legs_piece
+mythical_dragon_armor_feet_piece:
+  itemname: Mythical Dragon Armor Boots
+  material: LEATHER_BOOTS
+  Components:
+    equippable:
+      slot: FEET
+      asset_id: mythicarmor:mythical_dragon_armor_feet_piece
+operative_chestplate_chest_piece:
+  itemname: Operative Chestplate Chestplate
+  material: LEATHER_CHESTPLATE
+  Components:
+    equippable:
+      slot: CHEST
+      asset_id: mythicarmor:operative_chestplate_chest_piece
+operative_fixed_chest_piece:
+  itemname: Operative Fixed Chestplate
+  material: LEATHER_CHESTPLATE
+  Components:
+    equippable:
+      slot: CHEST
+      asset_id: mythicarmor:operative_fixed_chest_piece

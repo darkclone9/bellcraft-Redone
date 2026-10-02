@@ -1,0 +1,18 @@
+COMBAT_STANCE:
+  name: '&6⚔ Combat Stance'
+  icon: IRON_CHESTPLATE
+  source: default:MAGICAL_SHIELD
+  parameters:
+    cooldown:
+      base: 3
+      per-level: -0.05
+      min: 1
+    mana:
+      base: 6
+      per-level: 0.12
+  triggers:
+    cast:
+    - particle{p=CRIT;amount=20;speed=0.05;hS=0.8;vS=1}
+    - sound{s=ITEM_ARMOR_EQUIP_IRON;v=1;p=0.8}
+    - potion{type=RESISTANCE;duration=5;amplifier=0}
+    - potion{type=SLOWNESS;duration=5;amplifier=0}

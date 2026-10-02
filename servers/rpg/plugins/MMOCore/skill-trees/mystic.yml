@@ -1,0 +1,507 @@
+id: mystic
+name: '&dCosmic Attunement'
+type: CUSTOM
+lore:
+  - '&dChannel cosmic energies and arcane forces'
+max-point-spent: 27
+icon:
+  material: AMETHYST_SHARD
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+  a1:
+    root: true
+    name: Cosmic Force I
+    coordinates:
+      x: -1
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eMagic damage +1'
+  a2:
+    name: Cosmic Force II
+    coordinates:
+      x: -2
+      y: 1
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eMagic damage +2'
+      1:
+        - '&eMagic damage +1'
+  a3:
+    name: Cosmic Force III
+    coordinates:
+      x: -3
+      y: 0
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eMagic damage +3'
+      1:
+        - '&eMagic damage +3'
+  b1:
+    root: true
+    name: Mending Aura I
+    coordinates:
+      x: -2
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALING_RATING";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealing rating +3'
+  b2:
+    name: Mending Aura II
+    coordinates:
+      x: -1
+      y: -2
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALING_RATING";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealing rating +4'
+      1:
+        - '&eHealing rating +3'
+  b3:
+    name: Mending Aura III
+    coordinates:
+      x: 0
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALING_RATING";amount=6;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealing rating +6'
+      1:
+        - '&eHealing rating +7'
+  c1:
+    root: true
+    name: Expanded Cosmos I
+    coordinates:
+      x: 0
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=10;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax Cosmic Energy +10'
+  c2:
+    name: Expanded Cosmos II
+    coordinates:
+      x: -1
+      y: 0
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=10;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax Cosmic Energy +10'
+      1:
+        - '&eMax Cosmic Energy +10'
+  c3:
+    name: Expanded Cosmos III
+    coordinates:
+      x: 0
+      y: 1
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=20;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax Cosmic Energy +20'
+      1:
+        - '&eMax Cosmic Energy +20'
+  d1:
+    root: true
+    name: Cosmic Flow I
+    coordinates:
+      x: 1
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMana regeneration +%5'
+  d2:
+    name: Cosmic Flow II
+    coordinates:
+      x: 2
+      y: 1
+    parents:
+      strong: {d1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMana regeneration +%8'
+      1:
+        - '&eMana regeneration +%5'
+  d3:
+    name: Cosmic Flow III
+    coordinates:
+      x: 2
+      y: 2
+    parents:
+      strong: {d2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMana regeneration +%12'
+      1:
+        - '&eMana regeneration +%13'
+  e1:
+    root: true
+    name: Star Surge I
+    coordinates:
+      x: 3
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eSkill damage +%5'
+  e2:
+    name: Star Surge II
+    coordinates:
+      x: 4
+      y: 2
+    parents:
+      strong: {e1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eSkill damage +%8'
+      1:
+        - '&eSkill damage +%5'
+  e3:
+    name: Star Surge III
+    coordinates:
+      x: 4
+      y: 1
+    parents:
+      strong: {e2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eSkill damage +%12'
+      1:
+        - '&eSkill damage +%13'
+  f1:
+    root: true
+    name: Temporal Weave I
+    coordinates:
+      x: 4
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%2'
+  f2:
+    name: Temporal Weave II
+    coordinates:
+      x: 4
+      y: -1
+    parents:
+      strong: {f1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%2'
+      1:
+        - '&eCooldown reduction +%2'
+  f3:
+    name: Temporal Weave III
+    coordinates:
+      x: 4
+      y: -2
+    parents:
+      strong: {f2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%4'
+      1:
+        - '&eCooldown reduction +%4'
+  g1:
+    root: true
+    name: Cosmic Resilience I
+    coordinates:
+      x: 3
+      y: -2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMax health +%5'
+  g2:
+    name: Cosmic Resilience II
+    coordinates:
+      x: 2
+      y: -2
+    parents:
+      strong: {g1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMax health +%8'
+      1:
+        - '&eMax health +%5'
+  g3:
+    name: Cosmic Resilience III
+    coordinates:
+      x: 2
+      y: -1
+    parents:
+      strong: {g2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMax health +%12'
+      1:
+        - '&eMax health +%13'
+  h1:
+    root: true
+    name: Cosmic Timing I
+    coordinates:
+      x: 5
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%3'
+  h2:
+    name: Cosmic Timing II
+    coordinates:
+      x: 6
+      y: 2
+    parents:
+      strong: {h1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%4'
+      1:
+        - '&eCooldown reduction +%3'
+  h3:
+    name: Cosmic Timing III
+    coordinates:
+      x: 6
+      y: 1
+    parents:
+      strong: {h2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=6;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%6'
+      1:
+        - '&eCooldown reduction +%7'
+  i1:
+    root: true
+    name: Starfall I
+    coordinates:
+      x: 5
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eSkill damage +%5'
+  i2:
+    name: Starfall II
+    coordinates:
+      x: 5
+      y: -2
+    parents:
+      strong: {i1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eSkill damage +%8'
+      1:
+        - '&eSkill damage +%5'
+  i3:
+    name: Starfall III
+    coordinates:
+      x: 6
+      y: -2
+    parents:
+      strong: {i2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eSkill damage +%12'
+      1:
+        - '&eSkill damage +%13'
+
+  # --- SKILL UNLOCK NODES ---
+
+  skill_void_step:
+    root: true
+    name: '&dUnlock: Void Step'
+    coordinates:
+      x: -4
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=MYSTIC_VOID_STEP}'
+    lores:
+      0:
+        - '&fPhase through space in a blink,'
+        - '&fre-emerging behind your foe.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &dVoid Step&7 ability!'
+
+  skill_starfall:
+    root: true
+    name: '&dUnlock: Starfall'
+    coordinates:
+      x: 0
+      y: 3
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=MYSTIC_STARFALL}'
+    lores:
+      0:
+        - '&fCall down a rain of cosmic'
+        - '&fstars to devastate enemies.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &dStarfall&7 ability!'
+
+  skill_celestial_bond:
+    root: true
+    name: '&dUnlock: Celestial Bond'
+    coordinates:
+      x: 4
+      y: 4
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=MYSTIC_CELESTIAL_BOND}'
+    lores:
+      0:
+        - '&fForge a cosmic bond with an ally,'
+        - '&fsharing healing and power.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &dCelestial Bond&7 ability!'
+
+  skill_cosmic_rift:
+    root: true
+    name: '&5Unlock: Cosmic Rift'
+    coordinates:
+      x: -4
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=COSMIC_RIFT}'
+    lores:
+      0:
+        - '&fTear open a rift in the cosmos,'
+        - '&fdamaging all enemies near you.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &5Cosmic Rift&7 ability!'
+
+  skill_graviton_field:
+    root: true
+    name: '&3Unlock: Graviton Field'
+    coordinates:
+      x: 7
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=GRAVITON_FIELD}'
+    lores:
+      0:
+        - '&fGenerate a graviton field that'
+        - '&fpulls in and slows nearby foes.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &3Graviton Field&7 ability!'

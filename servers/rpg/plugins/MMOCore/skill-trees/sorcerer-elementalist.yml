@@ -1,0 +1,381 @@
+id: sorcerer-elementalist
+name: "&cElementalist's Path"
+type: CUSTOM
+lore:
+  - '&cHarness raw elemental destruction'
+max-point-spent: 21
+icon:
+  material: BLAZE_ROD
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+  a1:
+    root: true
+    name: Arcane Surge I
+    coordinates:
+      x: -1
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMagic damage +%5'
+  a2:
+    name: Arcane Surge II
+    coordinates:
+      x: -2
+      y: 1
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMagic damage +%8'
+      1:
+        - '&eMagic damage +%5'
+  a3:
+    name: Arcane Surge III
+    coordinates:
+      x: -3
+      y: 0
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMagic damage +%12'
+      1:
+        - '&eMagic damage +%13'
+  b1:
+    root: true
+    name: Mana Well I
+    coordinates:
+      x: -2
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=6;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax arcana +%6'
+  b2:
+    name: Mana Well II
+    coordinates:
+      x: -1
+      y: -2
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=8;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax arcana +%8'
+      1:
+        - '&eMax arcana +%6'
+  b3:
+    name: Mana Well III
+    coordinates:
+      x: 0
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=10;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax arcana +%10'
+      1:
+        - '&eMax arcana +%14'
+  c1:
+    root: true
+    name: Spell Channel I
+    coordinates:
+      x: 0
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eSkill damage +%3'
+  c2:
+    name: Spell Channel II
+    coordinates:
+      x: -1
+      y: 0
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eSkill damage +%4'
+      1:
+        - '&eSkill damage +%3'
+  c3:
+    name: Spell Channel III
+    coordinates:
+      x: 0
+      y: 1
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=6;type="FLAT"}'
+    lores:
+      0:
+        - '&eSkill damage +%6'
+      1:
+        - '&eSkill damage +%7'
+  d1:
+    root: true
+    name: Arcane Flow I
+    coordinates:
+      x: 1
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eMana regeneration +%1'
+  d2:
+    name: Arcane Flow II
+    coordinates:
+      x: 2
+      y: 1
+    parents:
+      strong: {d1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eMana regeneration +%2'
+      1:
+        - '&eMana regeneration +%1'
+  d3:
+    name: Arcane Flow III
+    coordinates:
+      x: 2
+      y: 2
+    parents:
+      strong: {d2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eMana regeneration +%3'
+      1:
+        - '&eMana regeneration +%3'
+  e1:
+    root: true
+    name: Spellweave I
+    coordinates:
+      x: 3
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%1'
+  e2:
+    name: Spellweave II
+    coordinates:
+      x: 4
+      y: 2
+    parents:
+      strong: {e1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%2'
+      1:
+        - '&eCooldown reduction +%1'
+  e3:
+    name: Spellweave III
+    coordinates:
+      x: 4
+      y: 1
+    parents:
+      strong: {e2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%3'
+      1:
+        - '&eCooldown reduction +%3'
+  f1:
+    root: true
+    name: Elemental Resonance I
+    coordinates:
+      x: 4
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eMagic damage +%3'
+  f2:
+    name: Elemental Resonance II
+    coordinates:
+      x: 4
+      y: -1
+    parents:
+      strong: {f1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eMagic damage +%5'
+      1:
+        - '&eMagic damage +%3'
+  f3:
+    name: Elemental Resonance III
+    coordinates:
+      x: 4
+      y: -2
+    parents:
+      strong: {f2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=7;type="FLAT"}'
+    lores:
+      0:
+        - '&eMagic damage +%7'
+      1:
+        - '&eMagic damage +%8'
+  g1:
+    root: true
+    name: Arcane Constitution I
+    coordinates:
+      x: 3
+      y: -2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +%2'
+  g2:
+    name: Arcane Constitution II
+    coordinates:
+      x: 2
+      y: -2
+    parents:
+      strong: {g1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +%3'
+      1:
+        - '&eMax health +%2'
+  g3:
+    name: Arcane Constitution III
+    coordinates:
+      x: 2
+      y: -1
+    parents:
+      strong: {g2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +%4'
+      1:
+        - '&eMax health +%5'
+
+  # --- SKILL UNLOCK NODES ---
+
+  skill_arcane_missiles:
+    root: true
+    name: '&cUnlock: Arcane Missiles'
+    coordinates:
+      x: -4
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=SORCERER_ARCANE_MISSILES}'
+    lores:
+      0:
+        - '&fFire a rapid volley of'
+        - '&farcane bolts at your target.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &cArcane Missiles&7 ability!'
+
+  skill_elemental_shield:
+    root: true
+    name: '&bUnlock: Elemental Shield'
+    coordinates:
+      x: 0
+      y: 3
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=SORCERER_ELEMENTAL_SHIELD}'
+    lores:
+      0:
+        - '&fSurround yourself with a'
+        - '&fswirling elemental barrier.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &bElemental Shield&7 ability!'
+
+  skill_time_warp:
+    root: true
+    name: '&5Unlock: Time Warp'
+    coordinates:
+      x: 4
+      y: 4
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=SORCERER_TIME_WARP}'
+    lores:
+      0:
+        - '&fBend the flow of time,'
+        - '&fresetting your cooldowns.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &5Time Warp&7 ability!'

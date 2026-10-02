@@ -1,0 +1,84 @@
+Blocks:
+
+  # Here you can add extra blocks that can be expected inside or around tree leaves
+  Materials:
+  - minecraft:oak_leaves
+  - minecraft:spruce_leaves
+  - minecraft:birch_leaves
+  - minecraft:jungle_leaves
+  - minecraft:acacia_leaves
+  - minecraft:dark_oak_leaves
+  - minecraft:azalea_leaves
+  - minecraft:flowering_azalea_leaves
+  - minecraft:mangrove_leaves
+  - minecraft:cherry_leaves
+  - minecraft:pale_oak_leaves
+  Top:
+
+    # Allow air pockets in leaves
+    Air: true
+
+    # Check cubic edges
+    Edges: true
+
+    # Radius around the trunk to check for leaves
+    Radius: 5
+
+    # Height above the trunk to check for leaves
+    Height: 5
+  Middle:
+
+    # Allow air pockets in leaves
+    Air: true
+
+    # Check cubic edges
+    Edges: true
+
+    # Radius around the trunk to check for leaves
+    Radius: 4
+
+  # How many leaves do we require for it to be a valid tree
+  Required: 3
+
+# The parent tree config to inherit from, recursively
+Parent: default
+
+# The permission required for this tree type
+Permission: treeassist.destroy.lokvino.birch
+Replanting:
+
+  # Main switch to deactivate sapling replanting
+  Active: false
+
+  # The material to place
+  Material: minecraft:air
+Trunk:
+
+  # Look for branches
+  Branch: true
+
+  # The trunk can go diagonally
+  Diagonal: true
+
+  # Try to recognize as many blocks as possible as trunk blocks
+  Greedy: true
+
+  # How high does it need to be to qualify as a tree
+  Minimum Height: 3
+
+  # How high can it be to qualify as a tree
+  Maximum Height: -1
+
+  # How thick is the trunk
+  Thickness: 1
+
+  # One of these materials needs to be part of the trunk for it to count as a trunk
+  Materials:
+  - minecraft:birch_wood
+  - minecraft:stripped_birch_wood
+
+  # Saplings can be at different height
+  Uneven Bottom: true
+
+# Version number for automagical config updates
+Version: 7.3070

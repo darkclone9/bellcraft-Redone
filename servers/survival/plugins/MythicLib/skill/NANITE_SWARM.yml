@@ -1,0 +1,24 @@
+NANITE_SWARM:
+  name: '&aNanite Swarm'
+  icon: SLIME_BALL
+  source: default:POISON
+  parameters:
+    radius:
+      base: 5
+      per-level: 0.2
+      max: 10
+    damage:
+      base: 4
+      per-level: 1
+    cooldown:
+      base: 10
+      per-level: -0.05
+      min: 5
+    mana:
+      base: 6
+      per-level: 0.12
+  triggers:
+    cast:
+    - particle{p=HAPPY_VILLAGER;amount=30;speed=0.05;hS=1.5;vS=0.8}
+    - sound{s=ENTITY_BEE_LOOP;v=0.8;p=1.8}
+    - damage{amount={damage}}

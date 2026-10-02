@@ -1,0 +1,190 @@
+# ============================================================
+#  cinematic_intro.yml - LuxDialogues Example
+#
+#  Showcases:
+#   - @triggerGoto for automatic scene transitions (no external command needed)
+#   - goto: defining the @triggerGoto target
+#   - prevent-skip + prevent-exit (locked cinematic)
+#   - Conditional lines based on player history
+#   - Pre-actions for title/subtitle effects
+#   - Final page with player choice and story branching
+#   - Gradient text for dramatic effect
+#   - || operator in conditions
+#
+#  Usage: /ld send <player> cinematic_intro scene1
+#         Typically triggered by a quest or first-join event.
+# ============================================================
+
+Settings:
+  typing-speed: 1
+  range: -1            # Range disabled — cinematic plays regardless of position
+  effect: Freeze       # Player cannot move during cutscene
+  answer-numbers: true
+  prevent-exit: true   # Player cannot exit with sneak
+  prevent-skip: true   # Player cannot skip typing animation
+  npc-focus: false # Turn the player to face the NPC that started the dialogue (needs a Citizens / FancyNPCs / MythicMobs hook).
+  character-name: false
+  character-image: false
+  background-fog: true
+
+Sounds:
+  typing:
+    id: luxdialogues:luxdialogues.sounds.typing
+    source: MASTER
+    volume: 0.5
+    pitch: 0.9
+  selection:
+    id: luxdialogues:luxdialogues.sounds.selection
+    source: MASTER
+    volume: 1.0
+    pitch: 1.0
+
+Offsets:
+  name: 0
+  name-background: 20
+  dialogue-background: 0
+  dialogue-line: 10
+  answer-background: 140
+  answer-line: 13
+  arrow: -7
+  character: -16
+
+Character:
+  name: Narrator
+
+Images:
+  character-background: character-background
+  arrow: hand
+  dialogue-background: dialogue-background
+  answer-background: answer-background
+  name-start: name-start
+  name-mid: name-mid
+  name-end: name-end
+  fog: fog
+
+Colors:
+  name: '#4f4a3e'
+  name-background: '#f8ffe0'
+  dialogue: '#c8c8c8'
+  dialogue-background: '#1a1a1a'
+  answer: '#c8c8c8'
+  answer-background: '#1a1a1a'
+  character-background: '#ffffff'
+  arrow: '#1a1a1a'
+  selected: '#4f4a3e'
+  fog: '#000000'
+
+Pages:
+  'scene1':
+    lines:
+      - '<gradient:#888888:#ffffff>In a land forgotten by time...</gradient>'
+      - 'The ancient darkness stirs once more.'
+      - '<gradient:#e55b3a:#9b59b6>Something wicked nears the realm.</gradient>'
+    # @triggerGoto uses this page's goto target (scene2) — no external /ld redirect needed!
+    goto: 'scene2'
+    timer: 120   # 6 seconds, then auto-advance
+    timer-actions:
+      - '@triggerGoto'
+    pre-actions:
+      - '@console title %player_name% times 10 80 10'
+      - '@console title %player_name% subtitle {"text":"Chapter I","color":"gray"}'
+    post-actions: {}
+    exit-actions: {}
+
+  'scene2':
+    lines:
+      - 'Heroes rose to answer the call.'
+      # Conditional lines — reference player history
+      - '[condition.:quest.chapter1.complete:==true]You answered once, %player_name%.'
+      - '[condition.:quest.chapter1.complete:==false]Now it is your turn, %player_name%.'
+      - 'Thousands rest in fragile hands.'
+    goto: 'scene3'
+    timer: 120
+    timer-actions:
+      - '@triggerGoto'
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+
+  'scene3':
+    lines:
+      - '<gradient:#3498db:#9b59b6>The Void Gate has opened.</gradient>'
+      - 'Shadow creatures flood the realm.'
+      - 'The Council of Light calls warriors.'
+      # || operator — show urgent line if many players online OR player is already a hero
+      - '[condition.%server_online_count%>=50||:story.hero:==true]Fifty already fight — join them!'
+      - '[condition.%server_online_count%<50]Few remain. Will you stand?'
+    goto: 'choice'
+    timer: 140
+    timer-actions:
+      - '@triggerGoto'
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+
+  'choice':
+    lines:
+      - '<gradient:#c87941:#e55b3a>The choice is yours, %player_name%.</gradient>'
+      - 'Will you fight the darkness,'
+      - 'or turn away and let the realm burn?'
+    timer: 0
+    timer-actions: {}
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+    answers:
+      '1':
+        text: "<gradient:#82d850:#3cb84e>I will fight for the realm!</gradient>"
+        goto: 'ending_hero'
+        reply:
+          - '<gradient:#82d850:#c87941>A hero is born this day!</gradient>'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.ding
+          source: MASTER
+          volume: 1.0
+          pitch: 1.2
+        actions:
+          - '@console lp user %player_name% permission set story.hero true'
+          - '@console title %player_name% title {"text":"Hero of the Realm","color":"green","bold":true}'
+          - '@console msg %player_name% &a[Story] &7Your journey as a hero begins.'
+      '2':
+        text: "<gradient:#e52b2b:#888888>This is not my fight...</gradient>"
+        goto: 'ending_coward'
+        reply:
+          - '#e52b2bThe darkness laughs...'
+        sound:
+          id: luxdialogues:luxdialogues.sounds.beep
+          source: MASTER
+          volume: 0.8
+          pitch: 0.7
+        actions:
+          - '@console lp user %player_name% permission set story.neutral true'
+          - '@console msg %player_name% &7[Story] &8You chose to stay in the shadows...'
+
+  'ending_hero':
+    lines:
+      - '<gradient:#c87941:#82d850>%player_name%, Champion!</gradient>'
+      - 'Your name enters history.'
+      - 'Report to the #c87941Council Tower#c8c8c8.'
+    # No @triggerGoto — dialogue closes automatically when timer fires
+    timer: 160
+    timer-actions:
+      - '@console ld stop %player_name%'
+    pre-actions:
+      - '@delay.2 @console playsound minecraft:ui.toast.challenge_complete voice %player_name%'
+    post-actions: {}
+    exit-actions: {}
+
+  'ending_coward':
+    lines:
+      - '#888888The shadows swallow your doubt...'
+      - 'Perhaps courage will find you.'
+      - '#4f4a3eThe realm marches on without you.'
+    timer: 140
+    timer-actions:
+      - '@console ld stop %player_name%'
+    pre-actions: {}
+    post-actions: {}
+    exit-actions: {}
+
+#d21891d819abf57b5a57f22e6b637384

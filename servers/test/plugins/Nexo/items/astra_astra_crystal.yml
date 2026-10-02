@@ -1,0 +1,13 @@
+{
+  "astra_crystal": {
+    "itemname": "<gradient:#65e6ff:#b49bff>Astra Crystal</gradient>",
+    "material": "AMETHYST_SHARD",
+    "lore": [
+      "<gray>A fragment of the night sky.",
+      "<dark_aqua>Forged for Bellcraft."
+    ],
+    "Components": {
+      "item_model": "astra:astra_crystal"
+    }
+  }
+}

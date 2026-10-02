@@ -1,0 +1,335 @@
+# Bellcraft Soul Graves
+# Death seals your items into a grave instead of dropping them.
+# Seal length scales with how far the zone's level is above yours.
+# Recovery: walk back (free), a party member opens it, or pay the Reclaimer.
+# PvP deaths are untouched - they drop vanilla.
+
+options:
+    prefix: &8[&5Grave&8] &r
+    seal-minutes: 15
+    outmatched-seal-minutes: 60
+    open-minutes: 30
+    grave-block: reinforced deepslate
+    reclaim-per-tier: 20
+    reclaim-cooldown-minutes: 30
+    reclaim-radius: 40
+    merge-window-minutes: 5
+    buff-radius: 8
+
+# ---------------------------------------------------------------- zone tables
+
+function harshBiome(b: string) :: boolean:
+    if {zone.harsh::%{_b}%} is set:
+        return true
+    return false
+
+function zoneAt(l: location) :: strings:
+    # name, tier, minimum level - mirrors the bellcraft_zones datapack: rings measured from
+    # 0,0 in the overworld, with the harsh biomes adding the same 8 levels the titles show.
+    set {_b} to biomeKey({_l})
+    set {_w} to "%world of {_l}%"
+    if {_w} is "world_nether":
+        return "Cinderreach" and "6" and "55"
+    if {_w} is "world_the_end":
+        return "The Pale Crown" and "8" and "80"
+    if {_b} is "deep_dark":
+        return "The Hollowing Choir" and "7" and "70"
+    set {_x} to x of {_l}
+    set {_z} to z of {_l}
+    set {_d} to sqrt(({_x} * {_x}) + ({_z} * {_z}))
+    set {_name} to "The Sundered Wilds"
+    set {_tier} to 5
+    set {_min} to 45
+    if {_d} < 5000:
+        set {_name} to "Stormhollow Frontier"
+        set {_tier} to 4
+        set {_min} to 32
+    if {_d} < 3600:
+        set {_name} to "Ashenmoor Expanse"
+        set {_tier} to 3
+        set {_min} to 20
+    if {_d} < 2200:
+        set {_name} to "Thornwold March"
+        set {_tier} to 2
+        set {_min} to 10
+    if {_d} < 1000:
+        set {_name} to "Hearthvale"
+        set {_tier} to 1
+        set {_min} to 1
+    if harshBiome({_b}) is true:
+        set {_min} to {_min} + 8
+    return {_name} and "%{_tier}%" and "%{_min}%"
+
+on script load:
+    delete {zone.harsh::*}
+    set {_harsh::*} to "deep_ocean deep_cold_ocean deep_lukewarm_ocean deep_frozen_ocean badlands wooded_badlands eroded_badlands jungle bamboo_jungle dark_forest pale_garden mangrove_swamp ice_spikes jagged_peaks frozen_peaks windswept_savanna dripstone_caves lush_caves sulfur_caves deep_dark" split at " "
+    loop {_harsh::*}:
+        set {zone.harsh::%loop-value%} to true
+
+# ---------------------------------------------------------------- helpers
+
+function locKey(l: location) :: string:
+    return "%world of {_l}%,%floor(x of {_l})%,%floor(y of {_l})%,%floor(z of {_l})%"
+
+# Skript prints biomes as "dripstone caves" - the zone tables are keyed by id
+function biomeKey(l: location) :: string:
+    set {_b} to "%biome at {_l}%"
+    replace all "minecraft:" with "" in {_b}
+    replace all " " with "_" in {_b}
+    return {_b}
+
+function mmoLevel(p: player) :: number:
+    set {_raw} to placeholder "mmocore_level" from {_p}
+    set {_n} to {_raw} parsed as number
+    if {_n} is not set:
+        return 1
+    return {_n}
+
+function partyOf(p: player) :: string:
+    set {_raw} to placeholder "parties_party" from {_p}
+    if {_raw} is not set:
+        return ""
+    return {_raw}
+
+function graveOwnerName(id: string) :: string:
+    set {_u} to {grave::%{_id}%::owner}
+    return "%{grave::%{_id}%::ownername}%"
+
+# ---------------------------------------------------------------- death
+
+on death of player:
+    victim is a player
+    set {_p} to victim
+    # PvP kills drop vanilla - the killer earned it
+    if attacker is a player:
+        stop
+    if metadata value "bc_grave_exempt" of {_p} is true:
+        stop
+    set {_items::*} to drops
+    set {_xp} to victim's level * 7
+    if {_xp} > 100:
+        set {_xp} to 100
+    if size of {_items::*} is 0:
+        if {_xp} <= 0:
+            stop
+    set {_loc} to graveSpot(location of {_p})
+    set {_zone::*} to zoneAt({_loc})
+    set {_zonename} to {_zone::1}
+    set {_tier} to {_zone::2} parsed as number
+    set {_min} to {_zone::3} parsed as number
+    set {_lvl} to mmoLevel({_p})
+    set {_outmatched} to false
+    if {_lvl} < {_min}:
+        set {_outmatched} to true
+
+    # merge into a recent grave instead of scattering gear across a death loop
+    set {_merge} to ""
+    loop {graves.of::%uuid of {_p}%::*}:
+        set {_g} to loop-value
+        {grave::%{_g}%::created} is set
+        if difference between {grave::%{_g}%::created} and now < {@merge-window-minutes} minutes:
+            set {_merge} to {_g}
+    if {_merge} is not "":
+        add {_items::*} to {grave::%{_merge}%::items::*}
+        add {_xp} to {grave::%{_merge}%::xp}
+        clear drops
+        cancel the experience drops
+        send "{@prefix}&7Your gear was added to your grave at &f%{grave::%{_merge}%::coords}%&7." to {_p}
+        stop
+
+    add 1 to {grave.next}
+    set {_id} to "%{grave.next}%"
+    set {grave::%{_id}%::owner} to uuid of {_p}
+    set {grave::%{_id}%::ownername} to name of {_p}
+    set {grave::%{_id}%::items::*} to {_items::*}
+    set {grave::%{_id}%::xp} to {_xp}
+    set {grave::%{_id}%::loc} to {_loc}
+    set {grave::%{_id}%::coords} to "%floor(x of {_loc})%, %floor(y of {_loc})%, %floor(z of {_loc})% (%world of {_loc}%)"
+    set {grave::%{_id}%::created} to now
+    set {grave::%{_id}%::zone} to {_zonename}
+    set {grave::%{_id}%::party} to partyOf({_p})
+    set {grave::%{_id}%::tier} to {_tier}
+    set {grave::%{_id}%::outmatched} to {_outmatched}
+    if {_outmatched} is true:
+        set {grave::%{_id}%::seal} to {@outmatched-seal-minutes}
+    else:
+        set {grave::%{_id}%::seal} to {@seal-minutes}
+    add {_id} to {graves.of::%uuid of {_p}%::*}
+    set {grave.at::%locKey({_loc})%} to {_id}
+    set block at {_loc} to {@grave-block}
+    clear drops
+    cancel the experience drops
+
+    send "{@prefix}&dYour gear is sealed in a grave at &f%{grave::%{_id}%::coords}%&d." to {_p}
+    if {_outmatched} is true:
+        send "{@prefix}&7%{_zonename}% is level &c%{_min}%&7 and you are level &f%{_lvl}%&7 - sealed for &f{@outmatched-seal-minutes} minutes&7." to {_p}
+    else:
+        send "{@prefix}&7Sealed for &f{@seal-minutes} minutes&7, then anyone can loot it." to {_p}
+    send "{@prefix}&7&o/graves &7for directions, or /reclaim at spawn." to {_p}
+
+# place the grave somewhere it can actually exist
+function graveSpot(l: location) :: location:
+    set {_l} to {_l}
+    if y-coordinate of {_l} < 1:
+        set y-coordinate of {_l} to 1
+    loop 12 times:
+        set {_b} to block at {_l}
+        if {_b} is air or water or lava or cave air or short grass or tall grass or snow:
+            return {_l}
+        add 1 to y-coordinate of {_l}
+    return {_l}
+
+# ---------------------------------------------------------------- opening
+
+on right click on reinforced deepslate:
+    set {_id} to {grave.at::%locKey(location of clicked block)%}
+    {_id} is set
+    cancel event
+    set {_owner} to {grave::%{_id}%::owner}
+    set {_sealed} to false
+    if difference between {grave::%{_id}%::created} and now < ({grave::%{_id}%::seal} * 1 minute):
+        set {_sealed} to true
+    if uuid of player is not {_owner}:
+        if {_sealed} is true:
+            set {_party} to partyOf(player)
+            set {_ownerparty} to {grave::%{_id}%::party}
+            set {_denied} to false
+            if {_party} is "":
+                set {_denied} to true
+            if {_party} is not {_ownerparty}:
+                set {_denied} to true
+            if {_denied} is true:
+                send "{@prefix}&cThis grave is sealed to &f%{grave::%{_id}%::ownername}%&c." to player
+                stop
+            send "{@prefix}&7Recovering a grave for your party member &f%{grave::%{_id}%::ownername}%&7." to player
+    giveGrave({_id}, player)
+
+function giveGrave(id: string, p: player):
+    set {_left::*} to {grave::%{_id}%::items::*}
+    delete {grave::%{_id}%::items::*}
+    loop {_left::*}:
+        if {_p} can hold loop-value:
+            give loop-value to {_p}
+        else:
+            add loop-value to {grave::%{_id}%::items::*}
+    if {grave::%{_id}%::xp} > 0:
+        add {grave::%{_id}%::xp} to {_p}'s total experience
+        set {grave::%{_id}%::xp} to 0
+    if size of {grave::%{_id}%::items::*} > 0:
+        send "{@prefix}&eYour inventory is full - the rest is still in the grave." to {_p}
+        stop
+    removeGrave({_id})
+    send "{@prefix}&aGrave recovered." to {_p}
+
+function removeGrave(id: string):
+    set {_loc} to {grave::%{_id}%::loc}
+    if {_loc} is set:
+        if block at {_loc} is {@grave-block}:
+            set block at {_loc} to air
+        delete {grave.at::%locKey({_loc})%}
+    remove {_id} from {graves.of::%{grave::%{_id}%::owner}%::*}
+    delete {grave::%{_id}%::*}
+
+# ---------------------------------------------------------------- protection
+
+on break of reinforced deepslate:
+    {grave.at::%locKey(location of event-block)%} is set
+    cancel event
+    send "{@prefix}&cGraves cannot be broken - right click to loot." to player
+
+on explode:
+    loop exploded blocks:
+        if {grave.at::%locKey(location of loop-block)%} is set:
+            remove loop-block from exploded blocks
+
+# ---------------------------------------------------------------- upkeep
+
+every 1 minute:
+    loop {grave::*}:
+        set {_id} to loop-index
+        set {_created} to {grave::%{_id}%::created}
+        {_created} is set
+        set {_life} to ({grave::%{_id}%::seal} + {@open-minutes}) * 1 minute
+        if difference between {_created} and now > {_life}:
+            set {_loc} to {grave::%{_id}%::loc}
+            loop {grave::%{_id}%::items::*}:
+                drop loop-value-2 at {_loc}
+            removeGrave({_id})
+
+every 3 seconds:
+    loop all players:
+        set {_p} to loop-value
+        set {_ids::*} to {graves.of::%uuid of {_p}%::*}
+        size of {_ids::*} is not 0
+        set {_best} to ""
+        set {_bestd} to 100000
+        loop {_ids::*}:
+            set {_loc} to {grave::%loop-value-2%::loc}
+            {_loc} is set
+            if world of {_loc} is world of {_p}:
+                set {_d} to distance between {_loc} and location of {_p}
+                if {_d} < {_bestd}:
+                    set {_bestd} to {_d}
+                    set {_best} to loop-value-2
+        {_best} is not ""
+        set {_loc} to {grave::%{_best}%::loc}
+        # only near the grave, so this does not fight the skill bar script
+        if {_bestd} <= 64:
+            send action bar "&5Grave &7%floor({_bestd})%m &8| &7%floor(x of {_loc})%, %floor(y of {_loc})%, %floor(z of {_loc})%" to {_p}
+        if {_bestd} <= {@buff-radius}:
+            if {grave::%{_best}%::buffed} is not true:
+                set {grave::%{_best}%::buffed} to true
+                apply resistance 1 to {_p} for 20 seconds
+                apply speed 1 to {_p} for 20 seconds
+                send "{@prefix}&dYour resolve holds - grab your gear." to {_p}
+
+# ---------------------------------------------------------------- commands
+
+command /graves:
+    aliases: grave
+    description: List your sealed graves
+    trigger:
+        set {_ids::*} to {graves.of::%uuid of player%::*}
+        if size of {_ids::*} is 0:
+            send "{@prefix}&7You have no graves."
+            stop
+        send "{@prefix}&dYour graves:"
+        loop {_ids::*}:
+            set {_id} to loop-value
+            set {_left} to ({grave::%{_id}%::seal} * 1 minute) - (difference between {grave::%{_id}%::created} and now)
+            if {_left} < 1 second:
+                send " &8- &f%{grave::%{_id}%::coords}% &8| &7%{grave::%{_id}%::zone}% &8| &cunsealed - anyone can loot"
+            else:
+                send " &8- &f%{grave::%{_id}%::coords}% &8| &7%{grave::%{_id}%::zone}% &8| &asealed %{_left}%"
+
+command /reclaim:
+    description: Pay the Reclaimer at spawn to fetch your oldest grave
+    trigger:
+        set {_ids::*} to {graves.of::%uuid of player%::*}
+        if size of {_ids::*} is 0:
+            send "{@prefix}&7You have no graves."
+            stop
+        if {reclaim.cooldown::%uuid of player%} is set:
+            if difference between {reclaim.cooldown::%uuid of player%} and now < {@reclaim-cooldown-minutes} minutes:
+                send "{@prefix}&cThe Reclaimer is still resting. Walk back or ask your party."
+                stop
+        set {_spawn} to location(0, 38, 0, world "world")
+        set {_faraway} to false
+        if world of player is not world "world":
+            set {_faraway} to true
+        else if distance between player and {_spawn} > {@reclaim-radius}:
+            set {_faraway} to true
+        if {_faraway} is true:
+            send "{@prefix}&cThe Reclaimer only works at spawn."
+            stop
+        set {_id} to {_ids::1}
+        set {_cost} to {grave::%{_id}%::tier} * {@reclaim-per-tier}
+        if player's balance < {_cost}:
+            send "{@prefix}&cThe Reclaimer wants &f%{_cost}%&c coins - you have &f%player's balance%&c."
+            stop
+        remove {_cost} from player's balance
+        set {reclaim.cooldown::%uuid of player%} to now
+        set {_lostxp} to {grave::%{_id}%::xp}
+        set {grave::%{_id}%::xp} to 0
+        giveGrave({_id}, player)
+        send "{@prefix}&7Paid &f%{_cost}%&7 coins. The Reclaimer kept the &f%{_lostxp}%&7 experience as their fee."

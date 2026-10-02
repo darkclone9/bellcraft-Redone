@@ -1,0 +1,42 @@
+License-Key: '' # If you purchased it from MCModels it will be generated automatically, leave this blank.
+
+Settings:
+  lang: en
+  interaction: RightClickEntity # LeftClick / LeftClickEntity / LeftClickPlayer / RightClick / RightClickEntity / RightClickPlayer / SwapHand / Sneak / Jump - Jump needs effect other than Freeze, which blocks jumping
+  exit: Sneak # Sneak / None - ignored when interaction is Sneak, since one key cannot advance and close at once
+  hide-chat: true
+  scroll-cooldown: 5
+  command-cooldown: 5 # Don't touch if you don't know what you're doing
+
+Output: # It'll still be created in the LuxDialogues/Output folder as raw state.
+  pack-png: true
+  mcmeta: true
+  namespace: luxdialogues
+  save-to-directory: false
+  file-name: LuxDialoguesOutput # Name of the file
+  file-type: ZIP # ZIP / Folder
+  directory: ''
+  auto-detect-provider: false # If Nexo or ItemsAdder is installed, also copy the generated pack into its folder after /ld create-pack.
+
+Pack-Host: # Resource pack hosting & auto-delivery. Pack is (re)published on /ld create-pack.
+  type: none # none / external / self / lobfile
+  apply-on-join: false # Auto-send the pack when a player joins. Turn off to only send via /ld sendpack.
+  required: false # If true, players who decline/fail the pack are kicked.
+  self-host: # type: self -> the plugin runs a tiny HTTP server that serves the pack.
+    port: 8765
+    public-address: '' # Public IP or domain players connect to (the port must be reachable/forwarded).
+  external-host: # type: external -> you host the zip yourself and paste its direct URL here.
+    url: ''
+  lobfile: # type: lobfile -> the plugin uploads the pack to lobfile.com and uses the returned URL.
+    api-key: '' # From your lobfile account. Note: .zip uploads may require a paid tier.
+
+Hooks:
+  CustomNameplates: false
+  MMOCore: false
+  AuraSkills: false
+  FancyNPCs: false # It’s not required for interactions, only for the focus feature.
+  Citizens: false # It’s not required for interactions, only for the focus feature.
+  MythicMobs: false # It’s not required for interactions, only for the focus feature.
+
+First-Install: false # Don't touch if you don't know what you're doing
+# d21891d819abf57b5a57f22e6b637384

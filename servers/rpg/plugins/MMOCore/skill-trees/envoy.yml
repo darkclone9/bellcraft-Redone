@@ -1,0 +1,518 @@
+id: envoy
+name: '&6Command Presence'
+type: CUSTOM
+lore:
+  - '&6Inspire allies and coordinate with precision'
+max-point-spent: 33
+icon:
+  material: BOOK
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+  a1:
+    root: true
+    name: Quick Orders I
+    coordinates:
+      x: -1
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%2'
+  a2:
+    name: Quick Orders II
+    coordinates:
+      x: -2
+      y: 1
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%3'
+        - '&eCooldown reduction +%2'
+  a3:
+    name: Quick Orders III
+    coordinates:
+      x: -3
+      y: 0
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%5'
+        - '&eCooldown reduction +%5'
+  b1:
+    root: true
+    name: Rallying Cry I
+    coordinates:
+      x: -2
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALING_RATING";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealing rating +3'
+  b2:
+    name: Rallying Cry II
+    coordinates:
+      x: -1
+      y: -2
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALING_RATING";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealing rating +4'
+        - '&eHealing rating +3'
+  b3:
+    name: Rallying Cry III
+    coordinates:
+      x: 0
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="HEALING_RATING";amount=6;type="FLAT"}'
+    lores:
+      0:
+        - '&eHealing rating +6'
+        - '&eHealing rating +7'
+  c1:
+    root: true
+    name: Tactical Insight I
+    coordinates:
+      x: 0
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eBonus experience +%3'
+  c2:
+    name: Tactical Insight II
+    coordinates:
+      x: -1
+      y: 0
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eBonus experience +%4'
+        - '&eBonus experience +%3'
+  c3:
+    name: Tactical Insight III
+    coordinates:
+      x: 0
+      y: 1
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ADDITIONAL_EXPERIENCE";amount=6;type="FLAT"}'
+    lores:
+      0:
+        - '&eBonus experience +%6'
+        - '&eBonus experience +%7'
+  d1:
+    root: true
+    name: Authority Strike I
+    coordinates:
+      x: 1
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="WEAPON_DAMAGE";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eWeapon damage +1'
+  d2:
+    name: Authority Strike II
+    coordinates:
+      x: 2
+      y: 1
+    parents:
+      strong: {d1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="WEAPON_DAMAGE";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eWeapon damage +2'
+        - '&eWeapon damage +1'
+  d3:
+    name: Authority Strike III
+    coordinates:
+      x: 2
+      y: 2
+    parents:
+      strong: {d2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="WEAPON_DAMAGE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eWeapon damage +3'
+        - '&eWeapon damage +3'
+  e1:
+    root: true
+    name: Arcane Authority I
+    coordinates:
+      x: 3
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eMagic damage +1'
+  e2:
+    name: Arcane Authority II
+    coordinates:
+      x: 4
+      y: 2
+    parents:
+      strong: {e1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eMagic damage +2'
+        - '&eMagic damage +1'
+  e3:
+    name: Arcane Authority III
+    coordinates:
+      x: 4
+      y: 1
+    parents:
+      strong: {e2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eMagic damage +3'
+        - '&eMagic damage +3'
+  f1:
+    root: true
+    name: Battlefield Agility I
+    coordinates:
+      x: 4
+      y: 0
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MOVEMENT_SPEED";amount=3;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMovement speed +%3'
+  f2:
+    name: Battlefield Agility II
+    coordinates:
+      x: 4
+      y: -1
+    parents:
+      strong: {f1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MOVEMENT_SPEED";amount=4;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMovement speed +%4'
+        - '&eMovement speed +%3'
+  f3:
+    name: Battlefield Agility III
+    coordinates:
+      x: 4
+      y: -2
+    parents:
+      strong: {f2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MOVEMENT_SPEED";amount=6;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMovement speed +%6'
+        - '&eMovement speed +%7'
+  g1:
+    root: true
+    name: Supreme Command I
+    coordinates:
+      x: 3
+      y: -2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&6Supreme command CDR +%5'
+  g2:
+    name: Supreme Command II
+    coordinates:
+      x: 2
+      y: -2
+    parents:
+      strong: {g1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&6Supreme command CDR +%8'
+        - '&6Supreme command CDR +%5'
+  g3:
+    name: Supreme Command III
+    coordinates:
+      x: 2
+      y: -1
+    parents:
+      strong: {g2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&6Supreme command CDR +%12'
+        - '&6Supreme command CDR +%13'
+  h1:
+    root: true
+    name: Command Cadence I
+    coordinates:
+      x: 5
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%3'
+  h2:
+    name: Command Cadence II
+    coordinates:
+      x: 6
+      y: 2
+    parents:
+      strong: {h1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%4'
+        - '&eCooldown reduction +%3'
+  h3:
+    name: Command Cadence III
+    coordinates:
+      x: 6
+      y: 1
+    parents:
+      strong: {h2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=6;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%6'
+        - '&eCooldown reduction +%7'
+  i1:
+    root: true
+    name: Decisive Strike I
+    coordinates:
+      x: 5
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eSkill damage +%5'
+  i2:
+    name: Decisive Strike II
+    coordinates:
+      x: 5
+      y: -2
+    parents:
+      strong: {i1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eSkill damage +%8'
+        - '&eSkill damage +%5'
+  i3:
+    name: Decisive Strike III
+    coordinates:
+      x: 6
+      y: -2
+    parents:
+      strong: {i2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=12;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eSkill damage +%12'
+        - '&eSkill damage +%13'
+
+# --- NEW SKILL UNLOCK NODES ---
+  
+  skill_astral_link:
+    root: true
+    name: '&bUnlock: Astral Link'
+    icon:
+      material: END_ROD
+    coordinates:
+      x: -4
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=ASTRAL_LINK}'
+    lores:
+      0:
+        - '&fForms a persistent cosmic aura around'
+        - '&fyou, healing allies in an 8-block radius.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &bAstral Link&7 ability!'
+
+  skill_stellar_heal:
+    root: true
+    name: '&bUnlock: Stellar Heal'
+    icon:
+      material: NETHER_STAR
+    coordinates:
+      x: 0
+      y: 3
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=STELLAR_HEAL}'
+    lores:
+      0:
+        - '&fReleases a burst of cosmic energy,'
+        - '&fhealing allies within a 5-block radius.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &bStellar Heal&7 ability!'
+
+  skill_debilitating_shot:
+    root: true
+    name: '&8Unlock: Debilitating Shot'
+    icon:
+      material: SPECTRAL_ARROW
+    coordinates:
+      x: 4
+      y: 4
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=DEBILITATING_SHOT}'
+    lores:
+      0:
+        - '&fFires a high-velocity tactical round'
+        - '&fthat damages and heavily weakens the target.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &8Debilitating Shot&7 ability!'
+  skill_tactical_retreat:
+    root: true
+    name: '&fUnlock: Tactical Retreat'
+    icon:
+      material: LEATHER_BOOTS
+    coordinates:
+      x: -4
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=ENVOY_TACTICAL_RETREAT}'
+    lores:
+      0:
+        - '&fFall back to a strategic position'
+        - '&fand regroup your team.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &fTactical Retreat&7 ability!'
+
+  skill_battle_stance:
+    root: true
+    name: '&cUnlock: Battle Stance'
+    icon:
+      material: IRON_CHESTPLATE
+    coordinates:
+      x: -4
+      y: 3
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=ENVOY_BATTLE_STANCE}'
+    lores:
+      0:
+        - '&fAdopt a hardened combat posture'
+        - '&fready for frontline engagement.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &cBattle Stance&7 ability!'
+
+  skill_commanding_shout:
+    root: true
+    name: '&eUnlock: Commanding Shout'
+    icon:
+      material: BELL
+    coordinates:
+      x: 0
+      y: -4
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'unlock_skill{skill=ENVOY_COMMANDING_SHOUT}'
+    lores:
+      0:
+        - '&fLet out a booming order that'
+        - '&fbuffs allies in the vicinity.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &eCommanding Shout&7 ability!'

@@ -1,0 +1,43 @@
+
+# Display options
+name: 'Ocean Abyss'
+lore:
+- 'The deepest ocean abyss holds elder'
+- 'guardians and their minions. Dive into'
+- 'the darkness and emerge victorious!'
+- ''
+- '&6Objective:'
+- '&7► Phase 1: Kill 5 elder guardians'
+- '&7► Phase 2: Kill 30 guardians'
+- ''
+- '&eRewards:'
+- '&7► 2842 EXP'
+- '&7► 160 Gold Coins'
+- '&7► Frozen Blade'
+
+level-req:
+    main: 52
+
+parent:
+- 'elder-guardian-hunt'
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=ELDER_GUARDIAN;amount=5}'
+        lore: 'Kill 5 elder guardians.'
+        triggers:
+        - message{format="&aAdmiral> &fThe elders are vanquished! Now sweep away their guardians!"}
+        - sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}
+    2:
+        type: 'killmob{type=GUARDIAN;amount=30}'
+        lore: 'Kill 30 guardians.'
+        triggers:
+        - message{format="&aAdmiral> &fThe abyss is conquered! This frozen blade is worthy of you."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 160"}
+        - 'mmoitem{type=SWORD;id=FROZEN_BLADE}'
+        - 'experience{amount=2842}'

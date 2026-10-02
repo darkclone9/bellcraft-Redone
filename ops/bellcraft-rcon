@@ -1,0 +1,11 @@
+#!/bin/bash
+# bellcraft-rcon <server> <command...> - run a console command on a Bellcraft backend.
+# Reads the RCON port/password from the server's own server.properties, so devs never see them.
+# Remember: replies sent as Adventure Components come back EMPTY over RCON (see CLAUDE.md, "Console traps").
+set -euo pipefail
+srv=${1:-}; shift || true
+case " lobby survival creative classic rpg test " in *" $srv "*) ;; *) echo "usage: bellcraft-rcon <lobby|survival|creative|classic|rpg|test> <command...>"; exit 2;; esac
+[ $# -gt 0 ] || { echo "no command given"; exit 2; }
+P=/opt/bellcraft/$srv/server.properties
+port=$(grep -oP '^rcon.port=\K.*' "$P"); pass=$(grep -oP '^rcon.password=\K.*' "$P")
+exec python3 /opt/bellcraft/rcon.py 127.0.0.1 "$port" "$pass" "$@"

@@ -1,0 +1,33 @@
+
+# Display options
+name: 'River Fisher'
+lore:
+- 'Drowned creatures haunt the riverbanks'
+- 'and threaten anyone who comes near'
+- 'the water. Clear them out!'
+- ''
+- '&6Objective:'
+- '&7► Kill 8 drowned'
+- ''
+- '&eRewards:'
+- '&7► 627 EXP'
+- '&7► 7 Gold Coins'
+
+level-req:
+    main: 12
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=DROWNED;amount=8}'
+        lore: 'Kill 8 drowned.'
+        triggers:
+        - message{format="&aScout> &fThe riverbanks are safe once more. Fine work!"}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 7"}
+        - 'experience{amount=627}'

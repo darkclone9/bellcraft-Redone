@@ -1,0 +1,277 @@
+# Do NOT change this! Choose one and stick to it.
+#
+# When updating from MMOInventory 1 to MMOInventory 2, MMOInventory will convert the legacy mmoinventory
+# to the custom inventory with ID "mmoinventory1_legacy". If you change this ID, data of the old inventory
+# will be lost.
+#
+# This option is irrelevant for the vanilla inventory (as MMOInventory stores no vanilla inventory data).
+id: mmoinventory1_legacy
+
+# Toggle on/off for temporary disabling this inventory.
+enabled: true
+
+# Either 'custom' for custom inventories or 'vanilla' for the vanilla inventory.
+# There can be only one vanilla inventory at a time!
+type: custom
+
+# Should items from this custom inventory be dropped on death.
+# This option is only for custom inventories, as vanilla inventory
+# is already supported by the keepInventory world flag.
+drop_on_death: false
+
+ui_layout:
+
+  # Amount of rows in the inventory (between 1 and 6).
+  # Remember to check the slot numbers in the config section below when changing this.
+  # This option is only for custom inventories.
+  rows: 4
+
+  # Names of the inventories. This is also used to apply custom textures to the UIs.
+  # The default MMOInventory resource pack provides three basic textures:
+  # - u40E0 (classic)
+  # - u40E1 (classic v2)
+  # - u40E2 (Oraxen texture based)
+  #
+  # Note that in 1.20.X and under, GUI item models had a "scale" parameter that could
+  # be set to 110% to hide the vanilla grid pattern of any inventory. This no longer
+  # exists in 1.21+ and custom fonts are now required to achieve similar results.
+  name:
+    self: "&f%mythiclib_space_-17%\u40E0%mythiclib_space_-169%<#3F3F3F>Equipment"
+    other: "&f%mythiclib_space_-17%\u40E0%mythiclib_space_-169%<#3F3F3F>Equipment of {name}"
+
+# Command to be used in order to open the custom inventory.
+# This option is only for custom inventories.
+open_command:
+  enabled: true
+  name: 'custominv'
+  permission: 'custom_inv.open.mmoinventory_default'
+  aliases: [ mmoinv, rpginv, rpginventory ]
+
+  output:
+    player-command: '&cThis command is only for players.'
+    specify-player: '&cPlease specify a player.'
+    wrong-player: '&cCould not find the player called {arg}.'
+    not-enough-perms: '&cYou don''t have enough permissions.'
+
+# Adds a static item to players' inventories to open this custom inventory.
+# Requires a server reload when changed.
+inventory_button:
+  enabled: false
+  slot: 9
+  item:
+    material: CHEST
+    name: '&6Custom Inventory'
+    lore:
+      - ''
+      - '&eClick to open.'
+    # custom_model_data: 1
+    # skull_texture: eyJ0ZXh0dXJ.....
+
+# This option is only for custom inventories.
+script:
+
+  # This script runs before parsing the buttons or title placeholders
+  # when the UI is opened. You can also use this to add music.
+  # Remove to disable.
+  open:
+    #- 'send_message{format="Inventory opened!"}'
+    - 'play_sound{sound=BLOCK_CHEST_OPEN}'
+
+  close:
+    #- 'send_message{format="Inventory closed!"}'
+    - 'play_sound{sound=BLOCK_CHEST_CLOSE}'
+
+# Slots in the UI
+slots:
+  HELMET:
+    type: helmet
+    material: GOLD_NUGGET
+    custom_model_data_string: 'helmet'
+
+    #custom_model_data_float: 0.45        # 1.20.4+ Float custom model data. Either this, or string option above works completely fine
+    #custom_model_data: 0                 # 1.14-1.20.3 Custom model data. Prefer using custom_model_data_string on 1.20.4+
+    #tooltip: 'myplugin:tooltip_asset_id' # You can edit the slot icon tooltip that way
+    #custom_model_data_string: 'test'     # 1.20.4+ string custom model data
+    #item_model: 'minecraft:dirt'         # 1.21.2+ item model
+    #skull_texture: '......'              # Base-64 skull texture value or URL
+    #hide_tooltip: false                  # True or false, for vanilla tooltip
+    #unbreakable: false                   # Is it unbreakable or not?
+    #fake_attribute: false                # Should MythicLib add a fake attribute modifier? Useful for 1.20 or lower to hide vanilla attributes from the item
+    #item_flags: [HIDE_ENCHANTS, ....]    # Add item flags to your items. https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/inventory/ItemFlag.html
+
+    name: "&6Helmet Slot"
+    slot: 4
+    lore:
+      - Drag & drop an item to equip it.
+  CHESTPLATE:
+    type: chestplate
+    material: GOLD_NUGGET
+    custom_model_data_string: 'chestplate'
+    name: "&6Chestplate Slot"
+    slot: 13
+    lore:
+      - Drag & drop an item to equip it.
+  LEGGINGS:
+    type: leggings
+    material: GOLD_NUGGET
+    custom_model_data_string: 'leggings'
+    name: "&6Leggings Slot"
+    slot: 22
+    lore:
+      - Drag & drop an item to equip it.
+  BOOTS:
+    type: boots
+    material: GOLD_NUGGET
+    custom_model_data_string: 'boots'
+    name: "&6Boots Slot"
+    slot: 31
+    lore:
+      - Drag & drop an item to equip it.
+  OFF_HAND:
+    type: off_hand
+    material: GOLD_NUGGET
+    custom_model_data_string: 'off_hand'
+    name: "&6Off Hand Slot"
+    slot: 12
+    lore:
+      - Drag & drop an item to equip it.
+
+  ELYTRA:
+    type: elytra
+    material: GOLD_NUGGET
+    custom_model_data_string: "elytra"
+    name: "&6Elytra Slot"
+    restrictions:
+      - 'material{materials="ELYTRA"}'
+    slot: 14
+    lore:
+      - 'Only &bElytras&7 are allowed here.'
+      - '&bDeploy automatically&7 when falling.'
+      - 'Drag & drop an item to equip it.'
+
+  # Ring slots
+  LEFT_RING:
+    type: accessory
+    material: GOLD_NUGGET
+    custom_model_data_string: "ring1"
+    name: "&6Left Ring Slot"
+    slot: 34
+    restrictions:
+      - "mmoitemstype{type=RING}"
+    lore:
+      - Drag & drop an item to equip it.
+  RIGHT_RING:
+    type: accessory
+    material: GOLD_NUGGET
+    custom_model_data_string: "ring2"
+    name: "&6Right Ring Slot"
+    slot: 25
+    restrictions:
+      - "mmoitemstype{type=RING}"
+    lore:
+      - Drag & drop an item to equip it.
+
+  # Extra accessories
+  AMULET:
+    type: accessory
+    material: GOLD_NUGGET
+    custom_model_data_string: "amulet"
+    name: "&6Amulet Slot"
+    slot: 7
+    restrictions:
+      - "mmoitemstype{type=AMULET}"
+    lore:
+      - Drag & drop an item to equip it.
+  BRACELET:
+    type: accessory
+    material: GOLD_NUGGET
+    custom_model_data_string: "bracelet"
+    name: "&6Bracelet Slot"
+    slot: 16
+    restrictions:
+      - "mmoitemstype{type=BRACELET}"
+    lore:
+      - Drag & drop an item to equip it.
+  GLOVES:
+    type: accessory
+    material: GOLD_NUGGET
+    custom_model_data_string: "gloves"
+    name: "&6Gloves Slot"
+    slot: 1
+    restrictions:
+      - "mmoitemstype{type=GLOVES}"
+    lore:
+      - Drag & drop an item to equip it.
+
+  # Artifact slots
+  ARTIFACT_1:
+    type: accessory
+    material: GOLD_NUGGET
+    custom_model_data_string: "artifact1"
+    name: "&6Artifact Slot I"
+    slot: 10
+    restrictions:
+      - "mmoitemstype{type=ARTIFACT}"
+      - "unique{enabled=true}"
+    lore:
+      - Drag & drop an item to equip it.
+  ARTIFACT_2:
+    type: accessory
+    material: GOLD_NUGGET
+    custom_model_data_string: "artifact2"
+    name: "&6Artifact Slot II"
+    slot: 19
+    restrictions:
+      - "mmoitemstype{type=ARTIFACT}"
+      - "unique{enabled=true}"
+    lore:
+      - Drag & drop an item to equip it.
+  ARTIFACT_3:
+    type: accessory
+    material: GOLD_NUGGET
+    custom_model_data_string: "artifact3"
+    name: "&6Artifact Slot III"
+    slot: 28
+    restrictions:
+      - "mmoitemstype{type=ARTIFACT}"
+      - "unique{enabled=true}"
+    lore:
+      - Drag & drop an item to equip it.
+  FILL:
+    type: fill
+    material: GOLD_NUGGET
+    custom_model_data_string: "fill"
+    name: "iLoveTaner"
+    # Hides tooltip (1.20.5+ only)
+    hide_tooltip: true
+    slot: -1
+    lore: [ ]
+
+# Static items, not slots. Players can click on them but not move them around.
+items:
+  INFO:
+    #item: GOLD_NUGGET
+    #custom_model_data_string: "info"
+    material: SPRUCE_HANGING_SIGN
+    name: "&6Information"
+    slot: 5
+    lore:
+      - ''
+      - '&f ⌛ &7Level &f%mmocore_level%'
+      - '&f %mythiclib_space_1%❣%mythiclib_space_1% &7Class: &f%mmocore_class%'
+      - '&f ☄ &7Gold: &f%vault_eco_balance%'
+      - ''
+      - '&7Health: &f%mythiclib_stat_max_health%'
+      - '&7Defense: &f%mythiclib_stat_defense%'
+      - '&7Attack: &f%mythiclib_stat_attack_damage%'
+    on_click:
+      - 'command{format="p";from_console=false}'
+
+  CLOSE:
+    item: BARRIER
+    name: "&cClose"
+    slot: 35
+    lore:
+      - "&7Click to close this inventory."
+    on_click:
+      - 'close_inventory{}'

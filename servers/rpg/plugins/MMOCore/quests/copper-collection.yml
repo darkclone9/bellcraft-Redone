@@ -1,0 +1,31 @@
+# Display options
+name: 'Copper Collection'
+level-req:
+    main: 2
+lore:
+- 'Green verdigris streaks the damp rock faces below.'
+- 'The forge requires ductile copper to bind new alloys'
+- 'and line the town waterworks conduits.'
+- ''
+- '&6Objective:'
+- '&7► Mine 15 Copper Ore from subterranean veins'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 6 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'mineblock{type=COPPER_ORE;amount=15}'
+        lore: 'Mine 15 Copper Ore from subterranean veins.'
+        triggers:
+        - message{format="&6Blacksmith> &fFine copper veins! These will forge some sturdy conduits and alloys."}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 6"}
+        - 'experience{amount=170}'

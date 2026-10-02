@@ -1,0 +1,5 @@
+enable: true
+item:
+  material: PISTON
+  displayname: '#09EBDC&lCustom#89EB09&lItems'
+slot: 1

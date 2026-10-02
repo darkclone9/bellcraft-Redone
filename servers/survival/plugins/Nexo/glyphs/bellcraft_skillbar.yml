@@ -1,0 +1,90 @@
+# Bellcraft MMORPG-style skill casting bar glyphs
+# Placeholders: %nexo_<id>%
+
+skillslot_ready:
+  texture: bellcraft:hud/skillslot_ready
+  ascent: 14
+  height: 16
+  placeholders:
+  - ':sbar_ready:'
+  char: ꐓ
+
+skillslot_cooldown:
+  texture: bellcraft:hud/skillslot_cooldown
+  ascent: 14
+  height: 16
+  placeholders:
+  - ':sbar_cd:'
+  char: ꐔ
+
+skillslot_empty:
+  texture: bellcraft:hud/skillslot_empty
+  ascent: 14
+  height: 16
+  placeholders:
+  - ':sbar_empty:'
+  char: ꐕ
+
+skillbar_connector:
+  texture: bellcraft:hud/skillbar_connector
+  ascent: 14
+  height: 16
+  placeholders:
+  - ':sbar_gap:'
+  char: ꐖ
+
+skillbar_bg:
+  texture: bellcraft:hud/skillbar_bg
+  ascent: 18
+  height: 20
+  placeholders:
+  - ':sbar_bg:'
+  char: ꐗ
+
+skillbar_key_1:
+  texture: bellcraft:hud/key_1
+  ascent: 8
+  height: 10
+  placeholders:
+  - ':sbar_key_1:'
+  char: ꐘ
+
+skillbar_key_2:
+  texture: bellcraft:hud/key_2
+  ascent: 8
+  height: 10
+  placeholders:
+  - ':sbar_key_2:'
+  char: ꐙ
+
+skillbar_key_3:
+  texture: bellcraft:hud/key_3
+  ascent: 8
+  height: 10
+  placeholders:
+  - ':sbar_key_3:'
+  char: ꐚ
+
+skillbar_key_4:
+  texture: bellcraft:hud/key_4
+  ascent: 8
+  height: 10
+  placeholders:
+  - ':sbar_key_4:'
+  char: ꐛ
+
+skillbar_key_5:
+  texture: bellcraft:hud/key_5
+  ascent: 8
+  height: 10
+  placeholders:
+  - ':sbar_key_5:'
+  char: ꐜ
+
+skillbar_key_6:
+  texture: bellcraft:hud/key_6
+  ascent: 8
+  height: 10
+  placeholders:
+  - ':sbar_key_6:'
+  char: ꐝ

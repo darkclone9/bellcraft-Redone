@@ -1,0 +1,24 @@
+name: 'The Shriekers'
+lore:
+- 'Break them before they call'
+- 'whatever it is they call.'
+- ''
+- '&6Objective:'
+- '&7► Break 10 sculk shriekers'
+- ''
+- '&eRewards:'
+- '&7► 6160 EXP'
+level-req:
+    main: 74
+parent:
+- 'echoes-below'
+bossbar:
+    enabled: true
+    objective: true
+objectives:
+    1:
+        type: 'mineblock{type=SCULK_SHRIEKER;amount=10}'
+        lore: 'Break 10 sculk shriekers.'
+        triggers:
+        - 'experience{amount=6160}'
+        - 'sound{sound=ENTITY_EXPERIENCE_ORB_PICKUP;pitch=1;volume=1}'

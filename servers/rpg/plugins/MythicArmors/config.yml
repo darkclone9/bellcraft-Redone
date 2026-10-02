@@ -1,0 +1,50 @@
+# MythicArmor
+# Drop .bbmodel files into plugins/MythicArmor/models/ and run /mythicarmor reload.
+# Give pieces with /mythicarmor give <player> <set> <piece>.
+
+# Where the resource pack is written.
+pack-output: pack
+# Delete that folder before each rebuild so removed models leave no files behind.
+remove-old-pack: true
+# Also write pack.zip next to it.
+zip-pack: true
+pack-description: MythicArmor 3D armor
+# Build the pack on server start.
+build-on-enable: true
+# 3D armor render distance in blocks; the flat fallback texture shows beyond it.
+render-distance: 32
+# Emit EMF/ETF assets (per-set .jem models, variant .properties, emissive textures)
+# so the 3D armor also renders under Iris shaderpacks on clients with EMF/ETF.
+emf-etf: true
+# Render 3D armor on MC 26.2's Vulkan backend. Needs a GLSL 4.40 entity shader,
+# which macOS OpenGL (4.1 max) cannot compile, hiding every entity, not just armor.
+vulkan-3d-armor: false
+
+experimental:
+  # Pack four cube faces per texture instead of two (fewer textures and draw calls). 
+  # Requires 26.2+; breaks armor rendering on 1.21.6 through 26.1.
+  reduced-draw-calls: true
+  # Also ride the body carrier box's down face (a 3rd face per body layer):
+  # fewer textures and draw calls for body-heavy models.
+  down-slot-packing: true
+
+integrations:
+  # Register the armor as Nexo items and add the assets to Nexo's pack.
+  nexo:
+    enabled: true
+    # Generate item definitions in plugins/Nexo/items/mythicarmor_generated.yml.
+    auto-generated-files: true
+    # Reload Nexo automatically after /mythicarmor reload.
+    reload: true
+  # Turn ModelEngine's Create-Shader off: it overrides the same entity shaders this plugin needs.
+  modelengine:
+    disable-shader: true
+  # Registers the armor as MythicMobs/Crucible items: <namespace>:<set>_<suffix>.
+  # The built pack is copied into packs/MythicArmor/Assets/merge
+  mythicmobs:
+    enabled: false
+    # Generate item definitions in plugins/MythicMobs/packs/MythicArmor/items/mythicarmor_generated.yml.
+    auto-generated-files: true
+    # Regenerate the pack after /mythicarmor reload ("mythicmobs items generate").
+    reload: true
+    namespace: mythicarmor

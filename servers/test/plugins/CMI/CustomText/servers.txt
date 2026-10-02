@@ -1,0 +1,24 @@
+<AutoAlias>
+&8&m
+&b&lThe Bellcraft Network
+&8&m
+&7Your chat and messages follow you between servers, so
+&7you can keep talking to everyone wherever you are.
+
+&b&lLobby
+&7The hub you land in. Nothing to do here but pick
+&7where you are going next.
+<T>&8  [&bTravel to Lobby&8]</T><H>&7Send me to the lobby</H><C>/server lobby</C>
+
+&a&lSurvival
+&7The main world. Found a town, take a job, claim land
+&7and build. No RPG systems here - just survival.
+<T>&8  [&aTravel to Survival&8]</T><H>&7Send me to survival</H><C>/server survival</C>
+
+&6&lRPG
+&7Classes, skills, custom items and quests. A separate
+&7world with its own progression, kept apart from survival.
+<T>&8  [&6Travel to RPG&8]</T><H>&7Send me to the RPG world</H><C>/server rpg</C>
+
+&8&m
+<T>&8[&6Ranks&8]</T><H>&7See every rank</H><C>/ranks</C><Next><T>  &8[&aNew here?&8]</T><H>&7How to get started</H><C>/newhere</C>

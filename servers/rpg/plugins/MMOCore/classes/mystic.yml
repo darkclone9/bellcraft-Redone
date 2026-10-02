@@ -1,0 +1,127 @@
+display:
+  name: 'Mystic'
+  lore:
+    - '&eClass Role: Support / Cosmic Caster'
+    - '&7The mystic nurtures a spiritual bond'
+    - '&7between their allies using the fundamental'
+    - '&7forces of the cosmos.'
+  item: AMETHYST_SHARD
+  slot: 13
+
+mana:
+  char: '✦'
+  icon: '&d✦'
+  name: 'Cosmic Energy'
+  color:
+    full: LIGHT_PURPLE
+    half: DARK_PURPLE
+    empty: DARK_GRAY
+
+stats:
+  MAX_HEALTH:
+    base: 22.0
+    per-level: 2.5
+  MAX_MANA:
+    base: 50.0
+    per-level: 7.0
+  MAGIC_DAMAGE:
+    base: 1.8
+    per-level: 1.2
+  HEALING_RATING:
+    base: 15.0
+    per-level: 3.0
+  MOVEMENT_SPEED:
+    base: 0.12
+    per-level: 0.01
+
+attributes:
+  wisdom:
+    base: 12
+    per-level: 2.5
+  intelligence:
+    base: 8
+    per-level: 1.5
+
+options:
+  default: false
+  display: true
+  needs-permission: false
+  off-combat-health-regen: true
+  off-combat-mana-regen: true
+
+exp-curve: 'levels'
+exp-table: class_exp_table
+
+skill-slots:
+  1:
+    name: "&dCosmic Rift"
+    unlocked-by-default: true
+    lore:
+      - '&7Open a rift to damage foes'
+  2:
+    name: "&dAstral Barrier"
+    unlocked-by-default: true
+    lore:
+      - '&7Protect yourself with cosmic shielding'
+
+main-exp-sources:
+  - 'killmob{type=ZOMBIE;amount=4-6}'
+  - 'killmob{type=SKELETON;amount=4-6}'
+  - 'killmob{type=CREEPER;amount=6-10}'
+  - 'killmob{type=BLAZE;amount=9-15}'
+
+# Use MythicLib builtin skills (known-good handlers)
+skills:
+  ARCANE_RIFT:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  MAGICAL_SHIELD:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  # New skills
+  MYSTIC_VOID_STEP:
+    level: 5
+    max-level: 30
+    unlocked-by-default: false
+
+  MYSTIC_STARFALL:
+    level: 10
+    max-level: 30
+    unlocked-by-default: false
+
+  MYSTIC_CELESTIAL_BOND:
+    level: 15
+    max-level: 30
+    unlocked-by-default: false
+
+  # Standalone MythicLib skill unlocks (via skill tree)
+  COSMIC_RIFT:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  GRAVITON_FIELD:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+skill-trees:
+  - 'mystic'
+  - 'profession-mining'
+  - 'profession-woodcutting'
+  - 'profession-farming'
+  - 'profession-fishing'
+  - 'profession-alchemy'
+  - 'profession-smithing'
+  - 'profession-enchanting'
+  - 'profession-smelting'
+
+triggers:
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-ap %player_name%"}'
+    - 'command{format="bellcraft-grant-sp %player_name%"}'
+    - 'command{format="bellcraft-grant-stp %player% mystic"}'

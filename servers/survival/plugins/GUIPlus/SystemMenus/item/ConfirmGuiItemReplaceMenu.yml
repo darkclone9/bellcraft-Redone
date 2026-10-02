@@ -1,0 +1,59 @@
+title: "&cReplace item?"
+rows: 4
+empty-fill:
+  enabled: true
+  slots:
+    - all
+  item:
+    name: '&r'
+    lore: [ ]
+    type: ORANGE_STAINED_GLASS_PANE
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+confirm:
+  enabled: true
+  slot: 23
+  item:
+    name: '&a&lConfirm'
+    lore:
+      - '&7Click to confirm the &creplace, &4&lCANNOT BE UNDONE!'
+    type: GREEN_WOOL
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+cancel:
+  enabled: true
+  slot: 21
+  item:
+    name: '&c&lCancel'
+    lore:
+      - '&7Click to &ecancel &7the &areplace&7.'
+    type: RED_WOOL
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0
+arrow:
+  enabled: true
+  slot: 13
+  item:
+    name: "&f--->"
+    lore:
+      - "&cIf you confirm, the item will be replaced!"
+      - "&4&lTHIS ACTION CANNOT BE UNDONE!"
+    type: ARROW
+    amount: 1
+    item-flags:
+      - "all"
+    unbreakable: false
+    enchantments: [ ]
+    custom-model-data: 0

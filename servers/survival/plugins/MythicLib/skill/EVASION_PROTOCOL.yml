@@ -1,0 +1,18 @@
+EVASION_PROTOCOL:
+  name: '&8💨 Evasion Protocol'
+  icon: FEATHER
+  source: default:SWIFTNESS
+  parameters:
+    cooldown:
+      base: 8
+      per-level: -0.2
+      min: 4
+    mana:
+      base: 6
+      per-level: 0.12
+  triggers:
+    cast:
+    - particle{p=CLOUD;amount=25;speed=0.05;hS=0.8;vS=0.3}
+    - sound{s=ENTITY_PHANTOM_FLAP;v=1;p=1.4}
+    - potion{type=SPEED;duration=2;amplifier=1;particles=false;target=caster}
+    - potion{type=INVISIBILITY;duration=2;amplifier=0;particles=false;target=caster}

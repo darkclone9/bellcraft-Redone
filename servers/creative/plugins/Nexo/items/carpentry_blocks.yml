@@ -1,0 +1,115 @@
+ashen_oak_trapdoor:
+  itemname: Ashen Oak Trapdoor
+  Pack:
+    parent_model: block/template_orientable_trapdoor_bottom
+    texture: nexo:item/carpentry_blocks/ashen_oak_trapdoor
+  Mechanics:
+    custom_block:
+      type: TRAPDOOR
+      custom_variation: 1
+ashen_oak_slab:
+  itemname: Ashen Oak Slab
+  Pack:
+    parent_model: block/slab
+    texture: nexo:item/carpentry_blocks/ashen_oak_planks
+  Mechanics:
+    custom_block:
+      type: SLAB
+      custom_variation: 1
+ashen_oak_stair:
+  itemname: Ashen Oak Stairs
+  Pack:
+    parent_model: block/stairs
+    texture: nexo:item/carpentry_blocks/ashen_oak_planks
+  Mechanics:
+    custom_block:
+      type: STAIR
+      custom_variation: 1
+ashen_oak_leaves:
+  itemname: Ashen Oak Leaves
+  Pack:
+    parent_model: block/cube_all
+    texture: nexo:item/carpentry_blocks/ashen_oak_leaves
+  Mechanics:
+    custom_block:
+      type: GRATE
+      custom_variation: 1
+ashen_oak_door:
+  itemname: Ashen Oak Door
+  Pack:
+    texture: nexo:item/carpentry_blocks/ashen_oak_door
+  Mechanics:
+    custom_block:
+      type: DOOR
+      model: ashen_oak_door_placed
+      custom_variation: 1
+ashen_oak_door_placed:
+  excludeFromCommands: true
+  excludeFromInventory: true
+  Pack:
+    parent_model: block/door_bottom_left
+    textures:
+      top: nexo:item/carpentry_blocks/ashen_oak_door_top
+      bottom: nexo:item/carpentry_blocks/ashen_oak_door_bottom
+
+ashen_oak_sapling:
+  itemname: Ashen Oak Sapling
+  Pack:
+    parent_model: block/cross
+    texture: nexo:item/carpentry_blocks/ashen_oak_sapling
+  Mechanics:
+    custom_block:
+      type: STRINGBLOCK
+      custom_variation: 1
+ashen_oak_log:
+  itemname: Ashen Oak Log
+  Pack:
+    parent_model: block/cube_column
+    textures:
+      side: nexo:item/carpentry_blocks/ashen_oak_log
+      end: nexo:item/carpentry_blocks/ashen_oak_log_top
+  Mechanics:
+    custom_block:
+      type: NOTEBLOCK
+      directional:
+        type: LOG
+        x_block: ashen_oak_log_x
+        y_block: ashen_oak_log_y
+        z_block: ashen_oak_log_z
+      custom_variation: 1
+ashen_oak_log_y:
+  excludeFromCommands: true
+  excludeFromInventory: true
+  Mechanics:
+    custom_block:
+      type: NOTEBLOCK
+      directional:
+        parent_block: ashen_oak_log
+      custom_variation: 2
+ashen_oak_log_x:
+  excludeFromCommands: true
+  excludeFromInventory: true
+  Mechanics:
+    custom_block:
+      type: NOTEBLOCK
+      directional:
+        parent_block: ashen_oak_log
+      custom_variation: 3
+ashen_oak_log_z:
+  excludeFromCommands: true
+  excludeFromInventory: true
+  Mechanics:
+    custom_block:
+      type: NOTEBLOCK
+      directional:
+        parent_block: ashen_oak_log
+      custom_variation: 4
+ashen_oak_planks:
+  itemname: Ashen Oak Planks
+  Pack:
+    parent_model: block/cube_all
+    texture: nexo:item/carpentry_blocks/ashen_oak_planks
+  Mechanics:
+    custom_block:
+      type: NOTEBLOCK
+      custom_variation: 5

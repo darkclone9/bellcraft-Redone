@@ -1,0 +1,205 @@
+# Per-skill-tree GUI (default). Used by /skilltrees <id>
+# Specific overrides can be made with:
+# gui/specific-skill-tree/specific-skill-tree-<skill-tree-id>.yml
+
+name: '{skill_tree}'
+slots: 54
+
+# Default node lore formats
+node:
+  unlocked:
+    - '&a{status}'
+    - ''
+    - '&7Click to view details.'
+  unlockable:
+    - '&e{status}'
+    - ''
+    - '&aLeft click to unlock.'
+    - '&7Click to view details.'
+  locked:
+    - '&7{status}'
+    - ''
+    - '&7Unlock previous nodes first.'
+    - '&7Click to view details.'
+  fully-locked:
+    - '&c{status}'
+    - ''
+    - '&7You do not meet the requirements.'
+    - '&7Click to view details.'
+
+items:
+  back:
+    slots: [ 45 ]
+    function: back
+    item: BARRIER
+    name: '&cBack'
+    lore: { }
+
+  next:
+    slots: [ 52 ]
+    function: next
+    item: PLAYER_HEAD
+    texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19
+    name: '&aNext'
+    lore: { }
+
+  previous:
+    slots: [ 46 ]
+    function: previous
+    item: PLAYER_HEAD
+    texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==
+    name: '&aPrevious'
+    lore: { }
+
+  reallocate:
+    slots: [ 49 ]
+    function: reallocation
+    item: CAULDRON
+    name: '&aReallocate Skill Tree Points'
+    lore:
+      - ''
+      - 'You have spent a total of &6{total}&7 skill tree points.'
+      - '&7Right click to reallocate them.'
+      - ''
+      - '&eCosts 1 skill tree reallocation point.'
+      - '&e◆ Skill Tree Reallocation Points: &6{points}'
+
+  skill-tree-node:
+    function: 'skill-tree-node'
+    slots: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44 ]
+    name: '&a{name}'
+    item-flags: [ 'HIDE_ATTRIBUTES' ]
+    lore:
+      - '&eLevel &6{current-level}&e/&6{max-level}'
+      - '&eCosts &6{point-consumed} &ept per upgrade'
+      - ''
+      - '&7{node-lore}'
+      - ''
+      - '&e◆ Points Spent:&6 {point-spent}&e/&6{max-point-spent}'
+      - '&e◆ Available: &6{skill-tree-points} &e+ &6{global-points} &eGlobal'
+    path-lore: [ ]
+
+display:
+  paths:
+    unlocked:
+      default: WHITE_DYE
+      up: WHITE_DYE
+      down: WHITE_DYE
+      left: WHITE_DYE
+      right: WHITE_DYE
+      up-right: WHITE_DYE
+      up-left: WHITE_DYE
+      down-right: WHITE_DYE
+      down-left: WHITE_DYE
+      up-down: WHITE_DYE
+      right-left: WHITE_DYE
+    unlockable:
+      default: LIGHT_BLUE_DYE
+      up: LIGHT_BLUE_DYE
+      down: LIGHT_BLUE_DYE
+      left: LIGHT_BLUE_DYE
+      right: LIGHT_BLUE_DYE
+      up-right: LIGHT_BLUE_DYE
+      up-left: LIGHT_BLUE_DYE
+      down-right: LIGHT_BLUE_DYE
+      down-left: LIGHT_BLUE_DYE
+      up-down: LIGHT_BLUE_DYE
+      right-left: LIGHT_BLUE_DYE
+    locked:
+      default: GRAY_DYE
+      up: GRAY_DYE
+      down: GRAY_DYE
+      left: GRAY_DYE
+      right: GRAY_DYE
+      up-right: GRAY_DYE
+      up-left: GRAY_DYE
+      down-right: GRAY_DYE
+      down-left: GRAY_DYE
+      up-down: GRAY_DYE
+      right-left: GRAY_DYE
+    fully-locked:
+      default: BLACK_DYE
+      up: BLACK_DYE
+      down: BLACK_DYE
+      left: BLACK_DYE
+      right: BLACK_DYE
+      up-right: BLACK_DYE
+      up-left: BLACK_DYE
+      down-right: BLACK_DYE
+      down-left: BLACK_DYE
+      up-down: BLACK_DYE
+      right-left: BLACK_DYE
+
+  nodes:
+    unlocked:
+      default: LIME_CONCRETE
+      up-right-down-left: LIME_CONCRETE
+      up-right-down: LIME_CONCRETE
+      up-right-left: LIME_CONCRETE
+      up-down-left: LIME_CONCRETE
+      down-right-left: LIME_CONCRETE
+      up-right: LIME_CONCRETE
+      up-down: LIME_CONCRETE
+      up-left: LIME_CONCRETE
+      down-right: LIME_CONCRETE
+      down-left: LIME_CONCRETE
+      right-left: LIME_CONCRETE
+      right: LIME_CONCRETE
+      left: LIME_CONCRETE
+      up: LIME_CONCRETE
+      down: LIME_CONCRETE
+      no-path: LIME_CONCRETE
+    unlockable:
+      default: LIGHT_BLUE_CONCRETE
+      up-right-down-left: LIGHT_BLUE_CONCRETE
+      up-right-down: LIGHT_BLUE_CONCRETE
+      up-right-left: LIGHT_BLUE_CONCRETE
+      up-down-left: LIGHT_BLUE_CONCRETE
+      down-right-left: LIGHT_BLUE_CONCRETE
+      up-right: LIGHT_BLUE_CONCRETE
+      up-down: LIGHT_BLUE_CONCRETE
+      up-left: LIGHT_BLUE_CONCRETE
+      down-right: LIGHT_BLUE_CONCRETE
+      down-left: LIGHT_BLUE_CONCRETE
+      right-left: LIGHT_BLUE_CONCRETE
+      right: LIGHT_BLUE_CONCRETE
+      left: LIGHT_BLUE_CONCRETE
+      up: LIGHT_BLUE_CONCRETE
+      down: LIGHT_BLUE_CONCRETE
+      no-path: LIGHT_BLUE_CONCRETE
+    locked:
+      default: GRAY_CONCRETE
+      up-right-down-left: GRAY_CONCRETE
+      up-right-down: GRAY_CONCRETE
+      up-right-left: GRAY_CONCRETE
+      up-down-left: GRAY_CONCRETE
+      down-right-left: GRAY_CONCRETE
+      up-right: GRAY_CONCRETE
+      up-down: GRAY_CONCRETE
+      up-left: GRAY_CONCRETE
+      down-right: GRAY_CONCRETE
+      down-left: GRAY_CONCRETE
+      right-left: GRAY_CONCRETE
+      right: GRAY_CONCRETE
+      left: GRAY_CONCRETE
+      up: GRAY_CONCRETE
+      down: GRAY_CONCRETE
+      no-path: GRAY_CONCRETE
+    fully-locked:
+      default: BLACK_CONCRETE
+      up-right-down-left: BLACK_CONCRETE
+      up-right-down: BLACK_CONCRETE
+      up-right-left: BLACK_CONCRETE
+      up-down-left: BLACK_CONCRETE
+      down-right-left: BLACK_CONCRETE
+      up-right: BLACK_CONCRETE
+      up-down: BLACK_CONCRETE
+      up-left: BLACK_CONCRETE
+      down-right: BLACK_CONCRETE
+      down-left: BLACK_CONCRETE
+      right-left: BLACK_CONCRETE
+      right: BLACK_CONCRETE
+      left: BLACK_CONCRETE
+      up: BLACK_CONCRETE
+      down: BLACK_CONCRETE
+      no-path: BLACK_CONCRETE

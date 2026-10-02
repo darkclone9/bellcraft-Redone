@@ -1,0 +1,28 @@
+mythiclib:
+  verbose: ALL
+superworkbench:
+  main: superworkbench
+  aliases:
+  - swb
+  description: Open the super 5x5 workbench
+  permission: mythiclib.superworkbench
+  verbose: ALL
+megaworkbench:
+  main: megaworkbench
+  aliases:
+  - mwb
+  description: Open the mega 6x6 workbench
+  permission: mythiclib.megaworkbench
+  verbose: ALL
+healthscale:
+  main: healthscale
+  aliases: []
+  description: Deprecated, use '/ml debug healthscale' instead
+  permission: mythiclib.command.healthscale
+  verbose: ALL
+mmotempstat:
+  main: mmotempstat
+  aliases: []
+  description: Deprecated, use '/ml tempstat' instead
+  permission: mythiclib.tempstat
+  verbose: ALL

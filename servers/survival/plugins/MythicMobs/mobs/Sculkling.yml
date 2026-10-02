@@ -1,0 +1,43 @@
+Sculkling:
+  Type: HUSK
+  Display: '<gradient:#0B2A2E:#5CFFF7>Sculkling</gradient>'
+  Health: 14
+  Damage: 0
+  Options:
+    MovementSpeed: 0.30
+    FollowRange: 28
+    MaxCombatDistance: 36
+    AlwaysShowName: false
+    Silent: true
+    Despawn: true
+    PreventOtherDrops: true
+    PreventSunburn: true
+    PreventRandomEquipment: true
+    KnockbackResistance: 0.05
+  Modules:
+    ThreatTable: true
+  AIGoalSelectors:
+  - clear
+  - 0 movetowardstarget
+  - 1 lookatplayers
+  - 2 randomstroll
+  AITargetSelectors:
+  - clear
+  - 0 attacker
+  - 1 players
+  - 2 animals
+  - 3 monsters
+  - 4 villagers
+  Skills:
+  - model{mid=sculkling} @self ~onSpawn
+  - state{s=idle;li=1;lo=1} @self ~onSpawn
+  - state{s=walk;li=1;lo=1} @self ~onEnterCombat
+  - state{s=idle;li=1;lo=1} @self ~onDropCombat
+  # Force aggro on nearby living things (pigs included)
+  - threat{amount=60} @EntitiesInRadius{r=20;limit=8} ~onTimer:25
+  - skill{s=SculklingAcquireTarget} @self ~onTimer:15
+  - skill{s=SculklingSpit} @target ~onTimer:20
+  - effect:particles{p=sculk_soul;amount=6;hS=0.25;vS=0.25;speed=0.02} @self ~onDamaged 0.5
+  Drops:
+  - ECHO_SHARD 1 0.04
+  - EXPERIENCE_BOTTLE 1 0.25

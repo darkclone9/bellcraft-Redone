@@ -1,0 +1,61 @@
+# Bellcraft skill bar - dynamic per-slot skill icons
+# %bellcraft_sicon_1% .. %bellcraft_sicon_6%
+# %bellcraft_sbar% - always-on bossbar line
+
+placeholderapi placeholder with the prefix "bellcraft":
+	set {_id} to the identifier
+
+	if {_id} is "sbar":
+		set {_out} to ""
+		loop 6 times:
+			set {_slot} to loop-number
+			set {_icon} to placeholder "%%bellcraft_sicon_%{_slot}%%%" from player
+			set {_cd} to placeholder "%%mmocore_cooldown_bound_%{_slot}%%%" from player
+			set {_frame} to placeholder "%%nexo_skillslot_ready%%" from player
+			set {_cds} to "%{_cd}%"
+			set {_cooled} to false
+			if {_cds} is not "0":
+				if {_cds} is not "0.0":
+					if {_cds} is not "":
+						if {_cds} does not contain "None":
+							if {_cds} does not contain "none":
+								if {_cds} is not "<none>":
+									set {_cooled} to true
+			if {_cooled} is true:
+				set {_frame} to placeholder "%%nexo_skillslot_cooldown%%" from player
+				set {_out} to "%{_out}%%{_frame}%%{_icon}%&c%{_cds}%s "
+			else:
+				set {_out} to "%{_out}%%{_frame}%%{_icon}%&e%{_slot}% "
+		set the result to {_out}
+
+	else if {_id} starts with "sicon_":
+		set {_slotText} to {_id}
+		replace "sicon_" with "" in {_slotText}
+		set {_slot} to {_slotText} parsed as number
+		if {_slot} is not set:
+			set the result to placeholder "%%nexo_skillicon_empty%%" from player
+		else:
+			set {_skill} to placeholder "%%mmocore_id_bound_%{_slot}%%%" from player
+			set {_skill} to "%{_skill}%"
+			if {_skill} is "":
+				set the result to placeholder "%%nexo_skillicon_empty%%" from player
+			else if {_skill} contains "None":
+				set the result to placeholder "%%nexo_skillicon_empty%%" from player
+			else if {_skill} contains "none":
+				set the result to placeholder "%%nexo_skillicon_empty%%" from player
+			else if {_skill} is "<none>":
+				set the result to placeholder "%%nexo_skillicon_empty%%" from player
+			else:
+				set {_skill} to {_skill} in lower case
+				replace " " with "_" in {_skill}
+				set {_icon} to placeholder "%%nexo_skillicon_%{_skill}%%%" from player
+				set {_raw} to "%{_icon}%"
+				# unresolved PAPI/Nexo still contains a percent sign
+				if {_raw} contains "%%":
+					set the result to placeholder "%%nexo_skillicon_empty%%" from player
+				else if {_raw} is "":
+					set the result to placeholder "%%nexo_skillicon_empty%%" from player
+				else if {_raw} contains "nexo_skillicon_":
+					set the result to placeholder "%%nexo_skillicon_empty%%" from player
+				else:
+					set the result to {_icon}

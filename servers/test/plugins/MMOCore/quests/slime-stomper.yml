@@ -1,0 +1,32 @@
+
+# Display options
+name: 'Slime Stomper'
+level-req:
+    main: 3
+lore:
+- 'The swamps have become overrun with'
+- 'bouncy slimes. They may look silly'
+- 'but they are dangerous in numbers!'
+- ''
+- '&6Objective:'
+- '&7► Kill 15 slimes in the swamp'
+- ''
+- '&eRewards:'
+- '&7► 170 EXP'
+- '&7► 6 Gold Coins'
+
+parent: []
+
+bossbar:
+    enabled: true
+    objective: true
+
+objectives:
+    1:
+        type: 'killmob{type=SLIME;amount=15}'
+        lore: 'Kill 15 slimes in the swamp.'
+        triggers:
+        - message{format="&aSwamp Hermit> &fHa! Those wobbly things won't bother me anymore!"}
+        - sound{sound=ENTITY_PLAYER_LEVELUP;pitch=1;volume=1}
+        - command{format="mmocore coins %player_name% 6"}
+        - 'experience{amount=170}'

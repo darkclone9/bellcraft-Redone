@@ -1,0 +1,183 @@
+display:
+  name: 'Sorcerer'
+  lore:
+    - '&eClass Role: Caster DPS / Elementalist'
+    - '&7An innate spellcaster who channels'
+    - '&7raw elemental arcana to unleash'
+    - '&7devastating magical destruction.'
+  item: BLAZE_ROD
+  slot: 22
+
+mana:
+  char: "☄"
+  icon: "&c☄"
+  name: 'Arcana'
+  color:
+    full: RED
+    half: DARK_RED
+    empty: DARK_GRAY
+
+stats:
+  # Rebalanced 2026-09-10 on a shared budget: every class carries one primary damage
+  # stat and lands within ~8% of the others at base and ~7% per level. Every class also
+  # carries MANA_REGENERATION; without it a class with no Wisdom could cast three times
+  # and then wait three minutes.
+  # Highest MAGIC_DAMAGE in the game. No SKILL_DAMAGE, so it does not stack two
+  # damage stats on the same spells.
+  MAX_HEALTH:
+    base: 19
+    per-level: 1.9
+  MAX_MANA:
+    base: 56
+    per-level: 6.2
+  MAGIC_DAMAGE:
+    base: 7
+    per-level: 2.1
+  ARMOR:
+    base: 2
+    per-level: 0.2
+  MANA_REGENERATION:
+    base: 2.5
+    per-level: 0.6
+  MOVEMENT_SPEED:
+    base: 0.108
+    per-level: 0.0
+
+attributes:
+  # Fixed budget for every class: 20 points at base, 4.0 per level.
+  dexterity:
+    base: 2
+    per-level: 0.4
+  intelligence:
+    base: 16
+    per-level: 3.2
+  wisdom:
+    base: 2
+    per-level: 0.4
+
+options:
+  default: false
+  display: true
+  needs-permission: false
+  off-combat-health-regen: false
+  off-combat-mana-regen: true
+
+exp-curve: 'levels'
+exp-table: class_exp_table
+
+skill-slots:
+  1:
+    name: "&6Skill Slot I"
+    unlocked-by-default: true
+    can-manually-bind: true
+    lore:
+      - "&7Bind a skill with /skills"
+  2:
+    name: "&6Skill Slot II"
+    unlocked-by-default: true
+    can-manually-bind: true
+    lore:
+      - "&7Bind a skill with /skills"
+  3:
+    name: "&6Skill Slot III"
+    unlocked-by-default: true
+    can-manually-bind: true
+    lore:
+      - "&7Bind a skill with /skills"
+  4:
+    name: "&6Skill Slot IV"
+    unlocked-by-default: true
+    can-manually-bind: true
+    lore:
+      - "&7Bind a skill with /skills"
+  5:
+    name: "&6Skill Slot V"
+    unlocked-by-default: true
+    can-manually-bind: true
+    lore:
+      - "&7Bind a skill with /skills"
+  6:
+    name: "&6Skill Slot VI"
+    unlocked-by-default: true
+    can-manually-bind: true
+    lore:
+      - "&7Bind a skill with /skills"
+
+main-exp-sources:
+  - 'killmob{type=ZOMBIE;amount=2-4}'
+  - 'killmob{type=SKELETON;amount=2-6}'
+  - 'killmob{type=CREEPER;amount=4-8}'
+  - 'killmob{type=BLAZE;amount=8-11}'
+  - 'killmob{type=WITHER_SKELETON;amount=10-15}'
+  - 'killmob{type=WITCH;amount=6-10}'
+
+skill-trees:
+  - 'sorcerer-elementalist'
+  - 'profession-mining'
+  - 'profession-woodcutting'
+  - 'profession-farming'
+  - 'profession-fishing'
+  - 'profession-alchemy'
+  - 'profession-smithing'
+  - 'profession-enchanting'
+  - 'profession-smelting'
+
+# Use MythicLib builtin skills (known-good handlers)
+skills:
+  SORCERER_FIREBALL:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  SORCERER_FROST_NOVA:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  # New skills
+  SORCERER_ARCANE_MISSILES:
+    level: 5
+    max-level: 30
+    unlocked-by-default: false
+
+  SORCERER_ELEMENTAL_SHIELD:
+    level: 10
+    max-level: 30
+    unlocked-by-default: false
+
+  SORCERER_TIME_WARP:
+    level: 15
+    max-level: 30
+    unlocked-by-default: false
+
+  # ---- Specialisation skills (generated) ----
+  PYROMANCER_COMBUSTION:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  PYROMANCER_INFERNO:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  CRYOMANCER_FROSTBITE:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+  CRYOMANCER_GLACIAL_WARD:
+    level: 1
+    max-level: 20
+    unlocked-by-default: false
+
+triggers:
+  level-up-10:
+    - 'command{format="lp user %player_name% permission set betterrtp.group.lvl10 true"}'
+  level-up-20:
+    - 'command{format="lp user %player_name% permission set betterrtp.group.lvl20 true"}'
+  level-up-30:
+    - 'command{format="lp user %player_name% permission set betterrtp.group.lvl30 true"}'
+  level-up-40:
+    - 'command{format="lp user %player_name% permission set betterrtp.group.lvl40 true"}'
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-ap %player_name%"}'
+    - 'command{format="bellcraft-grant-sp %player_name%"}'
+    - 'command{format="bellcraft-grant-stp %player% sorcerer-elementalist"}'
