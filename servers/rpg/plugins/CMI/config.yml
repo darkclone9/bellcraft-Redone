@@ -1624,7 +1624,15 @@ WarmUps:
   # ATTENTION! cmi home command is being handled in special way and to prevent double warmup, add space, example: - cmi home :5:false
   # Experimental: add GlyphHead to the warmup to show particle effect while command is on warmup period. Like
   # - cmi warp :3:false:GlyphHead
-  Enabled: false
+  #
+  # Bellcraft: /home (alias of /cmi home) waits 3 seconds. The space before the
+  # colon is required so the homes menu still opens immediately and only the
+  # teleport waits. :false cancels it when the player leaves the block they
+  # started on. A hit that knocks them out of that block cancels it too.
+  # Damage that does not move them is cancelled by bellcraft-home-warmup.sk.
+  # /tp, /back and /warp are not listed, so they stay instant.
+  # Staff with cmi.warmupbypass.home (or cmi.warmupbypass.*) skip this wait.
+  Enabled: true
   InformOnNoMove: true
   showCounterBarInfo: false
   BossBarInfo:
@@ -1633,11 +1641,7 @@ WarmUps:
     # Options: 1, 6, 10, 12, 20
     Segments: '1'
   List:
-  - cmi tp :5:false
-  - cmi back:3:true
-  - cmi warp :3:false
   - cmi home :3:false
-  - cmi home :3:false-2
 Jail:
   # Defines in milliseconds how often to check if player leaves jail area
   # Bigger numbers can help slightly lower server load
