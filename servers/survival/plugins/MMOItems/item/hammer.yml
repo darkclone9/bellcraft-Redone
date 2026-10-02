@@ -72,6 +72,7 @@ THOR_HAMMER:
     disable-death-drop: true
 HEAVY_HAMMER:
   base:
+    revision: 1
     material: IRON_AXE
     name: §7§lHeavy Hammer
     max-durability: 3650.0
@@ -98,7 +99,8 @@ HEAVY_HAMMER:
       max-spread: 0.2
     required-level: 10.0
     required-class:
-      - Warrior
+      - Soldier
+      - Paladin
     stamina-cost: 4.0
     blunt-power: 5.0
     blunt-rating: 85.0

@@ -1,5 +1,6 @@
 BARBARIAN_AXE:
   base:
+    revision: 1
     material: NETHERITE_AXE
     name: §c§lBarbarian's Greataxe
     attack-damage:
@@ -16,7 +17,8 @@ BARBARIAN_AXE:
       max-spread: 0.2
     required-level: 70.0
     required-class:
-      - Warrior
+      - Soldier
+      - Paladin
     critical-strike-chance:
       base: 30.0
       spread: 0.1

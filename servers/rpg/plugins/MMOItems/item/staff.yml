@@ -147,6 +147,7 @@ MANA_STAFF:
     staff-spirit: MANA_SPIRIT
 VOID_STAFF:
   base:
+    revision: 1
     material: NETHERITE_HOE
     name: §5§lVoid Staff
     attack-damage: 25.0
@@ -168,7 +169,9 @@ VOID_STAFF:
     magic-damage: 40.0
     staff-spirit: VOID_SPIRIT
     required-class:
-      - Mage
+      - Mystic
+      - Sorcerer
+      - Necromancer
     ability:
       ability1:
         type: CURSED_BEAM

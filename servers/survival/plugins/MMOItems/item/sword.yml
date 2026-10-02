@@ -422,6 +422,7 @@ YANISDARK_SWORD:
 
 TOOLTIP_COPPER_SWORD:
   base:
+    revision: 1
     material: WOODEN_SWORD
     name: Copper Shortsword
     attack-damage: 10.0
@@ -431,10 +432,12 @@ TOOLTIP_COPPER_SWORD:
       fire:
         damage: 3.0
     required-class:
-      - Warrior
+      - Soldier
+      - Paladin
 
 TOOLTIP_SILVER_SWORD:
   base:
+    revision: 1
     material: IRON_SWORD
     name: Silver Shortsword
     attack-damage: 10.0
@@ -444,10 +447,12 @@ TOOLTIP_SILVER_SWORD:
       fire:
         damage: 3.0
     required-class:
-      - Warrior
+      - Soldier
+      - Paladin
 
 TOOLTIP_GOLD_SWORD:
   base:
+    revision: 1
     material: GOLDEN_SWORD
     name: Gold Shortsword
     attack-damage: 10.0
@@ -457,4 +462,5 @@ TOOLTIP_GOLD_SWORD:
       fire:
         damage: 3.0
     required-class:
-      - Warrior
+      - Soldier
+      - Paladin

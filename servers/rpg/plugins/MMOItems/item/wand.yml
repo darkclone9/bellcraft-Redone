@@ -143,11 +143,15 @@ COSMOS_WAND:
     required-level: 14.0
 SPELLCASTER_WAND:
   base:
+    revision: 1
     material: STICK
     name: §dSpellcaster Wand
     required-level: 1.0
     required-class:
-      - Mage
+      - Sorcerer
+      - Mystic
+      - Technomancer
+      - Necromancer
     range: 16.0
     attack-damage:
       base: 6.0

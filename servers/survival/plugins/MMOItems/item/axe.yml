@@ -1,5 +1,6 @@
 EXECUTIONER_AXE:
   base:
+    revision: 1
     material: IRON_AXE
     name: §cExecutioner's Axe
     disable-enchanting: true
@@ -32,7 +33,8 @@ EXECUTIONER_AXE:
             - v AIR 0 1..|v stick - 1.0..|v AIR 0 1..
     max-durability: 3150.0
     required-class:
-      - Warrior
+      - Soldier
+      - Paladin
     ability:
       ability1:
         type: EARTHQUAKE
@@ -137,6 +139,7 @@ BONE_CRACKER:
       max-spread: 0.45
 SKULL_BREAKER:
   base:
+    revision: 1
     material: IRON_AXE
     attack-damage:
       base: 17.0
@@ -155,8 +158,7 @@ SKULL_BREAKER:
       - '&7when smashing it on their skull.'
     required-level: 9.0
     required-class:
-      - Brute
-      - Warrior
+      - Soldier
 SILVER_AXE:
   base:
     material: IRON_AXE

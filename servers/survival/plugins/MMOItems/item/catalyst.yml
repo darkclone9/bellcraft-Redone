@@ -1,5 +1,6 @@
 NATURES_GIFT:
   base:
+    revision: 1
     material: OAK_SAPLING
     disable-crafting: true
     name: '&9Magical Catalyst'
@@ -11,7 +12,7 @@ NATURES_GIFT:
       max-spread: 0.25
     required-level: 4.0
     required-class:
-      - Wizard
+      - Cleric
       - Paladin
     hide-enchants: true
     enchants:
@@ -134,6 +135,7 @@ POWER_CRYSTAL:
     required-level: 5.0
 LUCK_CHARM:
   base:
+    revision: 1
     material: GOLD_NUGGET
     name: §e§lLuck Charm
     lore:
@@ -146,8 +148,6 @@ LUCK_CHARM:
     additional-experience: 25.0
     tier: MAGICAL
     required-level: 5.0
-    required-class:
-      - Mage
     disable-crafting: true
     disable-smelting: true
     disable-interaction: true
@@ -163,11 +163,10 @@ LUCK_CHARM:
     disable-death-drop: true
 THIN_TRANSPARENT_GLOVES:
   base:
+    revision: 1
     material: LEATHER
     name: §7Thin Transparent Gloves
     set: PSYCHIC
-    required-class:
-      - Mage
     attack-damage: 15.0
     magic-damage: 100.0
     tier: MAGICAL

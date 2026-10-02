@@ -1,5 +1,6 @@
 STEEL_DAGGER:
   base:
+    revision: 1
     material: IRON_SWORD
     name: '&fSteel Dagger'
     attack-damage:
@@ -32,8 +33,8 @@ STEEL_DAGGER:
     tier: COMMON
     required-level: 5.0
     required-class:
-    - Rogue
-    - Archer
+    - Operative
+    - Ranger
 DRACULA_DAGGER:
   base:
     material: IRON_SWORD
@@ -68,6 +69,7 @@ DRACULA_DAGGER:
     hide-enchants: true
 VERY_SHARP_DAGGER:
   base:
+    revision: 1
     material: IRON_SWORD
     tier: RARE
     max-durability: 1800.0
@@ -76,7 +78,7 @@ VERY_SHARP_DAGGER:
     displayed-type: §cSharp Dagger
     required-level: 12.0
     required-class:
-      - Assassin
+      - Operative
     attack-damage:
       base: 10.0
       scale: 0.13

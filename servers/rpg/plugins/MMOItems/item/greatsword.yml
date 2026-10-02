@@ -1,11 +1,12 @@
 HARDENED_STEEL_CLAYMORE:
   base:
+    revision: 1
     material: IRON_SWORD
     name: '&fHardened Steel Claymore'
     required-level: 13.0
     tier: RARE
     required-class:
-      - Warrior
+      - Soldier
       - Paladin
     attack-damage:
       base: 5.5
@@ -135,6 +136,7 @@ TWO_HANDED_STEEL_SWORD:
     hide-enchants: true
 EARTHLY_GREATSWORD:
   base:
+    revision: 1
     material: STONE_SWORD
     max-durability: 8400.0
     required-level: 30.0
@@ -152,7 +154,8 @@ EARTHLY_GREATSWORD:
       scale: 0.1
       spread: 0.2
     required-class:
-      - Warrior
+      - Soldier
+      - Paladin
     tier: EPIC
     name: §2Earthly Greatsword
     gem-sockets:
