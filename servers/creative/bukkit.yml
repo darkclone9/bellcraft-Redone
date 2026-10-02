@@ -10,7 +10,9 @@
 # Website: https://papermc.io/
 
 settings:
-  # The end folder is part of the survival snapshot. See ops/bellcraft-creative-world.
+  # The End is part of the survival snapshot. On Paper 26.1+ it lives at
+  # world/dimensions/minecraft/the_end (older worlds use a world_the_end folder).
+  # See ops/bellcraft-creative-world. Multiverse addresses it as minecraft:the_end.
   allow-end: true
   warn-on-overload: true
   permissions-file: permissions.yml

@@ -13,7 +13,12 @@ world must not be "world"). Stop creative first. Survival keeps running.
 
     sudo systemctl stop bellcraft-creative
     # Prefer a backup. This does not read survival's live world.
+    # Uses an unpacked survival/ directory under /opt/backups/bellcraft when one
+    # exists. Otherwise the newest survival_*.tar.zst is extracted to a temp dir
+    # (world folders only), copied, then removed. Needs the zstd CLI.
     sudo bellcraft-creative-world copy --from backup --replace
+    # Or name the archive. An extracted survival directory also works.
+    sudo bellcraft-creative-world copy --from backup --replace --source /opt/backups/bellcraft/survival_2026-10-02_05-15.tar.zst
     # Or a live snapshot. save-off / save-all flush, then save-on. Survival is not stopped.
     sudo bellcraft-creative-world copy --from live --replace
     sudo systemctl start bellcraft-creative
@@ -24,28 +29,74 @@ and refreshing replaces that work. Do not schedule this. A later run without
 --replace does nothing to the terrain. --replace archives the current creative
 worlds under /opt/bellcraft/_backups/creative-world/<timestamp>/ and copies again.
 
-What is copied: region files, entities, poi, level.dat, datapacks and the other
-world files. What is not copied: playerdata, stats, advancements, uid.dat,
-session.lock, symlinks, plugin data, databases. Creative keeps the playerdata it
-already had, so survival inventories are not imported and nothing is written
-back to survival. Chest contents are part of the terrain snapshot; items taken
-from those chests stay in creative's own player files.
+Paper 26.1+ keeps the nether and end inside world/dimensions/minecraft/the_nether
+and the_end. There is no world_nether or world_the_end directory. Older worlds
+still use those directories, and both layouts are copied. A 26.1 snapshot that
+has no separate nether/end folder does not fail. Leftover creative world_nether
+and world_the_end directories are archived out of the way so Paper does not
+migrate them over the dimensions that were just copied.
 
-level.dat is patched so the snapshot world itself is creative + peaceful
-(survival's GameType would otherwise load as survival). server.properties on
+What is copied: region files (including dimensions/), entities, poi, level.dat,
+datapacks, maps (data/map_*.dat, data/minecraft/maps/, idcounts.dat, last_id.dat),
+world border, forceload tickets, dragon-fight data, command storage, and Paper
+level_overrides / world persistent data. Chest contents are part of the terrain
+snapshot.
+
+What is not copied:
+- Player stores. Paper 26.1 uses world/players/{data,stats,advancements}. Older
+  worlds use world/playerdata, world/stats and world/advancements. None of those
+  trees are copied. Across --replace, creative's copies of the same trees are
+  put back, so survival inventories, stats and advancements are not imported and
+  creative's own players stay.
+- raids.dat, raids_end.dat and raids_nether.dat. An in-progress raid names the
+  players who started it and should not resume on creative.
+- scoreboard.dat (data/scoreboard.dat and data/minecraft/scoreboard.dat). It holds
+  named player scores and teams. Datapack objectives reset on creative; the
+  terrain does not need them. Maps are kept, because map items in chests point
+  at those files.
+- uid.dat, session.lock, level.dat_old, symlinks.
+- paper-world.yml at the world root and inside each dimension. That file is
+  per-server tuning. Creative already has config/paper-world-defaults.yml.
+- Plugin jars, plugin folders and databases. Nothing is written back to survival.
+
+level.dat is patched so the snapshot itself is creative + peaceful. Old worlds
+store Difficulty as a byte; 26.1 stores difficulty_settings.difficulty as the
+string peaceful/easy/normal/hard. Both are patched. server.properties on
 creative is updated in place. That file is redacted and is not deployed from
-git; rcon password, ports and other keys are left as they are.
+git; rcon password, ports and other keys are left as they are. Multiverse's
+worlds.yml already sets minecraft:the_nether and minecraft:the_end to creative
+and peaceful. Those keys are the dimension ids. legacy-world-name stays
+world_nether / world_the_end because that is still the Bukkit world name.
 
---dry-run prints the plan and writes nothing. It does not send save-off.
+--dry-run prints the plan and writes nothing. It does not send save-off and it
+does not extract a backup archive. It does check that the disk can hold the
+world members of a .tar.zst.
 """
-import argparse, datetime, gzip, json, os, shutil, struct, subprocess, sys, time
+import argparse, datetime, gzip, json, os, re, shutil, struct, subprocess, sys, tempfile, time
 
 WORLDS = ('world', 'world_nether', 'world_the_end')
+# Bukkit names whose terrain lives under world/dimensions/minecraft/ on Paper 26.1+.
+DIMENSION_DIRS = (('the_nether', 'world_nether'), ('the_end', 'world_the_end'))
+# Top of a world folder. Paper 26.1 player files are world/players/{data,stats,advancements}.
+# Older worlds use playerdata, stats and advancements next to level.dat.
 ROOT_SKIP = {
-    'playerdata', 'stats', 'advancements', 'uid.dat', 'session.lock',
-    'paper-world.yml', 'level.dat_old',
+    'players', 'playerdata', 'stats', 'advancements',
+    'uid.dat', 'session.lock', 'paper-world.yml', 'level.dat_old',
 }
-KEEP_PLAYER = ('playerdata', 'stats', 'advancements')
+# Restored from the archived creative world after --replace.
+KEEP_PLAYER = ('players', 'playerdata', 'stats', 'advancements')
+# Skipped at any depth. Raids and the scoreboard are player/event state, not terrain.
+# paper-world.yml inside a dimension is per-server tuning, same as the old root file.
+SKIP_ANYWHERE = {
+    'raids.dat', 'raids_end.dat', 'raids_nether.dat', 'scoreboard.dat',
+    'session.lock', 'paper-world.yml', 'uid.dat', 'level.dat_old',
+}
+ARCHIVE_SUFFIXES = ('.tar.zst', '.tzst', '.tar.gz', '.tgz', '.tar')
+EXTRACT_MARGIN = 64 * 1024 * 1024
+TAR_LIST_RE = re.compile(
+    r'^(?P<kind>[a-zA-Z-])\S*\s+\S+\s+(?P<size>\d+)\s+'
+    r'\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}(?::\d{2})?\s+(?P<name>.*)$'
+)
 PROPERTY_UPDATES = {
     'gamemode': 'creative',
     'force-gamemode': 'true',
@@ -167,7 +218,7 @@ def _skip_payload(buf, i, tag_type):
             i = _skip_payload(buf, i, elem)
         return i
     if tag_type == TAG_COMPOUND:
-        return _walk_compound(buf, i, False, {})
+        return _walk_compound(buf, i, ('_skip',), {})
     if tag_type == TAG_INT_ARRAY:
         n, i = _i32(buf, i)
         if n < 0:
@@ -181,7 +232,7 @@ def _skip_payload(buf, i, tag_type):
     raise ValueError(f'unknown nbt tag {tag_type}')
 
 
-def _walk_compound(buf, i, in_data, found):
+def _walk_compound(buf, i, parents, found):
     while i < len(buf):
         tag_type = buf[i]
         i += 1
@@ -190,10 +241,11 @@ def _walk_compound(buf, i, in_data, found):
         nlen, i = _u16(buf, i)
         name = buf[i:i + nlen].decode('utf-8')
         i += nlen
-        if in_data and name in ('GameType', 'Difficulty'):
-            found[name] = (tag_type, i)
+        path = parents + (name,)
+        if path in (('Data', 'GameType'), ('Data', 'Difficulty'), ('Data', 'difficulty_settings', 'difficulty')):
+            found['difficulty' if path[-1] == 'difficulty' else name] = (tag_type, i)
         if tag_type == TAG_COMPOUND:
-            i = _walk_compound(buf, i, name == 'Data', found)
+            i = _walk_compound(buf, i, path, found)
         else:
             i = _skip_payload(buf, i, tag_type)
     raise ValueError('unterminated nbt compound')
@@ -206,25 +258,58 @@ def _data_field_offsets(raw):
     nlen, i = _u16(raw, i)
     i += nlen
     found = {}
-    _walk_compound(raw, i, False, found)
+    _walk_compound(raw, i, (), found)
     return found
 
 
+def _level_is_creative_peaceful(fields):
+    if fields.get('GameType') != 1:
+        return False
+    saw_difficulty = False
+    if 'Difficulty' in fields:
+        saw_difficulty = True
+        if fields['Difficulty'] != 0:
+            return False
+    if 'difficulty' in fields:
+        saw_difficulty = True
+        if fields['difficulty'] != 'peaceful':
+            return False
+    return saw_difficulty
+
+
 def patch_level_dat_nbt(raw):
-    """Set Data.GameType to creative (1) and Data.Difficulty to peaceful (0)."""
+    """Set GameType to creative and difficulty to peaceful.
+
+    Worlds written before 26.1 store Data.Difficulty as a byte (0 = peaceful).
+    26.1 stores Data.difficulty_settings.difficulty as a string. A snapshot can
+    contain either form. The string is spliced, so a shorter value such as
+    "hard" can become "peaceful" without disturbing the tags after it.
+    """
     found = _data_field_offsets(raw)
-    if 'GameType' not in found or 'Difficulty' not in found:
-        raise ValueError(f'level.dat Data is missing GameType or Difficulty ({sorted(found)})')
+    if 'GameType' not in found or ('Difficulty' not in found and 'difficulty' not in found):
+        raise ValueError(f'level.dat Data is missing GameType or difficulty ({sorted(found)})')
     gt_type, gt_off = found['GameType']
-    df_type, df_off = found['Difficulty']
     if gt_type != TAG_INT:
         raise ValueError(f'GameType is tag type {gt_type}, expected int')
-    if df_type != TAG_BYTE:
-        raise ValueError(f'Difficulty is tag type {df_type}, expected byte')
-    out = bytearray(raw)
-    struct.pack_into('>i', out, gt_off, 1)
-    out[df_off] = 0
-    return bytes(out)
+    edits = [(gt_off, 4, struct.pack('>i', 1))]
+    if 'Difficulty' in found:
+        df_type, df_off = found['Difficulty']
+        if df_type != TAG_BYTE:
+            raise ValueError(f'Difficulty is tag type {df_type}, expected byte')
+        edits.append((df_off, 1, bytes([0])))
+    if 'difficulty' in found:
+        diff_type, diff_off = found['difficulty']
+        if diff_type != TAG_STRING:
+            raise ValueError(f'difficulty_settings.difficulty is tag type {diff_type}, expected string')
+        old_n, _ = _u16(raw, diff_off)
+        new = b'peaceful'
+        edits.append((diff_off, 2 + old_n, struct.pack('>H', len(new)) + new))
+    out = raw
+    for offset, old_len, new_bytes in sorted(edits, key=lambda item: item[0], reverse=True):
+        out = out[:offset] + new_bytes + out[offset + old_len:]
+    if not _level_is_creative_peaceful(read_level_fields(out)):
+        raise ValueError('patched level.dat did not read back as creative/peaceful')
+    return out
 
 
 def read_level_fields(raw):
@@ -234,6 +319,10 @@ def read_level_fields(raw):
         fields['GameType'] = struct.unpack_from('>i', raw, found['GameType'][1])[0]
     if 'Difficulty' in found and found['Difficulty'][0] == TAG_BYTE:
         fields['Difficulty'] = raw[found['Difficulty'][1]]
+    if 'difficulty' in found and found['difficulty'][0] == TAG_STRING:
+        off = found['difficulty'][1]
+        n, start = _u16(raw, off)
+        fields['difficulty'] = raw[start:start + n].decode('utf-8')
     return fields
 
 
@@ -241,7 +330,7 @@ def patch_level_dat(path):
     with gzip.open(path, 'rb') as fh:
         raw = fh.read()
     patched = patch_level_dat_nbt(raw)
-    if read_level_fields(patched) != {'GameType': 1, 'Difficulty': 0}:
+    if not _level_is_creative_peaceful(read_level_fields(patched)):
         raise ValueError(f'patched level.dat did not read back as creative/peaceful: {path}')
     tmp = path + '.tmp'
     with gzip.open(tmp, 'wb') as fh:
@@ -249,13 +338,21 @@ def patch_level_dat(path):
     os.replace(tmp, path)
 
 
-def copy_entry(src, dst):
+def _skip_child(name, root):
+    if name.endswith('.lock') or name in SKIP_ANYWHERE:
+        return True
+    return root and name in ROOT_SKIP
+
+
+def copy_entry(src, dst, skip=False):
     if os.path.islink(src):
         raise RuntimeError(f'refusing symlink in world snapshot: {src}')
     if os.path.isdir(src):
         os.makedirs(dst, exist_ok=True)
         for name in os.listdir(src):
-            copy_entry(os.path.join(src, name), os.path.join(dst, name))
+            if skip and _skip_child(name, root=False):
+                continue
+            copy_entry(os.path.join(src, name), os.path.join(dst, name), skip=skip)
         return
     if not os.path.isfile(src):
         raise RuntimeError(f'unsupported snapshot entry: {src}')
@@ -268,9 +365,9 @@ def copy_entry(src, dst):
 def copy_filtered(src, dst):
     os.makedirs(dst, exist_ok=True)
     for name in os.listdir(src):
-        if name in ROOT_SKIP or name.endswith('.lock'):
+        if _skip_child(name, root=True):
             continue
-        copy_entry(os.path.join(src, name), os.path.join(dst, name))
+        copy_entry(os.path.join(src, name), os.path.join(dst, name), skip=True)
 
 
 def validate_roots(source, creative_root, survival_root, allow_live):
@@ -304,14 +401,230 @@ def find_survival_backups(backup_root, survival_root, max_depth=8):
             dirnames[:] = []
             continue
         for fn in filenames:
-            if fn.endswith(('.tar', '.tar.gz', '.tgz', '.zip')):
+            if fn.endswith(ARCHIVE_SUFFIXES):
                 archives.append(os.path.join(dirpath, fn))
         if os.path.basename(dirpath) == 'survival' and os.path.isfile(os.path.join(dirpath, 'world', 'level.dat')):
             if os.path.realpath(dirpath) != survival_root:
                 found.append(dirpath)
             dirnames[:] = []
     found.sort(key=lambda p: os.path.getmtime(os.path.join(p, 'world', 'level.dat')), reverse=True)
+    archives.sort(key=os.path.getmtime, reverse=True)
     return found, archives
+
+
+def is_archive_path(path):
+    return os.path.isfile(path) and path.endswith(ARCHIVE_SUFFIXES)
+
+
+def _tar_filter_args(path):
+    if path.endswith(('.tar.zst', '.tzst')):
+        return ['--zstd']
+    if path.endswith(('.tar.gz', '.tgz')):
+        return ['-z']
+    if path.endswith('.tar'):
+        return []
+    raise SystemExit(f'unsupported archive (expected .tar.zst): {path}')
+
+
+def _tar_env():
+    env = os.environ.copy()
+    env['LC_ALL'] = 'C'
+    env.pop('TAR_OPTIONS', None)
+    return env
+
+
+def list_archive(path):
+    """Return archive members as objects with name, size and kind ('d', '-', or other)."""
+    proc = subprocess.run(
+        ['tar', *_tar_filter_args(path), '-tvf', path],
+        capture_output=True, text=True, env=_tar_env(),
+    )
+    if proc.returncode != 0:
+        err = (proc.stderr or proc.stdout or '').strip()
+        if 'zstd: not found' in err or 'Cannot exec' in err and 'zstd' in err:
+            raise SystemExit('reading a .tar.zst backup needs the zstd program (install the zstd package)')
+        raise SystemExit(f'could not list {path}: {err}')
+    members = []
+    for line in proc.stdout.splitlines():
+        match = TAR_LIST_RE.match(line)
+        if not match:
+            raise SystemExit(f'could not parse tar listing line: {line}')
+        name = match.group('name')
+        kind = match.group('kind')
+        if kind == 'l' and ' -> ' in name:
+            name = name.split(' -> ', 1)[0]
+        elif ' link to ' in name:
+            kind = 'h'
+            name = name.split(' link to ', 1)[0]
+        members.append(type('Member', (), {
+            'name': name,
+            'size': int(match.group('size')),
+            'kind': kind,
+        })())
+    return members
+
+
+def _member_parts(name):
+    name = name.strip().lstrip('./')
+    if not name:
+        return None
+    parts = [part for part in name.split('/') if part]
+    if name.startswith('/') or '..' in parts:
+        return None
+    return parts
+
+
+def archive_server_prefix(members):
+    """Directory inside the archive that contains world/level.dat, without the world segment."""
+    prefixes = []
+    for member in members:
+        parts = _member_parts(member.name)
+        if not parts or parts[-1] != 'level.dat':
+            continue
+        if len(parts) < 2 or parts[-2] != 'world':
+            continue
+        prefixes.append('/'.join(parts[:-2]))
+    unique = list(dict.fromkeys(prefixes))
+    if not unique:
+        raise SystemExit('archive has no world/level.dat (expected a survival server tree, not a bare world)')
+    survival = [prefix for prefix in unique if prefix == 'survival' or prefix.endswith('/survival')]
+    if survival:
+        return survival[0]
+    if len(unique) > 1:
+        raise SystemExit(
+            'archive contains more than one world/level.dat ('
+            + ', '.join(unique)
+            + '). Extract the right server tree and pass --source.'
+        )
+    return unique[0]
+
+
+def _world_member(member, prefix):
+    raw = member.name.strip()
+    parts = _member_parts(raw)
+    if parts is None:
+        if 'world' in raw.split('/'):
+            raise SystemExit(f'refusing archive path: {member.name}')
+        return False
+    prefix_parts = [part for part in prefix.split('/') if part] if prefix else []
+    if parts[:len(prefix_parts)] != prefix_parts:
+        return False
+    rest = parts[len(prefix_parts):]
+    if not rest or rest[0] not in WORLDS:
+        return False
+    if len(rest) > 1 and rest[1] in KEEP_PLAYER:
+        return False
+    return True
+
+
+def world_members(members, prefix):
+    selected = []
+    for member in members:
+        if not _world_member(member, prefix):
+            continue
+        if member.kind not in ('d', '-'):
+            raise SystemExit(f'refusing to extract special archive member: {member.name}')
+        selected.append(member)
+    if not any(m.name.rstrip('/').endswith('world/level.dat') for m in selected):
+        raise SystemExit('archive world has no level.dat after filtering player folders')
+    return selected
+
+
+def _disk_free(path):
+    return shutil.disk_usage(path).free
+
+
+def choose_extract_parent(archive, need, disk_free=_disk_free):
+    """Pick a directory that can hold the extracted worlds. Prefer /var/tmp over the backup disk."""
+    candidates = []
+    if os.path.isdir('/var/tmp'):
+        candidates.append('/var/tmp')
+    archive_dir = os.path.dirname(os.path.abspath(archive)) or '.'
+    if archive_dir not in candidates:
+        candidates.append(archive_dir)
+    report = []
+    for parent in candidates:
+        free = disk_free(parent)
+        report.append(f'{parent} has {free} bytes free')
+        if free >= need:
+            return parent
+    raise SystemExit(
+        f'not enough disk to extract {need} bytes of survival world data. ' + '; '.join(report)
+    )
+
+
+def extract_backup(archive, disk_free=_disk_free, parent=None):
+    """Extract survival's world directories from a nightly archive. Caller deletes the temp dir."""
+    archive = os.path.abspath(archive)
+    members = list_archive(archive)
+    prefix = archive_server_prefix(members)
+    selected = world_members(members, prefix)
+    need = sum(member.size for member in selected) + EXTRACT_MARGIN
+    if parent is None:
+        parent = choose_extract_parent(archive, need, disk_free)
+    elif disk_free(parent) < need:
+        raise SystemExit(
+            f'not enough disk to extract {need} bytes of survival world data. '
+            f'{parent} has {disk_free(parent)} bytes free'
+        )
+    for root in (SURVIVAL_ROOT, CREATIVE_ROOT):
+        if os.path.isdir(root) and (contained(parent, root) or os.path.realpath(parent) == os.path.realpath(root)):
+            raise SystemExit(f'refusing to extract a backup into {parent}')
+    dest = tempfile.mkdtemp(prefix='bellcraft-creative-world-', dir=parent)
+    strip = 0 if not prefix else prefix.count('/') + 1
+    includes = []
+    prefix_parts = [part for part in prefix.split('/') if part]
+    for world in WORLDS:
+        rel_parts = prefix_parts + [world]
+        rel = '/'.join(rel_parts)
+        if any(_member_parts(member.name)[:len(rel_parts)] == rel_parts for member in selected):
+            includes.append(rel)
+    cmd = ['tar', *_tar_filter_args(archive), '-xf', archive, '-C', dest, '--no-same-owner']
+    if strip:
+        cmd.append(f'--strip-components={strip}')
+    for world in WORLDS:
+        for folder in KEEP_PLAYER:
+            cmd.extend(['--exclude', '/'.join(prefix_parts + [world, folder])])
+    cmd.extend(includes)
+    print(f'extracting {", ".join(includes)} from {archive} ({need - EXTRACT_MARGIN} bytes of world data)')
+    try:
+        proc = subprocess.run(cmd, capture_output=True, text=True, env=_tar_env())
+        if proc.returncode != 0:
+            raise SystemExit(f'extract failed: {(proc.stderr or proc.stdout or "").strip()}')
+        if not os.path.isfile(os.path.join(dest, 'world', 'level.dat')):
+            raise SystemExit(f'extract did not produce world/level.dat under {dest}')
+        for world in WORLDS:
+            for folder in KEEP_PLAYER:
+                player_dir = os.path.join(dest, world, folder)
+                if not os.path.lexists(player_dir):
+                    continue
+                if os.path.islink(player_dir):
+                    os.unlink(player_dir)
+                else:
+                    shutil.rmtree(player_dir)
+    except Exception:
+        shutil.rmtree(dest, ignore_errors=True)
+        raise
+    return dest
+
+
+def legacy_folders_to_retire(source):
+    """Separate nether/end folders that must not sit beside a 26.1 world/dimensions tree.
+
+    Paper migrates a leftover world_nether into the dimension path on boot. If the
+    snapshot already contains world/dimensions/minecraft/the_nether, that leftover
+    would replace or mix with the copied terrain.
+    """
+    dims = os.path.join(source, 'world', 'dimensions', 'minecraft')
+    names = []
+    for dim, folder in DIMENSION_DIRS:
+        inside = os.path.join(dims, dim)
+        separate = os.path.join(source, folder)
+        has_inside = os.path.isdir(inside) and not os.path.islink(inside)
+        has_separate = os.path.isfile(os.path.join(separate, 'level.dat')) and not os.path.islink(os.path.join(source, folder))
+        if has_inside and not has_separate:
+            names.append(folder)
+    return names
 
 
 def assert_creative_config(creative_root):
@@ -362,6 +675,12 @@ def assert_creative_config(creative_root):
 
 
 def worlds_in(source):
+    """World folders that have their own level.dat.
+
+    Paper 26.1+ has only world/level.dat. The nether and end are
+    world/dimensions/minecraft/the_nether and the_end, copied with world.
+    A missing world_nether or world_the_end directory is not an error.
+    """
     present = []
     for name in WORLDS:
         level = os.path.join(source, name, 'level.dat')
@@ -407,6 +726,21 @@ def replace_world(src_world, dst_world, archive_dir, survival_root):
         elif archived and not renamed and not os.path.lexists(dst_world):
             safe_move(archived, dst_world, survival_root)
         raise
+
+
+def retire_legacy_dimension_folders(creative_root, source, archive_dir, survival_root):
+    """Move leftover creative world_nether / world_the_end dirs into the archive."""
+    moved = []
+    for name in legacy_folders_to_retire(source):
+        src = os.path.join(creative_root, name)
+        if not os.path.lexists(src):
+            continue
+        if os.path.islink(src):
+            raise RuntimeError(f'refusing symlink world path: {src}')
+        safe_move(src, os.path.join(archive_dir, name), survival_root)
+        moved.append(name)
+        print(f'archived leftover {name}; that dimension is inside world/dimensions/minecraft/')
+    return moved
 
 
 def archive_worldguard(creative_root, archive_dir, worlds, survival_root):
@@ -486,7 +820,7 @@ def with_saves_paused(rcon, read_log, action, timeout=90, sleep=0.25):
 
 def run_copy(*, source, creative_root, survival_root, archive_root, replace, dry_run,
              allow_live, creative_active, survival_active=False, rcon=None, read_log=None,
-             now=None):
+             now=None, source_label=None):
     source, creative_root, survival_root = validate_roots(source, creative_root, survival_root, allow_live)
     if contained(os.path.realpath(archive_root), survival_root):
         raise SystemExit('archive root is inside survival; refusing')
@@ -502,10 +836,15 @@ def run_copy(*, source, creative_root, survival_root, archive_root, replace, dry
     present = worlds_in(source)
     creative_level = os.path.join(creative_root, 'world', 'level.dat')
     already = os.path.lexists(creative_level)
+    retire = [
+        name for name in legacy_folders_to_retire(source)
+        if os.path.lexists(os.path.join(creative_root, name))
+    ]
     if dry_run:
         return {
             'action': 'dry-run', 'worlds': present, 'source': source,
             'replace': bool(already and replace), 'exists': already,
+            'retire': retire,
         }
     if already and not replace:
         apply_properties_file(os.path.join(creative_root, 'server.properties'), dry_run=False)
@@ -524,13 +863,20 @@ def run_copy(*, source, creative_root, survival_root, archive_root, replace, dry
             )
             copied.append(name)
             print(f'copied {name}')
-        moved = archive_worldguard(creative_root, archive_dir, present, survival_root)
+        if os.path.isdir(os.path.join(source, 'world', 'dimensions', 'minecraft')):
+            print('nether and end (when present) were copied inside world/dimensions/minecraft/')
+        retired = retire_legacy_dimension_folders(creative_root, source, archive_dir, survival_root)
+        guard_names = list(present)
+        for name in legacy_folders_to_retire(source):
+            if name not in guard_names:
+                guard_names.append(name)
+        moved = archive_worldguard(creative_root, archive_dir, guard_names, survival_root)
         if moved:
             print('archived WorldGuard regions for: ' + ', '.join(moved))
         for name in copied:
             chown_minecraft(os.path.join(creative_root, name))
         marker = {
-            'source': source,
+            'source': source_label or source,
             'copied_at': stamp,
             'worlds': copied,
             'refresh': 'one-time',
@@ -559,7 +905,7 @@ def run_copy(*, source, creative_root, survival_root, archive_root, replace, dry
             print('survival is stopped; copying its world files without save-off')
         copied = do_copy()
     apply_properties_file(os.path.join(creative_root, 'server.properties'), dry_run=False)
-    return {'action': 'copied', 'worlds': copied, 'source': source}
+    return {'action': 'copied', 'worlds': copied, 'source': source_label or source}
 
 
 def apply_perms(rcon, via):
@@ -598,22 +944,58 @@ def _read_survival_log():
         return ''
 
 
-def _resolve_source(args):
+def _prepare_source(args):
+    """Return (path, from_archive).
+
+    An extracted survival directory wins over nightly archives, matching a tree
+    someone already unpacked. Otherwise the newest survival_*.tar.zst (or .tar,
+    .tar.gz) under the backup root is used. Pass --source to name either a
+    directory containing world/level.dat or one archive file.
+    """
     if args.source:
-        return args.source
+        return args.source, is_archive_path(args.source)
     if args.origin == 'live':
-        return SURVIVAL_ROOT
-    found, archives = find_survival_backups(args.backup_root, SURVIVAL_ROOT)
+        return SURVIVAL_ROOT, False
+    found, archives = find_survival_backups(args.backup_root, args.survival_root)
     if found:
         print(f'using backup {found[0]}')
-        return found[0]
+        return found[0], False
+    nightly = [path for path in archives if os.path.basename(path).startswith('survival')]
+    if nightly:
+        print(f'using backup archive {nightly[0]}')
+        return nightly[0], True
     extra = ''
     if archives:
         extra = (
-            f'\nFound an archive ({archives[0]}) but this script does not extract it. '
-            'Extract survival/world, world_nether and world_the_end, then pass --source.'
+            f' Found {archives[0]}, but only archives whose name starts with '
+            'survival are opened automatically. Pass --source for that file, or '
+            'for an extracted survival directory that contains world/level.dat.'
         )
-    raise SystemExit(f'no extracted survival world under {args.backup_root}.{extra}')
+    raise SystemExit(f'no extracted survival world or survival_*.tar.zst under {args.backup_root}.{extra}')
+
+
+def describe_archive(archive, disk_free=_disk_free):
+    """Check that a nightly archive can be extracted. Writes nothing."""
+    members = list_archive(archive)
+    prefix = archive_server_prefix(members)
+    selected = world_members(members, prefix)
+    payload = sum(member.size for member in selected)
+    parent = choose_extract_parent(archive, payload + EXTRACT_MARGIN, disk_free)
+    worlds = []
+    prefix_parts = [part for part in prefix.split('/') if part]
+    for world in WORLDS:
+        level = prefix_parts + [world, 'level.dat']
+        if any(_member_parts(member.name) == level for member in selected):
+            worlds.append(world)
+    dimensions = []
+    for dim, _folder in DIMENSION_DIRS:
+        dim_parts = prefix_parts + ['world', 'dimensions', 'minecraft', dim]
+        if any(
+            (_member_parts(member.name) or [])[:len(dim_parts)] == dim_parts
+            for member in selected
+        ):
+            dimensions.append(dim)
+    return {'archive': archive, 'bytes': payload, 'parent': parent, 'worlds': worlds, 'dimensions': dimensions}
 
 
 def main(argv=None):
@@ -621,7 +1003,7 @@ def main(argv=None):
     sub = parser.add_subparsers(dest='cmd', required=True)
     copy = sub.add_parser('copy', help='copy a survival snapshot onto creative')
     copy.add_argument('--from', dest='origin', choices=('live', 'backup'), required=True)
-    copy.add_argument('--source', help='survival server directory to read (contains world/level.dat)')
+    copy.add_argument('--source', help='extracted survival directory (world/level.dat) or a .tar.zst nightly')
     copy.add_argument('--backup-root', default=BACKUP_ROOT)
     copy.add_argument('--archive-root', default=ARCHIVE_ROOT)
     copy.add_argument('--creative-root', default=CREATIVE_ROOT)
@@ -641,22 +1023,57 @@ def main(argv=None):
 
     if os.geteuid() != 0 and args.creative_root == CREATIVE_ROOT and not args.dry_run:
         raise SystemExit('run with sudo')
-    source = _resolve_source(args)
-    creative_active = _systemctl_active('bellcraft-creative') if args.creative_root == CREATIVE_ROOT else False
-    survival_active = _systemctl_active('bellcraft-survival') if args.origin == 'live' else False
-    result = run_copy(
-        source=source,
-        creative_root=args.creative_root,
-        survival_root=args.survival_root,
-        archive_root=args.archive_root,
-        replace=args.replace,
-        dry_run=args.dry_run,
-        allow_live=args.origin == 'live',
-        creative_active=creative_active,
-        survival_active=survival_active,
-        rcon=_rcon,
-        read_log=_read_survival_log,
-    )
+    source, from_archive = _prepare_source(args)
+    extracted = None
+    try:
+        if os.path.isdir(args.creative_root):
+            assert_creative_config(args.creative_root)
+        if not args.dry_run and args.creative_root == CREATIVE_ROOT and _systemctl_active('bellcraft-creative'):
+            raise SystemExit('bellcraft-creative is running. Stop it first: sudo systemctl stop bellcraft-creative')
+        if from_archive and args.dry_run:
+            plan = describe_archive(source)
+            dims = ', '.join(plan['dimensions']) if plan['dimensions'] else 'none listed'
+            print(
+                f'would extract {", ".join(plan["worlds"])} from {plan["archive"]} '
+                f'({plan["bytes"]} bytes) under {plan["parent"]}, then delete the temp dir'
+            )
+            print(f'dimensions inside world/: {dims}')
+            print('would not extract plugins, or world/players, playerdata, stats, advancements')
+            print('would not copy raids.dat, scoreboard.dat, paper-world.yml, uid.dat or symlinks')
+            print('would patch level.dat to creative/peaceful')
+            print('would update creative server.properties (gamemode, force-gamemode, allow-nether, difficulty, spawn-monsters)')
+            return 0
+        creative_level = os.path.join(args.creative_root, 'world', 'level.dat')
+        if from_archive and not args.replace and os.path.lexists(creative_level):
+            apply_properties_file(os.path.join(args.creative_root, 'server.properties'), dry_run=False)
+            print('creative world already exists; terrain was not refreshed and the backup was not extracted.')
+            print('That is intentional. Creative builds are kept. Pass --replace only to discard them.')
+            print('server.properties creative settings were applied.')
+            return 0
+        origin_path = source
+        if from_archive:
+            extracted = extract_backup(source)
+            source = extracted
+        creative_active = _systemctl_active('bellcraft-creative') if args.creative_root == CREATIVE_ROOT else False
+        survival_active = _systemctl_active('bellcraft-survival') if args.origin == 'live' else False
+        result = run_copy(
+            source=source,
+            creative_root=args.creative_root,
+            survival_root=args.survival_root,
+            archive_root=args.archive_root,
+            replace=args.replace,
+            dry_run=args.dry_run,
+            allow_live=args.origin == 'live',
+            creative_active=creative_active,
+            survival_active=survival_active,
+            rcon=_rcon,
+            read_log=_read_survival_log,
+            source_label=origin_path if from_archive else None,
+        )
+    finally:
+        if extracted and os.path.isdir(extracted):
+            shutil.rmtree(extracted)
+            print(f'removed temporary extract {extracted}')
     if result['action'] == 'kept':
         print('creative world already exists; terrain was not refreshed.')
         print('That is intentional. Creative builds are kept. Pass --replace only to discard them.')
@@ -666,9 +1083,11 @@ def main(argv=None):
             print('would leave the creative terrain in place (pass --replace to refresh it)')
         else:
             print(f'would copy {", ".join(result["worlds"])} from {result["source"]}')
-            print('would not copy playerdata, stats, advancements, uid.dat or symlinks')
+            print('would not copy world/players, playerdata, stats, advancements, raids, scoreboard, paper-world.yml, uid.dat or symlinks')
             print('would patch level.dat to creative/peaceful')
         print('would update creative server.properties (gamemode, force-gamemode, allow-nether, difficulty, spawn-monsters)')
+        if result.get('retire'):
+            print('would archive leftover ' + ', '.join(result['retire']) + ' because those dimensions are inside world/')
         if result['replace']:
             print(f'would archive the current creative worlds under {args.archive_root}')
         if args.origin == 'live':

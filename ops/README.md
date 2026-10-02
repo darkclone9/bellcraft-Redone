@@ -26,10 +26,22 @@ Repo secrets used by the workflows: `BELLCRAFT_DEPLOY_KEY` (private key), `BELLC
 `bellcraft-creative-world` copies survival's overworld, nether and end onto the creative
 (`build`) server so players can build there in creative mode. It does not deploy with the
 workflow. Install it by hand, then run it on the box after the creative config from git is
-on disk. See the script's header for the exact command.
+on disk. See the script's header for the exact command. Reading a nightly
+`survival_*.tar.zst` needs the `zstd` program.
+
+Paper 26.1 stores the nether and end inside `world/dimensions/minecraft/`. The script copies
+that tree and also the older `world_nether` / `world_the_end` folders when those exist.
+Player data is not copied: `world/players/` on 26.1, and `playerdata` / `stats` /
+`advancements` on older worlds. `--replace` puts creative's own copies of those trees back.
+`raids.dat` and `scoreboard.dat` are left behind (they name survival players). Map files
+stay, so maps in chests still work. Creative's Multiverse entries stay `minecraft:the_nether`
+and `minecraft:the_end`; `legacy-world-name` is the Bukkit name (`world_nether`,
+`world_the_end`), not a separate folder.
 
 The copy is **one-time**. Creative builds diverge as soon as someone places a block, and a
 later refresh deletes that work. Do not put it on a timer. Run it again only on purpose, with
 `--replace`, which archives the current creative worlds first. Survival's live world is only
 read, and only after `save-off` / `save-all flush` (or not at all, when the source is a backup).
-Player inventories are not part of the copy and are never written back.
+Player inventories are not part of the copy and are never written back. `--from backup` uses
+the newest extracted `survival/` tree under the backup root if one exists, otherwise the
+newest `survival_*.tar.zst`. Pass `--source` for a specific archive or an extracted directory.

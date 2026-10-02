@@ -1,3 +1,11 @@
+# Paper 26.1+ stores these dimensions inside the level folder, not as sibling directories:
+#   world/dimensions/minecraft/overworld
+#   world/dimensions/minecraft/the_nether
+#   world/dimensions/minecraft/the_end
+# The keys are those dimension ids. legacy-world-name is the Bukkit world name
+# (world, world_nether, world_the_end), which commands still use. Survival's
+# Multiverse file uses the same names on the 26.1 layout. Do not point these
+# entries at a separate world_nether or world_the_end folder.
 minecraft:overworld:
   adjust-spawn: true
   alias: ''

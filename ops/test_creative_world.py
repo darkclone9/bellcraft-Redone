@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Safety tests for ops/bellcraft-creative-world. No network and no /opt/bellcraft."""
-import gzip, importlib.machinery, os, shutil, struct, tempfile, unittest
+import gzip, importlib.machinery, os, shutil, struct, subprocess, tempfile, unittest
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 loader = importlib.machinery.SourceFileLoader('creative_world', os.path.join(ROOT, 'bellcraft-creative-world'))
@@ -32,6 +32,13 @@ def nbt_string(name, value):
 def sample_level_nbt():
     nested = nbt_compound('WorldGenSettings', nbt_int('seed', 123456))
     data = nbt_int('GameType', 0) + nbt_byte('Difficulty', 2) + nbt_string('LevelName', 'world') + nested
+    return nbt_compound('', nbt_compound('Data', data))
+
+
+def sample_level_nbt_26():
+    """26.1 stores difficulty as a string under difficulty_settings, not a byte."""
+    settings = nbt_string('difficulty', 'hard') + nbt_byte('locked', 1)
+    data = nbt_int('GameType', 0) + nbt_compound('difficulty_settings', settings) + nbt_string('LevelName', 'world')
     return nbt_compound('', nbt_compound('Data', data))
 
 
@@ -101,6 +108,15 @@ class CreativeWorldTests(unittest.TestCase):
         self.assertEqual(cw.read_level_fields(patched), {'GameType': 1, 'Difficulty': 0})
         self.assertIn(b'world', patched)
         self.assertIn(b'WorldGenSettings', patched)
+
+    def test_patch_level_dat_26_rewrites_difficulty_string(self):
+        raw = sample_level_nbt_26()
+        patched = cw.patch_level_dat_nbt(raw)
+        self.assertNotEqual(len(patched), len(raw))
+        self.assertEqual(cw.read_level_fields(patched), {'GameType': 1, 'difficulty': 'peaceful'})
+        self.assertIn(b'world', patched)
+        self.assertIn(b'locked', patched)
+        self.assertNotIn(b'hard', patched)
 
     def test_properties_keep_secrets_and_rcon_port(self):
         text = open(os.path.join(self.creative, 'server.properties')).read()
@@ -300,6 +316,186 @@ class CreativeWorldTests(unittest.TestCase):
         self.assertIn('save-all flush', calls)
         self.assertEqual(calls[-1], 'save-on')
         self.assertTrue(os.path.isfile(os.path.join(self.creative, 'world', 'region', 'r.0.0.mca')))
+
+    def _modern_source(self):
+        """Paper 26.1 layout: one world folder, dimensions inside it, players/ instead of playerdata."""
+        base = os.path.join(self.survival, 'world')
+        write_level(os.path.join(base, 'level.dat'), sample_level_nbt_26())
+        write_file(os.path.join(base, 'dimensions', 'minecraft', 'overworld', 'region', 'r.0.0.mca'), 'OVERWORLD')
+        write_file(os.path.join(base, 'dimensions', 'minecraft', 'the_nether', 'region', 'n.mca'), 'NETHER')
+        write_file(os.path.join(base, 'dimensions', 'minecraft', 'the_end', 'region', 'e.mca'), 'END')
+        write_file(os.path.join(base, 'dimensions', 'minecraft', 'the_nether', 'paper-world.yml'), 'survival-nether-paper')
+        write_file(os.path.join(base, 'dimensions', 'minecraft', 'overworld', 'data', 'minecraft', 'raids.dat'), 'RAID')
+        write_file(os.path.join(base, 'data', 'minecraft', 'scoreboard.dat'), 'SCORES')
+        write_file(os.path.join(base, 'data', 'minecraft', 'maps', '1.dat'), 'MAP')
+        write_file(os.path.join(base, 'data', 'minecraft', 'world_border.dat'), 'BORDER')
+        write_file(os.path.join(base, 'players', 'data', 'survival.dat'), 'SURVIVAL-INV')
+        write_file(os.path.join(base, 'players', 'stats', 'survival.json'), '{"surv":1}')
+        write_file(os.path.join(base, 'players', 'advancements', 'survival.json'), '{"adv":1}')
+        write_file(os.path.join(base, 'playerdata', 'legacy.dat'), 'OLD-INV')
+        return base
+
+    def test_modern_layout_copies_dimensions_and_skips_players(self):
+        self._modern_source()
+        write_level(os.path.join(self.creative, 'world', 'level.dat'))
+        write_file(os.path.join(self.creative, 'world', 'region', 'old.mca'), 'PLOT')
+        write_file(os.path.join(self.creative, 'world', 'players', 'data', 'builder.dat'), 'CREATIVE-INV')
+        write_file(os.path.join(self.creative, 'world', 'players', 'stats', 'builder.json'), '{"b":1}')
+        write_file(os.path.join(self.creative, 'world', 'players', 'advancements', 'builder.json'), '{"a":1}')
+        write_file(os.path.join(self.creative, 'world', 'playerdata', 'builder.dat'), 'CREATIVE-OLD')
+        write_file(os.path.join(self.creative, 'world_nether', 'region', 'old-nether.mca'), 'OLD-NETHER')
+        write_file(os.path.join(self.creative, 'world_the_end', 'region', 'old-end.mca'), 'OLD-END')
+        write_file(os.path.join(self.creative, 'plugins', 'WorldGuard', 'worlds', 'world_nether', 'regions.yml'), 'PLOT-NETHER')
+        result = self._run(replace=True)
+        self.assertEqual(result['worlds'], ['world'])
+        world = os.path.join(self.creative, 'world')
+        self.assertEqual(open(os.path.join(world, 'dimensions', 'minecraft', 'overworld', 'region', 'r.0.0.mca')).read(), 'OVERWORLD')
+        self.assertEqual(open(os.path.join(world, 'dimensions', 'minecraft', 'the_nether', 'region', 'n.mca')).read(), 'NETHER')
+        self.assertEqual(open(os.path.join(world, 'dimensions', 'minecraft', 'the_end', 'region', 'e.mca')).read(), 'END')
+        self.assertEqual(open(os.path.join(world, 'data', 'minecraft', 'maps', '1.dat')).read(), 'MAP')
+        self.assertEqual(open(os.path.join(world, 'data', 'minecraft', 'world_border.dat')).read(), 'BORDER')
+        self.assertFalse(os.path.exists(os.path.join(world, 'data', 'minecraft', 'scoreboard.dat')))
+        self.assertFalse(os.path.exists(os.path.join(world, 'dimensions', 'minecraft', 'overworld', 'data', 'minecraft', 'raids.dat')))
+        self.assertFalse(os.path.exists(os.path.join(world, 'dimensions', 'minecraft', 'the_nether', 'paper-world.yml')))
+        self.assertFalse(os.path.exists(os.path.join(world, 'players', 'data', 'survival.dat')))
+        self.assertFalse(os.path.exists(os.path.join(world, 'playerdata', 'legacy.dat')))
+        self.assertEqual(open(os.path.join(world, 'players', 'data', 'builder.dat')).read(), 'CREATIVE-INV')
+        self.assertEqual(open(os.path.join(world, 'players', 'stats', 'builder.json')).read(), '{"b":1}')
+        self.assertEqual(open(os.path.join(world, 'players', 'advancements', 'builder.json')).read(), '{"a":1}')
+        self.assertEqual(open(os.path.join(world, 'playerdata', 'builder.dat')).read(), 'CREATIVE-OLD')
+        self.assertEqual(open(os.path.join(self.survival, 'world', 'players', 'data', 'survival.dat')).read(), 'SURVIVAL-INV')
+        self.assertFalse(os.path.exists(os.path.join(self.creative, 'world_nether')))
+        self.assertFalse(os.path.exists(os.path.join(self.creative, 'world_the_end')))
+        self.assertFalse(os.path.exists(os.path.join(self.creative, 'plugins', 'WorldGuard', 'worlds', 'world_nether')))
+        archived = os.listdir(self.archive)
+        self.assertEqual(len(archived), 1)
+        saved = os.path.join(self.archive, archived[0])
+        self.assertEqual(open(os.path.join(saved, 'world_nether', 'region', 'old-nether.mca')).read(), 'OLD-NETHER')
+        self.assertEqual(open(os.path.join(saved, 'world_the_end', 'region', 'old-end.mca')).read(), 'OLD-END')
+        self.assertEqual(open(os.path.join(saved, 'WorldGuard', 'world_nether', 'regions.yml')).read(), 'PLOT-NETHER')
+        with gzip.open(os.path.join(world, 'level.dat'), 'rb') as fh:
+            self.assertEqual(cw.read_level_fields(fh.read()), {'GameType': 1, 'difficulty': 'peaceful'})
+        with gzip.open(os.path.join(self.survival, 'world', 'level.dat'), 'rb') as fh:
+            self.assertEqual(cw.read_level_fields(fh.read())['difficulty'], 'hard')
+
+    def test_modern_layout_without_nether_folder_does_not_fail(self):
+        self._modern_source()
+        result = self._run()
+        self.assertEqual(result['action'], 'copied')
+        self.assertEqual(result['worlds'], ['world'])
+        self.assertFalse(os.path.exists(os.path.join(self.creative, 'world_nether')))
+        self.assertTrue(os.path.isfile(os.path.join(
+            self.creative, 'world', 'dimensions', 'minecraft', 'the_nether', 'region', 'n.mca')))
+        self.assertFalse(os.path.exists(os.path.join(self.creative, 'world', 'players')))
+
+    def test_players_symlink_rolls_back_to_old_world(self):
+        self._modern_source()
+        write_level(os.path.join(self.creative, 'world', 'level.dat'))
+        write_file(os.path.join(self.creative, 'world', 'sentinel.txt'), 'old-world')
+        os.makedirs(os.path.join(self.creative, 'world', 'players', 'data'))
+        os.symlink('/etc/hostname', os.path.join(self.creative, 'world', 'players', 'data', 'linked.dat'))
+        with self.assertRaises(RuntimeError):
+            self._run(replace=True)
+        self.assertEqual(open(os.path.join(self.creative, 'world', 'sentinel.txt')).read(), 'old-world')
+        self.assertTrue(os.path.islink(os.path.join(self.creative, 'world', 'players', 'data', 'linked.dat')))
+
+    def _write_nightly(self, archive, with_symlink=False):
+        tree = os.path.join(self.tmp, 'nightly-src')
+        if os.path.isdir(tree):
+            shutil.rmtree(tree)
+        write_level(os.path.join(tree, 'survival', 'world', 'level.dat'), sample_level_nbt_26())
+        write_file(os.path.join(tree, 'survival', 'world', 'dimensions', 'minecraft', 'the_nether', 'region', 'n.mca'), 'NETHER')
+        write_file(os.path.join(tree, 'survival', 'world', 'players', 'data', 'survival.dat'), 'SURVIVAL-INV')
+        write_file(os.path.join(tree, 'survival', 'plugins', 'Towny', 'data.yml'), 'TOWN')
+        if with_symlink:
+            region = os.path.join(tree, 'survival', 'world', 'region')
+            os.makedirs(region, exist_ok=True)
+            os.symlink('/etc/hostname', os.path.join(region, 'linked.mca'))
+        subprocess.check_call(['tar', '--zstd', '-C', tree, '-cf', archive, 'survival'])
+
+    def test_backup_archive_extracts_world_only(self):
+        archive = os.path.join(self.tmp, 'survival_2026-10-02_05-15.tar.zst')
+        self._write_nightly(archive)
+        dest = cw.extract_backup(archive, parent=self.tmp)
+        self.assertTrue(os.path.isfile(os.path.join(dest, 'world', 'level.dat')))
+        self.assertEqual(
+            open(os.path.join(dest, 'world', 'dimensions', 'minecraft', 'the_nether', 'region', 'n.mca')).read(),
+            'NETHER',
+        )
+        self.assertFalse(os.path.exists(os.path.join(dest, 'world', 'players')))
+        self.assertFalse(os.path.exists(os.path.join(dest, 'plugins')))
+        self.assertTrue(dest.startswith(self.tmp))
+        copied = self._run(source=dest, allow_live=False, survival_root=self.survival)
+        self.assertEqual(copied['worlds'], ['world'])
+        self.assertEqual(
+            open(os.path.join(self.creative, 'world', 'dimensions', 'minecraft', 'the_nether', 'region', 'n.mca')).read(),
+            'NETHER',
+        )
+        self.assertFalse(os.path.exists(os.path.join(self.creative, 'world', 'players')))
+        bare_src = os.path.join(self.tmp, 'bare-src')
+        write_level(os.path.join(bare_src, 'world', 'level.dat'))
+        write_file(os.path.join(bare_src, 'world', 'dimensions', 'minecraft', 'the_end', 'region', 'e.mca'), 'END')
+        write_file(os.path.join(bare_src, 'world', 'players', 'data', 'survival.dat'), 'SURVIVAL-INV')
+        bare = os.path.join(self.tmp, 'survival_bare.tar.zst')
+        subprocess.check_call(['tar', '--zstd', '-C', bare_src, '-cf', bare, 'world'])
+        bare_dest = cw.extract_backup(bare, parent=self.tmp)
+        self.assertTrue(os.path.isfile(os.path.join(bare_dest, 'world', 'level.dat')))
+        self.assertEqual(
+            open(os.path.join(bare_dest, 'world', 'dimensions', 'minecraft', 'the_end', 'region', 'e.mca')).read(),
+            'END',
+        )
+        self.assertFalse(os.path.exists(os.path.join(bare_dest, 'world', 'players')))
+
+    def test_main_dry_run_archive_does_not_extract(self):
+        archive = os.path.join(self.tmp, 'survival_2026-10-02_05-15.tar.zst')
+        self._write_nightly(archive)
+        rc = cw.main([
+            'copy', '--from', 'backup', '--dry-run', '--source', archive,
+            '--creative-root', self.creative, '--survival-root', self.survival,
+            '--archive-root', self.archive, '--backup-root', self.tmp,
+        ])
+        self.assertEqual(rc, 0)
+        self.assertFalse(any(name.startswith('bellcraft-creative-world-') for name in os.listdir(self.tmp)))
+        self.assertFalse(os.path.exists(os.path.join(self.creative, 'world', 'level.dat')))
+        write_file(os.path.join(self.creative, 'world', 'level.dat'), 'existing')
+        rc = cw.main([
+            'copy', '--from', 'backup', '--source', archive,
+            '--creative-root', self.creative, '--survival-root', self.survival,
+            '--archive-root', self.archive, '--backup-root', self.tmp,
+        ])
+        self.assertEqual(rc, 0)
+        self.assertEqual(open(os.path.join(self.creative, 'world', 'level.dat')).read(), 'existing')
+        self.assertIn('gamemode=creative', open(os.path.join(self.creative, 'server.properties')).read())
+        self.assertFalse(any(name.startswith('bellcraft-creative-world-') for name in os.listdir(self.tmp)))
+
+    def test_backup_archive_refuses_symlink_and_small_disk(self):
+        archive = os.path.join(self.tmp, 'survival_linked.tar.zst')
+        self._write_nightly(archive, with_symlink=True)
+        with self.assertRaises(SystemExit):
+            cw.extract_backup(archive, parent=self.tmp)
+        self.assertFalse(any(name.startswith('bellcraft-creative-world-') for name in os.listdir(self.tmp)))
+        plain = os.path.join(self.tmp, 'survival_plain.tar.zst')
+        self._write_nightly(plain)
+        with self.assertRaises(SystemExit) as ctx:
+            cw.extract_backup(plain, parent=self.tmp, disk_free=lambda _path: 1)
+        self.assertIn('not enough disk', str(ctx.exception))
+
+    def test_backup_picker_uses_newest_survival_archive_name(self):
+        backups = os.path.join(self.tmp, 'backups')
+        os.makedirs(backups)
+        older = os.path.join(backups, 'survival_2026-10-01_05-15.tar.zst')
+        newer = os.path.join(backups, 'survival_2026-10-02_05-15.tar.zst')
+        other = os.path.join(backups, 'creative_2026-10-02_05-15.tar.zst')
+        for path in (older, newer, other):
+            open(path, 'wb').close()
+        os.utime(older, (1, 1))
+        os.utime(newer, (3, 3))
+        os.utime(other, (4, 4))
+        _found, archives = cw.find_survival_backups(backups, self.survival)
+        nightly = [path for path in archives if os.path.basename(path).startswith('survival')]
+        self.assertEqual(nightly[0], newer)
+        self.assertIn(other, archives)
+        self.assertGreater(os.path.getmtime(other), os.path.getmtime(newer))
 
     def test_perms_do_not_touch_worlds(self):
         calls = []
