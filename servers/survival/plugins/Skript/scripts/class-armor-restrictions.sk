@@ -4,7 +4,7 @@
 #            and skript-placeholders addon!
 #
 #  Vanilla tier rules:
-#    Iron-limited  – Cleric, Mystic, Sorcerer
+#    Iron-limited  – Cleric, Mystic, Sorcerer, Necromancer
 #                    (diamond & netherite blocked)
 #    One-netherite – Ranger, Envoy, Operative
 #                    (at most 1 netherite piece total)
@@ -165,7 +165,7 @@ function classArmorAllowed(class: text, p: player, i: item, slot: text) :: boole
             return true
         return false
 
-    if {_class} is "Cleric", "Mystic" or "Sorcerer":
+    if {_class} is "Cleric", "Mystic", "Sorcerer" or "Necromancer":
         if isAboveIronArmor({_i}) is true:
             return false
 

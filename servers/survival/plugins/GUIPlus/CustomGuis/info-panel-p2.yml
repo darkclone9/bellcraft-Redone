@@ -497,6 +497,24 @@ scenes:
         item-flags: [
           ]
         unbreakable: false
+      '90':
+        slot: 24
+        item: WITHER_SKELETON_SKULL
+        amount: 1
+        item-name: '&5&lNecromancer'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 0
+            lore:
+            - ''
+            - '&7Role: &fCaster / Pet Commander'
+            - '&7Raise corpses to fight. Specs:'
+            - '&5Reaper &7— elite pet + drains'
+            - '&dLichlord &7— army of 4 + explosions'
+            - '&7Resource: &5Essence'
+        item-flags: []
+        unbreakable: false
       '22':
         slot: 26
         item: BLACK_STAINED_GLASS_PANE

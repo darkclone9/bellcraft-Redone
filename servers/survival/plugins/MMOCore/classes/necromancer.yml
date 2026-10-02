@@ -1,0 +1,187 @@
+display:
+  name: 'Necromancer'
+  lore:
+    - '&eClass Role: Caster DPS / Pet Commander'
+    - '&7Raise the dead from real corpses'
+    - '&7and drain the living. Choose a path:'
+    - '&8» &5Reaper &7— one elite undead + drains'
+    - '&8» &dLichlord &7— army of four + explosions'
+  item: WITHER_SKELETON_SKULL
+  slot: 24
+
+mana:
+  char: "☠"
+  icon: "&5☠"
+  name: 'Essence'
+  color:
+    full: DARK_PURPLE
+    half: LIGHT_PURPLE
+    empty: DARK_GRAY
+
+stats:
+  # Same budget as the other classes (2026-09-10): one primary damage stat,
+  # mana regeneration on the class, and attributes of 20 at base + 4.0 per level.
+  # Pet caster. Less raw magic than Sorcerer and a bit more health, because the
+  # raised dead do part of the work. SKILL_DAMAGE is not a second base damage stat.
+  MAX_HEALTH:
+    base: 22
+    per-level: 2.2
+  MAX_MANA:
+    base: 50
+    per-level: 6.0
+  MAGIC_DAMAGE:
+    base: 5
+    per-level: 1.6
+  ARMOR:
+    base: 2
+    per-level: 0.3
+  COOLDOWN_REDUCTION:
+    base: 2
+    per-level: 0.04
+  MANA_REGENERATION:
+    base: 2.5
+    per-level: 0.7
+  MOVEMENT_SPEED:
+    base: 0.11
+    per-level: 0.0
+
+attributes:
+  # Fixed budget for every class: 20 points at base, 4.0 per level.
+  strength:
+    base: 2
+    per-level: 0.4
+  dexterity:
+    base: 2
+    per-level: 0.4
+  intelligence:
+    base: 12
+    per-level: 2.4
+  wisdom:
+    base: 4
+    per-level: 0.8
+
+options:
+  default: false
+  display: true
+  needs-permission: false
+  off-combat-health-regen: false
+  off-combat-mana-regen: true
+
+exp-curve: 'levels'
+exp-table: class_exp_table
+
+skill-slots:
+  1:
+    name: "&6Skill Slot I"
+    unlocked-by-default: true
+    can-manually-bind: true
+    lore:
+      - "&7Bind a skill with /skills"
+  2:
+    name: "&6Skill Slot II"
+    unlocked-by-default: true
+    can-manually-bind: true
+    lore:
+      - "&7Bind a skill with /skills"
+  3:
+    name: "&6Skill Slot III"
+    unlocked-by-default: true
+    can-manually-bind: true
+    lore:
+      - "&7Bind a skill with /skills"
+  4:
+    name: "&6Skill Slot IV"
+    unlocked-by-default: true
+    can-manually-bind: true
+    lore:
+      - "&7Bind a skill with /skills"
+  5:
+    name: "&6Skill Slot V"
+    unlocked-by-default: true
+    can-manually-bind: true
+    lore:
+      - "&7Bind a skill with /skills"
+  6:
+    name: "&6Skill Slot VI"
+    unlocked-by-default: true
+    can-manually-bind: true
+    lore:
+      - "&7Bind a skill with /skills"
+
+main-exp-sources:
+  - 'killmob{type=ZOMBIE;amount=2-4}'
+  - 'killmob{type=SKELETON;amount=2-4}'
+  - 'killmob{type=PHANTOM;amount=3-5}'
+  - 'killmob{type=WITHER_SKELETON;amount=5-8}'
+  - 'killmob{type=WITCH;amount=3-5}'
+  - 'killmob{type=ZOMBIE_VILLAGER;amount=2-4}'
+
+skill-trees:
+  - 'necromancer-reaper'
+  - 'necromancer-lichlord'
+  - 'profession-mining'
+  - 'profession-woodcutting'
+  - 'profession-farming'
+  - 'profession-fishing'
+  - 'profession-alchemy'
+  - 'profession-smithing'
+  - 'profession-enchanting'
+  - 'profession-smelting'
+
+# Raise Dead and Soul Drain start unlocked. The other six unlock from the
+# Reaper and Lichlord trees. Definitions: MythicLib/skill/NECROMANCER_SKILLS.yml
+skills:
+  NECROMANCER_RAISE_DEAD:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  NECROMANCER_SOUL_DRAIN:
+    level: 1
+    max-level: 30
+    unlocked-by-default: true
+
+  NECROMANCER_RAISE_ELITE:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  NECROMANCER_LIFE_SIPHON:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  NECROMANCER_DEATH_GRASP:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  NECROMANCER_RAISE_MINION:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  NECROMANCER_UNHOLY_COMMAND:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+  NECROMANCER_CORPSE_EXPLOSION:
+    level: 1
+    max-level: 30
+    unlocked-by-default: false
+
+triggers:
+  level-up-10:
+    - 'command{format="lp user %player_name% permission set betterrtp.group.lvl10 true"}'
+  level-up-20:
+    - 'command{format="lp user %player_name% permission set betterrtp.group.lvl20 true"}'
+  level-up-30:
+    - 'command{format="lp user %player_name% permission set betterrtp.group.lvl30 true"}'
+  level-up-40:
+    - 'command{format="lp user %player_name% permission set betterrtp.group.lvl40 true"}'
+  level-up-multiple-4:
+    - 'command{format="bellcraft-grant-ap %player_name%"}'
+    - 'command{format="bellcraft-grant-sp %player_name%"}'
+    - 'command{format="bellcraft-grant-stp %player% necromancer-reaper"}'
+    - 'command{format="bellcraft-grant-stp %player% necromancer-lichlord"}'
