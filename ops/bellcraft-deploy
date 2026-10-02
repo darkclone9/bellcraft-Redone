@@ -19,7 +19,7 @@ action arrives in SSH_ORIGINAL_COMMAND (or argv when run by hand):
     plugin reload or a restart - this tool never restarts a server.
 Deletions travel as servers/<server>/.deploy-delete, one repo-relative path per line.
 """
-import datetime, fcntl, io, os, re, shlex, shutil, socket, struct, subprocess, sys, tarfile
+import datetime, fcntl, io, json, os, re, shlex, shutil, socket, struct, subprocess, sys, tarfile
 
 ROOT = '/opt/bellcraft'
 SERVERS = ['proxy', 'lobby', 'survival', 'creative', 'classic', 'rpg', 'test']
@@ -86,6 +86,26 @@ def running(server):
     return subprocess.run(['systemctl', 'is-active', '--quiet', UNITS[server]]).returncode == 0
 
 
+def with_geyser_format_version(rel, content):
+    if not (rel.startswith('plugins/Geyser-') and rel.endswith('/custom_mappings/bellcraft_radio_sounds.json')):
+        return content, None
+    try:
+        data = json.loads(content.decode('utf-8'))
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        return content, None
+    if not isinstance(data, dict) or 'format_version' in data:
+        return content, None
+    if 'items' in data:
+        version = 2
+    elif 'blocks' in data:
+        version = 1
+    else:
+        version = 1
+    updated = {'format_version': version}
+    updated.update(data)
+    return json.dumps(updated, ensure_ascii=False, separators=(',', ':')).encode('utf-8'), version
+
+
 def apply(server):
     data = sys.stdin.buffer.read(MAX_TAR + 1)
     if len(data) > MAX_TAR:
@@ -137,6 +157,9 @@ def apply(server):
             if MARK in content:
                 refused.append(f'{rel} (contains <<REDACTED>> - edit it on the server)')
                 continue
+            content, version = with_geyser_format_version(rel, content)
+            if version is not None:
+                log(f'  normalized {rel}: added format_version={version}')
             dst = os.path.join(base, rel)
             if os.path.isfile(dst) and open(dst, 'rb').read() == content:
                 same += 1
