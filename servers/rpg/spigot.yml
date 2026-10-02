@@ -107,12 +107,14 @@ world-settings:
       pitcherplant-modifier: 100
     entity-activation-range:
       animals: 32
-      monsters: 32
-      raiders: 64
+      # 0 disables the throttle: every hostile in a ticking chunk gets AI. 32 froze mobs past
+      # 32 blocks, so a gold farm's platforms filled with mobs that never pathfind or despawn.
+      monsters: 0
+      raiders: 0
       misc: 16
       water: 16
       villagers: 32
-      flying-monsters: 32
+      flying-monsters: 0
       wake-up-inactive:
         animals-max-per-tick: 4
         animals-every: 1200
@@ -178,7 +180,9 @@ world-settings:
       tile: 50
       entity: 50
     view-distance: default
-    simulation-distance: default
+    # Overrides server.properties (5). 8 chunks is 128 blocks, the same radius as mob-spawn-range,
+    # so the outer platforms of a farm actually tick. View distance stays 10.
+    simulation-distance: 8
     verbose: false
   worldeditregentempworld:
     verbose: false
