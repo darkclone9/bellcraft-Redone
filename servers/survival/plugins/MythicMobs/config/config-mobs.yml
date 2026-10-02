@@ -95,10 +95,15 @@ Configuration:
       Power: 0
     
     # Per-world scaling options
+    # Vanilla overworld/nether/end hostiles are scaled by Skript
+    # (plugins/Skript/scripts/bellcraft-mobscale.sk), not by this block.
+    # ScaleVanillaMobs was on and did nothing (issue #7: distant zombies
+    # were still vanilla until the script). Leaving it on would let a
+    # future MythicMobs build stack a second health curve on top.
     WorldScaling:
       Default:
         Enabled: true
-        ScaleVanillaMobs: true
+        ScaleVanillaMobs: false
         PerBlocksFromSpawn: 250
       world2:
         Enabled: true

@@ -80,10 +80,13 @@ Never put a real secret in this repo: **it is public.** `servers/REDACTED.txt` l
   (1000-2200), Ashenmoor Expanse 20-32 (2200-3600), Stormhollow Frontier 32-45 (3600-5000),
   The Sundered Wilds 45-60 (5000+). Harsh biomes +8. Nether = Cinderreach 55-70, deep dark =
   The Hollowing Choir 70-80, End = The Pale Crown 80-99. The same table is duplicated in
-  `bellcraft-mobxp.sk`, `bellcraft-graves.sk`, `bellcraft-mobscale.sk` and the `bellcraft_zones`
-  datapack - change them together.
-- MythicMobs' `WorldScaling` does **not** scale vanilla mobs here. `bellcraft-mobscale.sk` does:
-  health set at spawn, damage multiplied per hit, by zone level. Named/plugin-spawned mobs are skipped.
+  `bellcraft-mobxp.sk`, `bellcraft-graves.sk` and the `bellcraft_zones` datapack - change them
+  together. `bellcraft-mobscale.sk` walks the same rings, but its multiplier is
+  `1 + section-bonus * (section - 1)` (default +30% of vanilla per section, sections 1–8),
+  not the level number. Tune it in that script's `options:`.
+- MythicMobs' `WorldScaling` does **not** scale vanilla mobs here (`ScaleVanillaMobs` is off).
+  `bellcraft-mobscale.sk` does: health set once at spawn, damage multiplied per hit.
+  Named/plugin-spawned mobs are skipped.
 - `killmythicmob` quest objectives take `name="<id>"`, not `type=`.
 - The deep dark has no vanilla spawn list: MythicMobs spawns there need `Action: ADD`.
 
