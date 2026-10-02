@@ -1,0 +1,73 @@
+# Bellcraft: cancel /home when the player takes damage
+#
+# /home is CMI (Settings/Alias.yml aliases /cmi home). The 3 second wait and
+# the "leave the block and it cancels" rule live in CMI config.yml WarmUps,
+# including a click in the homes menu. CMI has no damage switch in that list.
+# A hit that knocks the player off the block already cancels via the move rule.
+# This script covers damage that does not move them, the same way /lobby
+# refuses to finish after a hit.
+#
+# It does not register /home, so CMI keeps homes, tab-complete and the menu.
+# For 4 seconds after /home or /cmi home, a damaging hit marks the warmup.
+# The next command or plugin teleport in that window is cancelled. Ender
+# pearls are not. The window is a second longer than CMI's 3 second wait so
+# a lagging teleport is still caught.
+
+options:
+    prefix: &8[&6Bellcraft&8] &r
+
+on load:
+    send "[home-warmup] loaded" to console
+
+function armHomeWarmup(p: player) :: number:
+    add 1 to {homewarm.gen::%uuid of {_p}%}
+    set {homewarm::%uuid of {_p}%} to true
+    set {homewarm.hit::%uuid of {_p}%} to false
+    return {homewarm.gen::%uuid of {_p}%}
+
+function clearHomeWarmup(id: text, gen: number):
+    if {homewarm.gen::%{_id}%} is {_gen}:
+        delete {homewarm::%{_id}%}
+        delete {homewarm.hit::%{_id}%}
+
+on command "/home":
+    set {_id} to uuid of player
+    set {_gen} to armHomeWarmup(player)
+    wait 4 seconds
+    clearHomeWarmup({_id}, {_gen})
+
+on command "/cmi":
+    if arguments is set:
+        set {_args} to arguments
+        if {_args} is "home":
+            set {_id} to uuid of player
+            set {_gen} to armHomeWarmup(player)
+            wait 4 seconds
+            clearHomeWarmup({_id}, {_gen})
+        else if {_args} starts with "home ":
+            set {_id} to uuid of player
+            set {_gen} to armHomeWarmup(player)
+            wait 4 seconds
+            clearHomeWarmup({_id}, {_gen})
+
+on damage of player:
+    if {homewarm::%uuid of victim%} is true:
+        if damage is greater than 0:
+            if {homewarm.hit::%uuid of victim%} is true:
+                stop
+            set {homewarm.hit::%uuid of victim%} to true
+            send "{@prefix}&cHome teleport cancelled - you took damage." to victim
+            play sound "block.note_block.bass" with volume 0.7 and pitch 0.7 at victim
+
+on teleport:
+    if {homewarm.hit::%uuid of player%} is true:
+        if teleport cause is plugin:
+            cancel event
+            stop
+        if teleport cause is command:
+            cancel event
+
+on quit:
+    delete {homewarm::%uuid of player%}
+    delete {homewarm.hit::%uuid of player%}
+    delete {homewarm.gen::%uuid of player%}
