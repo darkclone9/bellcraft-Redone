@@ -50,6 +50,13 @@ Never put a real secret in this repo: **it is public.** `servers/REDACTED.txt` l
 - `bellcraft-dev up` can report a false "Done" from the previous boot's log - check `latest.log`'s
   first line against the clock. Paper timestamps have no date.
 - CMI commands over RCON often return nothing and do not apply; prefer doing it via Skript.
+- RCON ports are one per backend: survival 25575, lobby 25576, rpg 25577, creative (build) 25578,
+  classic 25579, test 25580. `test` uses 25580 so it can start while the build server is up.
+  `rcon.port` is in `server.properties`, which is redacted and not deployed: set
+  `rcon.port=25580` on the host in `/opt/bellcraft/test/server.properties`. A git edit of that
+  file is skipped on deploy, and the next live sync puts the server copy back. `bellcraft-rcon`
+  and `bellcraft-deploy` read the port from that file. `bellcraft-dev` is
+  `/opt/bellcraft/bin/bellcraft-dev` on the host and is not in this repo.
 
 ### Skript (2.16.1)
 - **Parse errors only appear in the console at boot**, not on `sk reload` (that report goes to the
