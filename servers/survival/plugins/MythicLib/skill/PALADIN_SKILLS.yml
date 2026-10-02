@@ -8,7 +8,7 @@ PALADIN_HOLY_SMITE:
       player:
         base: 6
         per-level: -0.05
-        min: 3
+        min: 5
         max: 6
       name: Cooldown
     mana:
@@ -23,7 +23,6 @@ PALADIN_HOLY_SMITE:
       name: Damage
   triggers:
     cast:
-    - damage{amount={damage}}
     - particle{p=ENCHANTED_HIT;amount=30;speed=0.3;hS=0.5;vS=0.5}
     - particle{p=FLASH;amount=10;speed=0.2;hS=0.3;vS=0.3}
     - sound{s=ENTITY_PLAYER_ATTACK_STRONG;v=1.2;p=1.5}
@@ -51,7 +50,7 @@ PALADIN_DIVINE_BULWARK:
       name: Duration
   triggers:
     cast:
-    - stat{stat=ARMOR;amount=50;operation=RELATIVE;duration={duration}}
+    - stat{stat=ARMOR;amount=20;operation=RELATIVE;duration={duration}}
     - stat{stat=KNOCKBACK_RESISTANCE;amount=30;operation=RELATIVE;duration={duration}}
     - particle{p=BLOCK;material=IRON_BLOCK;amount=50;speed=0.2;hS=0.8;vS=0.8}
     - sound{s=ITEM_ARMOR_EQUIP_IRON;v=1.5;p=0.8}
@@ -112,7 +111,6 @@ PALADIN_JUDGMENT:
       name: Damage
   triggers:
     cast:
-    - damage{amount={damage}}
     - heal{amount={damage}}
     - particle{p=FLASH;amount=20;speed=0.5;hS=2;vS=3}
     - particle{p=TOTEM_OF_UNDYING;amount=200;speed=0.8;hS=3;vS=4}
@@ -141,7 +139,7 @@ PALADIN_AVENGING_WRATH:
       name: Duration
   triggers:
     cast:
-    - stat{stat=ATTACK_DAMAGE;amount=35;operation=RELATIVE;duration={duration}}
+    - stat{stat=ATTACK_DAMAGE;amount=12;operation=RELATIVE;duration={duration}}
     - stat{stat=ATTACK_SPEED;amount=20;operation=RELATIVE;duration={duration}}
     - potion{type=STRENGTH;duration={duration};amplifier=2}
     - particle{p=TOTEM_OF_UNDYING;amount=120;speed=0.8;hS=2;vS=3}
@@ -175,7 +173,6 @@ PALADIN_HOLY_GROUND:
       name: Duration
   triggers:
     cast:
-    - heal{amount={heal}}
     - potion{type=REGENERATION;duration={duration};amplifier=1}
     - particle{p=INSTANT_EFFECT;amount=120;speed=0.5;hS=3;vS=1}
     - particle{p=END_ROD;amount=50;speed=0.2;hS=2.5;vS=2}
@@ -227,9 +224,11 @@ TEMPLAR_CONSECRATION:
     heal:
       base: 3
       per-level: 0.25
+      player:
+        base: 3
+        per-level: 0.25
   triggers:
     damaged:
-    - heal{amount={heal};target=caster}
     - particle{p=INSTANT_EFFECT;amount=14;speed=0.15;hS=0.5;vS=0.6}
     - sound{s=BLOCK_BEACON_AMBIENT;v=0.6;p=1.6}
 TEMPLAR_LAY_ON_HANDS:
@@ -250,12 +249,14 @@ TEMPLAR_LAY_ON_HANDS:
     heal:
       base: 14
       per-level: 0.8
+      player:
+        base: 14
+        per-level: 0.8
     duration:
       base: 8
       per-level: 0.08
   triggers:
     cast:
-    - heal{amount={heal};target=caster}
     - potion{type=ABSORPTION;duration={duration};amplifier=1;target=caster}
     - stat{stat=ARMOR;amount=35;operation=RELATIVE;duration={duration};target=caster}
     - particle{p=TOTEM_OF_UNDYING;amount=70;speed=0.4;hS=1;vS=1.2}
@@ -275,6 +276,9 @@ CRUSADER_ZEAL:
     heal:
       base: 4
       per-level: 0.3
+      player:
+        base: 4
+        per-level: 0.3
     duration:
       base: 6
       per-level: 0.08
@@ -296,18 +300,26 @@ CRUSADER_JUDGMENT:
       base: 14
       per-level: -0.09
       min: 8
+      player:
+        base: 14
+        per-level: -0.09
+        min: 8
+        max: 14
+      max: 14
     mana:
       base: 10
       per-level: 0.18
     damage:
       base: 15
       per-level: 0.85
+      player:
+        base: 15
+        per-level: 0.85
     duration:
       base: 6
       per-level: 0.06
   triggers:
     cast:
-    - damage{amount={damage}}
     - potion{type=GLOWING;duration={duration};amplifier=0}
     - particle{p=ENCHANTED_HIT;amount=45;speed=0.5;hS=0.6;vS=1}
     - sound{s=ITEM_TRIDENT_THUNDER;v=1.1;p=1.2}

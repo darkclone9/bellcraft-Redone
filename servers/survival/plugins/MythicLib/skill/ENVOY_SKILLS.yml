@@ -64,7 +64,7 @@ ENVOY_TACTICAL_MARK:
       player:
         base: 10
         per-level: -0.08
-        min: 5
+        min: 8
         max: 10
       name: Cooldown
     mana:
@@ -98,7 +98,7 @@ ENVOY_SUPPRESSING_FIRE:
       player:
         base: 14
         per-level: -0.1
-        min: 7
+        min: 10
         max: 14
       name: Cooldown
     mana:
@@ -113,13 +113,18 @@ ENVOY_SUPPRESSING_FIRE:
       name: Damage
     duration:
       player:
-        base: 3
-        per-level: 0.05
+        base: 0
+        per-level: 0
       name: Duration
+    radius:
+      player:
+        base: 2.5
+        per-level: 0
+      base: 2.5
+      per-level: 0
   triggers:
     cast:
-    - damage{amount={damage}}
-    - potion{type=SLOWNESS;duration={duration};amplifier=1}
+    - potion{type=SLOWNESS;duration=3;amplifier=1}
     - particle{p=LARGE_SMOKE;amount=50;speed=0.5;hS=2;vS=1}
     - sound{s=ENTITY_ARROW_SHOOT;v=1.5;p=0.8}
 ENVOY_TACTICAL_RETREAT:
@@ -210,7 +215,6 @@ ENVOY_COMMANDING_SHOUT:
       name: Duration
   triggers:
     cast:
-    - heal{amount={heal}}
     - potion{type=REGENERATION;duration={duration};amplifier=1}
     - potion{type=RESISTANCE;duration={duration};amplifier=1}
     - particle{p=TOTEM_OF_UNDYING;amount=90;speed=0.6;hS=2.5;vS=2.5}
@@ -261,7 +265,7 @@ WARLORD_WAR_CRY:
     cast:
     - potion{type=STRENGTH;duration={duration};amplifier=1;target=caster}
     - potion{type=RESISTANCE;duration={duration};amplifier=0;target=caster}
-    - stat{stat=WEAPON_DAMAGE;amount=25;operation=RELATIVE;duration={duration};target=caster}
+    - stat{stat=WEAPON_DAMAGE;amount=12;operation=RELATIVE;duration={duration};target=caster}
     - particle{p=ENCHANTED_HIT;amount=50;speed=0.3;hS=1;vS=1}
     - sound{s=EVENT_RAID_HORN;v=1;p=1.2}
 STRATEGIST_ADAPT:
@@ -306,12 +310,14 @@ STRATEGIST_FIELD_ORDERS:
     heal:
       base: 12
       per-level: 0.75
+      player:
+        base: 12
+        per-level: 0.75
     duration:
       base: 7
       per-level: 0.07
   triggers:
     cast:
-    - heal{amount={heal}}
     - potion{type=REGENERATION;duration={duration};amplifier=0}
     - particle{p=HAPPY_VILLAGER;amount=40;speed=0.2;hS=0.8;vS=0.9}
     - sound{s=ENTITY_PLAYER_LEVELUP;v=0.8;p=1.4}

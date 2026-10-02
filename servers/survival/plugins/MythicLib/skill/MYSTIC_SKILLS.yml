@@ -23,7 +23,6 @@ MYSTIC_COSMIC_HEAL:
       name: Heal
   triggers:
     cast:
-    - heal{amount={heal}}
     - particle{p=INSTANT_EFFECT;amount=50;speed=0.4;hS=1.5;vS=1.5}
     - particle{p=TOTEM_OF_UNDYING;amount=25;speed=0.3;hS=1;vS=1}
     - sound{s=BLOCK_BEACON_POWER_SELECT;v=1;p=1.8}
@@ -52,7 +51,7 @@ MYSTIC_ASTRAL_BARRIER:
   triggers:
     cast:
     - potion{type=ABSORPTION;duration={duration};amplifier=2}
-    - stat{stat=MAGIC_DAMAGE;amount=20;operation=RELATIVE;duration={duration}}
+    - stat{stat=MAGIC_DAMAGE;amount=10;operation=RELATIVE;duration={duration}}
     - stat{stat=ARMOR;amount=20;operation=RELATIVE;duration={duration}}
     - particle{p=INSTANT_EFFECT;amount=80;speed=0.5;hS=2;vS=2}
     - sound{s=BLOCK_BEACON_ACTIVATE;v=1;p=1.5}
@@ -65,8 +64,8 @@ MYSTIC_MIND_SPIKE:
       player:
         base: 8
         per-level: -0.06
-        min: 3
-        max: 8
+        min: 8
+        max: 9
       name: Cooldown
     mana:
       player:
@@ -99,7 +98,7 @@ MYSTIC_STELLAR_CONVERGENCE:
       player:
         base: 50
         per-level: -0.3
-        min: 30
+        min: 32
         max: 50
       name: Cooldown
     mana:
@@ -124,7 +123,6 @@ MYSTIC_STELLAR_CONVERGENCE:
       name: Duration
   triggers:
     cast:
-    - heal{amount={heal}}
     - damage{amount={damage}}
     - potion{type=REGENERATION;duration={duration};amplifier=2}
     - potion{type=ABSORPTION;duration={duration};amplifier=2}
@@ -162,7 +160,7 @@ MYSTIC_STARFALL:
       player:
         base: 18
         per-level: -0.12
-        min: 10
+        min: 12
         max: 18
       name: Cooldown
     mana:
@@ -175,9 +173,20 @@ MYSTIC_STARFALL:
         base: 8.395
         per-level: 0.504
       name: Damage
+    duration:
+      player:
+        base: 1.5
+        per-level: 0
+      base: 1.5
+      per-level: 0
+    speed:
+      player:
+        base: 6
+        per-level: 0
+      base: 6
+      per-level: 0
   triggers:
     cast:
-    - damage{amount={damage}}
     - particle{p=FIREWORK;amount=140;speed=0.9;hS=3;vS=3}
     - particle{p=END_ROD;amount=50;speed=0.3;hS=2;vS=3}
     - sound{s=ENTITY_FIREWORK_ROCKET_LAUNCH;v=1.4;p=1.2}
@@ -231,7 +240,7 @@ ASTRAL_ALIGNMENT:
       per-level: 0.07
   triggers:
     damaged:
-    - stat{stat=MAGIC_DAMAGE;amount=14;operation=RELATIVE;duration={duration};target=caster}
+    - stat{stat=MAGIC_DAMAGE;amount=6;operation=RELATIVE;duration={duration};target=caster}
     - stat{stat=COOLDOWN_REDUCTION;amount=5;operation=FLAT;duration={duration};target=caster}
     - particle{p=END_ROD;amount=24;speed=0.15;hS=0.6;vS=0.8}
     - sound{s=BLOCK_AMETHYST_BLOCK_CHIME;v=0.8;p=1.4}
@@ -246,19 +255,51 @@ ASTRAL_STARFALL:
     cooldown:
       base: 16
       per-level: -0.1
-      min: 9
+      min: 12
+      player:
+        base: 16
+        per-level: -0.1
+        min: 12
+        max: 16
+      max: 16
     mana:
       base: 13
       per-level: 0.2
     damage:
-      base: 17
-      per-level: 0.95
+      base: 13.433
+      per-level: 0.79
+      player:
+        base: 13.433
+        per-level: 0.79
     duration:
       base: 5
       per-level: 0.05
+    length:
+      player:
+        base: 16
+        per-level: 0
+      base: 16
+      per-level: 0
+    max:
+      player:
+        base: 1
+        per-level: 0
+      base: 1
+      per-level: 0
+    extra:
+      player:
+        base: 0
+        per-level: 0
+      base: 0
+      per-level: 0
+    knockback:
+      player:
+        base: 0.25
+        per-level: 0
+      base: 0.25
+      per-level: 0
   triggers:
     cast:
-    - damage{amount={damage}}
     - potion{type=GLOWING;duration={duration};amplifier=0}
     - particle{p=END_ROD;amount=70;speed=0.5;hS=1;vS=1.4}
     - sound{s=ENTITY_FIREWORK_ROCKET_BLAST;v=1.2;p=0.8}
@@ -278,6 +319,9 @@ VOID_SIPHON:
     heal:
       base: 2
       per-level: 0.12
+      player:
+        base: 2
+        per-level: 0.12
   triggers:
     attack:
     - potion{type=WITHER;duration=4;amplifier=0}
@@ -296,12 +340,21 @@ VOID_COLLAPSE:
       base: 15
       per-level: -0.09
       min: 8
+      player:
+        base: 15
+        per-level: -0.09
+        min: 8
+        max: 15
+      max: 15
     mana:
       base: 12
       per-level: 0.2
     damage:
-      base: 13
-      per-level: 0.75
+      base: 7.744
+      per-level: 0.632
+      player:
+        base: 7.744
+        per-level: 0.632
   triggers:
     cast:
     - damage{amount={damage}}

@@ -6,10 +6,10 @@ OPERATIVE_STAB:
   parameters:
     cooldown:
       player:
-        base: 2.5
+        base: 14
         per-level: -0.02
-        min: 1
-        max: 2.5
+        min: 10
+        max: 14
       name: Cooldown
     mana:
       player:
@@ -18,12 +18,11 @@ OPERATIVE_STAB:
       name: Mana
     damage:
       player:
-        base: 7.7
-        per-level: 0.495
+        base: 8.102
+        per-level: 0.242
       name: Damage
   triggers:
     cast:
-    - damage{amount={damage};type=PHYSICAL}
     - particle{p=CRIT;amount=20;speed=0.4;hS=0.5;vS=0.5}
     - particle{p=SWEEP_ATTACK;amount=8;speed=0.2}
     - sound{s=ENTITY_PLAYER_ATTACK_CRIT;v=1.2;p=1.4}
@@ -81,7 +80,7 @@ OPERATIVE_EVASION:
   triggers:
     cast:
     - potion{type=SPEED;duration={duration};amplifier=1}
-    - stat{stat=DODGE_RATING;amount=100;operation=RELATIVE;duration={duration}}
+    - stat{stat=DODGE_RATING;amount=15;operation=RELATIVE;duration={duration}}
     - particle{p=ENCHANT;amount=80;speed=0.6;hS=1.5;vS=1.5}
     - sound{s=ENTITY_ENDER_DRAGON_FLAP;v=1;p=2.0}
 OPERATIVE_EXPLOIT:
@@ -93,7 +92,7 @@ OPERATIVE_EXPLOIT:
       player:
         base: 40
         per-level: -0.25
-        min: 25
+        min: 32
         max: 40
       name: Cooldown
     mana:
@@ -103,8 +102,8 @@ OPERATIVE_EXPLOIT:
       name: Mana
     damage:
       player:
-        base: 21.743
-        per-level: 1.087
+        base: 20.103
+        per-level: 0.453
       name: Damage
   triggers:
     cast:
@@ -120,10 +119,10 @@ OPERATIVE_SHADOW_STRIKE:
   parameters:
     cooldown:
       player:
-        base: 8
+        base: 14
         per-level: -0.06
-        min: 4
-        max: 8
+        min: 10
+        max: 14
       name: Cooldown
     mana:
       player:
@@ -132,12 +131,11 @@ OPERATIVE_SHADOW_STRIKE:
       name: Mana
     damage:
       player:
-        base: 10.871
-        per-level: 0.664
+        base: 8.102
+        per-level: 0.242
       name: Damage
   triggers:
     cast:
-    - damage{amount={damage};type=PHYSICAL}
     - velocity{forward=3;up=0.2}
     - particle{p=LARGE_SMOKE;amount=60;speed=0.4;hS=1.2;vS=1.5}
     - sound{s=ENTITY_ENDERMAN_TELEPORT;v=1.2;p=1.6}
@@ -150,7 +148,7 @@ OPERATIVE_POISON_BLADE:
       player:
         base: 14
         per-level: -0.1
-        min: 7
+        min: 8
         max: 14
       name: Cooldown
     mana:
@@ -160,8 +158,8 @@ OPERATIVE_POISON_BLADE:
       name: Mana
     damage:
       player:
-        base: 7.248
-        per-level: 0.483
+        base: 8.102
+        per-level: 0.242
       name: Damage
     duration:
       player:
@@ -235,15 +233,23 @@ VENOM_RUPTURE:
       base: 14
       per-level: -0.09
       min: 8
+      player:
+        base: 14
+        per-level: -0.09
+        min: 8
+        max: 14
+      max: 14
     mana:
       base: 8
       per-level: 0.15
     damage:
-      base: 9
-      per-level: 0.55
+      base: 5.925
+      per-level: 0.484
+      player:
+        base: 5.925
+        per-level: 0.484
   triggers:
     cast:
-    - damage{amount={damage}}
     - potion{type=POISON;duration=8;amplifier=1}
     - potion{type=WITHER;duration=5;amplifier=0}
     - particle{p=ITEM_SLIME;amount=40;speed=0.3;hS=0.8;vS=0.8}
@@ -279,13 +285,22 @@ SHADOW_AMBUSH:
     cooldown:
       base: 18
       per-level: -0.1
-      min: 10
+      min: 12
+      player:
+        base: 18
+        per-level: -0.1
+        min: 12
+        max: 18
+      max: 18
     mana:
       base: 10
       per-level: 0.18
     damage:
       base: 16
       per-level: 0.9
+      player:
+        base: 16
+        per-level: 0.9
     duration:
       base: 4
       per-level: 0.05

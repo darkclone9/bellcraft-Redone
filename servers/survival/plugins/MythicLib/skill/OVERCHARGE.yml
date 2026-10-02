@@ -6,15 +6,31 @@ OVERCHARGE:
     cooldown:
       base: 20
       per-level: -0.5
-      min: 10
+      min: 12
+      player:
+        base: 20
+        per-level: -0.5
+        min: 12
+        max: 20
+      max: 20
     damage:
       base: 6
       per-level: 0.35
+      player:
+        base: 6
+        per-level: 0.35
     mana:
       base: 6
       per-level: 0.12
+    radius:
+      player:
+        base: 3.5
+        per-level: 0
+        max: 3.5
+      base: 3.5
+      per-level: 0
+      max: 3.5
   triggers:
     cast:
     - particle{p=ELECTRIC_SPARK;amount=40;speed=0.1;hS=1;vS=1}
     - sound{s=ENTITY_LIGHTNING_BOLT_THUNDER;v=0.5;p=1.8}
-    - damage{amount={damage}}
