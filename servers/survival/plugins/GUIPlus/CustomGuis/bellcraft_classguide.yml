@@ -185,6 +185,8 @@ scenes:
             - '&e/attributes &7- Allocate attribute points'
             - '&e/player &7- View stats & professions'
             - '&e/cast &7- Enter casting mode'
+            - '&e/character change &7- Switch characters'
+            - '&e/characters &7- Rename or change icon'
         item-flags: [
           ]
         unbreakable: false

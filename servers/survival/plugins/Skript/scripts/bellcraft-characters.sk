@@ -1,0 +1,678 @@
+# Bellcraft: character rename and icon
+#
+# Ported from Bellcraft-Classes#47 and fitted onto the switch that
+# bellcraft-character.sk already owns (/character change → mmoprofiles quit
+# from console). This script does not quit a profile and does not listen
+# to join. Issue #16's select_last_profile_on_login stays the join path.
+#
+# MMOProfiles has no rename or icon API. Display names and icons are stored
+# here and painted onto the "Choose Your Character" chest. The internal
+# profile name is unchanged.
+#
+#   /characters        rename, icon, or hand off to /character change
+#   /renamecharacter
+#   /changeicon
+
+options:
+    prefix: &8[&d&lCharacters&8] &7
+    menu-title: Your Characters
+    confirm-title: Switch Character?
+    icon-title: Choose an Icon
+    select-title: Choose Your Character
+    max-name-length: 20
+    min-name-length: 2
+    rename-timeout: 30
+
+function charOfficialName(p: player) :: text:
+    set {_n} to placeholder "mmoprofiles_current_profile_name" from {_p}
+    if {_n} is not set:
+        return ""
+    if {_n} is "":
+        return ""
+    if {_n} contains "mmoprofiles_current_profile_name":
+        return ""
+    return {_n}
+
+function charHasProfile(p: player) :: boolean:
+    set {_n} to charOfficialName({_p})
+    if {_n} is "":
+        return false
+    return true
+
+function charShownNameFor(uuid: text, official: text) :: text:
+    if {char::display::%{_uuid}%::%{_official}%} is set:
+        return {char::display::%{_uuid}%::%{_official}%}
+    return {_official}
+
+function charDisplayName(p: player) :: text:
+    set {_official} to charOfficialName({_p})
+    if {_official} is "":
+        return "Unknown"
+    return charShownNameFor({_p}'s uuid, {_official})
+
+function charIconIdOf(p: player) :: text:
+    set {_official} to charOfficialName({_p})
+    if {_official} is "":
+        return "head"
+    set {_uuid} to {_p}'s uuid
+    if {char::icon::%{_uuid}%::%{_official}%} is set:
+        return {char::icon::%{_uuid}%::%{_official}%}
+    return "head"
+
+function charIconItem(id: text) :: item:
+    if {_id} is "sword":
+        return iron sword
+    if {_id} is "pearl":
+        return ender pearl
+    if {_id} is "amethyst":
+        return amethyst shard
+    if {_id} is "lamp":
+        return redstone lamp
+    if {_id} is "star":
+        return nether star
+    if {_id} is "shield":
+        return shield
+    if {_id} is "bow":
+        return bow
+    if {_id} is "blaze":
+        return blaze rod
+    if {_id} is "apple":
+        return golden apple
+    if {_id} is "diamond":
+        return diamond
+    if {_id} is "gold":
+        return gold ingot
+    if {_id} is "lapis":
+        return lapis lazuli
+    if {_id} is "netherite":
+        return netherite ingot
+    if {_id} is "bell":
+        return bell
+    if {_id} is "compass":
+        return compass
+    if {_id} is "clock":
+        return clock
+    if {_id} is "nametag":
+        return name tag
+    if {_id} is "enderchest":
+        return ender chest
+    if {_id} is "totem":
+        return totem of undying
+    if {_id} is "elytra":
+        return elytra
+    if {_id} is "trident":
+        return trident
+    if {_id} is "creeper":
+        return creeper head
+    if {_id} is "skeleton":
+        return skeleton skull
+    if {_id} is "zombie":
+        return zombie head
+    if {_id} is "dragon":
+        return dragon head
+    if {_id} is "wither":
+        return wither skeleton skull
+    return player head
+
+function charIconLabel(id: text) :: text:
+    if {_id} is "sword":
+        return "Soldier (Iron Sword)"
+    if {_id} is "pearl":
+        return "Operative (Ender Pearl)"
+    if {_id} is "amethyst":
+        return "Mystic (Amethyst)"
+    if {_id} is "lamp":
+        return "Technomancer (Redstone Lamp)"
+    if {_id} is "star":
+        return "Envoy (Nether Star)"
+    if {_id} is "shield":
+        return "Paladin (Shield)"
+    if {_id} is "bow":
+        return "Ranger (Bow)"
+    if {_id} is "blaze":
+        return "Sorcerer (Blaze Rod)"
+    if {_id} is "apple":
+        return "Cleric (Golden Apple)"
+    if {_id} is "diamond":
+        return "Diamond"
+    if {_id} is "gold":
+        return "Gold"
+    if {_id} is "lapis":
+        return "Lapis"
+    if {_id} is "netherite":
+        return "Netherite"
+    if {_id} is "bell":
+        return "Bell"
+    if {_id} is "compass":
+        return "Compass"
+    if {_id} is "clock":
+        return "Clock"
+    if {_id} is "nametag":
+        return "Name Tag"
+    if {_id} is "enderchest":
+        return "Ender Chest"
+    if {_id} is "totem":
+        return "Totem"
+    if {_id} is "elytra":
+        return "Elytra"
+    if {_id} is "trident":
+        return "Trident"
+    if {_id} is "creeper":
+        return "Creeper Head"
+    if {_id} is "skeleton":
+        return "Skeleton Skull"
+    if {_id} is "zombie":
+        return "Zombie Head"
+    if {_id} is "dragon":
+        return "Dragon Head"
+    if {_id} is "wither":
+        return "Wither Skull"
+    return "Default Head"
+
+function charIconIdFromSlot(slot: number) :: text:
+    if {_slot} is 0:
+        return "head"
+    if {_slot} is 1:
+        return "sword"
+    if {_slot} is 2:
+        return "pearl"
+    if {_slot} is 3:
+        return "amethyst"
+    if {_slot} is 4:
+        return "lamp"
+    if {_slot} is 5:
+        return "star"
+    if {_slot} is 6:
+        return "shield"
+    if {_slot} is 7:
+        return "bow"
+    if {_slot} is 8:
+        return "blaze"
+    if {_slot} is 9:
+        return "apple"
+    if {_slot} is 10:
+        return "diamond"
+    if {_slot} is 11:
+        return "gold"
+    if {_slot} is 12:
+        return "lapis"
+    if {_slot} is 13:
+        return "netherite"
+    if {_slot} is 14:
+        return "bell"
+    if {_slot} is 15:
+        return "compass"
+    if {_slot} is 16:
+        return "clock"
+    if {_slot} is 17:
+        return "nametag"
+    if {_slot} is 18:
+        return "creeper"
+    if {_slot} is 19:
+        return "skeleton"
+    if {_slot} is 20:
+        return "zombie"
+    if {_slot} is 21:
+        return "dragon"
+    if {_slot} is 22:
+        return "wither"
+    if {_slot} is 23:
+        return "enderchest"
+    if {_slot} is 24:
+        return "totem"
+    if {_slot} is 25:
+        return "elytra"
+    if {_slot} is 26:
+        return "trident"
+    return ""
+
+function charResolveOfficial(uuid: text, shown: text) :: text:
+    if {char::official::%{_uuid}%::%{_shown}%} is set:
+        return {char::official::%{_uuid}%::%{_shown}%}
+    return {_shown}
+
+function charTrim(t: text) :: text:
+    set {_t} to {_t}
+    while {_t} starts with " ":
+        set {_len} to length of {_t}
+        if {_len} <= 1:
+            return ""
+        set {_t} to substring of {_t} from 2 to {_len}
+    while {_t} ends with " ":
+        set {_len} to length of {_t}
+        if {_len} <= 1:
+            return ""
+        set {_end} to {_len} - 1
+        set {_t} to substring of {_t} from 1 to {_end}
+    return {_t}
+
+function charExtractShownName(t: text) :: text:
+    set {_t} to uncolored {_t}
+    replace all " (Current)" with "" in {_t}
+    if {_t} contains "]":
+        set {_at} to index of "]" in {_t}
+        if {_at} is set:
+            if {_at} >= 1:
+                set {_start} to {_at} + 1
+                set {_len} to length of {_t}
+                if {_start} <= {_len}:
+                    set {_t} to substring of {_t} from {_start} to {_len}
+                else:
+                    set {_t} to ""
+    return charTrim({_t})
+
+function charIsProfileItem(i: item) :: boolean:
+    if {_i} is not set:
+        return false
+    if {_i} is air:
+        return false
+    set {_type} to "%type of {_i}%"
+    if {_type} contains "glass pane":
+        return false
+    if {_type} is "emerald", "redstone" or "barrier":
+        return false
+    set {_name} to name of {_i}
+    if {_name} is not set:
+        return false
+    set {_name} to uncolored {_name}
+    if {_name} is "Empty Slot", "Locked Slot" or "Create New Character":
+        return false
+    if {_name} contains "[":
+        if {_name} contains "]":
+            return true
+    if {_type} contains "head":
+        return true
+    if {_type} contains "skull":
+        return true
+    return false
+
+function charNameBlocked(n: text) :: boolean:
+    set {_t} to {_n} in lowercase
+    replace all " " with "" in {_t}
+    replace all "_" with "" in {_t}
+    replace all "-" with "" in {_t}
+    replace all "'" with "" in {_t}
+    if {_t} is "admin", "administrator", "owner", "console", "moderator", "staff", "operator" or "server":
+        return true
+    if {_t} is "yes", "no" or "npc":
+        return true
+    if {_t} contains "fuck", "shit", "bitch", "cunt", "nigger", "nigga", "faggot", "retard", "whore", "slut", "nazi" or "hitler":
+        return true
+    if {_t} contains "pedo" or "porn":
+        return true
+    return false
+
+function charCharsetOk(t: text) :: boolean:
+    set {_allowed} to "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 _'-"
+    set {_i} to 1
+    set {_len} to length of {_t}
+    while {_i} <= {_len}:
+        set {_c} to substring of {_t} from {_i} to {_i}
+        if {_allowed} does not contain {_c}:
+            return false
+        add 1 to {_i}
+    return true
+
+function charProfilesReadable(p: player) :: boolean:
+    set {_pn} to placeholder "mmoprofiles_profile_name_1" from {_p}
+    if {_pn} is not set:
+        return false
+    if {_pn} contains "mmoprofiles_profile_name":
+        return false
+    return true
+
+function charProfileStillExists(p: player, official: text) :: boolean:
+    loop 15 times:
+        set {_pn} to placeholder "mmoprofiles_profile_name_%loop-number%" from {_p}
+        if {_pn} is set:
+            if {_pn} is {_official}:
+                return true
+    return false
+
+function charRemember(uuid: text, official: text):
+    if {char::known::%{_uuid}%::*} does not contain {_official}:
+        add {_official} to {char::known::%{_uuid}%::*}
+
+function charForgetMissing(p: player):
+    set {_uuid} to {_p}'s uuid
+    if {char::known::%{_uuid}%::*} is not set:
+        stop
+    if charProfilesReadable({_p}) is false:
+        stop
+    set {_drop::*} to {char::known::%{_uuid}%::*}
+    loop {_drop::*}:
+        set {_official} to loop-value
+        if charProfileStillExists({_p}, {_official}) is false:
+            set {_display} to {char::display::%{_uuid}%::%{_official}%}
+            if {_display} is set:
+                delete {char::official::%{_uuid}%::%{_display}%}
+            delete {char::display::%{_uuid}%::%{_official}%}
+            delete {char::icon::%{_uuid}%::%{_official}%}
+            remove {_official} from {char::known::%{_uuid}%::*}
+
+function charNameTaken(p: player, official: text, candidate: text) :: boolean:
+    set {_uuid} to {_p}'s uuid
+    set {_cand} to {_candidate} in lowercase
+    loop 15 times:
+        set {_pn} to placeholder "mmoprofiles_profile_name_%loop-number%" from {_p}
+        if {_pn} is set:
+            if {_pn} is not "":
+                if {_pn} does not contain "mmoprofiles_profile_name":
+                    set {_shown} to charShownNameFor({_uuid}, {_pn})
+                    if {_shown} in lowercase is {_cand}:
+                        if {_pn} is not {_official}:
+                            return true
+                    if {_pn} in lowercase is {_cand}:
+                        if {_pn} is not {_official}:
+                            return true
+    return false
+
+function charBeginRename(p: player) :: number:
+    add 1 to {char::rename-gen::%{_p}'s uuid%}
+    set {_gen} to {char::rename-gen::%{_p}'s uuid%}
+    set {char::awaiting-rename::%{_p}'s uuid%} to true
+    send "{@prefix}&eType a new name for &f%charDisplayName({_p})%&e." to {_p}
+    send "{@prefix}&7{@min-name-length}-{@max-name-length} characters. Letters, numbers, spaces, - _ '. Type &ccancel &7to abort." to {_p}
+    return {_gen}
+
+function charFinishRenameTimeout(p: player, gen: number):
+    if {char::rename-gen::%{_p}'s uuid%} is not {_gen}:
+        stop
+    if {char::awaiting-rename::%{_p}'s uuid%} is not true:
+        stop
+    delete {char::awaiting-rename::%{_p}'s uuid%}
+    if {_p} is online:
+        send "{@prefix}&7Rename timed out." to {_p}
+
+function charOverlaySlot(p: player, guiSlot: number):
+    set {_item} to slot {_guiSlot} of {_p}'s current inventory
+    if charIsProfileItem({_item}) is false:
+        stop
+    set {_rawName} to name of {_item}
+    if {_rawName} is not set:
+        stop
+    set {_shown} to charExtractShownName({_rawName})
+    if {_shown} is "":
+        stop
+    set {_uuid} to {_p}'s uuid
+    set {_official} to charResolveOfficial({_uuid}, {_shown})
+    set {_display} to charShownNameFor({_uuid}, {_official})
+    set {_iconId} to "head"
+    if {char::icon::%{_uuid}%::%{_official}%} is set:
+        set {_iconId} to {char::icon::%{_uuid}%::%{_official}%}
+    set {_plain} to uncolored {_rawName}
+    set {_suffix} to ""
+    if {_plain} contains "(Current)":
+        set {_suffix} to " &a(Current)"
+    set {_bracket} to ""
+    if {_plain} contains "[":
+        if {_plain} contains "]":
+            set {_at} to index of "]" in {_plain}
+            if {_at} is set:
+                if {_at} >= 1:
+                    set {_bracket} to substring of {_plain} from 1 to {_at}
+    set {_newName} to "&e%{_display}%%{_suffix}%"
+    if {_bracket} is not "":
+        set {_newName} to "&6%{_bracket}% &e%{_display}%%{_suffix}%"
+    set {_lore::*} to lore of {_item}
+    set {_new} to charIconItem({_iconId})
+    set name of {_new} to {_newName}
+    if {_lore::*} is set:
+        set lore of {_new} to {_lore::*}
+    set slot {_guiSlot} of {_p}'s current inventory to {_new}
+
+function charApplySelectOverlay(p: player):
+    if {_p} is not set:
+        stop
+    if {_p} is not online:
+        stop
+    set {_title} to name of {_p}'s current inventory
+    if {_title} is not set:
+        stop
+    set {_title} to uncolored {_title}
+    if {_title} is not {@select-title}:
+        stop
+    charForgetMissing({_p})
+    loop 7 times:
+        set {_guiSlot} to 9 + loop-number
+        charOverlaySlot({_p}, {_guiSlot})
+    loop 7 times:
+        set {_guiSlot} to 18 + loop-number
+        charOverlaySlot({_p}, {_guiSlot})
+
+function openCharMenu(p: player):
+    if charHasProfile({_p}) is false:
+        send "{@prefix}&cJoin a character first, then use this menu to rename it or change its icon." to {_p}
+        send "{@prefix}&7Switching characters is &f/character change&7." to {_p}
+        stop
+    charForgetMissing({_p})
+    set {_inv} to chest inventory with 3 rows named "&8&l{@menu-title}"
+    set {_official} to charOfficialName({_p})
+    set {_display} to charDisplayName({_p})
+    set {_iconId} to charIconIdOf({_p})
+    set {_class} to placeholder "mmocore_class" from {_p}
+    set {_level} to placeholder "mmocore_level" from {_p}
+    set {_slot} to placeholder "mmoprofiles_current_profile_slot" from {_p}
+    set {_head} to charIconItem({_iconId})
+    set name of {_head} to "&e&l%{_display}%"
+    set lore of {_head} to "&7This is your current character.", "", "&7Display name: &e%{_display}%", "&7Internal name: &8%{_official}%", "&7Slot: &e%{_slot}%", "&7Class: &c%{_class}%", "&7Level: &e%{_level}%", "", "&7The internal name is what MMOProfiles", "&7stored. The display name and icon", "&7are shown on top of that."
+    set slot 4 of {_inv} to {_head}
+
+    set slot 11 of {_inv} to ender chest named "&d&lSwitch Character" with lore "&7Saves this character, then opens", "&7the same selection screen as", "&f/character change&7.", "", "&7Current: &a%{_display}%", "", "&eClick to continue."
+    set {_iconName} to charIconLabel({_iconId})
+    set slot 13 of {_inv} to name tag named "&e&lRename Character" with lore "&7Change the name shown in", "&7character selection and menus.", "", "&7Current: &e%{_display}%", "&7Limit: {@min-name-length}-{@max-name-length} characters.", "", "&eClick, then type a new name."
+    set slot 15 of {_inv} to item frame named "&b&lChange Icon" with lore "&7Pick the item shown for this", "&7character in selection.", "", "&7Current: &e%{_iconName}%", "", "&eClick to choose an icon."
+    set slot 18 of {_inv} to arrow named "&7Back" with lore "&7Return to &f/character&7."
+    set slot 26 of {_inv} to barrier named "&c&lClose" with lore "&7Close this menu."
+    open {_inv} to {_p}
+
+function openSwitchConfirm(p: player):
+    set {_inv} to chest inventory with 3 rows named "&8&l{@confirm-title}"
+    set {_display} to charDisplayName({_p})
+    set slot 11 of {_inv} to lime wool named "&a&lYes, switch characters" with lore "&7Saves &e%{_display}%", "&7and opens character selection.", "", "&7This runs &f/character change&7,", "&7the same save used by that command.", "", "&aClick to confirm."
+    set slot 13 of {_inv} to paper named "&e&lWhat happens?" with lore "&7MMOProfiles saves inventory,", "&7location, and class progress", "&7when the current profile is quit.", "", "&7You are moved to the", "&7character-select area."
+    set slot 15 of {_inv} to red wool named "&c&lCancel" with lore "&7Stay on this character."
+    open {_inv} to {_p}
+
+function openIconPicker(p: player):
+    set {_inv} to chest inventory with 4 rows named "&8&l{@icon-title}"
+    loop 27 times:
+        set {_s} to loop-number - 1
+        set {_id} to charIconIdFromSlot({_s})
+        if {_id} is not "":
+            set {_it} to charIconItem({_id})
+            set {_label} to charIconLabel({_id})
+            set name of {_it} to "&e%{_label}%"
+            set lore of {_it} to "&7Click to use this icon", "&7for your current character."
+            set slot {_s} of {_inv} to {_it}
+    set slot 31 of {_inv} to arrow named "&7Back" with lore "&7Return to character manager."
+    open {_inv} to {_p}
+
+command /characters:
+    aliases: chars, switchprofile
+    executable by: players
+    description: Rename your character, change its icon, or switch via /character change
+    trigger:
+        openCharMenu(player)
+
+command /renamecharacter:
+    aliases: renamechar
+    executable by: players
+    description: Rename the character you are playing
+    trigger:
+        if charHasProfile(player) is false:
+            send "{@prefix}&cJoin a character first." to player
+            stop
+        if {char::awaiting-rename::%player's uuid%} is true:
+            send "{@prefix}&7You are already renaming. Type the new name in chat, or &ccancel&7." to player
+            stop
+        set {_gen} to charBeginRename(player)
+        wait {@rename-timeout} seconds
+        charFinishRenameTimeout(player, {_gen})
+
+command /changeicon:
+    aliases: charicon
+    executable by: players
+    description: Change the icon of the character you are playing
+    trigger:
+        if charHasProfile(player) is false:
+            send "{@prefix}&cJoin a character first." to player
+            stop
+        openIconPicker(player)
+
+on inventory click:
+    set {_raw} to name of player's current inventory
+    if {_raw} is not set:
+        stop
+    set {_title} to uncolored {_raw}
+
+    if {_title} is {@select-title}:
+        wait 3 ticks
+        charApplySelectOverlay(player)
+        stop
+
+    if {_title} is {@menu-title}:
+        cancel event
+        set {_slot} to index of event-slot
+        if {_slot} is 11:
+            close player's inventory
+            wait 1 tick
+            openSwitchConfirm(player)
+        else if {_slot} is 13:
+            close player's inventory
+            if {char::awaiting-rename::%player's uuid%} is true:
+                send "{@prefix}&7You are already renaming. Type the new name in chat, or &ccancel&7." to player
+                stop
+            set {_gen} to charBeginRename(player)
+            wait {@rename-timeout} seconds
+            charFinishRenameTimeout(player, {_gen})
+        else if {_slot} is 15:
+            close player's inventory
+            wait 1 tick
+            openIconPicker(player)
+        else if {_slot} is 18:
+            close player's inventory
+            wait 1 tick
+            make player execute command "/character"
+        else if {_slot} is 26:
+            close player's inventory
+        stop
+
+    if {_title} is {@confirm-title}:
+        cancel event
+        set {_slot} to index of event-slot
+        if {_slot} is 11:
+            if charHasProfile(player) is false:
+                send "{@prefix}&cYou are already in character selection." to player
+                close player's inventory
+                stop
+            if player is dead:
+                send "{@prefix}&cYou cannot switch characters while dead." to player
+                stop
+            delete {char::awaiting-rename::%player's uuid%}
+            close player's inventory
+            make player execute command "/character change"
+        else if {_slot} is 15:
+            close player's inventory
+            wait 1 tick
+            openCharMenu(player)
+        stop
+
+    if {_title} is {@icon-title}:
+        cancel event
+        set {_slot} to index of event-slot
+        if {_slot} is 31:
+            close player's inventory
+            wait 1 tick
+            openCharMenu(player)
+            stop
+        set {_id} to charIconIdFromSlot({_slot})
+        if {_id} is "":
+            stop
+        if charHasProfile(player) is false:
+            send "{@prefix}&cJoin a character first." to player
+            close player's inventory
+            stop
+        set {_uuid} to player's uuid
+        set {_official} to charOfficialName(player)
+        set {char::icon::%{_uuid}%::%{_official}%} to {_id}
+        charRemember({_uuid}, {_official})
+        play sound "block.note_block.pling" with volume 0.6 and pitch 1.2 at player
+        set {_label} to charIconLabel({_id})
+        send "{@prefix}&aIcon updated to &e%{_label}%&a." to player
+        close player's inventory
+        wait 1 tick
+        openCharMenu(player)
+
+on inventory open:
+    set {_raw} to name of event-inventory
+    if {_raw} is not set:
+        stop
+    set {_title} to uncolored {_raw}
+    if {_title} is {@select-title}:
+        wait 2 ticks
+        charApplySelectOverlay(player)
+
+on chat:
+    set {_uuid} to player's uuid
+    if {char::awaiting-rename::%{_uuid}%} is not true:
+        stop
+    if {towneconomy::await-deposit::%{_uuid}%} is set:
+        stop
+    set {_peek} to message in lowercase
+    if {_peek} is "yes", "no" or "npc":
+        send "{@prefix}&7That word is left for town votes. Type the character name, or &ccancel&7." to player
+        stop
+    if the event is cancelled:
+        delete {char::awaiting-rename::%{_uuid}%}
+        stop
+    cancel event
+    delete {char::awaiting-rename::%{_uuid}%}
+
+    set {_input} to uncolored message
+    replace all "&" with "" in {_input}
+    replace all "§" with "" in {_input}
+    set {_input} to charTrim({_input})
+    while {_input} contains "  ":
+        replace all "  " with " " in {_input}
+
+    if {_input} in lowercase is "cancel":
+        send "{@prefix}&7Rename cancelled." to player
+        stop
+
+    if charHasProfile(player) is false:
+        send "{@prefix}&cJoin a character before renaming." to player
+        stop
+
+    set {_len} to length of {_input}
+    if {_len} < {@min-name-length}:
+        send "{@prefix}&cName is too short. Minimum is {@min-name-length} characters." to player
+        stop
+    if {_len} > {@max-name-length}:
+        send "{@prefix}&cName is too long. Maximum is {@max-name-length} characters." to player
+        stop
+
+    if charCharsetOk({_input}) is false:
+        send "{@prefix}&cNames can only use letters, numbers, spaces, hyphens, underscores, and apostrophes." to player
+        stop
+
+    if charNameBlocked({_input}) is true:
+        send "{@prefix}&cThat name is not allowed. Please choose another." to player
+        stop
+
+    set {_official} to charOfficialName(player)
+    if charNameTaken(player, {_official}, {_input}) is true:
+        send "{@prefix}&cYou already have a character with that name." to player
+        stop
+
+    if {char::display::%{_uuid}%::%{_official}%} is set:
+        delete {char::official::%{_uuid}%::%{char::display::%{_uuid}%::%{_official}%}%}
+
+    set {char::display::%{_uuid}%::%{_official}%} to {_input}
+    set {char::official::%{_uuid}%::%{_input}%} to {_official}
+    charRemember({_uuid}, {_official})
+    play sound "entity.player.levelup" with volume 0.5 and pitch 1.3 at player
+    send "{@prefix}&aCharacter renamed to &e%{_input}%&a." to player
+    send "{@prefix}&7This name is shown in character selection. MMOProfiles still stores the original name." to player
+    wait 5 ticks
+    openCharMenu(player)
