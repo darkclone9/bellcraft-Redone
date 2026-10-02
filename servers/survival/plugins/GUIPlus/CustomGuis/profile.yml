@@ -1,0 +1,869 @@
+# Character menu (/p). Profession icons run /skilltrees <id> with no delay:
+# a delayed command is dropped after /guiplus reload, and the specific skill
+# tree GUI then fails to open.
+id: profile
+rows: 6
+type: chest
+title: '&e&lYour Character'
+commandAlias: p
+commandAliasTarget: DISABLED
+disable-scene-animation: false
+scenes:
+  '0':
+    delay: 0
+    items:
+      # ==================== Row 1: Top border (slots 0-8) ====================
+      '1':
+        slot: 0
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '2':
+        slot: 1
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '3':
+        slot: 2
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '4':
+        slot: 3
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '5':
+        slot: 4
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '6':
+        slot: 5
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '7':
+        slot: 6
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '8':
+        slot: 7
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '9':
+        slot: 8
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      # ==================== Row 2 (slots 9-17) ====================
+      '10':
+        slot: 9
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '11':
+        slot: 10
+        item: IRON_PICKAXE
+        amount: 1
+        click-events:
+          a1b2c3d4-0010-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0010-4000-8000-000000000002:
+            type: command
+            commands:
+            - skilltrees profession-mining
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&aMining'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Current Level: &e%mmocore_profession_mining%'
+            - '&7Experience: &e%mmocore_profession_experience_mining% &7/ &e%mmocore_profession_next_level_mining%'
+            - ''
+            - '&7&oMining unlocks rare ores and raw materials.'
+            - '&7&oThis is vital to your rise in power and strength,'
+            - '&7&omine frequently for unique and rare drops.'
+            - ''
+            - '&e► Click to view Skill Tree.'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '12':
+        slot: 11
+        item: IRON_AXE
+        amount: 1
+        click-events:
+          a1b2c3d4-0011-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0011-4000-8000-000000000002:
+            type: command
+            commands:
+            - skilltrees profession-woodcutting
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&aWoodcutting'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Current Level: &e%mmocore_profession_woodcutting%'
+            - '&7Experience: &e%mmocore_profession_experience_woodcutting% &7/ &e%mmocore_profession_next_level_woodcutting%'
+            - ''
+            - '&7&oThough it may seem like a boring task, woodcutting'
+            - '&7&ois vital to obtaining materials used for crafting and trade,'
+            - '&7&oand will help give you the upper hand in the arcane ways.'
+            - ''
+            - '&e► Click to view Skill Tree.'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '13':
+        slot: 12
+        item: IRON_HOE
+        amount: 1
+        click-events:
+          a1b2c3d4-0012-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0012-4000-8000-000000000002:
+            type: command
+            commands:
+            - skilltrees profession-farming
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&aFarming'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Current Level: &e%mmocore_profession_farming%'
+            - '&7Experience: &e%mmocore_profession_experience_farming% &7/ &e%mmocore_profession_next_level_farming%'
+            - ''
+            - '&7&oWith tons of new food and consumable recipes,'
+            - '&7&oyou will need to stay on top of the crops in order'
+            - '&7&oto obtain the best food and drinks to keep yourself healthy.'
+            - ''
+            - '&e► Click to view Skill Tree.'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '14':
+        slot: 13
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '15':
+        slot: 14
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '16':
+        slot: 15
+        item: PLAYER_HEAD
+        amount: 1
+        item-name: '&e%player%'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Current Level: &e%mmocore_level%'
+            - '&7Experience: &e%mmocore_experience% &7/ &e%mmocore_next_level%'
+            - '&7Skill Points: &6%mmocore_skill_points%'
+            - ''
+            - '&7Current Class: &c%mmocore_class%'
+            - '&7Class Points: &c%mmocore_class_points%'
+        item-flags: []
+        unbreakable: false
+      '17':
+        slot: 16
+        item: CAKE
+        amount: 1
+        click-events:
+          a1b2c3d4-0001-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0001-4000-8000-000000000002:
+            type: command
+            commands:
+            - party
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&aParty'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7&oPlaying with your friends'
+            - '&7&ogreatly encourages you!'
+            - ''
+            - '&7Party Bonuses:'
+            - '&8+5% Experience Earned!'
+            - '&8+3% Health Regeneration'
+            - ''
+            - '&e► Click to open Party menu.'
+        item-flags: []
+        unbreakable: false
+      '18':
+        slot: 17
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      # ==================== Row 3 (slots 18-26) ====================
+      '19':
+        slot: 18
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '20':
+        slot: 19
+        item: FISHING_ROD
+        amount: 1
+        click-events:
+          a1b2c3d4-0013-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0013-4000-8000-000000000002:
+            type: command
+            commands:
+            - skilltrees profession-fishing
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&aFishing'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Current Level: &e%mmocore_profession_fishing%'
+            - '&7Experience: &e%mmocore_profession_experience_fishing% &7/ &e%mmocore_profession_next_level_fishing%'
+            - ''
+            - '&7&oFishing may give you unique drops you'
+            - '&7&ocan''t find anywhere else. The more you'
+            - '&7&ofish, the easier it becomes to find these.'
+            - ''
+            - '&e► Click to view Skill Tree.'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '21':
+        slot: 20
+        item: BREWING_STAND
+        amount: 1
+        click-events:
+          a1b2c3d4-0014-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0014-4000-8000-000000000002:
+            type: command
+            commands:
+            - skilltrees profession-alchemy
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&aAlchemy'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Current Level: &e%mmocore_profession_alchemy%'
+            - '&7Experience: &e%mmocore_profession_experience_alchemy% &7/ &e%mmocore_profession_next_level_alchemy%'
+            - ''
+            - '&7&oIn a world where you are no longer limited to'
+            - '&7&osimple potions, try learning tons of new brewing'
+            - '&7&orecipes to give yourself the edge on the battlefield.'
+            - ''
+            - '&e► Click to view Skill Tree.'
+        item-flags: []
+        unbreakable: false
+      '22':
+        slot: 21
+        item: ANVIL
+        amount: 1
+        click-events:
+          a1b2c3d4-0015-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0015-4000-8000-000000000002:
+            type: command
+            commands:
+            - skilltrees profession-smithing
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&aSmithing'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Current Level: &e%mmocore_profession_smithing%'
+            - '&7Experience: &e%mmocore_profession_experience_smithing% &7/ &e%mmocore_profession_next_level_smithing%'
+            - ''
+            - '&7&oStabbing enemies and having them laugh is the worst,'
+            - '&7&oPractice makes perfect when it comes to smithing.'
+            - '&7&o&nWar is won by the man with the pointiest stick.'
+            - ''
+            - '&e► Click to view Skill Tree.'
+        item-flags: []
+        unbreakable: false
+      '23':
+        slot: 22
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '24':
+        slot: 23
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '25':
+        slot: 24
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '26':
+        slot: 25
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '27':
+        slot: 26
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      # ==================== Row 4 (slots 27-35) ====================
+      '28':
+        slot: 27
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '29':
+        slot: 28
+        item: ENCHANTED_BOOK
+        amount: 1
+        click-events:
+          a1b2c3d4-0016-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0016-4000-8000-000000000002:
+            type: command
+            commands:
+            - skilltrees profession-enchanting
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&aEnchanting'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Current Level: &e%mmocore_profession_enchanting%'
+            - '&7Experience: &e%mmocore_profession_experience_enchanting% &7/ &e%mmocore_profession_next_level_enchanting%'
+            - ''
+            - '&7&oLorem ipsum dolor sit amet, consectetur'
+            - '&7&oadipiscing elit. Proin malesuada maximus massa,'
+            - '&7&osodales imperdiet sapien fermentum at.'
+            - ''
+            - '&e► Click to view Skill Tree.'
+        item-flags: []
+        unbreakable: false
+      '30':
+        slot: 29
+        item: FURNACE
+        amount: 1
+        click-events:
+          a1b2c3d4-0017-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0017-4000-8000-000000000002:
+            type: command
+            commands:
+            - skilltrees profession-smelting
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&aSmelting'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Current Level: &e%mmocore_profession_smelting%'
+            - '&7Experience: &e%mmocore_profession_experience_smelting% &7/ &e%mmocore_profession_next_level_smelting%'
+            - ''
+            - '&7&oSinging your eyebrows will become standard.'
+            - '&7&oYour long hours over the heat will make you'
+            - '&7&ofaster and more efficient with your oven.'
+            - ''
+            - '&e► Click to view Skill Tree.'
+        item-flags: []
+        unbreakable: false
+      '31':
+        slot: 30
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '32':
+        slot: 31
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '33':
+        slot: 32
+        item: GOLDEN_APPLE
+        amount: 1
+        item-name: '&cPhysical'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Strength: &c&l%mmocore_attribute_strength%'
+            - ''
+            - '✦ Attack Damage: &c%mmocore_stat_attack_damage%'
+            - '✦ Attack Speed: &c%mmocore_stat_attack_speed%'
+            - ''
+            - '❤ Max Health: &c%mmocore_stat_max_health%'
+            - '❤ Health Regen: &c%mmocore_stat_health_regeneration%'
+            - ''
+            - '✤ Max Stamina: &9%mmocore_stat_max_stamina%'
+            - '✤ Stamina Regen: &9%mmocore_stat_stamina_regeneration%'
+            - ''
+            - '❖ Armor: &c%mmocore_stat_armor%'
+            - '❖ Armor Toughness: &c%mmocore_stat_armor_toughness%'
+        item-flags: []
+        unbreakable: false
+      '34':
+        slot: 33
+        item: LEATHER_BOOTS
+        amount: 1
+        item-name: '&aDexterity'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Dexterity: &a&l%mmocore_attribute_dexterity%'
+            - ''
+            - '✤ Knockback Resistance: &f%mmocore_stat_knockback_resistance%'
+            - '✤ Movement Speed: &f%mmocore_stat_movement_speed%'
+            - '✤ Speed Malus Reduction: &f%mmocore_stat_speed_malus_reduction%'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '35':
+        slot: 34
+        item: BOOK
+        amount: 1
+        item-name: '&bIntellect'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Intelligence: &b&l%mmocore_attribute_intelligence%'
+            - ''
+            - '✤ Max Mana: &9%mmocore_stat_max_mana%'
+            - '✤ Mana Regen: &9%mmocore_stat_mana_regeneration%'
+            - ''
+            - '✤ Cooldown Reduction: &9%mmocore_stat_cooldown_reduction%'
+            - '✤ Extra Experience: &9%mmocore_stat_additional_experience%'
+            - ''
+            - '❊ Max Stellium: &9%mmocore_stat_max_stellium%'
+            - '❊ Stellium Regen: &9%mmocore_stat_stellium_regeneration%'
+        item-flags: []
+        unbreakable: false
+      '36':
+        slot: 35
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      # ==================== Row 5: Action buttons (slots 36-44) ====================
+      '37':
+        slot: 36
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '38':
+        slot: 37
+        item: MAP
+        amount: 1
+        click-events:
+          a1b2c3d4-0009-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0009-4000-8000-000000000002:
+            type: command
+            commands:
+            - gui open info-panel %player%
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&e&lServer Guide'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Open the server info panel to'
+            - '&7learn about classes, professions,'
+            - '&7skills, and game systems.'
+            - ''
+            - '&e► Click to open Server Guide.'
+        item-flags: []
+        unbreakable: false
+      '39':
+        slot: 38
+        item: GOLDEN_APPLE
+        amount: 1
+        click-events:
+          a1b2c3d4-0002-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0002-4000-8000-000000000002:
+            type: command
+            commands:
+            - attributes
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&6&lAttributes'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Spend attribute points to boost'
+            - '&7your Strength, Dexterity, or Intelligence.'
+            - ''
+            - '&7Attribute Points: &6%mmocore_attribute_points%'
+            - ''
+            - '&e► Click to manage attributes.'
+        item-flags: []
+        unbreakable: false
+      '40':
+        slot: 39
+        item: BOOK
+        amount: 1
+        click-events:
+          a1b2c3d4-0003-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0003-4000-8000-000000000002:
+            type: command
+            commands:
+            - quests
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&e&lQuests'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7View and track your available'
+            - '&7quests and objectives.'
+            - ''
+            - '&e► Click to open Quests.'
+        item-flags: []
+        unbreakable: false
+      '41':
+        slot: 40
+        item: NETHER_STAR
+        amount: 1
+        click-events:
+          a1b2c3d4-0004-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0004-4000-8000-000000000002:
+            type: command
+            commands:
+            - upgrade
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&a&lAbilities'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7View your active abilities, bind them'
+            - '&7to your hotbar, or upgrade them.'
+            - ''
+            - '&7Skill Points: &6%mmocore_skill_points%'
+            - ''
+            - '&e► Click to open Abilities menu.'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '42':
+        slot: 41
+        item: EXPERIENCE_BOTTLE
+        amount: 1
+        click-events:
+          a1b2c3d4-0005-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0005-4000-8000-000000000002:
+            type: command
+            commands:
+            - skilltrees
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&b&lSkill Tree'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Browse and unlock new abilities'
+            - '&7in your class skill tree.'
+            - ''
+            - '&e► Click to open Skill Tree.'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '43':
+        slot: 42
+        item: ARMOR_STAND
+        amount: 1
+        click-events:
+          a1b2c3d4-0006-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0006-4000-8000-000000000002:
+            type: command
+            commands:
+            - class
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&d&lChange Class'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7Current Class: &c%mmocore_class%'
+            - '&7Class Points: &c%mmocore_class_points%'
+            - ''
+            - '&e► Click to change your class.'
+        item-flags: []
+        unbreakable: false
+      '44':
+        slot: 43
+        item: GOLDEN_HELMET
+        amount: 1
+        click-events:
+          a1b2c3d4-0008-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+          a1b2c3d4-0008-4000-8000-000000000002:
+            type: command
+            commands:
+            - gui open ranks %player%
+            setOp: false
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&6&lRanks'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - ''
+            - '&7View the server rank hierarchy,'
+            - '&7including the Town Mayor rank and'
+            - '&7the perks each rank provides.'
+            - ''
+            - '&e► Click to open Ranks.'
+        item-flags:
+        - HIDE_ATTRIBUTES
+        unbreakable: false
+      '45':
+        slot: 44
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      # ==================== Row 6: Bottom border (slots 45-53) ====================
+      '46':
+        slot: 45
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '47':
+        slot: 46
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '48':
+        slot: 47
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '49':
+        slot: 48
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '50':
+        slot: 49
+        item: ARROW
+        amount: 1
+        click-events:
+          a1b2c3d4-0007-4000-8000-000000000001:
+            type: close-inventory
+            clickType: NONE
+            executionDelay: 0.0
+        item-name: '&c&lClose'
+        item-lore-data:
+          '1':
+            page: 1
+            delay: 20
+            lore:
+            - '&7Click to close this menu.'
+        item-flags: []
+        unbreakable: false
+      '51':
+        slot: 50
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '52':
+        slot: 51
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '53':
+        slot: 52
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
+      '54':
+        slot: 53
+        item: BLACK_STAINED_GLASS_PANE
+        amount: 1
+        item-name: ' '
+        item-flags: []
+        unbreakable: false
