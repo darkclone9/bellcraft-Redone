@@ -11,6 +11,10 @@
 # rest of that profile before the UI opens. Console runs it because /mmoprofiles
 # requires mmoprofiles.admin. The same chest UI is what Geyser already shows
 # Bedrock players, whose names keep the Floodgate "." prefix.
+#
+# Rename and icon live in bellcraft-characters.sk (/characters). That script
+# calls /character change when the player confirms a switch. It does not run
+# mmoprofiles quit itself.
 
 options:
     title: &8Character &7| &6Bellcraft
@@ -35,7 +39,8 @@ function openCharacter(p: player):
     set {_ap} to pv({_p}, "mmocore_attribute_points")
     set {_sp} to pv({_p}, "mmocore_skill_points")
 
-    set slot 4 of {_inv} to {_p}'s skull named "&6&l%name of {_p}%" with lore "&7Class: &f%{_class}%", "&7Level: &f%{_lvl}%", "&7Experience: &f%{_exp}%&7/&f%{_next}%", "", "&7Attribute points: &a%{_ap}%", and "&7Skill points: &a%{_sp}%"
+    set slot 4 of {_inv} to {_p}'s skull named "&6&l%name of {_p}%" with lore "&7Class: &f%{_class}%", "&7Level: &f%{_lvl}%", "&7Experience: &f%{_exp}%&7/&f%{_next}%", "", "&7Attribute points: &a%{_ap}%", "&7Skill points: &a%{_sp}%", "", "&eClick to rename or change icon.", and "&7Switch characters: &f/character change"
+    set slot 8 of {_inv} to ender chest named "&d&lCharacters" with lore "&7Rename this character or change", "&7the icon shown when you pick one.", "", "&7To switch characters, use", "&f/character change", "", and "&eClick to rename or change icon."
 
     set {_str} to pv({_p}, "mmocore_attribute_strength")
     set {_dex} to pv({_p}, "mmocore_attribute_dexterity")
@@ -71,7 +76,7 @@ command /character [<text>]:
                 send "&eOpening character selection. Pick the character you want to play." to player
                 execute console command "mmoprofiles quit %player%"
                 stop
-            send "&eUsage: &f/character &7for your sheet, or &f/character change &7to switch characters." to player
+            send "&eUsage: &f/character &7for your sheet, &f/character change &7to switch, or &f/characters &7to rename or change icon." to player
             stop
         openCharacter(player)
 
@@ -117,6 +122,9 @@ on inventory click:
             else if {_slot} is 33:
                 close player's inventory
                 make player execute command "/atlas"
+            else if {_slot} is 4 or 8:
+                close player's inventory
+                make player execute command "/characters"
             else if {_slot} is 40:
                 close player's inventory
                 make player execute command "/class"

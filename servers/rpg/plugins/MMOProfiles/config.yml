@@ -281,6 +281,10 @@ select_last_profile_on_login: true
 #
 # /mmoprofiles quit (player)
 #
+# Players reach this through /character change (bellcraft-character.sk runs it
+# from console). /characters can rename the shown name and change the icon;
+# it does not quit the profile itself.
+#
 # !!!! This command does NOT support proxy-based profiles yet  !!!!!
 quit_profile:
 
@@ -340,7 +344,7 @@ script:
   profile-leave:
     mechanics:
       - 'sound{sound=ENTITY_VILLAGER_NO}'
-      - 'tell{format="&eYou successfully left your profile"}'
+      - 'tell{format="&eCharacter saved. Pick who you want to play next."}'
 
   # MythicLib script ran when a player deletes one of their profiles.
   profile-delete:
