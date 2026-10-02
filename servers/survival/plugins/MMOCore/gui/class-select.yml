@@ -113,3 +113,13 @@ items:
       - '{lore}'
       - ''
       - '{attribute-lore}'
+
+  class-necromancer:
+    slots: [ 24 ]
+    function: class-necromancer
+    name: '&5&lThe Necromancer'
+    item-flags: ['HIDE_ATTRIBUTES']
+    lore:
+      - '{lore}'
+      - ''
+      - '{attribute-lore}'

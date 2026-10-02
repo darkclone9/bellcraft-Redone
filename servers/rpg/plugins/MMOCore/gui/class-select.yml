@@ -5,7 +5,7 @@ items:
   fill:
     function: none
     item: BLACK_STAINED_GLASS_PANE
-    slots: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 16, 17, 18, 19, 24, 25, 26]
+    slots: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 16, 17, 18, 19, 25, 26]
 
   class-soldier:
     slots: [11]
@@ -91,6 +91,16 @@ items:
     slots: [23]
     function: class-cleric
     name: '&b&lThe Cleric'
+    item-flags: ['HIDE_ATTRIBUTES']
+    lore:
+      - '{lore}'
+      - ''
+      - '{attribute-lore}'
+
+  class-necromancer:
+    slots: [24]
+    function: class-necromancer
+    name: '&5&lThe Necromancer'
     item-flags: ['HIDE_ATTRIBUTES']
     lore:
       - '{lore}'

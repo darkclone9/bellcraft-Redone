@@ -1,0 +1,182 @@
+id: necromancer-reaper
+name: "&5Reaper's Path"
+type: CUSTOM
+lore:
+  - '&5Bind one elite undead and drain the living'
+  - '&7Nine-point spec. Path passives; capstones unlock skills.'
+  - '&8Raises are corpse-sourced only — no free summons.'
+max-point-spent: 9
+icon:
+  material: WITHER_SKELETON_SKULL
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+
+  # --- PATH A: Soul Harvest (personal drain) ---
+
+  a1:
+    root: true
+    name: Soul Harvest I
+    coordinates:
+      x: -1
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=5;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMagic damage +%5'
+  a2:
+    name: Soul Harvest II
+    coordinates:
+      x: -2
+      y: 1
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=8;type="RELATIVE"}'
+    lores:
+      0:
+        - '&eMagic damage +%8'
+      1:
+        - '&eMagic damage +%5'
+  a3:
+    name: '&5Capstone: Life Siphon'
+    coordinates:
+      x: -3
+      y: 0
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=6;type="FLAT"}'
+          - 'unlock_skill{skill=NECROMANCER_LIFE_SIPHON}'
+    lores:
+      0:
+        - '&eSkill damage +%6'
+        - ''
+        - '&fUnlocks &5Life Siphon&f — a heavy'
+        - '&fpersonal drain that steals health.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &5Life Siphon&7 ability!'
+      1:
+        - '&eSkill damage +%6'
+        - '&5Life Siphon unlocked'
+
+  # --- PATH B: Death Knight (elite pet) ---
+
+  b1:
+    root: true
+    name: Death Knight I
+    coordinates:
+      x: -1
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +%2'
+  b2:
+    name: Death Knight II
+    coordinates:
+      x: 0
+      y: -2
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_HEALTH";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax health +%3'
+      1:
+        - '&eMax health +%2'
+  b3:
+    name: '&5Capstone: Raise Elite'
+    coordinates:
+      x: 1
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="ARMOR";amount=2;type="FLAT"}'
+          - 'unlock_skill{skill=NECROMANCER_RAISE_ELITE}'
+    lores:
+      0:
+        - '&eArmor +%2'
+        - ''
+        - '&fUnlocks &5Raise Elite&f — one strong'
+        - '&fundead from a corpse. Cap 1.'
+        - ''
+        - '&8Pet id: NecroReaperElite'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &5Raise Elite&7 ability!'
+      1:
+        - '&eArmor +%2'
+        - '&5Raise Elite unlocked'
+
+  # --- PATH C: Grim Precision (control drain) ---
+
+  c1:
+    root: true
+    name: Grim Precision I
+    coordinates:
+      x: 2
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=1;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%1'
+  c2:
+    name: Grim Precision II
+    coordinates:
+      x: 3
+      y: 1
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=2;type="FLAT"}'
+    lores:
+      0:
+        - '&eCooldown reduction +%2'
+      1:
+        - '&eCooldown reduction +%1'
+  c3:
+    name: '&5Capstone: Death Grasp'
+    coordinates:
+      x: 3
+      y: 0
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=2;type="FLAT"}'
+          - 'unlock_skill{skill=NECROMANCER_DEATH_GRASP}'
+    lores:
+      0:
+        - '&eMana regeneration +%2'
+        - ''
+        - '&fUnlocks &5Death Grasp&f — slow and'
+        - '&fdrain a foe while you recover essence.'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &5Death Grasp&7 ability!'
+      1:
+        - '&eMana regeneration +%2'
+        - '&5Death Grasp unlocked'

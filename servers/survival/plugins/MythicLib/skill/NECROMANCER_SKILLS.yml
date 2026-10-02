@@ -1,0 +1,282 @@
+# Necromancer class skills.
+#
+# Builtin MythicLib handlers, with a triggers block, so the class can be
+# selected and bound. source: mythicmobs:... does not resolve here (MythicMobs
+# loads after MythicLib), so these stay on default: handlers.
+#
+# MythicMobs casts and pets already live in:
+#   MythicMobs/skills/necromancer_cast_skills.yml
+#   MythicMobs/mobs/necromancer_pets.yml
+# Do not rename the unlock ids below.
+#
+#   NECROMANCER_RAISE_DEAD       NecromancerRaiseDead_Cast
+#   NECROMANCER_SOUL_DRAIN       NecromancerSoulDrain_Cast
+#   NECROMANCER_RAISE_ELITE      NecromancerRaiseElite_Cast      pet NecroReaperElite (cap 1)
+#   NECROMANCER_LIFE_SIPHON      NecromancerLifeSiphon_Cast
+#   NECROMANCER_DEATH_GRASP      NecromancerDeathGrasp_Cast
+#   NECROMANCER_RAISE_MINION     NecromancerRaiseMinion_Cast     pets NecroMinionSkulker / NecroMinionWretch (cap 4)
+#   NECROMANCER_UNHOLY_COMMAND   NecromancerUnholyCommand_Cast
+#   NECROMANCER_CORPSE_EXPLOSION NecromancerCorpseExplosion_Cast
+#
+# Raises are corpse-sourced only. These builtins do not summon a free pet.
+
+NECROMANCER_RAISE_DEAD:
+  name: "&5Raise Dead"
+  icon: SKELETON_SKULL
+  source: default:WITHER
+  parameters:
+    cooldown:
+      player:
+        base: 12
+        per-level: -0.08
+        min: 6
+        max: 12
+      name: Cooldown
+    mana:
+      player:
+        base: 14
+        per-level: 0.22
+      name: Mana
+    duration:
+      player:
+        base: 4.0
+        per-level: 0.06
+      name: Duration
+  triggers:
+    cast:
+    - potion{type=WITHER;duration={duration};amplifier=0}
+    - particle{p=SOUL;amount=80;speed=0.4;hS=1.5;vS=1.2}
+    - particle{p=SOUL_FIRE_FLAME;amount=30;speed=0.2;hS=1;vS=1}
+    - sound{s=ENTITY_WITHER_AMBIENT;v=1.2;p=0.7}
+
+NECROMANCER_SOUL_DRAIN:
+  name: "&5Soul Drain"
+  icon: FERMENTED_SPIDER_EYE
+  source: default:WITHER
+  parameters:
+    cooldown:
+      player:
+        base: 6
+        per-level: -0.04
+        min: 3
+        max: 6
+      name: Cooldown
+    mana:
+      player:
+        base: 8
+        per-level: 0.15
+      name: Mana
+    damage:
+      player:
+        base: 8.0
+        per-level: 0.5
+      name: Damage
+    heal:
+      player:
+        base: 4.0
+        per-level: 0.25
+      name: Heal
+    duration:
+      player:
+        base: 3.0
+        per-level: 0.05
+      name: Duration
+  triggers:
+    cast:
+    - damage{amount={damage}}
+    - heal{amount={heal};target=caster}
+    - potion{type=WITHER;duration={duration};amplifier=0}
+    - particle{p=SOUL;amount=40;speed=0.35;hS=1;vS=1}
+    - sound{s=ENTITY_WITHER_SHOOT;v=1.0;p=1.4}
+
+NECROMANCER_RAISE_ELITE:
+  name: "&5Raise Elite"
+  icon: WITHER_SKELETON_SKULL
+  source: default:CURSED_BEAM
+  parameters:
+    cooldown:
+      player:
+        base: 28
+        per-level: -0.16
+        min: 16
+        max: 28
+      name: Cooldown
+    mana:
+      player:
+        base: 22
+        per-level: 0.3
+      name: Mana
+    damage:
+      player:
+        base: 12.0
+        per-level: 0.7
+      name: Damage
+  triggers:
+    cast:
+    - damage{amount={damage}}
+    - particle{p=SOUL_FIRE_FLAME;amount=100;speed=0.45;hS=1.8;vS=2}
+    - particle{p=LARGE_SMOKE;amount=40;speed=0.2;hS=1.2;vS=1.5}
+    - sound{s=ENTITY_WITHER_SPAWN;v=1.4;p=0.8}
+
+NECROMANCER_LIFE_SIPHON:
+  name: "&5Life Siphon"
+  icon: GHAST_TEAR
+  source: default:LIFE_ENDER
+  parameters:
+    cooldown:
+      player:
+        base: 10
+        per-level: -0.07
+        min: 5
+        max: 10
+      name: Cooldown
+    mana:
+      player:
+        base: 14
+        per-level: 0.22
+      name: Mana
+    damage:
+      player:
+        base: 14.0
+        per-level: 0.85
+      name: Damage
+    heal:
+      player:
+        base: 8.0
+        per-level: 0.45
+      name: Heal
+  triggers:
+    cast:
+    - damage{amount={damage}}
+    - heal{amount={heal};target=caster}
+    - particle{p=SOUL;amount=70;speed=0.45;hS=1.4;vS=1.4}
+    - sound{s=ENTITY_ILLUSIONER_CAST_SPELL;v=1.2;p=0.6}
+
+NECROMANCER_DEATH_GRASP:
+  name: "&5Death Grasp"
+  icon: COBWEB
+  source: default:FROZEN_AURA
+  parameters:
+    cooldown:
+      player:
+        base: 14
+        per-level: -0.1
+        min: 8
+        max: 14
+      name: Cooldown
+    mana:
+      player:
+        base: 12
+        per-level: 0.2
+      name: Mana
+    damage:
+      player:
+        base: 7.0
+        per-level: 0.45
+      name: Damage
+    heal:
+      player:
+        base: 3.0
+        per-level: 0.2
+      name: Heal
+    duration:
+      player:
+        base: 3.5
+        per-level: 0.06
+      name: Duration
+  triggers:
+    cast:
+    - damage{amount={damage}}
+    - heal{amount={heal};target=caster}
+    - potion{type=SLOWNESS;duration={duration};amplifier=2}
+    - potion{type=WITHER;duration={duration};amplifier=0}
+    - particle{p=LARGE_SMOKE;amount=50;speed=0.3;hS=1.2;vS=1}
+    - particle{p=SOUL;amount=40;speed=0.3;hS=1;vS=1}
+    - sound{s=ENTITY_EVOKER_CAST_SPELL;v=1.2;p=0.7}
+
+NECROMANCER_RAISE_MINION:
+  name: "&dRaise Minion"
+  icon: BONE
+  source: default:ARCANE_HAIL
+  parameters:
+    cooldown:
+      player:
+        base: 10
+        per-level: -0.06
+        min: 5
+        max: 10
+      name: Cooldown
+    mana:
+      player:
+        base: 12
+        per-level: 0.18
+      name: Mana
+    damage:
+      player:
+        base: 6.0
+        per-level: 0.4
+      name: Damage
+  triggers:
+    cast:
+    - damage{amount={damage}}
+    - particle{p=SOUL;amount=60;speed=0.4;hS=1.4;vS=1}
+    - particle{p=CLOUD;amount=25;speed=0.15;hS=1;vS=0.6}
+    - sound{s=ENTITY_SKELETON_CONVERTED_TO_STRAY;v=1.3;p=0.6}
+
+NECROMANCER_UNHOLY_COMMAND:
+  name: "&dUnholy Command"
+  icon: BELL
+  source: default:MAGICAL_SHIELD
+  parameters:
+    cooldown:
+      player:
+        base: 18
+        per-level: -0.12
+        min: 10
+        max: 18
+      name: Cooldown
+    mana:
+      player:
+        base: 14
+        per-level: 0.22
+      name: Mana
+    duration:
+      player:
+        base: 8
+        per-level: 0.1
+      name: Duration
+  triggers:
+    cast:
+    - potion{type=STRENGTH;duration={duration};amplifier=0;target=caster}
+    - potion{type=SPEED;duration={duration};amplifier=0;target=caster}
+    - particle{p=WITCH;amount=90;speed=0.4;hS=2;vS=1.5}
+    - sound{s=ENTITY_WITHER_AMBIENT;v=1.1;p=1.3}
+
+NECROMANCER_CORPSE_EXPLOSION:
+  name: "&dCorpse Explosion"
+  icon: TNT
+  source: default:MINOR_EXPLOSION
+  parameters:
+    cooldown:
+      player:
+        base: 16
+        per-level: -0.1
+        min: 8
+        max: 16
+      name: Cooldown
+    mana:
+      player:
+        base: 16
+        per-level: 0.25
+      name: Mana
+    damage:
+      player:
+        base: 16.0
+        per-level: 0.9
+      name: Damage
+  triggers:
+    cast:
+    - damage{amount={damage}}
+    - particle{p=EXPLOSION;amount=8;speed=0.3;hS=1.5;vS=1}
+    - particle{p=SOUL;amount=80;speed=0.5;hS=2;vS=1.5}
+    - sound{s=ENTITY_GENERIC_EXPLODE;v=1.6;p=0.85}

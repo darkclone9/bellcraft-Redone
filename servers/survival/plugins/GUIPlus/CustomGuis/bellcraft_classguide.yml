@@ -111,6 +111,7 @@ scenes:
             - '&cSoldier&7: &cResolve &8(damage dealt/taken)'
             - '&bOperative / Ranger&7: &bFocus &8(agility/regen)'
             - '&5Sorcerer&7: &5Arcana &8(high magic pool)'
+            - '&5Necromancer&7: &5Essence &8(corpses and drains)'
             - '&fPaladin&7: &6Radiance &8(holy smites & wards)'
             - '&bCleric&7: &bDevotion &8(divine healing)'
             - '&dMystic&7: &dCosmic Energy &8(void rifts)'

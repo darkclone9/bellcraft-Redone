@@ -1,0 +1,183 @@
+id: necromancer-lichlord
+name: "&dLichlord's Path"
+type: CUSTOM
+lore:
+  - '&dCommand a weaker undead army (hard cap 4)'
+  - '&7Nine-point spec. Path passives; capstones unlock skills.'
+  - '&8Raises are corpse-sourced only — no free summons.'
+max-point-spent: 9
+icon:
+  material: SKELETON_SKULL
+  item_flags: [HIDE_ATTRIBUTES]
+nodes:
+
+  # --- PATH A: Grave Legion (army raise) ---
+
+  a1:
+    root: true
+    name: Grave Legion I
+    coordinates:
+      x: -1
+      y: 2
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=6;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax essence +%6'
+  a2:
+    name: Grave Legion II
+    coordinates:
+      x: -2
+      y: 1
+    parents:
+      strong: {a1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAX_MANA";amount=8;type="FLAT"}'
+    lores:
+      0:
+        - '&eMax essence +%8'
+      1:
+        - '&eMax essence +%6'
+  a3:
+    name: '&dCapstone: Raise Minion'
+    coordinates:
+      x: -3
+      y: 0
+    parents:
+      strong: {a2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MANA_REGENERATION";amount=2;type="FLAT"}'
+          - 'unlock_skill{skill=NECROMANCER_RAISE_MINION}'
+    lores:
+      0:
+        - '&eMana regeneration +%2'
+        - ''
+        - '&fUnlocks &dRaise Minion&f — raise a'
+        - '&fweaker undead from a nearby corpse.'
+        - ''
+        - '&8Pets: NecroMinionSkulker, NecroMinionWretch'
+        - '&8Army hard cap: 4'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &dRaise Minion&7 ability!'
+      1:
+        - '&eMana regeneration +%2'
+        - '&dRaise Minion unlocked'
+
+  # --- PATH B: Unholy Command (pet buffs) ---
+
+  b1:
+    root: true
+    name: Unholy Command I
+    coordinates:
+      x: -1
+      y: -1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eSkill damage +%3'
+  b2:
+    name: Unholy Command II
+    coordinates:
+      x: 0
+      y: -2
+    parents:
+      strong: {b1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=4;type="FLAT"}'
+    lores:
+      0:
+        - '&eSkill damage +%4'
+      1:
+        - '&eSkill damage +%3'
+  b3:
+    name: '&dCapstone: Unholy Command'
+    coordinates:
+      x: 1
+      y: -2
+    parents:
+      strong: {b2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="SKILL_DAMAGE";amount=6;type="FLAT"}'
+          - 'unlock_skill{skill=NECROMANCER_UNHOLY_COMMAND}'
+    lores:
+      0:
+        - '&eSkill damage +%6'
+        - ''
+        - '&fUnlocks &dUnholy Command&f — buff'
+        - '&fyour raised dead (speed and power).'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &dUnholy Command&7 ability!'
+      1:
+        - '&eSkill damage +%6'
+        - '&dUnholy Command unlocked'
+
+  # --- PATH C: Death Burst (corpse explosion) ---
+
+  c1:
+    root: true
+    name: Death Burst I
+    coordinates:
+      x: 2
+      y: 1
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=3;type="FLAT"}'
+    lores:
+      0:
+        - '&eMagic damage +%3'
+  c2:
+    name: Death Burst II
+    coordinates:
+      x: 3
+      y: 1
+    parents:
+      strong: {c1: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="MAGIC_DAMAGE";amount=5;type="FLAT"}'
+    lores:
+      0:
+        - '&eMagic damage +%5'
+      1:
+        - '&eMagic damage +%3'
+  c3:
+    name: '&dCapstone: Corpse Explosion'
+    coordinates:
+      x: 3
+      y: 0
+    parents:
+      strong: {c2: 1}
+    experience-table:
+      first_table_item:
+        triggers:
+          - 'stat{stat="COOLDOWN_REDUCTION";amount=2;type="FLAT"}'
+          - 'unlock_skill{skill=NECROMANCER_CORPSE_EXPLOSION}'
+    lores:
+      0:
+        - '&eCooldown reduction +%2'
+        - ''
+        - '&fUnlocks &dCorpse Explosion&f — detonate'
+        - '&fa nearby corpse (or a raised minion).'
+        - ''
+        - '&7Spend 1 Point to unlock'
+        - '&7the &dCorpse Explosion&7 ability!'
+      1:
+        - '&eCooldown reduction +%2'
+        - '&dCorpse Explosion unlocked'
