@@ -1,0 +1,52 @@
+#!/bin/bash
+# bellcraft-fix-ownership - give every Bellcraft server tree back to minecraft:minecraft.
+#
+# Root-run deploys left files and directories the minecraft user cannot save over (GUIPlus
+# failed this way on survival). Survival was chowned by hand on 2026-09-29; lobby, creative
+# (the build server) and proxy still had root-owned paths, and classic/rpg/test are included
+# so a later one is not missed.
+#
+# Safe to re-run. Does not restart anything and does not follow symlinks. Prints how many
+# paths it changed on each server. Exits non-zero if any path is still not minecraft:minecraft.
+#
+#   sudo /usr/local/sbin/bellcraft-fix-ownership
+#
+# With no arguments the live tree /opt/bellcraft is repaired. Do not pass a path
+# unless you mean to repair that directory instead.
+#
+# The deploy key must not be allowed to run this. It is wider than `bellcraft-deploy apply`.
+set -euo pipefail
+if [ "$(id -u)" -ne 0 ]; then
+  echo "run with sudo" >&2
+  exit 1
+fi
+getent passwd minecraft >/dev/null
+getent group minecraft >/dev/null
+
+# Default is the live tree. A path argument is only for a scratch directory in tests.
+root=${1:-/opt/bellcraft}
+servers=(proxy lobby survival creative classic rpg test)
+status=0
+for s in "${servers[@]}"; do
+  d=$root/$s
+  if [ ! -d "$d" ]; then
+    echo "$s: skip (no $d)"
+    continue
+  fi
+  # Count, then chown. -xdev stays on this filesystem; ! -type l does not touch symlink targets.
+  n=$(find "$d" -xdev \( ! -user minecraft -o ! -group minecraft \) ! -type l | wc -l)
+  n=${n//[[:space:]]/}
+  if [ "$n" = 0 ]; then
+    echo "$s: already minecraft:minecraft"
+    continue
+  fi
+  echo "$s: chown minecraft:minecraft on $n path(s)"
+  find "$d" -xdev \( ! -user minecraft -o ! -group minecraft \) ! -type l -exec chown minecraft:minecraft {} +
+  left=$(find "$d" -xdev \( ! -user minecraft -o ! -group minecraft \) ! -type l | wc -l)
+  left=${left//[[:space:]]/}
+  if [ "$left" != 0 ]; then
+    echo "$s: $left path(s) still not minecraft:minecraft" >&2
+    status=1
+  fi
+done
+exit "$status"
