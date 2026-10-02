@@ -295,7 +295,11 @@ misc:
   disable-sprint-interruption-on-attack: false
   legacy-ender-pearl-behavior: false
   max-leash-distance: default
-  redstone-implementation: VANILLA
+  # Dust on a redstone ladder can light up without ever updating the dropper it runs into:
+  # vanilla wire updates neighbours in an order that depends on the coordinates. Alternate
+  # Current updates every neighbour of a wire that changed power, and it does less block
+  # updates than vanilla, so this is a performance gain. Locational 0-tick builds can change.
+  redstone-implementation: ALTERNATE_CURRENT
   show-sign-click-command-failure-msgs-to-player: false
   update-pathfinding-on-block-update: true
 scoreboards:
