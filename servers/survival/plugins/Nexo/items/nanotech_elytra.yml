@@ -28,6 +28,7 @@ nanotech_elytra:
         amount: 0.05
         slot: CHEST
         operation: ADD_NUMBER
+    # Flight perk numbers live in Skript scripts/bellcraft-nanotech-elytra.sk (drag-cut 0.30).
     lore:
       - ""
       - "<dark_gray>▪ <gray>Type: <gradient:#00f2fe:#4facfe>Tactical Flight Exoskeleton</gradient>"
@@ -35,8 +36,10 @@ nanotech_elytra:
       - "<dark_gray>▪ <gray>Status: <green>SYSTEMS ONLINE</green>"
       - ""
       - "<gradient:#00f2fe:#4facfe><bold>INTEGRATED NANO-MECHANICS</bold></gradient>"
-      - " <dark_aqua>◆ <white>Nano-Thruster Array:"
-      - "   <gray>Passively accelerates gliding velocity & lift"
+      - " <dark_aqua>◆ <white>Low-Drag Vanes:"
+      - "   <gray>Glide drag reduced by <aqua>30%</aqua> while worn"
+      - " <dark_aqua>◆ <white>Rocket Overclock:"
+      - "   <gray>Firework rockets boost <aqua>slightly faster</aqua> while worn"
       - " <dark_aqua>◆ <white>Kinetic Damping Field:"
       - "   <gray>Reduces wall-collision & landing impact by 65%"
       - " <dark_aqua>◆ <white>Nanite Self-Repair Module:"
@@ -46,8 +49,16 @@ nanotech_elytra:
       - "  <blue>+2 Armor Rating"
       - "  <blue>+1 Armor Toughness"
       - "  <blue>+5% Movement Speed"
+      - "  <blue>30% less glide drag"
+      - "  <blue>Slightly faster firework rockets"
       - ""
       - "<dark_gray><italic>Forged from deep-slate titanium, quantum conduits, and nanite matrices.</italic>"
+
+  # Marker the flight script looks for, alongside Nexo's own id.
+  PersistentData:
+    - type: STRING
+      key: bellcraft:nanotech_elytra
+      value: "worn"
 
   Mechanics:
     armor_effects:

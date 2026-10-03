@@ -1,0 +1,168 @@
+# Bellcraft: Nano Tech Exo-Glider flight
+#
+# The Nexo item `nanotech_elytra` is otherwise a retextured elytra (armor, toughness,
+# movement speed, Speed I, Resistance I). Nexo has no glide or rocket mechanic, so this
+# is the flight perk. It runs only while that item is the worn chestplate — in hand, in
+# a bag, or swapped for a normal / forest elytra, nothing here applies. MMOInventory's
+# elytra slot puts the piece on the chest while it is deployed, which is the slot checked.
+#
+# Vanilla elytra drag, applied every tick at the end of the glide step, is
+#   horizontal velocity * 0.99   (lose 1.0% of speed)
+#   vertical velocity   * 0.98   (lose 2.0% of speed)
+# `drag-cut` is the fraction of that loss removed (0 = vanilla, 1 = no drag).
+# At 0.30 the elytra keeps 30% more of the speed vanilla would have bled off:
+#   horizontal lose 0.70% per tick, vertical lose 1.40%.
+# The scale below is applied to current velocity so that, after vanilla multiplies,
+# the net drag is that reduced amount. It does not care whether this script runs
+# before or after the vanilla glide step, because both steps are multiplies.
+#
+# Firework rockets pull velocity toward about 34 blocks/second along your look.
+# `rocket-extra` adds that many blocks/tick along look on each tick a rocket is
+# actually boosting (the firework entity from the elytra-boost event is still alive).
+# At 0.10 that settles roughly 6% faster when this runs before the rocket, or about
+# 12% faster when it runs after. Rockets are not longer — only a bit stronger while
+# they burn. Set either option to 0 to turn that half off.
+#
+# One flight-1 rocket, then glide from 64 blocks up (simulated, pitch 0 / pitch 10):
+#   vanilla  688 / 613 blocks, rocket cruise ~34 blocks/s
+#   these defaults  887 / 771 blocks (+29% / +26%), cruise ~36–38 blocks/s
+# You still sink, still need rockets, and a steep dive stays in normal dive speeds.
+#
+# Reload: /skript reload bellcraft-nanotech-elytra
+# Boot the rpg backend to see parse errors — `sk reload` hides them.
+
+# rocket-max-ticks: flight 3 lasts at most about 41 ticks. The cap stops the extra
+# push even if the tracked entity is wrong, so a rocket cannot become permanent thrust.
+options:
+    drag-cut: 0.30
+    rocket-extra: 0.10
+    rocket-search-radius: 8
+    rocket-grace-ticks: 3
+    rocket-max-ticks: 45
+
+function wearingNanotech(p: player) :: boolean:
+    set {_i} to chestplate of {_p}
+    if {_i} is set:
+        if {_i} is air:
+            return false
+        if type of {_i} is elytra:
+            set {_blob} to "%{_i}%"
+            set {_blob} to {_blob} in lower case
+            # Nexo id, equippable asset, texture path, or the bellcraft PDC key.
+            # Same trick as class-armor-restrictions: the item's string form carries the id.
+            if {_blob} contains "nanotech_elytra":
+                return true
+    return false
+
+function clearNanotechRocket(p: player):
+    if metadata value "nanotech_rocket" of {_p} is set:
+        delete metadata value "nanotech_rocket" of {_p}
+    if metadata value "nanotech_rocket_seen" of {_p} is set:
+        delete metadata value "nanotech_rocket_seen" of {_p}
+    if metadata value "nanotech_rocket_grace" of {_p} is set:
+        delete metadata value "nanotech_rocket_grace" of {_p}
+    if metadata value "nanotech_rocket_left" of {_p} is set:
+        delete metadata value "nanotech_rocket_left" of {_p}
+
+function nanotechRocketBoosting(p: player) :: boolean:
+    set {_left} to metadata value "nanotech_rocket_left" of {_p}
+    if {_left} is set:
+        if {_left} > 0:
+            set metadata value "nanotech_rocket_left" of {_p} to {_left} - 1
+        else:
+            clearNanotechRocket({_p})
+            return false
+    else:
+        clearNanotechRocket({_p})
+        return false
+    set {_id} to metadata value "nanotech_rocket" of {_p}
+    set {_found} to false
+    if {_id} is set:
+        loop entities in radius {@rocket-search-radius} of {_p}:
+            set {_uuid} to "%uuid of loop-entity%"
+            if {_uuid} is {_id}:
+                # Never treat the player as the rocket. A wrong event-entity
+                # would otherwise add thrust for the whole glide.
+                set {_skip} to false
+                if loop-entity is a player:
+                    set {_skip} to true
+                if {_skip} is false:
+                    set {_found} to true
+    if {_found} is true:
+        set metadata value "nanotech_rocket_seen" of {_p} to true
+        return true
+    # Seen this rocket already, and the entity is gone: the boost ended.
+    if metadata value "nanotech_rocket_seen" of {_p} is true:
+        clearNanotechRocket({_p})
+        return false
+    # The firework can miss the first tick or two after the boost event.
+    set {_g} to metadata value "nanotech_rocket_grace" of {_p}
+    if {_g} is set:
+        if {_g} > 1:
+            set metadata value "nanotech_rocket_grace" of {_p} to {_g} - 1
+            return true
+    clearNanotechRocket({_p})
+    return false
+
+on script load:
+    send "[nanotech-elytra] loaded" to console
+
+on elytra boost:
+    wearingNanotech(player) is true
+    clearNanotechRocket(player)
+    set metadata value "nanotech_rocket_seen" of player to false
+    set metadata value "nanotech_rocket_grace" of player to {@rocket-grace-ticks}
+    set metadata value "nanotech_rocket_left" of player to {@rocket-max-ticks}
+    set {_fw} to event-entity
+    if {_fw} is set:
+        set {_store} to true
+        if {_fw} is a player:
+            set {_store} to false
+        if {_store} is true:
+            set metadata value "nanotech_rocket" of player to "%uuid of {_fw}%"
+
+every 1 tick:
+    loop all players:
+        set {_p} to loop-player
+        if {_p} is gliding:
+            if wearingNanotech({_p}) is true:
+                set {_boost} to false
+                if {@rocket-extra} > 0:
+                    if metadata value "nanotech_rocket_left" of {_p} is set:
+                        if nanotechRocketBoosting({_p}) is true:
+                            set {_boost} to true
+                set {_vel} to velocity of {_p}
+                set {_x} to x component of {_vel}
+                set {_y} to y component of {_vel}
+                set {_z} to z component of {_vel}
+                set {_changed} to false
+                if {@drag-cut} > 0:
+                    set {_h} to 1 + ((0.01 * {@drag-cut}) / 0.99)
+                    set {_v} to 1 + ((0.02 * {@drag-cut}) / 0.98)
+                    set {_x} to {_x} * {_h}
+                    set {_y} to {_y} * {_v}
+                    set {_z} to {_z} * {_h}
+                    set {_changed} to true
+                if {_boost} is true:
+                    set {_look} to direction of {_p}
+                    set {_len} to vector length of {_look}
+                    if {_len} > 0:
+                        set {_lx} to x component of {_look}
+                        set {_ly} to y component of {_look}
+                        set {_lz} to z component of {_look}
+                        set {_lx} to {_lx} / {_len}
+                        set {_ly} to {_ly} / {_len}
+                        set {_lz} to {_lz} / {_len}
+                        set {_push} to {_lx} * {@rocket-extra}
+                        set {_x} to {_x} + {_push}
+                        set {_push} to {_ly} * {@rocket-extra}
+                        set {_y} to {_y} + {_push}
+                        set {_push} to {_lz} * {@rocket-extra}
+                        set {_z} to {_z} + {_push}
+                        set {_changed} to true
+                if {_changed} is true:
+                    set velocity of {_p} to vector({_x}, {_y}, {_z})
+            else:
+                clearNanotechRocket({_p})
+        else:
+            clearNanotechRocket({_p})
