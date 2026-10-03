@@ -1,0 +1,67 @@
+# World NPCs for RPG survival (classes).
+#
+# This file is the list. Skript does not read YAML itself. After editing,
+# run `python3 ops/bellcraft_npcs.py --write` and commit the updated
+# bellcraft-npcs.sk registry block with it. CI checks they match.
+#
+# Add another NPC by copying the grim-reaper entry. One id, one mob.
+# Do not put a password or token here. `skin` is only a Minecraft Java
+# username whose head the mob wears. Leave it empty to use `helmet`.
+#
+# Placement in game (operator, or permission bellcraft.npc.admin):
+#   /bcnpc list
+#   /bcnpc place <id>     stand where it should be; you face the way it faces
+#   /bcnpc reset <id>     back to the coordinates in this file
+#   /bcnpc remove <id>    despawn until reset
+# A placed NPC stays put across reloads. reset clears that and uses x/y/z again.
+#
+# villager is safe at spawn: Towny does not treat it as a Monster, and it
+# does not despawn. wither_skeleton, skeleton, husk and zombie look closer
+# to a reaper, but Towny removes Monster types when wilderness mobs are off,
+# and they can despawn. The Grim Reaper is a villager for that reason.
+# Helmet, chest and hoe are the reaper look.
+#
+# action reclaim-grave uses the grave prices in
+# plugins/Skript/scripts/bellcraft-graves.sk:
+#   reclaim-per-tier (default 20) times the grave's zone tier, Vault/CMI coins
+#   reclaim-cooldown-minutes (default 30)
+#   reclaim-keeps-xp (default true) - the experience is not returned
+# price: tier uses that formula. price: 40 charges a flat 40 coins instead.
+# The oldest grave is the one fetched. /reclaim at spawn does the same payment
+# with no second click. confirm: true makes the NPC show the price first.
+# action say only speaks dialogue.
+#
+# Line placeholders: {cost} {xp} {coords} {balance} {player}
+
+settings:
+  confirm-seconds: 25
+  reach: 8
+  near-blocks: 96
+  ensure-seconds: 15
+
+npcs:
+  grim-reaper:
+    name: "&8Grim Reaper"
+    world: world
+    x: 6.5
+    y: 38
+    z: 0.5
+    yaw: 90
+    pitch: 0
+    entity: villager
+    skin: ""
+    helmet: wither_skeleton_skull
+    chest: netherite_chestplate
+    hand: netherite_hoe
+    action: reclaim-grave
+    price: tier
+    confirm: true
+    dialogue:
+      - "&7The veil is thin."
+      - "&7I can fetch the grave you left behind. The experience stays with me."
+    lines:
+      confirm: "&7Your oldest grave is at &f{coords}&7. Right-click me again to pay &f{cost}&7 coins."
+      paid: "&7Paid &f{cost}&7 coins. I kept the &f{xp}&7 experience."
+      none: "&7You have no grave for me to carry."
+      cooldown: "&7I am still resting. Walk back, or ask your party."
+      funds: "&7I want &f{cost}&7 coins. You have &f{balance}&7."

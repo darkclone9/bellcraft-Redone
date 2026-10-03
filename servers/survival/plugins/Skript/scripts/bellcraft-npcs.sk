@@ -1,0 +1,586 @@
+# Bellcraft world NPCs (RPG survival)
+#
+# One Grim Reaper to start. More NPCs are entries in plugins/Skript/npcs.yml.
+# That file is the list. This script cannot read YAML, so the marked registry
+# below is generated from it:
+#   python3 ops/bellcraft_npcs.py --write
+# Do not edit the marked block by hand.
+#
+# The Grim Reaper fetches the oldest soul grave. Price and the experience fee
+# live in bellcraft-graves.sk (reclaim-per-tier, reclaim-cooldown-minutes,
+# reclaim-keeps-xp). Vault/CMI coins, the same balance as /reclaim.
+# Right-click quotes the price. Another right-click after one second, and
+# within confirm-seconds, pays and runs reclaimCharge. The one-second gap is
+# there because a single click can fire twice. /reclaim at spawn still pays
+# immediately.
+#
+# The mob is a silent nitwit villager so Towny wilderness cleanup does not
+# delete it and it does not despawn. Citizens already has the guide NPCs in
+# saves.yml; this does not touch that file.
+#
+# Needs a full boot of the rpg backend to confirm it parsed. sk reload hides
+# parse errors. Look for:
+#   [npcs] bellcraft-npcs loaded (grim-reaper)
+#
+# In game, as an operator (or with bellcraft.npc.admin):
+#   /bcnpc list
+#   /bcnpc place grim-reaper
+#   /bcnpc reset grim-reaper
+#   /bcnpc remove grim-reaper
+
+options:
+    prefix: &8[&5NPC&8] &r
+    confirm-seconds: 25
+    reach: 8
+    near-blocks: 96
+
+# ---------------------------------------------------------------- registry setters
+
+function defineNpc(id: text):
+    add {_id} to {bcnpc::ids::*}
+
+function npcName(id: text, name: text):
+    set {bcnpc::def::%{_id}%::name} to {_name}
+
+function npcPlace(id: text, world: text, x: number, y: number, z: number, yaw: number, pitch: number):
+    set {bcnpc::def::%{_id}%::world} to {_world}
+    set {bcnpc::def::%{_id}%::x} to {_x}
+    set {bcnpc::def::%{_id}%::y} to {_y}
+    set {bcnpc::def::%{_id}%::z} to {_z}
+    set {bcnpc::def::%{_id}%::yaw} to {_yaw}
+    set {bcnpc::def::%{_id}%::pitch} to {_pitch}
+
+function npcLook(id: text, entity: text, skin: text, helmet: text, chest: text, hand: text):
+    set {bcnpc::def::%{_id}%::entity} to {_entity}
+    set {bcnpc::def::%{_id}%::skin} to {_skin}
+    set {bcnpc::def::%{_id}%::helmet} to {_helmet}
+    set {bcnpc::def::%{_id}%::chest} to {_chest}
+    set {bcnpc::def::%{_id}%::hand} to {_hand}
+
+function npcJob(id: text, action: text, price: text, confirm: boolean):
+    set {bcnpc::def::%{_id}%::action} to {_action}
+    set {bcnpc::def::%{_id}%::price} to {_price}
+    set {bcnpc::def::%{_id}%::confirm} to {_confirm}
+
+function npcLine(id: text, key: text, line: text):
+    add {_line} to {bcnpc::def::%{_id}%::%{_key}%::*}
+
+function loadNpcRegistry():
+    delete {bcnpc::ids::*}
+    delete {bcnpc::def::*}
+    # BEGIN NPC REGISTRY
+    defineNpc("grim-reaper")
+    npcName("grim-reaper", "&8Grim Reaper")
+    npcPlace("grim-reaper", "world", 6.5, 38, 0.5, 90, 0)
+    npcLook("grim-reaper", "villager", "", "wither_skeleton_skull", "netherite_chestplate", "netherite_hoe")
+    npcJob("grim-reaper", "reclaim-grave", "tier", true)
+    npcLine("grim-reaper", "dialogue", "&7The veil is thin.")
+    npcLine("grim-reaper", "dialogue", "&7I can fetch the grave you left behind. The experience stays with me.")
+    npcLine("grim-reaper", "confirm", "&7Your oldest grave is at &f{coords}&7. Right-click me again to pay &f{cost}&7 coins.")
+    npcLine("grim-reaper", "paid", "&7Paid &f{cost}&7 coins. I kept the &f{xp}&7 experience.")
+    npcLine("grim-reaper", "none", "&7You have no grave for me to carry.")
+    npcLine("grim-reaper", "cooldown", "&7I am still resting. Walk back, or ask your party.")
+    npcLine("grim-reaper", "funds", "&7I want &f{cost}&7 coins. You have &f{balance}&7.")
+    # END NPC REGISTRY
+
+# ---------------------------------------------------------------- locations
+
+function npcWorldNamed(name: text) :: world:
+    if {_name} is "":
+        stop
+    return world {_name}
+
+function npcConfigLoc(id: text) :: location:
+    set {_w} to npcWorldNamed({bcnpc::def::%{_id}%::world})
+    if {_w} is not set:
+        stop
+    set {_loc} to location({bcnpc::def::%{_id}%::x}, {bcnpc::def::%{_id}%::y}, {bcnpc::def::%{_id}%::z}, {_w})
+    set yaw of {_loc} to {bcnpc::def::%{_id}%::yaw}
+    set pitch of {_loc} to {bcnpc::def::%{_id}%::pitch}
+    return {_loc}
+
+function npcHome(id: text) :: location:
+    if {bcnpc::pin::%{_id}%::world} is set:
+        set {_w} to npcWorldNamed({bcnpc::pin::%{_id}%::world})
+        if {_w} is not set:
+            stop
+        set {_loc} to location({bcnpc::pin::%{_id}%::x}, {bcnpc::pin::%{_id}%::y}, {bcnpc::pin::%{_id}%::z}, {_w})
+        set yaw of {_loc} to {bcnpc::pin::%{_id}%::yaw}
+        set pitch of {_loc} to {bcnpc::pin::%{_id}%::pitch}
+        return {_loc}
+    return npcConfigLoc({_id})
+
+function npcKnown(id: text) :: boolean:
+    if {bcnpc::def::%{_id}%::world} is set:
+        return true
+    return false
+
+# ---------------------------------------------------------------- mob
+
+function npcTag(id: text) :: text:
+    return "bcnpc-%{_id}%"
+
+function npcTagged(e: entity, id: text) :: boolean:
+    set {_tags::*} to scoreboard tags of {_e}
+    set {_tag} to npcTag({_id})
+    if {_tags::*} contains {_tag}:
+        return true
+    return false
+
+function npcIdOf(e: entity) :: text:
+    if {_e} is not set:
+        return ""
+    loop {bcnpc::ids::*}:
+        if npcTagged({_e}, loop-value) is true:
+            return loop-value
+    return ""
+
+function npcEquip(e: entity, id: text):
+    set {_skin} to {bcnpc::def::%{_id}%::skin}
+    if {_skin} is not "":
+        set {_head} to a player head
+        set skull owner of {_head} to {_skin}
+        set helmet of {_e} to {_head}
+    else:
+        set {_helm} to {bcnpc::def::%{_id}%::helmet}
+        if {_helm} is "wither_skeleton_skull":
+            set helmet of {_e} to a wither skeleton skull
+        else if {_helm} is "skeleton_skull":
+            set helmet of {_e} to a skeleton skull
+        else if {_helm} is "netherite_helmet":
+            set helmet of {_e} to a netherite helmet
+        else if {_helm} is "carved_pumpkin":
+            set helmet of {_e} to a carved pumpkin
+    set {_chest} to {bcnpc::def::%{_id}%::chest}
+    if {_chest} is "netherite_chestplate":
+        set chestplate of {_e} to a netherite chestplate
+    else if {_chest} is "leather_chestplate":
+        set chestplate of {_e} to a leather chestplate
+    set {_hand} to {bcnpc::def::%{_id}%::hand}
+    if {_hand} is "netherite_hoe":
+        set tool of {_e} to a netherite hoe
+    else if {_hand} is "netherite_sword":
+        set tool of {_e} to a netherite sword
+    else if {_hand} is "stick":
+        set tool of {_e} to a stick
+    else if {_hand} is "bone":
+        set tool of {_e} to a bone
+
+function npcDress(e: entity, id: text):
+    if {_e} is not set:
+        stop
+    if {_e} is not alive:
+        stop
+    make {_e} invulnerable
+    make {_e} silent
+    set AI of {_e} to false
+    show the custom name of {_e}
+    set custom name of {_e} to {bcnpc::def::%{_id}%::name}
+    add "bcnpc" to scoreboard tags of {_e}
+    add npcTag({_id}) to scoreboard tags of {_e}
+    set {_kind} to {bcnpc::def::%{_id}%::entity}
+    if {_kind} is "villager":
+        set profession of {_e} to nitwit
+    npcEquip({_e}, {_id})
+
+function npcSpawn(id: text, loc: location) :: entity:
+    if {_loc} is not set:
+        stop
+    set {_kind} to {bcnpc::def::%{_id}%::entity}
+    if {_kind} is "villager":
+        spawn a villager at {_loc}
+    else if {_kind} is "wither_skeleton":
+        spawn a wither skeleton at {_loc}
+    else if {_kind} is "skeleton":
+        spawn a skeleton at {_loc}
+    else if {_kind} is "husk":
+        spawn a husk at {_loc}
+    else if {_kind} is "zombie":
+        spawn a zombie at {_loc}
+    else:
+        log "[npcs] unknown entity %{_kind}% for %{_id}%"
+        stop
+    set {_e} to last spawned entity
+    if {_e} is not set:
+        stop
+    if world of {_e} is not world of {_loc}:
+        stop
+    if distance between {_e} and {_loc} > 3:
+        stop
+    return {_e}
+
+function npcNear(id: text, loc: location) :: entity:
+    if {_loc} is not set:
+        stop
+    loop all entities in radius {@near-blocks} around {_loc}:
+        if npcTagged(loop-entity, {_id}) is true:
+            return loop-entity
+
+function npcSeek(id: text) :: entity:
+    set {_found} to npcNear({_id}, npcHome({_id}))
+    if {_found} is set:
+        return {_found}
+    set {_found} to npcNear({_id}, npcConfigLoc({_id}))
+    if {_found} is set:
+        return {_found}
+    loop all players:
+        set {_found} to npcNear({_id}, location of loop-player)
+        if {_found} is set:
+            return {_found}
+
+function npcSeekLoaded(id: text) :: entity:
+    set {_found} to npcSeek({_id})
+    if {_found} is set:
+        return {_found}
+    loop all worlds:
+        set {_w} to loop-world
+        loop all entities in {_w}:
+            if npcTagged(loop-entity, {_id}) is true:
+                return loop-entity
+
+function npcDrop(e: entity):
+    if {_e} is not set:
+        stop
+    if {_e} is not alive:
+        stop
+    # The damage listener ignores this hit. Without the flag, cancel would keep them alive.
+    set metadata value "bcnpc-drop" of {_e} to true
+    make {_e} vulnerable
+    kill {_e}
+    if {_e} is alive:
+        set metadata value "bcnpc-drop" of {_e} to false
+        make {_e} invulnerable
+
+function npcSweep(id: text, loc: location, keepuuid: text):
+    if {_loc} is not set:
+        stop
+    loop all entities in radius {@near-blocks} around {_loc}:
+        if npcTagged(loop-entity, {_id}) is true:
+            set {_drop} to true
+            if {_keepuuid} is not "":
+                if "%uuid of loop-entity%" is {_keepuuid}:
+                    set {_drop} to false
+            if {_drop} is true:
+                npcDrop(loop-entity)
+
+function npcMove(e: entity, loc: location):
+    if {_e} is not set:
+        stop
+    if {_loc} is not set:
+        stop
+    set {_move} to false
+    if world of {_e} is not world of {_loc}:
+        set {_move} to true
+    else if distance between {_e} and {_loc} > 2:
+        set {_move} to true
+    if {_move} is true:
+        teleport {_e} to {_loc}
+
+function npcSettle(id: text, e: entity):
+    if {_e} is not set:
+        stop
+    npcDress({_e}, {_id})
+    set {_keep} to "%uuid of {_e}%"
+    npcMove({_e}, npcHome({_id}))
+    npcSweep({_id}, npcHome({_id}), {_keep})
+    npcSweep({_id}, npcConfigLoc({_id}), {_keep})
+    loop all players:
+        npcSweep({_id}, location of loop-player, {_keep})
+
+function npcEnsure(id: text):
+    if npcKnown({_id}) is false:
+        stop
+    if {bcnpc::disabled::%{_id}%} is true:
+        npcSweep({_id}, npcHome({_id}), "")
+        npcSweep({_id}, npcConfigLoc({_id}), "")
+        loop all players:
+            npcSweep({_id}, location of loop-player, "")
+        stop
+    set {_home} to npcHome({_id})
+    if {_home} is not set:
+        if {bcnpc::noworld::%{_id}%} is not set:
+            set {bcnpc::noworld::%{_id}%} to true
+            log "[npcs] world for %{_id}% is not loaded"
+        stop
+    delete {bcnpc::noworld::%{_id}%}
+    set {_e} to npcSeek({_id})
+    if {_e} is set:
+        set {bcnpc::made::%{_id}%} to true
+        npcSettle({_id}, {_e})
+        stop
+    set {_close} to false
+    if {bcnpc::made::%{_id}%} is not true:
+        set {_close} to true
+    loop all players:
+        if world of loop-player is world of {_home}:
+            if distance between loop-player and {_home} <= {@near-blocks}:
+                set {_close} to true
+    if {_close} is false:
+        stop
+    set {_e} to npcSpawn({_id}, {_home})
+    if {_e} is not set:
+        stop
+    set {bcnpc::made::%{_id}%} to true
+    npcSettle({_id}, {_e})
+
+# ---------------------------------------------------------------- speech and reclaim
+
+function npcFill(line: text, p: player, cost: number, xp: number, coords: text) :: text:
+    set {_out} to {_line}
+    replace all "{cost}" with "%{_cost}%" in {_out}
+    replace all "{xp}" with "%{_xp}%" in {_out}
+    replace all "{coords}" with "%{_coords}%" in {_out}
+    replace all "{balance}" with "%{_p}'s balance%" in {_out}
+    replace all "{player}" with "%name of {_p}%" in {_out}
+    return {_out}
+
+function npcSpeak(p: player, id: text, key: text, cost: number, xp: number, coords: text):
+    set {_name} to {bcnpc::def::%{_id}%::name}
+    loop {bcnpc::def::%{_id}%::%{_key}%::*}:
+        set {_line} to npcFill(loop-value, {_p}, {_cost}, {_xp}, {_coords})
+        send "%{_name}%&8: &r%{_line}%" to {_p}
+
+function npcPrice(npcid: text, graveid: string) :: number:
+    set {_price} to {bcnpc::def::%{_npcid}%::price}
+    if {_price} is "tier":
+        return reclaimCost({_graveid})
+    set {_n} to {_price} parsed as number
+    if {_n} is not set:
+        return reclaimCost({_graveid})
+    if {_n} < 0:
+        set {_n} to 0
+    return floor({_n})
+
+function npcReclaim(p: player, id: text):
+    set {_grave} to oldestGraveId({_p})
+    set {_uuid} to uuid of {_p}
+    if {_grave} is "":
+        delete {bcnpc::offer::%{_uuid}%::*}
+        npcSpeak({_p}, {_id}, "none", 0, 0, "")
+        stop
+    if reclaimCooling({_p}) is true:
+        npcSpeak({_p}, {_id}, "cooldown", 0, 0, "")
+        stop
+    set {_cost} to npcPrice({_id}, {_grave})
+    set {_coords} to {grave::%{_grave}%::coords}
+    if {_coords} is not set:
+        set {_coords} to ""
+    set {_xp} to {grave::%{_grave}%::xp}
+    if {_xp} is not set:
+        set {_xp} to 0
+    # A right click can arrive twice in one tick. The second one must not pay.
+    if {bcnpc::def::%{_id}%::confirm} is true:
+        if {bcnpc::offer::%{_uuid}%::grave} is {_grave}:
+            if {bcnpc::offer::%{_uuid}%::ready} is set:
+                if now < {bcnpc::offer::%{_uuid}%::ready}:
+                    stop
+    set {_fresh} to true
+    if {bcnpc::offer::%{_uuid}%::grave} is {_grave}:
+        if {bcnpc::offer::%{_uuid}%::until} is set:
+            if now < {bcnpc::offer::%{_uuid}%::until}:
+                set {_fresh} to false
+    if {bcnpc::def::%{_id}%::confirm} is true:
+        if {_fresh} is true:
+            set {bcnpc::offer::%{_uuid}%::grave} to {_grave}
+            set {_until} to now
+            add {@confirm-seconds} seconds to {_until}
+            set {bcnpc::offer::%{_uuid}%::until} to {_until}
+            set {_ready} to now
+            add 1 second to {_ready}
+            set {bcnpc::offer::%{_uuid}%::ready} to {_ready}
+            npcSpeak({_p}, {_id}, "dialogue", {_cost}, {_xp}, {_coords})
+            npcSpeak({_p}, {_id}, "confirm", {_cost}, {_xp}, {_coords})
+            stop
+    if {_p}'s balance < {_cost}:
+        npcSpeak({_p}, {_id}, "funds", {_cost}, {_xp}, {_coords})
+        stop
+    set {_why} to reclaimCharge({_p}, {_grave}, {_cost})
+    if {_why} is "ok":
+        delete {bcnpc::offer::%{_uuid}%::*}
+        set {_kept} to {reclaim.last::%{_uuid}%::xp}
+        if {_kept} is not set:
+            set {_kept} to 0
+        set {_where} to {reclaim.last::%{_uuid}%::coords}
+        if {_where} is not set:
+            set {_where} to {_coords}
+        set {_paid} to {reclaim.last::%{_uuid}%::cost}
+        if {_paid} is not set:
+            set {_paid} to {_cost}
+        npcSpeak({_p}, {_id}, "paid", {_paid}, {_kept}, {_where})
+        stop
+    if {_why} is "cooldown":
+        npcSpeak({_p}, {_id}, "cooldown", {_cost}, {_xp}, {_coords})
+        stop
+    if {_why} is "funds":
+        npcSpeak({_p}, {_id}, "funds", {_cost}, {_xp}, {_coords})
+        stop
+    delete {bcnpc::offer::%{_uuid}%::*}
+    npcSpeak({_p}, {_id}, "none", {_cost}, {_xp}, {_coords})
+
+function npcActivate(p: player, e: entity, id: text):
+    if world of {_p} is not world of {_e}:
+        stop
+    if distance between {_p} and {_e} > {@reach}:
+        stop
+    set {_action} to {bcnpc::def::%{_id}%::action}
+    if {_action} is "say":
+        npcSpeak({_p}, {_id}, "dialogue", 0, 0, "")
+        stop
+    if {_action} is "reclaim-grave":
+        npcReclaim({_p}, {_id})
+        stop
+    send "{@prefix}&7%{_id}% has nothing to do." to {_p}
+
+# ---------------------------------------------------------------- admin
+
+function npcAdmin() :: boolean:
+    if player is not set:
+        return true
+    if player is an op:
+        return true
+    if player has permission "bellcraft.npc.admin":
+        return true
+    return false
+
+function npcWhere(id: text) :: text:
+    if {bcnpc::disabled::%{_id}%} is true:
+        return "removed"
+    if {bcnpc::pin::%{_id}%::world} is set:
+        return "placed in %{bcnpc::pin::%{_id}%::world}% %floor({bcnpc::pin::%{_id}%::x})% %floor({bcnpc::pin::%{_id}%::y})% %floor({bcnpc::pin::%{_id}%::z})%"
+    return "config %{bcnpc::def::%{_id}%::world}% %floor({bcnpc::def::%{_id}%::x})% %floor({bcnpc::def::%{_id}%::y})% %floor({bcnpc::def::%{_id}%::z})%"
+
+command /bcnpc [<text>] [<text>]:
+    description: List or place Bellcraft world NPCs
+    trigger:
+        if npcAdmin() is false:
+            send "{@prefix}&cOnly an operator can do that."
+            stop
+        set {_sub} to arg-1
+        set {_id} to arg-2
+        if {_sub} is not set:
+            send "{@prefix}&e/bcnpc list"
+            send "{@prefix}&e/bcnpc place <id> &7- stand where it should be"
+            send "{@prefix}&e/bcnpc reset <id> &7- back to the config coordinates"
+            send "{@prefix}&e/bcnpc remove <id>"
+            stop
+        if {_sub} is "list":
+            loop {bcnpc::ids::*}:
+                set {_one} to loop-value
+                send "{@prefix}&f%{_one}% &7%{bcnpc::def::%{_one}%::action}% &8| &7%npcWhere({_one})%"
+            stop
+        if {_id} is not set:
+            send "{@prefix}&cName the NPC. &f/bcnpc list &cshows the ids."
+            stop
+        if npcKnown({_id}) is false:
+            send "{@prefix}&cNo NPC named &f%{_id}%&c. Add it to plugins/Skript/npcs.yml and reload."
+            stop
+        if {_sub} is "place":
+            if player is not set:
+                send "{@prefix}&cStand in-game and run /bcnpc place <id>."
+                stop
+            delete {bcnpc::disabled::%{_id}%}
+            set {bcnpc::pin::%{_id}%::world} to "%world of player%"
+            set {bcnpc::pin::%{_id}%::x} to x-coordinate of player
+            set {bcnpc::pin::%{_id}%::y} to y-coordinate of player
+            set {bcnpc::pin::%{_id}%::z} to z-coordinate of player
+            set {bcnpc::pin::%{_id}%::yaw} to yaw of player
+            set {bcnpc::pin::%{_id}%::pitch} to pitch of player
+            set {_e} to npcSeekLoaded({_id})
+            if {_e} is set:
+                npcSettle({_id}, {_e})
+            else:
+                npcEnsure({_id})
+            send "{@prefix}&aPlaced &f%{_id}%&a. It will stay here across reloads."
+            stop
+        if {_sub} is "reset":
+            delete {bcnpc::pin::%{_id}%::*}
+            delete {bcnpc::disabled::%{_id}%}
+            set {_e} to npcSeekLoaded({_id})
+            if {_e} is set:
+                npcSettle({_id}, {_e})
+            else:
+                npcEnsure({_id})
+            send "{@prefix}&aMoved &f%{_id}%&a back to its config coordinates."
+            stop
+        if {_sub} is "remove":
+            set {bcnpc::disabled::%{_id}%} to true
+            set {_e} to npcSeekLoaded({_id})
+            if {_e} is set:
+                npcDrop({_e})
+            npcEnsure({_id})
+            send "{@prefix}&7Removed &f%{_id}%&7. &f/bcnpc reset %{_id}% &7puts it back."
+            stop
+        send "{@prefix}&cUse list, place, reset, or remove."
+
+# ---------------------------------------------------------------- events
+
+on script load:
+    loadNpcRegistry()
+    set {_names} to ""
+    loop {bcnpc::ids::*}:
+        set {_one} to loop-value
+        if {_names} is "":
+            set {_names} to {_one}
+        else:
+            set {_names} to "%{_names}%, %{_one}%"
+        npcEnsure({_one})
+    log "[npcs] bellcraft-npcs loaded (%{_names}%)"
+
+on right click on villager:
+    set {_id} to npcIdOf(event-entity)
+    if {_id} is "":
+        stop
+    cancel event
+    npcActivate(player, event-entity, {_id})
+
+on right click on wither skeleton:
+    set {_id} to npcIdOf(event-entity)
+    if {_id} is "":
+        stop
+    cancel event
+    npcActivate(player, event-entity, {_id})
+
+on right click on skeleton:
+    set {_id} to npcIdOf(event-entity)
+    if {_id} is "":
+        stop
+    cancel event
+    npcActivate(player, event-entity, {_id})
+
+on right click on husk:
+    set {_id} to npcIdOf(event-entity)
+    if {_id} is "":
+        stop
+    cancel event
+    npcActivate(player, event-entity, {_id})
+
+on right click on zombie:
+    set {_id} to npcIdOf(event-entity)
+    if {_id} is "":
+        stop
+    cancel event
+    npcActivate(player, event-entity, {_id})
+
+on damage:
+    if victim is not set:
+        stop
+    if metadata value "bcnpc-drop" of victim is true:
+        stop
+    set {_id} to npcIdOf(victim)
+    if {_id} is "":
+        stop
+    cancel event
+
+on death:
+    if victim is not set:
+        stop
+    set {_id} to npcIdOf(victim)
+    if {_id} is "":
+        stop
+    clear drops
+
+# ensure-seconds: 15
+every 15 seconds:
+    loop {bcnpc::ids::*}:
+        set {_one} to loop-value
+        npcEnsure({_one})
