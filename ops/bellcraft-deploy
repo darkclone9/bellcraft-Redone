@@ -12,14 +12,17 @@ action arrives in SSH_ORIGINAL_COMMAND (or argv when run by hand):
   * only text config under config/, plugins/ and world/datapacks/, plus bukkit/spigot/commands/help/
     permissions yml and velocity.toml. Never jars, server.properties, start.sh or world data.
   * a file still holding <<REDACTED>> is refused - redacted files are edited on the server only.
-  * unchanged files are skipped; every overwritten or deleted file is backed up first to
+  * unchanged files are not rewritten; every overwritten or deleted file is backed up first to
     /opt/bellcraft/_backups/deploy/<timestamp>/<server>/...
-  * files are installed owned by minecraft (root-owned files break plugins that save their config).
+  * every server is treated the same. Each installed file is left owned by minecraft:minecraft,
+    and so is every directory from /opt/bellcraft/<server> down to that file. Unchanged files are
+    not rewritten, but their ownership is repaired. Root-owned files or directories break plugins
+    that save their own config (they cannot write the file, or a temp file next to it).
   * changed Skript scripts are `sk reload`ed over RCON; anything else is reported as needing a
     plugin reload or a restart - this tool never restarts a server.
 Deletions travel as servers/<server>/.deploy-delete, one repo-relative path per line.
 """
-import datetime, fcntl, io, json, os, re, shlex, shutil, socket, struct, subprocess, sys, tarfile
+import datetime, fcntl, grp, io, json, os, pwd, re, shlex, shutil, socket, stat, struct, subprocess, sys, tarfile
 
 ROOT = '/opt/bellcraft'
 SERVERS = ['proxy', 'lobby', 'survival', 'creative', 'classic', 'rpg', 'test']
@@ -31,6 +34,10 @@ MARK = b'<<REDACTED>>'
 MAX_TAR = 64 * 1024 * 1024
 LOG = '/var/log/bellcraft-deploy.log'
 EXPORT = '/usr/local/sbin/bellcraft-export'
+
+
+class Refused(Exception):
+    """A single path cannot be installed. apply() records these and exits 2 after the summary."""
 
 
 def log(msg):
@@ -86,6 +93,98 @@ def running(server):
     return subprocess.run(['systemctl', 'is-active', '--quiet', UNITS[server]]).returncode == 0
 
 
+def minecraft_ids():
+    """uid and gid the servers actually run as. Both must exist; a missing group would leave files
+    as minecraft:root, which is not what plugin saves expect."""
+    try:
+        uid = pwd.getpwnam('minecraft').pw_uid
+        gid = grp.getgrnam('minecraft').gr_gid
+    except KeyError:
+        sys.exit('refused: user and group minecraft must both exist')
+    return uid, gid
+
+
+def own(path, uid, gid):
+    """chown path to uid:gid without following symlinks. Returns True if it changed."""
+    if os.path.islink(path):
+        raise Refused(f'{path} is a symlink')
+    st = os.lstat(path)
+    if st.st_uid == uid and st.st_gid == gid:
+        return False
+    os.chown(path, uid, gid, follow_symlinks=False)
+    st = os.lstat(path)
+    if st.st_uid != uid or st.st_gid != gid:
+        raise Refused(f'could not chown {path} to minecraft:minecraft')
+    return True
+
+
+def ensure_dir_chain(base, rel_dir, uid, gid):
+    """Create any missing directories under base and leave each one, including base, owned by uid:gid.
+
+    Existing directories keep their mode (only ownership is repaired). New ones are 0755.
+    Symlink components are refused so a link cannot point a deploy outside the server tree.
+    """
+    repaired = 0
+    parts = [p for p in rel_dir.split('/') if p] if rel_dir else []
+    for d in [base, *[os.path.join(base, *parts[:i + 1]) for i in range(len(parts))]]:
+        if os.path.islink(d):
+            raise Refused(f'{d} is a symlink')
+        if os.path.exists(d) and not os.path.isdir(d):
+            raise Refused(f'{d} is not a directory')
+        if not os.path.isdir(d):
+            os.mkdir(d, 0o755)
+            os.chmod(d, 0o755)
+        if own(d, uid, gid):
+            repaired += 1
+    return repaired
+
+
+def install_file(base, rel, content, uid, gid):
+    """Write rel under base, leaving the file minecraft-owned mode 0644. Returns directory repairs."""
+    repaired = ensure_dir_chain(base, os.path.dirname(rel), uid, gid)
+    dst = os.path.join(base, rel)
+    if os.path.islink(dst):
+        raise Refused(f'{rel} is a symlink')
+    tmp = dst + '.deploy-tmp'
+    # O_NOFOLLOW|O_EXCL: a leftover symlink here must not be followed while we are root.
+    if os.path.lexists(tmp):
+        if stat.S_ISDIR(os.lstat(tmp).st_mode):
+            raise Refused(f'{tmp} is a directory')
+        os.unlink(tmp)
+    fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o644)
+    try:
+        try:
+            os.write(fd, content)
+        finally:
+            os.close(fd)
+        os.chmod(tmp, 0o644)
+        os.chown(tmp, uid, gid, follow_symlinks=False)
+        os.replace(tmp, dst)
+    finally:
+        if os.path.lexists(tmp):
+            try:
+                os.unlink(tmp)
+            except OSError:
+                pass
+    st = os.stat(dst)
+    if st.st_uid != uid or st.st_gid != gid or stat.S_IMODE(st.st_mode) != 0o644:
+        raise Refused(f'{rel} was not left owned by minecraft:minecraft mode 644')
+    return repaired
+
+
+def repair_ownership(base, rel, uid, gid):
+    """Leave an already-correct file and its parent directories owned by uid:gid. Does not rewrite it."""
+    repaired = ensure_dir_chain(base, os.path.dirname(rel), uid, gid)
+    dst = os.path.join(base, rel)
+    if not os.path.lexists(dst):
+        return repaired
+    if os.path.islink(dst):
+        raise Refused(f'{rel} is a symlink')
+    if os.path.isfile(dst) and own(dst, uid, gid):
+        repaired += 1
+    return repaired
+
+
 def with_geyser_format_version(rel, content):
     if not (rel.startswith('plugins/Geyser-') and rel.endswith('/custom_mappings/bellcraft_radio_sounds.json')):
         return content, None
@@ -107,6 +206,8 @@ def with_geyser_format_version(rel, content):
 
 
 def apply(server):
+    # Resolve before reading the tar so a missing minecraft user fails immediately, on every server.
+    uid, gid = minecraft_ids()
     data = sys.stdin.buffer.read(MAX_TAR + 1)
     if len(data) > MAX_TAR:
         sys.exit('refused: upload larger than 64 MB')
@@ -115,6 +216,7 @@ def apply(server):
     stamp = datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
     backup = os.path.join(ROOT, '_backups', 'deploy', stamp, server)
     changed, same, refused, deleted = [], 0, [], []
+    repaired = 0
 
     def backup_file(rel):
         src = os.path.join(base, rel)
@@ -124,16 +226,8 @@ def apply(server):
             shutil.copy2(src, dst)
 
     def install(rel, content):
-        dst = os.path.join(base, rel)
-        d = os.path.dirname(dst)
-        if not os.path.isdir(d):
-            subprocess.run(['install', '-d', '-o', 'minecraft', '-g', 'minecraft', '-m', '755', d], check=True)
-        tmp = dst + '.deploy-tmp'
-        with open(tmp, 'wb') as f:
-            f.write(content)
-        shutil.chown(tmp, 'minecraft', 'minecraft')
-        os.chmod(tmp, 0o644)
-        os.replace(tmp, dst)
+        nonlocal repaired
+        repaired += install_file(base, rel, content, uid, gid)
 
     deletes = []
     with tarfile.open(fileobj=io.BytesIO(data), mode='r:*') as tar:
@@ -161,12 +255,19 @@ def apply(server):
             if version is not None:
                 log(f'  normalized {rel}: added format_version={version}')
             dst = os.path.join(base, rel)
-            if os.path.isfile(dst) and open(dst, 'rb').read() == content:
-                same += 1
-                continue
-            backup_file(rel)
-            install(rel, content)
-            changed.append(rel)
+            try:
+                if os.path.isfile(dst) and not os.path.islink(dst):
+                    with open(dst, 'rb') as f:
+                        current = f.read()
+                    if current == content:
+                        repaired += repair_ownership(base, rel, uid, gid)
+                        same += 1
+                        continue
+                backup_file(rel)
+                install(rel, content)
+                changed.append(rel)
+            except Refused as e:
+                refused.append(f'{rel} ({e})')
 
     for rel in deletes:
         dst = os.path.join(base, rel)
@@ -178,6 +279,7 @@ def apply(server):
             deleted.append(rel)
 
     log(f'apply {server}: {len(changed)} changed, {len(deleted)} deleted, {same} unchanged, {len(refused)} refused'
+        + (f', ownership repaired {repaired}' if repaired else '')
         + (f', backup {backup}' if changed or deleted else ''))
     for r in changed:
         log(f'  + {r}')

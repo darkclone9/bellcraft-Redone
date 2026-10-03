@@ -94,8 +94,23 @@ Never put a real secret in this repo: **it is public.** `servers/REDACTED.txt` l
 - A ModelEngine `hitbox` bone's pivot Y is the eye height.
 
 ### Files and permissions
-- Files on the server must be owned by `minecraft`. Root-owned files break plugins that save their
-  own config (GUIPlus failed to save a menu this way). The deploy tool installs as `minecraft`.
+- Files and directories under `/opt/bellcraft/<server>` must be owned by `minecraft:minecraft`.
+  Root-owned paths break plugins that save their own config: GUIPlus could not save
+  `info-panel-p2.yml` on survival. The server process cannot write the file, and it cannot create
+  the temp file it renames into place when the directory is root-owned mode 755.
+- `ops/bellcraft-deploy` runs as root (the deploy key's forced command) and then chowns. Every
+  server is handled the same way: proxy, lobby, survival, creative (the build server), classic,
+  rpg and test. A file in the deploy whose contents change is written as `minecraft:minecraft`
+  mode 644. A file whose contents already match is not rewritten, but that file and every
+  directory from `/opt/bellcraft/<server>` down to it are chowned. Files the deploy does not
+  upload are left alone, so paths that are already root-owned still need the one-time repair.
+- That script is not deployed by CI. After pulling a change to it, install it by hand:
+  `sudo install -o root -g root -m 755 ops/bellcraft-deploy /usr/local/sbin/bellcraft-deploy`
+- Paths already left root-owned stay that way until something chowns them. Survival was repaired
+  on 2026-09-29. Lobby, creative and proxy still need it, and the other server trees should be
+  checked in the same pass. As root, once: `sudo bellcraft-fix-ownership` (see `ops/README.md`
+  for the `find`/`chown` command if that script is not installed yet). Safe to re-run; it does
+  not restart anything.
 - Never `cp` over a loaded jar; copy to a temp name and `mv` it over.
 - The build server's permissions are scoped with LuckPerms context `server=build`; classic uses
   `server=classic`; lobby/survival use `global`.

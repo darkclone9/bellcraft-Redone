@@ -2,12 +2,15 @@
 """Ship changed files under servers/<name>/ to the live box, one server at a time.
 
 Push to main:       deploys what changed between the push's before and after commits.
-workflow_dispatch:  re-sends every file of the chosen server (unchanged files are skipped server-side,
-                    so this is how to put a server back in line with main).
+workflow_dispatch:  re-sends every file of the chosen server (identical contents are not rewritten,
+                    but ownership is repaired; this is how to put a server back in line with main).
 
 The server end is ops/bellcraft-deploy, reached through a restricted SSH key that can run nothing else.
 It installs only text config, refuses files still holding <<REDACTED>>, backs up whatever it overwrites,
-and sk-reloads changed Skript scripts. It never restarts a server.
+and sk-reloads changed Skript scripts. It never restarts a server. There is no rsync step. Ownership is
+enforced on the server for every server: each installed file, and every directory from that server's
+root down to the file, is left owned by minecraft:minecraft. Unchanged files are not rewritten, but
+their ownership is repaired when they are part of the upload.
 """
 import io, os, subprocess, sys, tarfile
 from collections import defaultdict
