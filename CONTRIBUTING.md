@@ -8,12 +8,16 @@
    which server(s) it touches and whether it needs a reload or restart.
    Or comment `@claude implement this` on the issue and review the branch it makes.
 3. **Test on a dev backend when it matters.** Ask someone with server access to bring up `rpg`
-   (`sudo /opt/bellcraft/bin/bellcraft-dev up rpg`), deploy there with *Actions → Deploy to servers →
-   Run workflow → rpg*, and read the boot log. New Skript scripts **must** be boot-tested - Skript
-   hides parse errors on reload.
-4. **Merge = deploy.** Merging to `main` installs the changed files on the live server(s).
-   Skript scripts reload by themselves; for other plugins run their reload command or restart the
-   server (check players online first). The run summary lists what changed and what needs a reload.
+   (`sudo /opt/bellcraft/bin/bellcraft-dev up rpg`), deploy there with Actions → **Deploy to servers**
+   → **Run workflow** on branch **main** and `server` set to `rpg`, and read the boot log. New
+   Skript scripts **must** be boot-tested - Skript hides parse errors on reload. A manual
+   `rpg` run stays red until `servers/rpg/plugins/BellcraftClassesConfig/skills/mapping.yml`
+   parses: that file is hard-wrapped mid-word, and its header says no plugin loads it.
+4. **Merge = deploy.** Merging to `main` installs the changed files on the live server(s) whose
+   files changed. Skript scripts reload by themselves; for other plugins run their reload command
+   or restart the server (check players online first). The run summary lists what changed and what
+   needs a reload. The proxy process stays up across a deploy. The owner sets `BELLCRAFT_DEPLOY_KEY`,
+   `BELLCRAFT_KNOWN_HOSTS`, and `BELLCRAFT_HOST` (see [ops/README.md](ops/README.md)).
 5. **Close the issue** with a note on how it was verified in game.
 
 ## Rules

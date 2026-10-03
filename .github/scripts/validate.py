@@ -6,6 +6,7 @@ A config that does not parse is the most common way a plugin silently falls back
 
 With BASE set (CI), only files changed since BASE are checked, so files that were already broken
 on the live servers do not fail every unrelated change. Run without BASE to check everything.
+With SERVER set, only files under servers/<SERVER>/ are checked (a manual deploy of one server).
 """
 import json, os, pathlib, subprocess, sys, tomllib
 import yaml
@@ -18,13 +19,25 @@ class Loader(yaml.SafeLoader):
 # Bukkit serialises ItemStacks with `==: org.bukkit...` keys and custom tags; accept any tag.
 Loader.add_multi_constructor('', lambda loader, suffix, node: None)
 
+server = os.environ.get('SERVER', '').strip()
+root = pathlib.Path('servers')
+if server:
+    if '/' in server or '\\' in server or server.startswith('.'):
+        sys.exit(f'unknown server {server!r}')
+    root = pathlib.Path('servers') / server
+    if not root.is_dir() or root.resolve().parent != pathlib.Path('servers').resolve():
+        sys.exit(f'unknown server {server!r}')
+
 base = os.environ.get('BASE', '').strip()
 if base and set(base) != {'0'}:
     names = subprocess.run(['git', 'diff', '--name-only', '--diff-filter=ACMR', base, 'HEAD', '--', 'servers/'],
                            check=True, capture_output=True, text=True).stdout.splitlines()
+    if server:
+        prefix = f'servers/{server}/'
+        names = [n for n in names if n.startswith(prefix)]
     files = [pathlib.Path(n) for n in names if n]
 else:
-    files = sorted(pathlib.Path('servers').rglob('*'))
+    files = sorted(root.rglob('*'))
 
 bad = []
 for p in files:

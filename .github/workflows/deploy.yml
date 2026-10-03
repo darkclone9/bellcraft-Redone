@@ -1,0 +1,118 @@
+name: Deploy to servers
+
+# Push to main: validate files changed in the push, then deploy only the servers those
+# files belong to. Run workflow: re-send every tracked file of the named server (the host
+# skips bytes that already match).
+#
+# This job never restarts a server. The ghdeploy key can run only `bellcraft-deploy`, and
+# `apply` reloads Skript on a running backend and leaves the proxy process alone.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'servers/**'
+  workflow_dispatch:
+    inputs:
+      server:
+        description: 'Server folder to redeploy (proxy, lobby, survival, creative, classic, rpg, test). Blank stops before any SSH.'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bellcraft-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Fetch previous tip
+        if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
+        run: git cat-file -e "${{ github.event.before }}^{commit}" 2>/dev/null || git fetch --no-tags --depth=1 origin "${{ github.event.before }}"
+
+      - name: Stay on main
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "::error::Deploys run from main only. In Run workflow, choose the main branch."
+          exit 1
+
+      - name: Check manual server input
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          INPUT_SERVER: ${{ inputs.server }}
+        run: |
+          set -euo pipefail
+          case "$INPUT_SERVER" in
+            proxy|lobby|survival|creative|classic|rpg|test) ;;
+            *)
+              echo "::error::Set server to one of: proxy, lobby, survival, creative, classic, rpg, test."
+              exit 1
+              ;;
+          esac
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install validator dependencies
+        run: pip install 'pyyaml==6.0.2'
+
+      - name: Validate configs changed in this push
+        if: github.event_name == 'push'
+        env:
+          BASE: ${{ github.event.before }}
+        run: python3 .github/scripts/validate.py
+
+      - name: Validate configs for the chosen server
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          SERVER: ${{ inputs.server }}
+        run: python3 .github/scripts/validate.py
+
+      - name: Configure deploy SSH
+        env:
+          BELLCRAFT_DEPLOY_KEY: ${{ secrets.BELLCRAFT_DEPLOY_KEY }}
+          BELLCRAFT_KNOWN_HOSTS: ${{ secrets.BELLCRAFT_KNOWN_HOSTS }}
+          BELLCRAFT_HOST: ${{ secrets.BELLCRAFT_HOST }}
+        run: |
+          set -euo pipefail
+          missing=()
+          [ -n "${BELLCRAFT_DEPLOY_KEY}" ] || missing+=(BELLCRAFT_DEPLOY_KEY)
+          [ -n "${BELLCRAFT_KNOWN_HOSTS}" ] || missing+=(BELLCRAFT_KNOWN_HOSTS)
+          [ -n "${BELLCRAFT_HOST}" ] || missing+=(BELLCRAFT_HOST)
+          if ((${#missing[@]})); then
+            echo "::error::Missing repository secret(s): ${missing[*]}"
+            exit 1
+          fi
+          case "$BELLCRAFT_DEPLOY_KEY" in
+            *'PRIVATE KEY'*) ;;
+            *)
+              echo "::error::BELLCRAFT_DEPLOY_KEY must be the raw private key text (it should contain a PRIVATE KEY header)."
+              exit 1
+              ;;
+          esac
+          umask 077
+          mkdir -p "${HOME}/.ssh"
+          printf '%s\n' "$BELLCRAFT_DEPLOY_KEY" > "${HOME}/.ssh/deploy"
+          printf '%s\n' "$BELLCRAFT_KNOWN_HOSTS" > "${HOME}/.ssh/known_hosts"
+
+      - name: Deploy
+        env:
+          BELLCRAFT_HOST: ${{ secrets.BELLCRAFT_HOST }}
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          INPUT_SERVER: ${{ inputs.server }}
+        run: python3 .github/scripts/deploy.py

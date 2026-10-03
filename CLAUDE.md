@@ -23,12 +23,19 @@ The websites (join.bellcraft.online, the radio) live on a different host and are
 ## How a change reaches a server
 
 1. Edit files under `servers/<server>/` on a branch, open a PR. CI parses changed YAML/JSON/TOML.
-2. **Merging to `main` deploys.** `.github/workflows/deploy.yml` sends the changed files to the box,
-   where `ops/bellcraft-deploy` installs them (backing up what it overwrites).
-3. Changed Skript scripts are `sk reload`ed automatically. **Everything else needs a plugin reload
-   or a restart** - the deploy summary lists which plugin folders changed. The deploy never restarts.
+2. **Merging to `main` deploys.** `.github/workflows/deploy.yml` runs `validate.py`, then
+   `.github/scripts/deploy.py`, which sends the changed files to the box. `ops/bellcraft-deploy`
+   installs them and backs up what it overwrites. A push deploys only servers whose files changed.
+3. Changed Skript scripts are `sk reload`ed automatically on a running backend. **Everything else
+   needs a plugin reload or a restart** - the deploy summary lists which plugin folders changed.
+   Deploy leaves every server process running, including the proxy.
 4. Every 6 hours `sync-live.yml` exports the live config back into `main`, so edits made directly on
    the server show up as "Sync from live servers" commits.
+
+Repository Actions secrets that deploy needs (names only): `BELLCRAFT_DEPLOY_KEY`,
+`BELLCRAFT_KNOWN_HOSTS`, `BELLCRAFT_HOST`. What each one is, and how a manual run works, is in
+[ops/README.md](ops/README.md). Short version: Actions → **Deploy to servers** → **Run workflow**,
+branch **main**, `server` = `proxy`, `lobby`, `survival`, `creative`, `classic`, `rpg`, or `test`.
 
 What can be deployed: text config under `config/`, `plugins/`, `world/datapacks/`, plus
 `bukkit.yml`, `spigot.yml`, `commands.yml`, `help.yml`, `permissions.yml`, `velocity.toml`.
