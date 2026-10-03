@@ -222,18 +222,20 @@ mmocore-quests:
   # Disable boss bar indicating the current objective
   disable-boss-bar: false
 
-# Redirects vanilla experience obtained to MMOCore
-# class experience. You can define the % of the vanilla
-# experience that is being transfered as MMOCore exp.
+# Bellcraft: leave this off. Experience orbs (ores, mobs, furnaces,
+# bottles) must raise the vanilla enchanting level. Class XP comes
+# from quests, bellcraft-mobxp.sk and each class's killmob sources.
+# Profession XP, including mining, comes from profession triggers.
 # Requires a SERVER reload when changed.
 vanilla-exp-redirection:
-  enabled: true
+  enabled: false
   ratio: 0.8
 
-# Enable this open to override vanilla EXP and display
-# level progress on the vanilla experience bar.
+# Bellcraft: leave this off. When on, MMOCore paints class progress
+# on the vanilla bar and discards orb gains, so mined XP never levels
+# you. Class level stays on /character and the MMOCore menus.
 # Requires a SERVER reload when changed.
-override-vanilla-exp: true
+override-vanilla-exp: false
 
 # Ticks between two resource regeneration events.
 # Set to 20 by default (1 second), lowering this setting
