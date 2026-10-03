@@ -4,12 +4,21 @@ TRICK_ATTACK:
   source: default:FURTIVE_STRIKE
   parameters:
     damage:
-      base: 7
-      per-level: 2
+      base: 8.102
+      per-level: 0.242
+      player:
+        base: 8.102
+        per-level: 0.242
     cooldown:
-      base: 10
+      base: 14
       per-level: -0.05
-      min: 5
+      min: 10
+      player:
+        base: 14
+        per-level: -0.05
+        min: 10
+        max: 14
+      max: 14
     mana:
       base: 6
       per-level: 0.12
@@ -17,4 +26,3 @@ TRICK_ATTACK:
     cast:
     - particle{p=LARGE_SMOKE;amount=20;speed=0.05;hS=0.5;vS=0.5}
     - sound{s=ENTITY_ENDERMAN_TELEPORT;v=1;p=1.2}
-    - damage{amount={damage}}

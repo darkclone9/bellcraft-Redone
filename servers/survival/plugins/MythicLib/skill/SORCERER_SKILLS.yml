@@ -6,10 +6,10 @@ SORCERER_FIREBALL:
   parameters:
     cooldown:
       player:
-        base: 5
+        base: 14
         per-level: -0.04
-        min: 2.5
-        max: 5
+        min: 10
+        max: 14
       name: Cooldown
     mana:
       player:
@@ -18,12 +18,11 @@ SORCERER_FIREBALL:
       name: Mana
     damage:
       player:
-        base: 11.739
-        per-level: 0.754
+        base: 7.698
+        per-level: 0.23
       name: Damage
   triggers:
     cast:
-    - damage{amount={damage}}
     - particle{p=FLAME;amount=60;speed=0.5;hS=1;vS=1}
     - particle{p=LAVA;amount=20;speed=0.3;hS=0.8;vS=0.8}
     - sound{s=ENTITY_BLAZE_SHOOT;v=1.5;p=0.8}
@@ -36,7 +35,7 @@ SORCERER_FROST_NOVA:
       player:
         base: 12
         per-level: -0.09
-        min: 6
+        min: 8
         max: 12
       name: Cooldown
     mana:
@@ -46,8 +45,8 @@ SORCERER_FROST_NOVA:
       name: Mana
     damage:
       player:
-        base: 7.262
-        per-level: 0.454
+        base: 8.1
+        per-level: 0.242
       name: Damage
     duration:
       player:
@@ -67,10 +66,10 @@ SORCERER_LIGHTNING_CHAIN:
   parameters:
     cooldown:
       player:
-        base: 10
+        base: 14
         per-level: -0.08
-        min: 5
-        max: 10
+        min: 10
+        max: 14
       name: Cooldown
     mana:
       player:
@@ -79,13 +78,23 @@ SORCERER_LIGHTNING_CHAIN:
       name: Mana
     damage:
       player:
-        base: 9.077
-        per-level: 0.59
+        base: 8.1
+        per-level: 0.242
       name: Damage
+    duration:
+      player:
+        base: 1.5
+        per-level: 0
+      base: 1.5
+      per-level: 0
+    speed:
+      player:
+        base: 6
+        per-level: 0
+      base: 6
+      per-level: 0
   triggers:
     cast:
-    - damage{amount={damage}}
-    - damage{amount={damage}}
     - particle{p=ELECTRIC_SPARK;amount=60;speed=0.5;hS=1;vS=2}
     - sound{s=ENTITY_LIGHTNING_BOLT_IMPACT;v=1.5;p=1.2}
 SORCERER_METEOR_STRIKE:
@@ -107,12 +116,19 @@ SORCERER_METEOR_STRIKE:
       name: Mana
     damage:
       player:
-        base: 27.231
-        per-level: 1.362
+        base: 19.102
+        per-level: 0.431
       name: Damage
+    radius:
+      player:
+        base: 3.5
+        per-level: 0
+        max: 3.5
+      base: 3.5
+      per-level: 0
+      max: 3.5
   triggers:
     cast:
-    - damage{amount={damage}}
     - potion{type=WEAKNESS;duration=5;amplifier=1}
     - particle{p=FLAME;amount=300;speed=1.0;hS=3;vS=4}
     - particle{p=EXPLOSION;amount=30;speed=0.5;hS=2;vS=2}
@@ -124,10 +140,10 @@ SORCERER_ARCANE_MISSILES:
   parameters:
     cooldown:
       player:
-        base: 8
+        base: 14
         per-level: -0.06
-        min: 4
-        max: 8
+        min: 10
+        max: 14
       name: Cooldown
     mana:
       player:
@@ -136,13 +152,23 @@ SORCERER_ARCANE_MISSILES:
       name: Mana
     damage:
       player:
-        base: 8.169
-        per-level: 0.499
+        base: 8.1
+        per-level: 0.242
       name: Damage
+    duration:
+      player:
+        base: 0
+        per-level: 0
+      base: 0
+      per-level: 0
+    radius:
+      player:
+        base: 2.5
+        per-level: 0
+      base: 2.5
+      per-level: 0
   triggers:
     cast:
-    - damage{amount={damage}}
-    - damage{amount={damage}}
     - particle{p=INSTANT_EFFECT;amount=80;speed=0.5;hS=1.2;vS=1.2}
     - sound{s=ENTITY_ILLUSIONER_CAST_SPELL;v=1.2;p=1.6}
 SORCERER_ELEMENTAL_SHIELD:
@@ -223,7 +249,7 @@ PYROMANCER_COMBUSTION:
       per-level: 0.08
   triggers:
     kill_entity:
-    - stat{stat=MAGIC_DAMAGE;amount=14;operation=RELATIVE;duration={duration}}
+    - stat{stat=MAGIC_DAMAGE;amount=6;operation=RELATIVE;duration={duration}}
     - potion{type=STRENGTH;duration={duration};amplifier=0}
     - sound{s=ITEM_FIRECHARGE_USE;v=0.9;p=1.4}
     - particle{p=FLAME;amount=28;speed=0.25;hS=0.5;vS=0.8}
@@ -240,18 +266,34 @@ PYROMANCER_INFERNO:
       base: 14
       per-level: -0.09
       min: 8
+      player:
+        base: 14
+        per-level: -0.09
+        min: 8
+        max: 14
+      max: 14
     mana:
       base: 16
       per-level: 0.22
     damage:
-      base: 16
-      per-level: 0.9
+      base: 5.63
+      per-level: 0.46
+      player:
+        base: 5.63
+        per-level: 0.46
     duration:
       base: 4
       per-level: 0.06
+    radius:
+      player:
+        base: 3.5
+        per-level: 0
+        max: 3.5
+      base: 3.5
+      per-level: 0
+      max: 3.5
   triggers:
     cast:
-    - damage{amount={damage}}
     - potion{type=WITHER;duration={duration};amplifier=0}
     - particle{p=FLAME;amount=120;speed=0.6;hS=1.6;vS=1.4}
     - particle{p=LAVA;amount=24;speed=0.3;hS=1.0;vS=0.8}
@@ -269,10 +311,19 @@ CRYOMANCER_FROSTBITE:
     cooldown:
       base: 3
       per-level: -0.03
-      min: 1.5
+      min: 4
+      player:
+        base: 3
+        per-level: -0.03
+        min: 4
+        max: 5
+      max: 5
     damage:
-      base: 3.5
-      per-level: 0.25
+      base: 1.995
+      per-level: 0.181
+      player:
+        base: 1.995
+        per-level: 0.181
     duration:
       base: 2.5
       per-level: 0.04

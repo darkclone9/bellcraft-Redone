@@ -121,7 +121,8 @@ ARCANE_RIFT:
     cooldown:
       player:
         base: 6
-        per-level: -0.5
+        per-level: -0.05
+        min: 6
       name: Cooldown
       item: 10.0
     mana:
@@ -200,8 +201,9 @@ BACKSTAB:
       item: 0
     extra:
       player:
-        base: 50.0
-        per-level: 20.0
+        base: 20.0
+        per-level: 0.7
+        max: 40.0
       name: Extra
       item: 0
 BLACK_HOLE:
@@ -742,13 +744,15 @@ CIRCULAR_SLASH:
     knockback:
       player:
         base: 2
-        per-level: 1
+        per-level: 0
+        max: 2
       name: Knockback
       item: 1.0
     radius:
       player:
         base: 3
-        per-level: 1
+        per-level: 0.05
+        max: 4
       name: Radius
       item: 3.0
 COMBO_ATTACK:
@@ -1346,29 +1350,31 @@ EMPOWERED_ATTACK:
     cooldown:
       player:
         base: 10.0
-        per-level: -0.2
+        per-level: -0.1
         max: 10.0
-        min: 5.0
+        min: 8.0
       name: Cooldown
       item: 0
     extra:
       player:
-        base: 30.0
-        per-level: 8.0
+        base: 15.0
+        per-level: 0.8
+        max: 35.0
       name: Extra
       item: 0
     radius:
       player:
-        base: 4.0
-        per-level: 1.0
+        base: 3.0
+        per-level: 0.05
+        max: 4.0
       name: Radius
       item: 0
     ratio:
       player:
-        base: 30.0
-        per-level: 10.0
-        max: 100.0
-        min: 30.0
+        base: 20.0
+        per-level: 0.5
+        max: 35.0
+        min: 20.0
       name: Ratio
       item: 0
 EVADE:
@@ -3147,7 +3153,8 @@ LIGHTNING_BEAM:
     radius:
       player:
         base: 3
-        per-level: 1
+        per-level: 0.1
+        max: 5
       name: Radius
       item: 5.0
 MAGICAL_PATH:
@@ -3644,14 +3651,16 @@ POWER_MARK:
       item: 0
     stun:
       player:
-        base: 2.4
-        per-level: 1.03
+        base: 2.0
+        per-level: 0.05
+        max: 3.5
       name: Stun
       item: 0
     ratio:
       player:
         base: 10.0
-        per-level: 5.0
+        per-level: 1.0
+        max: 40.0
       name: Ratio
       item: 0
     timer:
@@ -4958,7 +4967,8 @@ VOID_ZAPPER:
     max:
       player:
         base: 3
-        per-level: 1
+        per-level: 0
+        max: 3
       name: Max Bounces
       item: 6
     stamina:
@@ -4970,7 +4980,8 @@ VOID_ZAPPER:
     extra:
       player:
         base: 4
-        per-level: 1
+        per-level: 0.5
+        max: 25
       name: Extra Damage
       item: 30
     cooldown:
@@ -4981,8 +4992,9 @@ VOID_ZAPPER:
       item: 10
     length:
       player:
-        base: 2
-        per-level: 1
+        base: 8
+        per-level: 0.3
+        max: 16
       name: Length
       item: 30
     knockback:

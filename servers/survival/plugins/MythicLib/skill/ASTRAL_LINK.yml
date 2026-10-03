@@ -10,6 +10,9 @@ ASTRAL_LINK:
     heal:
       base: 6
       per-level: 0.35
+      player:
+        base: 6
+        per-level: 0.35
     cooldown:
       base: 10
       per-level: -0.05
@@ -21,4 +24,3 @@ ASTRAL_LINK:
     cast:
     - particle{p=END_ROD;amount=25;speed=0.02;hS=1;vS=1}
     - sound{s=BLOCK_BEACON_AMBIENT;v=0.8;p=1.5}
-    - heal{amount={heal}}

@@ -8,8 +8,8 @@ HUMAN_RESOURCEFUL_STRIKE:
       player:
         base: 4
         per-level: -0.04
-        min: 2
-        max: 4
+        min: 5
+        max: 6
       name: Cooldown
     mana:
       player:
@@ -23,7 +23,6 @@ HUMAN_RESOURCEFUL_STRIKE:
       name: Damage
   triggers:
     cast:
-    - damage{amount={damage};type=PHYSICAL}
     - particle{p=CRIT;amount=20;speed=0.4;hS=0.5;vS=0.5}
     - sound{s=ENTITY_PLAYER_ATTACK_STRONG;v=1.2;p=1.0}
 HUMAN_ADAPT:
@@ -74,12 +73,11 @@ HUMAN_SECOND_WIND:
       name: Mana
     heal:
       player:
-        base: 6
-        per-level: 0.36
+        base: 2.56
+        per-level: 0.153
       name: Heal
   triggers:
     cast:
-    - heal{amount={heal}}
     - potion{type=REGENERATION;duration=5;amplifier=1}
     - particle{p=HEART;amount=30;speed=0.4;hS=1;vS=1.5}
     - sound{s=ENTITY_PLAYER_BREATH;v=1.5;p=0.9}

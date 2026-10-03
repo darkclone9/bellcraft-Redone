@@ -7,12 +7,21 @@ DEBILITATING_SHOT:
   - '&7that damages and heavily weakens the target.'
   parameters:
     damage:
-      base: 8
-      per-level: 1.5
+      base: 16.453
+      per-level: 0.561
+      player:
+        base: 16.453
+        per-level: 0.561
     cooldown:
       base: 10
       per-level: -0.05
-      min: 5
+      min: 8
+      player:
+        base: 10
+        per-level: -0.05
+        min: 8
+        max: 10
+      max: 10
     mana:
       base: 6
       per-level: 0.12

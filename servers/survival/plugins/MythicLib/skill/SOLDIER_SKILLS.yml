@@ -8,18 +8,34 @@ SOLDIER_STRIKE:
     cooldown:
       base: 3
       per-level: -0.03
-      min: 1.5
+      min: 5
+      player:
+        base: 3
+        per-level: -0.03
+        min: 5
+        max: 6
+      max: 6
     mana:
       base: 3
       per-level: 0.1
     damage:
-      base: 5.584
-      per-level: 0.349
+      base: 5.882
+      per-level: 0.316
+      player:
+        base: 5.882
+        per-level: 0.316
+    radius:
+      player:
+        base: 3.5
+        per-level: 0
+        max: 3.5
+      base: 3.5
+      per-level: 0
+      max: 3.5
   triggers:
     cast:
     - particle{p=SWEEP_ATTACK;amount=12;speed=0;hS=1;vS=0.3}
     - sound{s=ENTITY_PLAYER_ATTACK_SWEEP;v=1;p=1}
-    - damage{amount={damage}}
 SOLDIER_FORTIFY:
   name: '&cFortify'
   icon: IRON_CHESTPLATE
@@ -71,7 +87,7 @@ SOLDIER_COMBAT_SURGE:
       name: Duration
   triggers:
     cast:
-    - stat{stat=ATTACK_DAMAGE;amount=30;operation=RELATIVE;duration={duration}}
+    - stat{stat=ATTACK_DAMAGE;amount=15;operation=RELATIVE;duration={duration}}
     - stat{stat=ATTACK_SPEED;amount=25;operation=RELATIVE;duration={duration}}
     - potion{type=STRENGTH;duration={duration};amplifier=1}
     - particle{p=FLAME;amount=60;speed=0.5;hS=1.5;vS=1.5}
@@ -114,8 +130,8 @@ SOLDIER_SHIELD_BASH:
       player:
         base: 8
         per-level: -0.08
-        min: 4
-        max: 8
+        min: 8
+        max: 9
       name: Cooldown
     mana:
       player:
@@ -149,7 +165,7 @@ SOLDIER_WARRIORS_LEAP:
       player:
         base: 12
         per-level: -0.1
-        min: 6
+        min: 8
         max: 12
       name: Cooldown
     mana:
@@ -209,10 +225,19 @@ BULWARK_RETALIATION:
     cooldown:
       base: 3
       per-level: -0.03
-      min: 1.5
+      min: 4
+      player:
+        base: 3
+        per-level: -0.03
+        min: 4
+        max: 5
+      max: 5
     damage:
       base: 4
       per-level: 0.3
+      player:
+        base: 4
+        per-level: 0.3
   triggers:
     damaged:
     - damage{amount={damage}}
@@ -241,7 +266,7 @@ BULWARK_LAST_STAND:
     cast:
     - potion{type=RESISTANCE;duration={duration};amplifier=2;target=caster}
     - potion{type=ABSORPTION;duration={duration};amplifier=1;target=caster}
-    - stat{stat=ARMOR;amount=40;operation=RELATIVE;duration={duration};target=caster}
+    - stat{stat=ARMOR;amount=25;operation=RELATIVE;duration={duration};target=caster}
     - sound{s=ITEM_SHIELD_BLOCK;v=1.4;p=0.5}
     - particle{p=CRIT;amount=60;speed=0.3;hS=1.2;vS=1.2}
 BREACHER_MOMENTUM:
@@ -278,16 +303,24 @@ BREACHER_EXECUTE:
     cooldown:
       base: 12
       per-level: -0.08
-      min: 7
+      min: 8
+      player:
+        base: 12
+        per-level: -0.08
+        min: 8
+        max: 12
+      max: 12
     mana:
       base: 8
       per-level: 0.15
     damage:
-      base: 15
-      per-level: 0.85
+      base: 8.672
+      per-level: 0.708
+      player:
+        base: 8.672
+        per-level: 0.708
   triggers:
     cast:
-    - damage{amount={damage}}
     - potion{type=WITHER;duration=4;amplifier=0}
     - sound{s=ENTITY_PLAYER_ATTACK_CRIT;v=1.5;p=0.6}
     - particle{p=CRIT;amount=45;speed=0.4;hS=0.7;vS=0.7}

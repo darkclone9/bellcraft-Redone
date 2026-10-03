@@ -4,17 +4,49 @@ OVERLOAD_BEAM:
   source: default:VOID_ZAPPER
   parameters:
     damage:
-      base: 2
-      per-level: 0.5
+      base: 2.336
+      per-level: 0.463
+      player:
+        base: 2.336
+        per-level: 0.463
     cooldown:
       base: 10
       per-level: -0.05
-      min: 5
+      min: 8
+      player:
+        base: 10
+        per-level: -0.05
+        min: 8
+        max: 10
+      max: 10
     mana:
       base: 6
       per-level: 0.12
+    length:
+      player:
+        base: 16
+        per-level: 0
+      base: 16
+      per-level: 0
+    max:
+      player:
+        base: 1
+        per-level: 0
+      base: 1
+      per-level: 0
+    extra:
+      player:
+        base: 0
+        per-level: 0
+      base: 0
+      per-level: 0
+    knockback:
+      player:
+        base: 0.25
+        per-level: 0
+      base: 0.25
+      per-level: 0
   triggers:
     cast:
     - particle{p=END_ROD;amount=50;speed=0.3;hS=0.2;vS=0.2}
     - sound{s=ENTITY_ELDER_GUARDIAN_CURSE;v=0.7;p=1.5}
-    - damage{amount={damage}}

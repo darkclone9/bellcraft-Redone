@@ -6,10 +6,19 @@ GRAVITON_FIELD:
     damage:
       base: 6
       per-level: 0.35
+      player:
+        base: 6
+        per-level: 0.35
     cooldown:
       base: 10
       per-level: -0.05
-      min: 5
+      min: 8
+      player:
+        base: 10
+        per-level: -0.05
+        min: 8
+        max: 10
+      max: 10
     mana:
       base: 6
       per-level: 0.12

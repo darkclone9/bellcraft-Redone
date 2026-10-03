@@ -6,10 +6,19 @@ SUPPRESSING_FIRE:
     damage:
       base: 4
       per-level: 1
+      player:
+        base: 4
+        per-level: 1
     cooldown:
       base: 10
       per-level: -0.1
-      min: 6
+      min: 8
+      player:
+        base: 10
+        per-level: -0.1
+        min: 8
+        max: 10
+      max: 10
     mana:
       base: 30
       per-level: 0.5

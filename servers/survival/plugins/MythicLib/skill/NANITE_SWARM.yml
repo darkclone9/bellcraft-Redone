@@ -8,12 +8,21 @@ NANITE_SWARM:
       per-level: 0.2
       max: 10
     damage:
-      base: 4
-      per-level: 1
+      base: 8.444
+      per-level: 0.252
+      player:
+        base: 8.444
+        per-level: 0.252
     cooldown:
       base: 10
       per-level: -0.05
-      min: 5
+      min: 8
+      player:
+        base: 10
+        per-level: -0.05
+        min: 8
+        max: 10
+      max: 10
     mana:
       base: 6
       per-level: 0.12

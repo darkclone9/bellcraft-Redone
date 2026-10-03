@@ -23,7 +23,6 @@ CLERIC_HEALING_PRAYER:
       name: Heal
   triggers:
     cast:
-    - heal{amount={heal}}
     - particle{p=INSTANT_EFFECT;amount=40;speed=0.3;hS=1;vS=1}
     - sound{s=BLOCK_BEACON_POWER_SELECT;v=1;p=1.8}
 CLERIC_SANCTIFIED_WARD:
@@ -78,7 +77,6 @@ CLERIC_PURIFYING_LIGHT:
       name: Heal
   triggers:
     cast:
-    - heal{amount={heal}}
     - potion{type=REGENERATION;duration=5;amplifier=1}
     - particle{p=TOTEM_OF_UNDYING;amount=100;speed=0.5;hS=3;vS=2}
     - sound{s=BLOCK_BEACON_POWER_SELECT;v=1.5;p=1.5}
@@ -111,8 +109,6 @@ CLERIC_DIVINE_INTERVENTION:
       name: Duration
   triggers:
     cast:
-    - heal{amount={heal}}
-    - heal{amount={heal}}
     - potion{type=REGENERATION;duration={duration};amplifier=2}
     - potion{type=ABSORPTION;duration={duration};amplifier=3}
     - potion{type=RESISTANCE;duration={duration};amplifier=2}
@@ -142,7 +138,6 @@ CLERIC_HOLY_RESURGENCE:
       name: Heal
   triggers:
     cast:
-    - heal{amount={heal}}
     - particle{p=TOTEM_OF_UNDYING;amount=15;speed=0.3;hS=0.8;vS=1.2}
     - sound{s=BLOCK_AMETHYST_BLOCK_CHIME;v=0.8;p=1.8}
 CLERIC_BLESSED_GROUND:
@@ -174,7 +169,6 @@ CLERIC_BLESSED_GROUND:
       name: Duration
   triggers:
     cast:
-    - heal{amount={heal}}
     - potion{type=REGENERATION;duration={duration};amplifier=1}
     - particle{p=TOTEM_OF_UNDYING;amount=80;speed=0.3;hS=4;vS=0.5}
     - particle{p=END_ROD;amount=40;speed=0.1;hS=4;vS=1.5}
@@ -203,7 +197,7 @@ CLERIC_MARTYRS_RESOLVE:
       name: Duration
   triggers:
     cast:
-    - stat{stat=DAMAGE_REDUCTION;amount=40;operation=RELATIVE;duration={duration}}
+    - stat{stat=DAMAGE_REDUCTION;amount=15;operation=RELATIVE;duration={duration}}
     - potion{type=RESISTANCE;duration={duration};amplifier=1}
     - particle{p=HEART;amount=30;speed=0.3;hS=3;vS=1.5}
     - sound{s=BLOCK_BEACON_ACTIVATE;v=1.3;p=0.9}
@@ -250,13 +244,15 @@ RADIANCE_DAWNBREAK:
       per-level: 0.22
     heal:
       base: 16
-      per-level: 1.0
+      per-level: 1
+      player:
+        base: 16
+        per-level: 1
     duration:
       base: 6
       per-level: 0.07
   triggers:
     cast:
-    - heal{amount={heal}}
     - potion{type=REGENERATION;duration={duration};amplifier=1}
     - particle{p=TOTEM_OF_UNDYING;amount=60;speed=0.4;hS=1;vS=1.2}
     - sound{s=BLOCK_BEACON_POWER_SELECT;v=1.2;p=1.6}
@@ -276,6 +272,9 @@ PENITENT_ATONEMENT:
     heal:
       base: 3
       per-level: 0.28
+      player:
+        base: 3
+        per-level: 0.28
   triggers:
     attack:
     - heal{amount={heal};target=caster}
