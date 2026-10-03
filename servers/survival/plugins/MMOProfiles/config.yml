@@ -268,7 +268,12 @@ no-gui-on-login: false
 # logging back into the server. Makes the gameplay experience feel "smoother".
 # If a player leaves their profile before logging out, they will be prompted to
 # choose a profile again.
-select_last_profile_on_login: false
+#
+# Bellcraft: on, so joining loads the last character instead of opening the
+# selection UI every time. A player with no saved profile (first join, or they
+# left their profile before logging out) still gets the UI. /character change
+# quits the current profile, which reopens that UI (quit_profile.open_gui).
+select_last_profile_on_login: true
 
 # Run the following command to quit your profile or have another
 # quit the profile they are currently playing and re-enter profile
@@ -365,7 +370,7 @@ script:
   # or just after a player leaves their current profile
   login:
     mechanics:
-      - 'tell{format="&eWelcome! Please choose the profile you''d like to play on."}'
+      - 'tell{format="&eWelcome to Bellcraft."}'
 
   # MythicLib script ran when a player chooses a profile (after login).
   profile-select:
