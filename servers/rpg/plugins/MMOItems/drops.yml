@@ -55,7 +55,8 @@ monsters:
             coef: 7
             items:
                 CONSUMABLE:
-                    ROCK: 50,1-3,10
+                    # One rock, and not often. 50% of 1-3 stacked on top of rotten flesh.
+                    ROCK: 10,1,0
         coin-table:
             coef: 1
             items:
