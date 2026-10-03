@@ -357,9 +357,14 @@ ranks:
 script:
 
   # MythicLib script ran when a player creates a new profile.
+  # Bellcraft: this is the only join path that offers Ewoki Village vs a
+  # random teleport (plugins/Skript/scripts/bellcraft-spawnchoice.sk).
+  # select_last_profile_on_login does not create a profile, so loading the
+  # last character does not run this and does not open that choice.
   profile-create:
     mechanics:
-      - 'tell{format="&eProfile created. Have fun!"}'
+      - 'tell{format="&eNew character. Choose &aEwoki Village &eor a &erandom teleport&e. &7(/spawnchoice)"}'
+      - 'command{format="bcspawn begin %player%";console=true}'
 
   # MythicLib script ran when a player logs in (before profile selection)
   # or just after a player leaves their current profile
