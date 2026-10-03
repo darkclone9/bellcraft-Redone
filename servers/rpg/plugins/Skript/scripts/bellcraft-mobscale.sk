@@ -1,55 +1,94 @@
 # Bellcraft: hostile mobs get tougher the further you travel
 #
-# MythicMobs' own WorldScaling (config-mobs.yml, ScaleVanillaMobs: true) never touched vanilla
-# mobs here - zombies 2,500 and 6,000 blocks out were still 20 HP / 3 damage. This does it
-# directly, keyed to the same zone rings as the bellcraft_zones datapack, mobxp and graves.
+# Health and damage share one multiplier, tuned by the options below.
+# A "section" is a wilderness tier — the same numbering as bellcraft-graves.sk
+# and the zone menu (Zone 1 is section 1):
+#   1 Hearthvale         0–1000       ramps toward 2
+#   2 Thornwold March    1000–2200    ramps toward 3
+#   3 Ashenmoor Expanse  2200–3600    ramps toward 4   ("3rd section")
+#   4 Stormhollow        3600–5000    ramps toward 5
+#   5 Sundered Wilds     5000+        ramps toward 6, then stops (max-section)
+#   6 Cinderreach        the whole Nether
+#   7 Hollowing Choir    deep dark
+#   8 Pale Crown         the whole End
 #
-# A mob's "zone level" rises smoothly through each ring (Hearthvale 1-10 ... Sundered 45-60),
-# harsh biomes add 8, and the nether / deep dark / End sit on their own footing.
-#   health  x (1 + hp-per-level  * (level - 1))   set once at spawn, saved with the mob
-#   damage  x (1 + dmg-per-level * (level - 1))   applied per hit, so arrows, creeper blasts
-#                                                  and fireballs scale too
-# Plugin-spawned mobs (MythicMobs elites, pets, NPCs) and named mobs are left alone: they carry
-# their own numbers. Bosses are left alone too.
+# Overworld rings move smoothly from section N at the inner edge to N+1 at
+# the outer edge, so the border is not a stat cliff. The Nether, deep dark
+# and End are flat: every mob there is that section. Harsh biomes add
+# harsh-sections (half a section by default). Deep dark is section 7 on its
+# own and does not also take the harsh bump.
 #
-# Reference points at the defaults (health / damage multiplier):
-#   Hearthvale edge (lvl 10) 1.5x / 1.2x    Ashenmoor (lvl 26) 2.5x / 1.6x
-#   Sundered (lvl 50)        3.9x / 2.2x    Nether (62) 4.7x / 2.5x    End (85) 6.0x / 3.1x
+#   multiplier = 1 + section-bonus * (section - 1)
+#
+# section-bonus 0.30 means +30% of the *vanilla* stat per section, added,
+# not compounded. Section 1 at spawn is vanilla. Section 3 (Ashenmoor) is
+# 1.6×–1.9×. The End, section 8, is 3.1×.
+#
+# This replaced a per-level curve, health × (1 + 0.06×(level−1)), which
+# used the MMOCore level inside each ring (Ashenmoor is levels 20–32, so
+# a 20 HP zombie there was 43–57 HP) and pinned the End to level 85
+# (endermen 40 × 6.04 = 242 HP). Damage was already about +2.5% per level,
+# which is ~30% of vanilla per section, so damage barely moves; health
+# comes down onto that same curve. End damage stays 3.1×.
+#
+# MythicMobs WorldScaling never touched vanilla mobs here (issue #7's
+# zombie checks matched this script alone). ScaleVanillaMobs is off so a
+# later MythicMobs build cannot stack a second curve. Plugin-spawned mobs
+# (spawn reason contains "custom"), named mobs and bosses are left alone.
+# The Void Harbinger is a separate End elite (520 base HP, enderman model),
+# not this curve.
+#
+# Health is written once at spawn and saved on the mob. Mobs already alive
+# keep the old health until they despawn. Damage is applied on each hit.
+#
+# Zombie 20 HP / enderman 40 HP at the defaults, calm biomes:
+#   Hearthvale edge (section 2)    1.30×    26 / 52
+#   Ashenmoor inner (3)            1.60×    32 / 64
+#   Ashenmoor mid (3.5)            1.75×    35 / 70
+#   Ashenmoor outer (4)            1.90×    38 / 76
+#   Sundered inner (5)             2.20×    44 / 88
+#   Sundered cap and Nether (6)    2.50×    50 / 100
+#   Deep dark (7)                  2.80×    56 / 112
+#   End (8)                        3.10×    62 / 124
 
 options:
-    hp-per-level: 0.06
-    dmg-per-level: 0.025
-    nether-level: 62
-    choir-level: 75
-    end-level: 85
-    max-ring-level: 60
+    section-bonus: 0.30
+    harsh-sections: 0.5
+    nether-section: 6
+    choir-section: 7
+    end-section: 8
+    max-section: 6
 
-function mobZoneLevel(l: location) :: number:
+function mobSection(l: location) :: number:
     set {_w} to "%world of {_l}%"
     if {_w} is "world_nether":
-        return {@nether-level}
+        return {@nether-section}
     if {_w} is "world_the_end":
-        return {@end-level}
+        return {@end-section}
     set {_b} to "%biome at {_l}%"
     replace all " " with "_" in {_b}
     if {_b} is "deep_dark":
-        return {@choir-level}
+        return {@choir-section}
     set {_x} to x of {_l}
     set {_z} to z of {_l}
     set {_d} to sqrt(({_x} * {_x}) + ({_z} * {_z}))
     if {_d} < 1000:
-        set {_lvl} to 1 + 9 * {_d} / 1000
+        set {_s} to 1 + {_d} / 1000
     else if {_d} < 2200:
-        set {_lvl} to 10 + 10 * ({_d} - 1000) / 1200
+        set {_s} to 2 + ({_d} - 1000) / 1200
     else if {_d} < 3600:
-        set {_lvl} to 20 + 12 * ({_d} - 2200) / 1400
+        set {_s} to 3 + ({_d} - 2200) / 1400
     else if {_d} < 5000:
-        set {_lvl} to 32 + 13 * ({_d} - 3600) / 1400
+        set {_s} to 4 + ({_d} - 3600) / 1400
     else:
-        set {_lvl} to min(45 + 15 * ({_d} - 5000) / 3000, {@max-ring-level})
+        set {_s} to min(5 + ({_d} - 5000) / 3000, {@max-section})
     if {mobscale.harsh::%{_b}%} is set:
-        add 8 to {_lvl}
-    return {_lvl}
+        add {@harsh-sections} to {_s}
+    return {_s}
+
+function mobScaleMultiplier(l: location) :: number:
+    set {_s} to mobSection({_l})
+    return 1 + {@section-bonus} * ({_s} - 1)
 
 function mobScalable(e: entity) :: boolean:
     if {_e} is a warden, ender dragon, wither or elder guardian:
@@ -72,10 +111,9 @@ on spawn of monster, slime, magma cube, ghast, phantom, shulker or hoglin:
     wait 1 tick
     event-entity is alive
     mobScalable(event-entity) is true
-    set {_lvl} to mobZoneLevel(location of event-entity)
-    if {_lvl} <= 1:
+    set {_mult} to mobScaleMultiplier(location of event-entity)
+    if {_mult} <= 1:
         stop
-    set {_mult} to 1 + {@hp-per-level} * ({_lvl} - 1)
     set {_base} to max health attribute of event-entity
     set max health attribute of event-entity to {_base} * {_mult}
     heal event-entity
@@ -83,7 +121,7 @@ on spawn of monster, slime, magma cube, ghast, phantom, shulker or hoglin:
 on damage of player:
     attacker is set
     mobScalable(attacker) is true
-    set {_lvl} to mobZoneLevel(location of victim)
-    if {_lvl} <= 1:
+    set {_mult} to mobScaleMultiplier(location of victim)
+    if {_mult} <= 1:
         stop
-    set damage to damage * (1 + {@dmg-per-level} * ({_lvl} - 1))
+    set damage to damage * {_mult}
